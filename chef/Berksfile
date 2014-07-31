@@ -1,0 +1,3 @@
+source "http://api.berkshelf.com"
+
+cookbook 'whats-fresh', github: "osuosl-cookbooks/whats-fresh"
