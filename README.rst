@@ -39,23 +39,23 @@ ready to use. To log in, type ``vagrant ssh``.
 
 Now you should be on the Vagrant machine::
 
-``[vagrant@project-fish ~]$``
+    [vagrant@project-fish ~]$
 
 To get developing, you'll need to prepare your virtual environment. To do so,
 first activate the Python virtualenv::
 
-``$ source venv/bin/activate``
+    $ source venv/bin/activate
 
 Your prompt should look like this now::
 
-``(venv)[vagrant@project-fish ~]$``
+    (venv)[vagrant@project-fish ~]$
 
 To install the Python packages needed to run the Django project, run pip with
 the ``requirements.txt`` file provided in the root of the repository:
 
-``$ pip install -r whats-fresh/requirements.txt``
+    $ pip install -r whats-fresh/requirements.txt
 
 You should now be ready to run the Django app!
 
-``$ python whats-fresh/project_fish/manage.py runserver 0.0.0.0:8000``
+    $ python whats-fresh/project_fish/manage.py runserver 0.0.0.0:8000
 
