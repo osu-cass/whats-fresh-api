@@ -1,5 +1,6 @@
 from django.contrib.gis.db import models
 import os
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Image(models.Model):
     """
@@ -19,3 +20,12 @@ class Image(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+
+class Vendor(models.Model):
+    """
+    The Vendor model holds the information for a vendor, including the
+    geographic location as a pair of latitudinal/logitudinal coordinates,
+    a street address, and an optional text description of their location
+    (in case the address/coordinates are of, say, a dock instead of a shop).
+    """
+    pass

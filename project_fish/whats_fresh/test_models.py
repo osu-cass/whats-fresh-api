@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.conf import settings
+from django.db import models
 
 from whats_fresh.models import Image
 
@@ -21,6 +22,21 @@ class ImageTestCase(TestCase):
         # Set creation time variable to test if image.creation records properly
         self.creation_time = datetime.datetime.now()
         self.image.save()
+
+    def fields_exist(self):
+        model = models.get_model('whats_fresh', 'Image')
+        self.assertEqual(
+            models.ImageField,
+            type(model._meta.get_field_by_name('image')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('caption')))
+        self.assertEqual(
+            models.DateTimeField,
+            type(model._meta.get_field_by_name('created')))
+        self.assertEqual(
+            models.DateTimeField,
+            type(model._meta.get_field_by_name('modified')))
 
     def tearDown(self):
         # reset MEDIA_ROOT
@@ -56,4 +72,54 @@ class ImageTestCase(TestCase):
         self.assertTrue(
             self.image.modified.replace(tzinfo=None) - self.mod_time <
             datetime.timedelta(milliseconds = 10))
+
+
+class VendorTestCase(TestCase):
+    def test_fields_exist(self):
+        model = models.get_model('whats_fresh', 'Vendor')
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('name')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('description')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('street')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('city')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('state')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('zip')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('location_description')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('contact_name')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('contact_name')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('contact_name')))
+        self.assertEqual(
+            models.FloatField,
+            type(model._meta.get_field_by_name('lat')))
+        self.assertEqual(
+            models.FloatField,
+            type(model._meta.get_field_by_name('long')))
+        self.assertEqual(
+            models.URLField,
+            type(model._meta.get_field_by_name('website')))
+        self.assertEqual(
+            models.EmailField,
+            type(model._meta.get_field_by_name('email')))
+        self.assertEqual(
+            PhoneNumberField,
+            type(model._meta.get_field_by_name('phone')))
 
