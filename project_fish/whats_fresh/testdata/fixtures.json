@@ -1,7 +1,11 @@
 [
   {
     "model": "whats_fresh.Product",
+<<<<<<< HEAD
     "pk": "1",
+=======
+    "pk": 1,
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     "fields": {
       "name": "Starfish Voyager",
       "variety": "Tuna",
@@ -13,12 +17,20 @@
       "market_price": "$33.31",
       "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
       "image_id": "1",
+<<<<<<< HEAD
       "story_id": "1"
+=======
+      "story_id": ""
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     }
   },
   {
     "model": "whats_fresh.Product",
+<<<<<<< HEAD
     "pk": "2",
+=======
+    "pk": 2,
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     "fields": {
       "name": "Ezri Dax",
       "variety": "Freshwater Eel",
@@ -29,15 +41,26 @@
       "available": "True",
       "market_price": "$32.64 per season",
       "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
+<<<<<<< HEAD
       "image_id": "1",
+=======
+      "image_id": "",
+>>>>>>> Begin fixtures. Can not proceed until models are underway
       "story_id": "2"
     }
   },
   {
     "model": "whats_fresh.Vendor",
+<<<<<<< HEAD
     "pk": "1",
     "fields": {
       "name": "Vendor Shop",
+=======
+    "pk": 1,
+    "fields": {
+      "name": "Vendor Shop",
+      "status": "True",
+>>>>>>> Begin fixtures. Can not proceed until models are underway
       "description": "This is a vendor shop.",
       "lat": "37.833688", 
       "long": "-122.478002",
@@ -47,16 +70,30 @@
       "zip": "94965",
       "location_description": "",
       "contact_name": "A. Persson",
+<<<<<<< HEAD
       "phone": "1",
       "website": "http://example.com",
       "email": "a@perr.com"
+=======
+      "phone": "",
+      "website": "http://example.com",
+      "email": "a@perr.com",
+      "story_id": "1"
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     }
   },
   {
     "model": "whats_fresh.Vendor",
+<<<<<<< HEAD
     "pk": "2",
     "fields": {
       "name": "Les Francais",
+=======
+    "pk": 2,
+    "fields": {
+      "name": "Les Francais",
+      "status": "True",
+>>>>>>> Begin fixtures. Can not proceed until models are underway
       "description": "Ceci n'est pas un magasin.",
       "lat": "43.418297",
       "long": "-124.219635",
@@ -67,6 +104,7 @@
       "location_description": "Some small street somewhere",
       "contact_name": "Isabelle",
       "phone": "555 123 4567",
+<<<<<<< HEAD
       "website": "1",
       "email": "1"
     }
@@ -107,11 +145,20 @@
        "preparation_id": "1",
        "vendor_price": "$6 per pound",
        "available": "False"
+=======
+      "website": "",
+      "email": "",
+      "story_id": ""
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     }
   },
   {
     "model": "whats_fresh.Image",
+<<<<<<< HEAD
     "pk": "1",
+=======
+    "pk": 1,
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     "fields": {
       "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh/testdata/media/dog.jpg",
       "caption": "Woof!"
@@ -119,7 +166,11 @@
   },
   {
     "model": "whats_fresh.Image",
+<<<<<<< HEAD
     "pk": "2",
+=======
+    "pk": 2,
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     "fields": {
       "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh/testdata/media/cat.jpg",
       "caption": "Meow!"
@@ -127,21 +178,33 @@
   },
   {
     "model": "whats_fresh.Story",
+<<<<<<< HEAD
     "pk": "1",
+=======
+    "pk": 1,
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     "fields": {
       "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations..."
     }
   },
   {
     "model": "whats_fresh.Story",
+<<<<<<< HEAD
     "pk": "2",
+=======
+    "pk": 2,
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     "fields": {
       "story": "This is the story, all about how my life got flip turned upside down!"
     }
   },
   {
     "model": "whats_fresh.Preparation",
+<<<<<<< HEAD
     "pk": "1",
+=======
+    "pk": 1,
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     "fields": {
       "name": "Live",
       "description": "The food goes straight from sea to you with live food, sitting in saltwater tanks!",
@@ -150,7 +213,11 @@
   },
   {
     "model": "whats_fresh.Preparation",
+<<<<<<< HEAD
     "pk": "2",
+=======
+    "pk": 2,
+>>>>>>> Begin fixtures. Can not proceed until models are underway
     "fields": {
       "name": "Filet",
       "description": "",
