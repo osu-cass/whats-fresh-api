@@ -11,12 +11,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   -Usage
-   ---API
-   -Development
-   -Deployment
-   -Administration
-
+   usage/usage
+   api/api
+   dev/development
+   install/install
 
 
 Indices and tables
