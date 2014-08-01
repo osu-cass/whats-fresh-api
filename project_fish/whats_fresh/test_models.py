@@ -125,7 +125,7 @@ class VendorTestCase(TestCase):
             PhoneNumberField,
             type(model._meta.get_field_by_name('phone')[0]))
 
-    def no_additional_fields(self):
+    def test_no_additional_fields(self):
         fields = Vendor._meta.get_all_field_names()
         expected_fields = ['name', 'description', 'street', 'city', 'state',
                            'zip', 'location_description', 'contact_name',
