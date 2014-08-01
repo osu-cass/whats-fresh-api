@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.conf import settings
 
-from django.contrib.gis.db import models
 from whats_fresh.models import *
+from django.contrib.gis.db import models
 
 import os
 import time
@@ -71,9 +71,9 @@ class PreparationsTestCase(TestCase):
             models.TextField,
             type(model._meta.get_field_by_name('additional_info')))
 
-    def no_additional_fields(self):
+    def test_no_additional_fields(self):
         fields = Preparation._meta.get_all_field_names()
-        expected_fields = ['name', 'description', 'additional_info']
+        expected_fields = ['name', 'description', 'additional_info', u'id']
 
         self.assertTrue(sorted(fields) == sorted(expected_fields))
 
