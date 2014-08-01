@@ -10,6 +10,7 @@ import time
 import sys
 import datetime
 
+
 class VendorTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
@@ -40,4 +41,3 @@ class VendorTestCase(TestCase):
     def test_no_additional_fields(self):
         fields = Vendor._meta.get_all_field_names()
         self.assertTrue(sorted(fields) == sorted(self.expected_fields.keys()))
-

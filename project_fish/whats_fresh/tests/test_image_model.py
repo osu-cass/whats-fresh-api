@@ -10,6 +10,7 @@ import time
 import sys
 import datetime
 
+
 class ImageTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
@@ -53,8 +54,8 @@ class ImageTestCase(TestCase):
         self.assertEquals(self.image.caption, 'Meow!')
 
         self.assertTrue(
-            self.image.created.replace(tzinfo=None) - self.creation_time < 
-            datetime.timedelta(milliseconds = 10))
+            self.image.created.replace(tzinfo=None) - self.creation_time <
+            datetime.timedelta(milliseconds=10))
 
     def test_replace_image(self):
         """
@@ -74,5 +75,4 @@ class ImageTestCase(TestCase):
 
         self.assertTrue(
             self.image.modified.replace(tzinfo=None) - self.mod_time <
-            datetime.timedelta(milliseconds = 10))
-
+            datetime.timedelta(milliseconds=10))
