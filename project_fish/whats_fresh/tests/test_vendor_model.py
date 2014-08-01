@@ -29,7 +29,7 @@ class VendorTestCase(TestCase):
             'phone': PhoneNumberField,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
-            u'id': models.AutoField
+            'id': models.AutoField
         }
 
     def test_fields_exist(self):
