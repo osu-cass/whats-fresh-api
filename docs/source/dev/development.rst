@@ -124,4 +124,3 @@ $ python whats-fresh/whats_fresh/manage.py syncdb
 You should now be ready to run the Django app!
 ::
     $ python whats-fresh/whats_fresh/manage.py runserver 0.0.0.0:8000
-
