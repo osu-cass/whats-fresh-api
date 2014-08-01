@@ -2,6 +2,7 @@ from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 class Image(models.Model):
     """
     The Image model holds an image and related data.
@@ -69,5 +70,4 @@ class Preparation(models.Model):
     things like 'frozen', 'dried', 'fresh', 'live', etc, to be defined by
     Sea Grant data input.
     """
-
     pass
