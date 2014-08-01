@@ -106,3 +106,15 @@ preparations.
 """
 
     pass
+
+
+class Preparation(models.Model):
+    """
+    The Preparation model contains possible preparations of product, to be
+    associated many-to-many with product (a product can have one or more
+    preparations, preparations apply to many products). Preparations may be
+    things like 'frozen', 'dried', 'fresh', 'live', etc, to be defined by
+    Sea Grant data input.
+    """
+
+    pass
