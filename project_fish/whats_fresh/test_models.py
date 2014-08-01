@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.conf import settings
 
-from whats_fresh.models import Image
+from django.contrib.gis.db import models
+from whats_fresh.models import *
 
 import os
 import time
@@ -56,4 +57,23 @@ class ImageTestCase(TestCase):
         self.assertTrue(
             self.image.modified.replace(tzinfo=None) - self.mod_time <
             datetime.timedelta(milliseconds = 10))
+
+class PreparationsTestCase(TestCase):
+    def test_fields_exist(self):
+        model = models.get_model('whats_fresh', 'Preparation')
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('name')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('description')))
+        self.assertEqual(
+            models.TextField,
+            type(model._meta.get_field_by_name('additional_info')))
+
+    def no_additional_fields(self):
+        fields = Preparation._meta.get_all_field_names()
+        expected_fields = ['name', 'description', 'additional_info']
+
+        self.assertTrue(sorted(fields) == sorted(expected_fields))
 
