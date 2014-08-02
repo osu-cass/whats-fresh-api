@@ -47,6 +47,14 @@ Temporary Draft Documentation:
    planning/draft_model
    planning/draft_api
 
+Model and View documentation:
+
+.. toctree::
+   :maxdepth: 2
+
+   dev/models
+   dev/views
+
 Temporary Draft Documentation:
 
 .. toctree::
