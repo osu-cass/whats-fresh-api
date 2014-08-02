@@ -17,7 +17,7 @@ class PreparationsTestCase(TestCase):
             'name': models.TextField,
             'description': models.TextField,
             'additional_info': models.TextField,
-            u'id': models.AutoField
+            'id': models.AutoField
         }
 
     def test_fields_exist(self):
