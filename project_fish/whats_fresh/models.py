@@ -19,3 +19,9 @@ class Image(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+class Stories(models.Model):
+    """
+    The stories model holds the stories for products and vendors
+    """
+
+    pass
