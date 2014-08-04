@@ -14,7 +14,7 @@ class Image(models.Model):
     timestamps.
     """
 
-    image = models.ImageField(upload_to='%Y/%m/%d')
+    image = models.ImageField(upload_to='/')
     caption = models.TextField()
 
     created = models.DateTimeField(auto_now_add=True)
