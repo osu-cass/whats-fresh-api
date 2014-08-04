@@ -29,3 +29,10 @@ class Vendor(models.Model):
     (in case the address/coordinates are of, say, a dock instead of a shop).
     """
     pass
+
+class Product(models.Model):
+    """
+    The Product model holds the information for a product, including the origin,
+    season, market price, and availability.
+    """
+    pass
