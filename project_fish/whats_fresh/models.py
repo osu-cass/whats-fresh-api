@@ -73,3 +73,11 @@ class Preparation(models.Model):
     name = models.TextField()
     description = models.TextField()
     additional_info = models.TextField()
+
+class ProductPreparation(models.Model):
+    """
+    The Product Preparation model contains the relationship of products and
+    preparations.
+    """
+
+    pass
