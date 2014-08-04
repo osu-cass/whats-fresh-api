@@ -30,9 +30,32 @@ class Vendor(models.Model):
     """
     pass
 
+
 class Product(models.Model):
     """
-    The Product model holds the information for a product, including the origin,
-    season, market price, and availability.
+    The Product model holds the information for a product, including the
+    origin, season, market price, and availability.
+
+    In addition, it holds a foreign key to the image and story related to the
+    product.
     """
+    name = models.TextField()
+    variety = models.TextField()
+    alt_name = models.TextField()
+    description = models.TextField()
+    origin = models.TextField()
+
+    season = models.TextField()
+    available = models.NullBooleanField()
+    market_price = models.TextField()
+    link = models.TextField()
+
+    image_id = models.ForeignKey('Image')
+    story_id = models.ForeignKey('Story')
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+
+class Story(models.Model):
     pass
