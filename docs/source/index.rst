@@ -11,6 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   planning/draft_api
+   planning/draft_model
    usage/usage
    api/api
    dev/development
