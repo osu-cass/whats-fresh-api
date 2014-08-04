@@ -28,4 +28,22 @@ class Vendor(models.Model):
     a street address, and an optional text description of their location
     (in case the address/coordinates are of, say, a dock instead of a shop).
     """
+
+    name = models.TextField()
+    description = models.TextField()
+    street = models.TextField()
+    city = models.TextField()
+    state = models.TextField()
+    zip = models.TextField()
+    location_description = models.TextField()
+    contact_name = models.TextField()
+    lat = models.FloatField()
+    long = models.FloatField()
+    website = models.TextField()
+    email = models.EmailField()
+    phone = PhoneNumberField()
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    id = models.AutoField(primary_key=True)
+    
     pass
