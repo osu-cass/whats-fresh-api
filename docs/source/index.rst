@@ -6,7 +6,7 @@
 Welcome to What's Fresh's documentation!
 ========================================
 
-Contents:
+Draft Implementation Documentation:
 
 .. toctree::
    :maxdepth: 2
@@ -16,6 +16,23 @@ Contents:
    api/api
    dev/development
    install/install
+   planning/draft_model
+   planning/draft_api
+
+Developer Setup:
+
+.. toctree::
+   :maxdepth: 2
+
+   planning/dev/development
+
+Temporary Draft Documentation:
+
+.. toctree::
+   :maxdepth: 2
+
+   planning/draft_model
+   planning/draft_api
 
 
 Indices and tables
