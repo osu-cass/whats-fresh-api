@@ -49,7 +49,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'What\'s Fresh'
-copyright = u'2014, Megan Goossens, Evan Tschuy'
+copyright = u'2014, Oregon State University Open Source Lab'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
