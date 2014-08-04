@@ -22,7 +22,7 @@ class ProductTestCase(TestCase):
             'season': models.TextField,
             'available': models.BooleanField,
             'market_price': models.TextField,
-            'link': models.TextField,
+            'link': models.URLField,
             'image_id': models.FloatField,
             'stories_id': models.FloatField,
             'created': models.DateTimeField,
