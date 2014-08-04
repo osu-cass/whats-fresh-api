@@ -48,7 +48,7 @@ class Product(models.Model):
     season = models.TextField()
     available = models.NullBooleanField()
     market_price = models.TextField()
-    link = models.TextField()
+    link = models.URLField()
 
     image_id = models.ForeignKey('Image')
     story_id = models.ForeignKey('Story')
