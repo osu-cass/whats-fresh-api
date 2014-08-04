@@ -11,7 +11,7 @@ import sys
 import datetime
 
 
-class StoriesTestCase(TestCase):
+class StoryTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
             'story': models.TextField,
@@ -21,15 +21,15 @@ class StoriesTestCase(TestCase):
         }
 
     def test_fields_exist(self):
-        model = models.get_model('whats_fresh', 'Stories')
+        model = models.get_model('whats_fresh', 'Story')
         for field, field_type in self.expected_fields.items():
             self.assertEqual(
                 field_type, type(model._meta.get_field_by_name(field)[0]))
 
     def test_no_additional_fields(self):
-        fields = Stories._meta.get_all_field_names()
+        fields = Story._meta.get_all_field_names()
         self.assertTrue(sorted(fields) == sorted(self.expected_fields.keys()))
 
     def test_created_modified_fields(self):
-        self.assertTrue(Stories._meta.get_field('modified').auto_now)
-                    self.assertTrue(Stories._meta.get_field('created').auto_now_add)
+        self.assertTrue(Story._meta.get_field('modified').auto_now)
+                    self.assertTrue(Story._meta.get_field('created').auto_now_add)
