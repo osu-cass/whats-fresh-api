@@ -29,6 +29,7 @@ class VendorTestCase(TestCase):
             'phone': PhoneNumberField,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
+            'story_id': models.ForeignKey,
             'id': models.AutoField
         }
 
