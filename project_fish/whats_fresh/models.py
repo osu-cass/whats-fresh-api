@@ -59,6 +59,6 @@ class Product(models.Model):
 
 class Story(models.Model):
     """
-    The stories model holds the stories for products and vendors
+    The story model holds the stories for products and vendors
     """
     pass
