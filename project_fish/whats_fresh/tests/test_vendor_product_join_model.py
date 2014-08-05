@@ -18,11 +18,11 @@ class VendorProductJoinTestCase(TestCase):
         }
 
     def test_fields_exist(self):
-        model = models.get_model('whats_fresh', 'VendorProducts')
+        model = models.get_model('whats_fresh', 'VendorProduct')
         for field, field_type in self.expected_fields.items():
             self.assertEqual(
                 field_type, type(model._meta.get_field_by_name(field)[0]))
 
     def test_no_additional_fields(self):
-        fields = VendorProducts._meta.get_all_field_names()
+        fields = VendorProduct._meta.get_all_field_names()
         self.assertTrue(sorted(fields) == sorted(self.expected_fields.keys()))
