@@ -31,19 +31,31 @@ class Vendor(models.Model):
 
     name = models.TextField()
     description = models.TextField()
+
     street = models.TextField()
     city = models.TextField()
     state = models.TextField()
     zip = models.TextField()
     location_description = models.TextField()
+
     contact_name = models.TextField()
-    lat = models.FloatField()
-    long = models.FloatField()
     website = models.TextField()
     email = models.EmailField()
     phone = PhoneNumberField()
+
+    lat = models.FloatField()
+    long = models.FloatField()
+
+    product_id = models.ForeignKey('Product')
+    story_id = models.ForeignKey('Story')
+
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
     id = models.AutoField(primary_key=True)
-    
+
+class Product(models.Model):
+    pass
+
+class Story(models.Model):
     pass
