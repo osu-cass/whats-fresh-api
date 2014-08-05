@@ -31,7 +31,6 @@ class VendorTestCase(TestCase):
             'modified': models.DateTimeField,
             'story_id': models.ForeignKey,
             'product_id': models.ForeignKey,
-            'id': models.AutoField
         }
 
     def test_fields_exist(self):

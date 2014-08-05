@@ -52,8 +52,6 @@ class Vendor(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-    id = models.AutoField(primary_key=True)
-
 class Product(models.Model):
     pass
 
