@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.conf import settings
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.files import File
 
 from whats_fresh.models import *
 from django.contrib.gis.db import models
@@ -26,6 +27,11 @@ class ImageTestCase(TestCase):
         for field, field_type in self.expected_fields.items():
             self.assertEqual(
                 field_type, type(model._meta.get_field_by_name(field)[0]))
+
+    def test_parameters(self):
+        self.assertEqual(
+            Image._meta.get_field_by_name('image')[0].upload_to,
+            'images')
 
     def test_no_additional_fields(self):
         fields = Image._meta.get_all_field_names()
