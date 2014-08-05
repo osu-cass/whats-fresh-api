@@ -28,6 +28,36 @@ class Vendor(models.Model):
     a street address, and an optional text description of their location
     (in case the address/coordinates are of, say, a dock instead of a shop).
     """
+
+    name = models.TextField()
+    description = models.TextField()
+
+    street = models.TextField()
+    city = models.TextField()
+    state = models.TextField()
+    zip = models.TextField()
+    location_description = models.TextField()
+
+    contact_name = models.TextField()
+    website = models.URLField()
+    email = models.EmailField()
+    phone = PhoneNumberField()
+
+    lat = models.FloatField()
+    long = models.FloatField()
+
+    product_id = models.ForeignKey('Product')
+    story_id = models.ForeignKey('Story')
+
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+
+    id = models.AutoField(primary_key=True)
+
+class Product(models.Model):
+    pass
+
+class Story(models.Model):
     pass
 
 
