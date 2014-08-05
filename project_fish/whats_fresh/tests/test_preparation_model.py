@@ -27,5 +27,5 @@ class PreparationsTestCase(TestCase):
                 field_type, type(model._meta.get_field_by_name(field)[0]))
 
     def test_no_additional_fields(self):
-        fields = Vendor._meta.get_all_field_names()
+        fields = Preparation._meta.get_all_field_names()
         self.assertTrue(sorted(fields) == sorted(self.expected_fields.keys()))
