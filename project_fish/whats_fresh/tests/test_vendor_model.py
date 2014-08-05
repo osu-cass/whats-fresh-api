@@ -24,7 +24,7 @@ class VendorTestCase(TestCase):
             'contact_name': models.TextField,
             'lat': models.FloatField,
             'long': models.FloatField,
-            'website': models.TextField,
+            'website': models.URLField,
             'email': models.EmailField,
             'phone': PhoneNumberField,
             'created': models.DateTimeField,

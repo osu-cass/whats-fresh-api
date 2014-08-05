@@ -39,7 +39,7 @@ class Vendor(models.Model):
     location_description = models.TextField()
 
     contact_name = models.TextField()
-    website = models.TextField()
+    website = models.URLField()
     email = models.EmailField()
     phone = PhoneNumberField()
 
