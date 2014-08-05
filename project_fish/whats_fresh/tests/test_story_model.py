@@ -32,4 +32,4 @@ class StoryTestCase(TestCase):
 
     def test_created_modified_fields(self):
         self.assertTrue(Story._meta.get_field('modified').auto_now)
-                    self.assertTrue(Story._meta.get_field('created').auto_now_add)
+        self.assertTrue(Story._meta.get_field('created').auto_now_add)
