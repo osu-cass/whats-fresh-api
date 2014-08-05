@@ -53,13 +53,6 @@ class Vendor(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
 class Product(models.Model):
-    pass
-
-class Story(models.Model):
-    pass
-
-
-class Product(models.Model):
     """
     The Product model holds the information for a product, including the
     origin, season, market price, and availability.
