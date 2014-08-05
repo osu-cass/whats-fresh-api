@@ -88,4 +88,20 @@ class Product(models.Model):
 
 
 class Story(models.Model):
+    """
+    The story model holds the stories for products and vendors
+    """
     pass
+
+
+class Preparation(models.Model):
+    """
+    The Preparation model contains possible preparations of product, to be
+    associated many-to-many with product (a product can have one or more
+    preparations, preparations apply to many products). Preparations may be
+    things like 'frozen', 'dried', 'fresh', 'live', etc, to be defined by
+    Sea Grant data input.
+    """
+    name = models.TextField()
+    description = models.TextField()
+    additional_info = models.TextField()
