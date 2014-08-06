@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.conf import settings
 from phonenumber_field.modelfields import PhoneNumberField
 
-from whats_fresh.models import *
+from whats_fresh_api.models import *
 from django.contrib.gis.db import models
 
 import os
@@ -31,7 +31,7 @@ class ProductTestCase(TestCase):
         }
 
     def test_fields_exist(self):
-        model = models.get_model('whats_fresh', 'Product')
+        model = models.get_model('whats_fresh_api', 'Product')
         for field, field_type in self.expected_fields.items():
             self.assertEqual(
                 field_type, type(model._meta.get_field_by_name(field)[0]))
