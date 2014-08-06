@@ -102,14 +102,8 @@ class Preparation(models.Model):
 
 class ProductPreparation(models.Model):
     """
-<<<<<<< HEAD:whats_fresh/whats_fresh_api/models.py
-The Product Preparation model contains the relationship of products and
-preparations.
-"""
-=======
     The Product Preparation model contains the relationship of products and
     preparations.
     """
->>>>>>> a1d12d3ed340bda90a26cfdc0e5d79040d6b4987:project_fish/whats_fresh/models.py
 
     pass
