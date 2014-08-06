@@ -156,11 +156,8 @@ run just one set of tests at a time::
 
         $ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
 
-<<<<<<< HEAD
 To make sure that you didn't break anything unexpected, it can be a good idea
 to periodically run the entire testing suite, especially before committing any
 particularly hairy commits::
 
     $ python manage.py test
-=======
->>>>>>> Add documentation on testing
