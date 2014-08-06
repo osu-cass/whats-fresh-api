@@ -19,6 +19,7 @@ class ImageTestCase(TestCase):
             'caption': models.TextField,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
+            'product': models.related.RelatedObject,
             'id': models.AutoField
         }
 

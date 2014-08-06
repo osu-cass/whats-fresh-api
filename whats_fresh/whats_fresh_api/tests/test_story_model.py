@@ -17,6 +17,8 @@ class StoryTestCase(TestCase):
             'story': models.TextField,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
+            'product': models.related.RelatedObject,
+            'vendor': models.related.RelatedObject,
             'id': models.AutoField
         }
 
