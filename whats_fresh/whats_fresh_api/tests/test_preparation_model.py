@@ -17,6 +17,7 @@ class PreparationsTestCase(TestCase):
             'name': models.TextField,
             'description': models.TextField,
             'additional_info': models.TextField,
+            'product': models.ManyToManyField,
             'id': models.AutoField
         }
 
