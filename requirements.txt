@@ -3,11 +3,9 @@ Jinja2==2.7.3
 MarkupSafe==0.23
 Pillow==2.5.1
 Pygments==1.6
-Sphinx==1.2.2
 django-phonenumber-field==0.6
 docutils==0.12
 pep8==1.5.7
-phonenumbers==6.2.0
 psycopg2==2.5.3
 wsgiref==0.1.2
 sphinx==1.2.2
