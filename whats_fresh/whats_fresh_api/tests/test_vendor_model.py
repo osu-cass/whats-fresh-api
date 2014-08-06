@@ -47,9 +47,3 @@ class VendorTestCase(TestCase):
     def test_created_modified_fields(self):
         self.assertTrue(Vendor._meta.get_field('modified').auto_now)
         self.assertTrue(Vendor._meta.get_field('created').auto_now_add)
-
-    def test___unicode___method(self):
-        try:
-            result = Vendor.__unicode__(Vendor())
-        except AttributeError as e:
-            self.fail("No __unicode__ method found")

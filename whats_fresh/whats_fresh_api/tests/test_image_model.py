@@ -41,9 +41,3 @@ class ImageTestCase(TestCase):
     def test_created_modified_fields(self):
         self.assertTrue(Image._meta.get_field('modified').auto_now)
         self.assertTrue(Image._meta.get_field('created').auto_now_add)
-
-    def test___unicode___method(self):
-        try:
-            result = Image.__unicode__(Image())
-        except AttributeError as e:
-            self.fail("No __unicode__ method found")

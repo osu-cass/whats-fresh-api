@@ -13,11 +13,6 @@ class Image(models.Model):
     data in the database, as well as for keeping created and modified
     timestamps.
     """
-    def filename(self):
-        return os.path.basename(self.image.name)
-
-    def __unicode__(self):
-        return self.filename()
 
     image = models.ImageField(upload_to='images')
     caption = models.TextField()
@@ -33,8 +28,6 @@ class Vendor(models.Model):
     a street address, and an optional text description of their location
     (in case the address/coordinates are of, say, a dock instead of a shop).
     """
-    def __unicode__(self):
-        return self.name
 
     name = models.TextField()
     description = models.TextField()
@@ -68,9 +61,6 @@ class Product(models.Model):
     In addition, it holds a foreign key to the image and story related to the
     product.
     """
-    def __unicode__(self):
-        return self.name
-
     name = models.TextField()
     variety = models.TextField()
     alt_name = models.TextField()
@@ -92,12 +82,6 @@ class Story(models.Model):
     """
     The story model holds the stories for products and vendors
     """
-    def __unicode__(self):
-        if not self.id:
-            return "Unsaved story"
-        else:
-            return "Story for %d" % self.id
-
     story = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -110,8 +94,6 @@ class Preparation(models.Model):
     things like 'frozen', 'dried', 'fresh', 'live', etc, to be defined by
     Sea Grant data input.
     """
-    def __unicode__(self):
-        return self.name
 
     name = models.TextField()
     description = models.TextField()
