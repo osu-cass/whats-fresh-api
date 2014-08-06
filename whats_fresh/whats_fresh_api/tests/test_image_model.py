@@ -47,3 +47,9 @@ class ImageTestCase(TestCase):
             result = Image.__unicode__(Image())
         except AttributeError as e:
             self.fail("No __unicode__ method found")
+
+    def test_filename_method(self):
+        try:
+            result = Image.filename(Image(image="cat.jpg"))
+        except AttributeError as e:
+            self.fail("No __unicode__ method found")
