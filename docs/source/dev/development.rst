@@ -124,3 +124,34 @@ $ python whats-fresh/whats_fresh/manage.py syncdb
 You should now be ready to run the Django app!
 ::
     $ python whats-fresh/whats_fresh/manage.py runserver 0.0.0.0:8000
+
+Testing
+-------
+
+The What's Fresh API uses `test-driven development<http://en.wikipedia.org/wiki/Test-driven_development>`.
+What this means is that, before writing a feature -- be it a new API endpoint,
+a model, or a bug fix -- you should write a test.
+
+Each test lives inside the ``whats_fresh_api/tests/`` directory, organized into
+a subdirectory based on what kind of test it is. For instance, all model tests
+live inside the ``models`` subdirectory, while views would live inside the
+``view`` directory.
+
+For information on how to write tests, see ``Django's guide on writing tests``<https://docs.djangoproject.com/en/1.6/topics/testing/overview/>.
+
+Let's say you've just modified the code -- say, you edited the Vendor model
+due to a bug you found. Instead of running the entire testing suite, you can
+run just one set of tests at a time::
+
+    $ python manage.py test whats_fresh_api.tests.models.test_vendor_model.VendorTestCase
+
+.. note::
+
+    Running tests is based on the directory name, using the following syntax::
+
+    ``whats_fresh_api.tests.<test subdirectory>.<test file>.<test class name>``
+
+    For a test called ImageTestCase inside of ``tests/views/test_image_view.py``,
+    you would need to run the following command::
+
+        $ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
