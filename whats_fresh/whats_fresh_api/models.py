@@ -2,7 +2,6 @@ from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 
-
 class Image(models.Model):
     """
     The Image model holds an image and related data.
@@ -14,8 +13,11 @@ class Image(models.Model):
     data in the database, as well as for keeping created and modified
     timestamps.
     """
+    def filename(self):
+        return os.path.basename(self.image.name)
+
     def __unicode__(self):
-        return self.caption
+        return self.filename()
 
     image = models.ImageField(upload_to='images')
     caption = models.TextField()
@@ -91,7 +93,10 @@ class Story(models.Model):
     The story model holds the stories for products and vendors
     """
     def __unicode__(self):
-        return self.story
+        if not self.id:
+            return "Unsaved story"
+        else:
+            return "Story for %d" % self.id
 
     story = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

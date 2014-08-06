@@ -44,3 +44,9 @@ class ProductTestCase(TestCase):
     def test_created_modified_fields(self):
         self.assertTrue(Product._meta.get_field('modified').auto_now)
         self.assertTrue(Product._meta.get_field('created').auto_now_add)
+
+    def test___unicode___method(self):
+        try:
+            result = Product.__unicode__(Product())
+        except AttributeError as e:
+            self.fail("No __unicode__ method found")
