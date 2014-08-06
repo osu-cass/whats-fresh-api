@@ -20,8 +20,8 @@ import os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
-sys.path.insert(0, os.path.abspath('../../project_fish'))
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_fish.settings")
+sys.path.insert(0, os.path.abspath('../../whats_fresh'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "whats_fresh.settings")
 
 # -- General configuration ------------------------------------------------
 
@@ -52,7 +52,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'What\'s Fresh'
-copyright = u'2014, Megan Goossens, Evan Tschuy'
+copyright = u'2014, Oregon State University Open Source Lab'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

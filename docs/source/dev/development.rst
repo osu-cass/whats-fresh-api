@@ -11,23 +11,21 @@ Each Django project consists of two things: a Django project, and one or more
 Django apps inside that project. For the What's Fresh API, there is only one
 app.
 
-Currently, the project is named ``project_fish``. This is subject to change.
-
-The app is named ``whats_fresh``.
+The project is named ``whats_fresh``, and the app ``whats_fresh_api``.
 
 The Git repository contains the Django project as a subdirectory, with related
 files -- the Vagrant setup file, the pip requirements file, etc in the root of
 the repository as well.
 
-Inside the project folder, ``project_fish``, there are another two folders and
+Inside the project folder, ``whats_fresh``, there are another two folders and
 a ``manage.py`` file. The ``manage.py`` file is a Django script used to control
 the project. To read more about it and its functions, see the `Django documentation`_.
 
 .. _`Django documentation`: https://docs.djangoproject.com/en/1.6/ref/django-admin/
 
 Django stores the project information, including ``settings.py``, inside the
-second project folder, ``/path/to/repository/project_fish/project_fish``. The
-app itself is stored in ``/path/to/repository/project_fish/whats_fresh``.
+second project folder, ``/path/to/repository/whats_fresh/whats_fresh``. The
+app itself is stored in ``/path/to/repository/whats_fresh/whats_fresh_api``.
 
 Issue Tracking
 --------------
@@ -121,9 +119,9 @@ $ pip install -r whats-fresh/requirements.txt
 
 Now, create the database tables using ``manage.py``::
 
-$ python whats-fresh/project_fish/manage.py syncdb
+$ python whats-fresh/whats_fresh/manage.py syncdb
 
 You should now be ready to run the Django app!
 ::
-    $ python whats-fresh/project_fish/manage.py runserver 0.0.0.0:8000
+    $ python whats-fresh/whats_fresh/manage.py runserver 0.0.0.0:8000
 

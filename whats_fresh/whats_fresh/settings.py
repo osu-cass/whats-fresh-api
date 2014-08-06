@@ -1,5 +1,5 @@
 """
-Django settings for project_fish project.
+Django settings for whats_fresh project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -36,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'whats_fresh',
+    'whats_fresh_api',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -48,9 +48,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'project_fish.urls'
+ROOT_URLCONF = 'whats_fresh.urls'
 
-WSGI_APPLICATION = 'project_fish.wsgi.application'
+WSGI_APPLICATION = 'whats_fresh.wsgi.application'
 
 
 # Database
