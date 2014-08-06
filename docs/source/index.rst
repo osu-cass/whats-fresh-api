@@ -21,7 +21,7 @@ Developer Setup:
 .. toctree::
    :maxdepth: 2
 
-   planning/dev/development
+   dev/development
 
 Temporary Draft Documentation:
 
