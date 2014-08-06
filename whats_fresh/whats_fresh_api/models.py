@@ -2,6 +2,7 @@ from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 class Image(models.Model):
     """
     The Image model holds an image and related data.
@@ -13,6 +14,8 @@ class Image(models.Model):
     data in the database, as well as for keeping created and modified
     timestamps.
     """
+    def __unicode__(self):
+        return self.caption
 
     image = models.ImageField(upload_to='images')
     caption = models.TextField()
@@ -28,6 +31,8 @@ class Vendor(models.Model):
     a street address, and an optional text description of their location
     (in case the address/coordinates are of, say, a dock instead of a shop).
     """
+    def __unicode__(self):
+        return self.name
 
     name = models.TextField()
     description = models.TextField()
@@ -61,6 +66,9 @@ class Product(models.Model):
     In addition, it holds a foreign key to the image and story related to the
     product.
     """
+    def __unicode__(self):
+        return self.name
+
     name = models.TextField()
     variety = models.TextField()
     alt_name = models.TextField()
@@ -82,6 +90,9 @@ class Story(models.Model):
     """
     The story model holds the stories for products and vendors
     """
+    def __unicode__(self):
+        return self.story
+
     story = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -94,6 +105,8 @@ class Preparation(models.Model):
     things like 'frozen', 'dried', 'fresh', 'live', etc, to be defined by
     Sea Grant data input.
     """
+    def __unicode__(self):
+        return self.name
 
     name = models.TextField()
     description = models.TextField()
