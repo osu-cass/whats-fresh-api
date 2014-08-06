@@ -2,10 +2,6 @@ from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/16449
 class Image(models.Model):
     """
     The Image model holds an image and related data.
@@ -18,11 +14,7 @@ class Image(models.Model):
     timestamps.
     """
 
-<<<<<<< HEAD
     image = models.ImageField(upload_to='%Y/%m/%d')
-=======
-    image = models.ImageField(upload_to='images')
->>>>>>> feature/16449
     caption = models.TextField()
 
     created = models.DateTimeField(auto_now_add=True)
@@ -36,7 +28,6 @@ class Vendor(models.Model):
     a street address, and an optional text description of their location
     (in case the address/coordinates are of, say, a dock instead of a shop).
     """
-<<<<<<< HEAD
 
     name = models.TextField()
     description = models.TextField()
@@ -87,7 +78,6 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-
 class Story(models.Model):
     """
     The story model holds the stories for products and vendors
@@ -95,7 +85,6 @@ class Story(models.Model):
     story = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-
 
 class Preparation(models.Model):
     """
@@ -105,9 +94,7 @@ class Preparation(models.Model):
     things like 'frozen', 'dried', 'fresh', 'live', etc, to be defined by
     Sea Grant data input.
     """
+
     name = models.TextField()
     description = models.TextField()
     additional_info = models.TextField()
-=======
-    pass
->>>>>>> feature/16449
