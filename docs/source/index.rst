@@ -14,10 +14,7 @@ Draft Implementation Documentation:
    planning/planning
    usage/usage
    api/api
-   dev/development
    install/install
-   planning/draft_model
-   planning/draft_api
 
 Developer Documentation:
 
