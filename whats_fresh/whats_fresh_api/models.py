@@ -52,6 +52,7 @@ class Vendor(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+
 class Product(models.Model):
     """
     The Product model holds the information for a product, including the
@@ -82,7 +83,9 @@ class Story(models.Model):
     """
     The story model holds the stories for products and vendors
     """
-    pass
+    story = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
 
 class Preparation(models.Model):
