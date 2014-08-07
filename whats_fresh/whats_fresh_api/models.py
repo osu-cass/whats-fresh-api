@@ -46,7 +46,6 @@ class Vendor(models.Model):
     lat = models.FloatField()
     long = models.FloatField()
 
-    product_id = models.ForeignKey('Product')
     story_id = models.ForeignKey('Story')
 
     created = models.DateTimeField(auto_now_add=True)
@@ -98,3 +97,18 @@ class Preparation(models.Model):
     name = models.TextField()
     description = models.TextField()
     additional_info = models.TextField()
+
+
+class VendorProduct(models.Model):
+    vendor_id = models.ForeignKey(Vendor, related_name='product', null=True)
+    product_id = models.ForeignKey(Product, related_name='vendor')
+    preparation_id = models.ForeignKey(Preparation, related_name='vendorproduct')
+
+    vendor_price = models.TextField()
+    available = models.NullBooleanField()
+
+    def __unicode__(self):
+        if not self.vendor_id:
+            return "Unsaved product/vendor join"
+        else:
+            return "Products for vendor %s" % (self.vendor_id)

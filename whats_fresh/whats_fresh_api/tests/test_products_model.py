@@ -27,7 +27,7 @@ class ProductTestCase(TestCase):
             'story_id': models.ForeignKey,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
-            'vendor': models.ManyToManyField,
+            'vendor': models.related.RelatedObject,
             'id': models.AutoField
         }
 

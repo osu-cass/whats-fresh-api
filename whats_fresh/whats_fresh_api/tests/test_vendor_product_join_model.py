@@ -18,7 +18,7 @@ class VendorProductJoinTestCase(TestCase):
         }
 
     def test_fields_exist(self):
-        model = models.get_model('whats_fresh', 'VendorProduct')
+        model = models.get_model('whats_fresh_api', 'VendorProduct')
         for field, field_type in self.expected_fields.items():
             self.assertEqual(
                 field_type, type(model._meta.get_field_by_name(field)[0]))
