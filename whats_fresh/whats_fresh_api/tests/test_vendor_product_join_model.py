@@ -9,9 +9,9 @@ from django.contrib.gis.db import models
 class VendorProductJoinTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
-            'vendor_id': models.ForeignKey,
-            'product_id': models.ForeignKey,
-            'preparation_id': models.ForeignKey,
+            'vendor': models.ForeignKey,
+            'product': models.ForeignKey,
+            'preparation': models.ForeignKey,
             'vendor_price': models.TextField,
             'available': models.NullBooleanField,
             'id': models.AutoField

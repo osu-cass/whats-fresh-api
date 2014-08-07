@@ -54,6 +54,10 @@ class Vendor(models.Model):
     long = models.FloatField()
 
     story_id = models.ForeignKey('Story')
+    products = models.ManyToManyField(
+        'Product',
+        related_name='vendors',
+        through='VendorProduct')
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -93,9 +97,9 @@ class Story(models.Model):
     """
     def __unicode__(self):
         if not self.id:
-            return "Unsaved story"
+            return u'Unsaved story'
         else:
-            return "Story for %d" % self.id
+            return u'Story %d' % self.id
 
     story = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
@@ -127,14 +131,14 @@ class VendorProduct(models.Model):
     one preparation.
     """
     def __unicode__(self):
-        if not self.vendor_id:
+        if not self.vendor:
             return "Unsaved product/vendor join"
         else:
-            return "Products for vendor %s" % (self.vendor_id)
+            return "Products for vendor %s" % (self.vendor.name)
 
-    vendor_id = models.ForeignKey(Vendor, related_name='product', null=True)
-    product_id = models.ForeignKey(Product, related_name='vendor')
-    preparation_id = models.ForeignKey(Preparation, related_name='vendorproduct')
+    vendor = models.ForeignKey(Vendor, null=True)
+    product = models.ForeignKey(Product)
+    preparation = models.ForeignKey(Preparation)
 
     vendor_price = models.TextField()
     available = models.NullBooleanField()
