@@ -118,15 +118,23 @@ class Preparation(models.Model):
 
 
 class VendorProduct(models.Model):
+    """
+    Keep track of the products each vendor has.
+
+    The ForeignKey vendor field here means this creates a one-to-many -- each
+    vendor can have many VendorProducts, but a VendorProduct can only have one
+    vendor. In the same way, each VendorProduct can only have one product and
+    one preparation.
+    """
+    def __unicode__(self):
+        if not self.vendor_id:
+            return "Unsaved product/vendor join"
+        else:
+            return "Products for vendor %s" % (self.vendor_id)
+
     vendor_id = models.ForeignKey(Vendor, related_name='product', null=True)
     product_id = models.ForeignKey(Product, related_name='vendor')
     preparation_id = models.ForeignKey(Preparation, related_name='vendorproduct')
 
     vendor_price = models.TextField()
     available = models.NullBooleanField()
-
-    def __unicode__(self):
-        if not self.vendor_id:
-            return "Unsaved product/vendor join"
-        else:
-            return "Products for vendor %s" % (self.vendor_id)
