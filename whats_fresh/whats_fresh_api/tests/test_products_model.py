@@ -28,6 +28,8 @@ class ProductTestCase(TestCase):
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
             'preparations': models.ManyToManyField,
+            'vendor': models.related.RelatedObject,
+            'productpreparation': models.related.RelatedObject,
             'id': models.AutoField
         }
 

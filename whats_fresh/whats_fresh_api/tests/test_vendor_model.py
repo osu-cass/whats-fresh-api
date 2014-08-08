@@ -22,15 +22,16 @@ class VendorTestCase(TestCase):
             'zip': models.TextField,
             'location_description': models.TextField,
             'contact_name': models.TextField,
-            'lat': models.FloatField,
-            'long': models.FloatField,
             'website': models.URLField,
             'email': models.EmailField,
             'phone': PhoneNumberField,
+            'lat': models.FloatField,
+            'long': models.FloatField,
+            'product_id': models.ForeignKey,
+            'story_id': models.ForeignKey,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
-            'story_id': models.ForeignKey,
-            'product_id': models.ForeignKey,
+            'id': models.AutoField
         }
 
     def test_fields_exist(self):

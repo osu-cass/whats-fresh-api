@@ -76,7 +76,8 @@ class Product(models.Model):
     image_id = models.ForeignKey('Image')
     story_id = models.ForeignKey('Story')
 
-    preparation = models.ManyToManyField()
+    preparations = models.ManyToManyField('Preparation',
+            related_name='products', through='ProductPreparation')
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -101,7 +102,6 @@ class Preparation(models.Model):
     name = models.TextField()
     description = models.TextField()
     additional_info = models.TextField()
-    product = models.ManyToManyField()
 
 class ProductPreparation(models.Model):
     """
@@ -109,4 +109,5 @@ class ProductPreparation(models.Model):
     preparations.
     """
 
-    pass
+    product_id = models.ForeignKey(Product)
+    preparation_id = models.ForeignKey(Preparation)

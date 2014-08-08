@@ -17,6 +17,7 @@ class ImageTestCase(TestCase):
         self.expected_fields = {
             'image': models.ImageField,
             'caption': models.TextField,
+            'product': models.related.RelatedObject,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
             'id': models.AutoField
