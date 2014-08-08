@@ -35,3 +35,9 @@ class StoryTestCase(TestCase):
     def test_created_modified_fields(self):
         self.assertTrue(Story._meta.get_field('modified').auto_now)
         self.assertTrue(Story._meta.get_field('created').auto_now_add)
+
+    def test___unicode___method(self):
+        try:
+            result = Story.__unicode__(Story())
+        except AttributeError as e:
+            self.fail("No __unicode__ method found")

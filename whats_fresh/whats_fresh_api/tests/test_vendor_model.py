@@ -27,10 +27,12 @@ class VendorTestCase(TestCase):
             'phone': PhoneNumberField,
             'lat': models.FloatField,
             'long': models.FloatField,
-            'product_id': models.ForeignKey,
             'story_id': models.ForeignKey,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
+            'story_id': models.ForeignKey,
+            'products': models.ManyToManyField,
+            'vendorproduct': models.related.RelatedObject,
             'id': models.AutoField
         }
 
@@ -47,3 +49,9 @@ class VendorTestCase(TestCase):
     def test_created_modified_fields(self):
         self.assertTrue(Vendor._meta.get_field('modified').auto_now)
         self.assertTrue(Vendor._meta.get_field('created').auto_now_add)
+
+    def test___unicode___method(self):
+        try:
+            result = Vendor.__unicode__(Vendor())
+        except AttributeError as e:
+            self.fail("No __unicode__ method found")

@@ -5,36 +5,30 @@ from phonenumber_field.modelfields import PhoneNumberField
 from whats_fresh_api.models import *
 from django.contrib.gis.db import models
 
-import os
-import time
-import sys
-import datetime
 
-
-class PreparationsTestCase(TestCase):
+class VendorProductJoinTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
-            'name': models.TextField,
-            'description': models.TextField,
-            'additional_info': models.TextField,
-            'productpreparation': models.related.RelatedObject,
-            'products': models.related.RelatedObject,
-            'vendorproduct': models.related.RelatedObject,
+            'vendor': models.ForeignKey,
+            'product': models.ForeignKey,
+            'preparation': models.ForeignKey,
+            'vendor_price': models.TextField,
+            'available': models.NullBooleanField,
             'id': models.AutoField
         }
 
     def test_fields_exist(self):
-        model = models.get_model('whats_fresh_api', 'Preparation')
+        model = models.get_model('whats_fresh_api', 'VendorProduct')
         for field, field_type in self.expected_fields.items():
             self.assertEqual(
                 field_type, type(model._meta.get_field_by_name(field)[0]))
 
     def test_no_additional_fields(self):
-        fields = Preparation._meta.get_all_field_names()
+        fields = VendorProduct._meta.get_all_field_names()
         self.assertTrue(sorted(fields) == sorted(self.expected_fields.keys()))
 
     def test___unicode___method(self):
         try:
-            result = Preparation.__unicode__(Preparation())
+            result = VendorProduct.__unicode__(VendorProduct())
         except AttributeError as e:
             self.fail("No __unicode__ method found")
