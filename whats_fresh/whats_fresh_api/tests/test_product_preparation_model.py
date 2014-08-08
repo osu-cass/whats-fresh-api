@@ -14,8 +14,8 @@ import datetime
 class ProductPreparationTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
-            'product_id': models.ForeignKey,
-            'preparation_id': models.ForeignKey,
+            'product': models.ForeignKey,
+            'preparation': models.ForeignKey,
             'id': models.AutoField
         }
 
@@ -28,3 +28,9 @@ class ProductPreparationTestCase(TestCase):
     def test_no_additional_fields(self):
         fields = ProductPreparation._meta.get_all_field_names()
         self.assertTrue(sorted(fields) == sorted(self.expected_fields.keys()))
+
+    def test___unicode___method(self):
+        try:
+            result = ProductPreparation.__unicode__(ProductPreparation())
+        except AttributeError as e:
+            self.fail("No __unicode__ method found")

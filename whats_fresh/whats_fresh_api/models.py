@@ -89,11 +89,12 @@ class Product(models.Model):
     image_id = models.ForeignKey('Image')
     story_id = models.ForeignKey('Story')
 
-    preparations = models.ManyToManyField('Preparation',
-            related_name='products', through='ProductPreparation')
+    preparations = models.ManyToManyField(
+        'Preparation', related_name='products', through='ProductPreparation')
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
 
 class Story(models.Model):
     """
@@ -108,6 +109,7 @@ class Story(models.Model):
     story = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
 
 class Preparation(models.Model):
     """
@@ -130,9 +132,14 @@ class ProductPreparation(models.Model):
     The Product Preparation model contains the relationship of products and
     preparations.
     """
+    def __unicode__(self):
+        if not self.product:
+            return "Unsaved product/preparation join"
+        else:
+            return "Preparations for product %s" % (self.product.name)
 
-    product_id = models.ForeignKey(Product)
-    preparation_id = models.ForeignKey(Preparation)
+    product = models.ForeignKey(Product, null=True)
+    preparation = models.ForeignKey(Preparation)
 
 
 class VendorProduct(models.Model):
