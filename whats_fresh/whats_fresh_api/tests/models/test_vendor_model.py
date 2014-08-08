@@ -16,6 +16,7 @@ class VendorTestCase(TestCase):
         self.expected_fields = {
             'name': models.TextField,
             'description': models.TextField,
+            'status': models.NullBooleanField,
             'street': models.TextField,
             'city': models.TextField,
             'state': models.TextField,

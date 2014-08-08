@@ -39,6 +39,7 @@ class Vendor(models.Model):
 
     name = models.TextField()
     description = models.TextField()
+    status = models.NullBooleanField()
 
     street = models.TextField()
     city = models.TextField()
