@@ -1,8 +1,30 @@
 [
   {
+<<<<<<< HEAD:project_fish/whats_fresh/testdata/fixtures.json
     "model": "whats_fresh.Product",
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+    "model": "whats_fresh_api.Story",
+    "pk": "1",
+    "fields": {
+      "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations...",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Story",
+    "pk": "2",
+    "fields": {
+      "story": "This is the story, all about how my life got flip turned upside down!",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Product",
+>>>>>>> Write manual fixtures, generate auto fixtures, write fixture docs:whats_fresh/whats_fresh_api/tests/testdata/fixtures.json
     "pk": "1",
 =======
     "pk": 1,
@@ -21,6 +43,7 @@
       "market_price": "$33.31",
       "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
       "image_id": "1",
+<<<<<<< HEAD:project_fish/whats_fresh/testdata/fixtures.json
 <<<<<<< HEAD
 <<<<<<< HEAD
       "story_id": "1"
@@ -36,6 +59,15 @@
     "model": "whats_fresh.Product",
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+      "story_id": "1",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Product",
+>>>>>>> Write manual fixtures, generate auto fixtures, write fixture docs:whats_fresh/whats_fresh_api/tests/testdata/fixtures.json
     "pk": "2",
 =======
     "pk": 2,
@@ -61,6 +93,7 @@
 >>>>>>> Begin fixtures. Can not proceed until models are underway
 =======
       "image_id": "1",
+<<<<<<< HEAD:project_fish/whats_fresh/testdata/fixtures.json
 >>>>>>> Update fixtures with latest model definitions
       "story_id": "2"
     }
@@ -83,6 +116,19 @@
     "fields": {
       "name": "Vendor Shop",
 >>>>>>> Update fixtures with latest model definitions
+=======
+      "story_id": "2",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Vendor",
+    "pk": "1",
+    "fields": {
+      "name": "No Optional Null Fields Are Null",
+      "status": "True",
+>>>>>>> Write manual fixtures, generate auto fixtures, write fixture docs:whats_fresh/whats_fresh_api/tests/testdata/fixtures.json
       "description": "This is a vendor shop.",
       "lat": "37.833688", 
       "long": "-122.478002",
@@ -90,8 +136,9 @@
       "city": "Sausalito",
       "state": "CA",
       "zip": "94965",
-      "location_description": "",
+      "location_description": "Location description",
       "contact_name": "A. Persson",
+<<<<<<< HEAD:project_fish/whats_fresh/testdata/fixtures.json
 <<<<<<< HEAD
 <<<<<<< HEAD
       "phone": "1",
@@ -128,6 +175,22 @@
     "fields": {
       "name": "Les Francais",
 >>>>>>> Update fixtures with latest model definitions
+=======
+      "phone": "+1 541-737-7627",
+      "story_id": "1",
+      "website": "http://example.com",
+      "email": "a@perr.com",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Vendor",
+    "pk": "2",
+    "fields": {
+      "name": "All Optional Null Fields Are Null",
+      "status": null,
+>>>>>>> Write manual fixtures, generate auto fixtures, write fixture docs:whats_fresh/whats_fresh_api/tests/testdata/fixtures.json
       "description": "Ceci n'est pas un magasin.",
       "lat": "43.418297",
       "long": "-124.219635",
@@ -135,51 +198,59 @@
       "city": "North Bend",
       "state": "OR",
       "zip": "97459",
-      "location_description": "Some small street somewhere",
+      "location_description": "",
       "contact_name": "Isabelle",
       "phone": "555 123 4567",
+<<<<<<< HEAD:project_fish/whats_fresh/testdata/fixtures.json
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> Update fixtures with latest model definitions
       "website": "1",
       "email": "1"
+=======
+      "story_id": "2",
+      "website": "",
+      "email": "",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+>>>>>>> Write manual fixtures, generate auto fixtures, write fixture docs:whats_fresh/whats_fresh_api/tests/testdata/fixtures.json
     }
   },
   {
-    "model": "whats_fresh.VendorProduct",
+    "model": "whats_fresh_api.VendorProduct",
     "pk": "1",
     "fields": {
-       "vendor_id": "1",
-       "product_id": "2",
-       "preparation_id": "1",
+       "vendor": "1",
+       "product": "2",
+       "preparation": "1",
        "vendor_price": "$12 per dozen",
        "available": "None"
     }
   },
   {
-    "model": "whats_fresh.ProductPreparation",
+    "model": "whats_fresh_api.ProductPreparation",
     "pk": "1",
     "fields": {
-       "preparation_id": "1",
-       "product_id": "2"
+       "preparation": "1",
+       "product": "2"
     }
   },
   {
-    "model": "whats_fresh.ProductPreparation",
+    "model": "whats_fresh_api.ProductPreparation",
     "pk": "2",
     "fields": {
-       "preparation_id": "2",
-       "product_id": "1"
+       "preparation": "2",
+       "product": "1"
     }
   },
   {
-    "model": "whats_fresh.VendorProduct",
+    "model": "whats_fresh_api.VendorProduct",
     "pk": "2",
     "fields": {
-       "vendor_id": "2",
-       "product_id": "1",
-       "preparation_id": "1",
+       "vendor": "2",
+       "product": "1",
+       "preparation": "1",
        "vendor_price": "$6 per pound",
        "available": "False"
 <<<<<<< HEAD
@@ -193,6 +264,7 @@
     }
   },
   {
+<<<<<<< HEAD:project_fish/whats_fresh/testdata/fixtures.json
     "model": "whats_fresh.Image",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -233,16 +305,37 @@
     "pk": 1,
 >>>>>>> Begin fixtures. Can not proceed until models are underway
 =======
-    "pk": "1",
->>>>>>> Update fixtures with latest model definitions
+=======
+    "model": "whats_fresh_api.VendorProduct",
+    "pk": "3",
     "fields": {
-      "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations..."
+       "vendor": "1",
+       "product": "1",
+       "preparation": "1",
+       "vendor_price": "Free!",
+       "available": "False"
     }
   },
   {
+    "model": "whats_fresh_api.Image",
+>>>>>>> Write manual fixtures, generate auto fixtures, write fixture docs:whats_fresh/whats_fresh_api/tests/testdata/fixtures.json
+    "pk": "1",
+>>>>>>> Update fixtures with latest model definitions
+    "fields": {
+      "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh_api/testdata/media/dog.jpg",
+      "caption": "Woof!",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+<<<<<<< HEAD:project_fish/whats_fresh/testdata/fixtures.json
     "model": "whats_fresh.Story",
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+    "model": "whats_fresh_api.Image",
+>>>>>>> Write manual fixtures, generate auto fixtures, write fixture docs:whats_fresh/whats_fresh_api/tests/testdata/fixtures.json
     "pk": "2",
 =======
     "pk": 2,
@@ -251,10 +344,14 @@
     "pk": "2",
 >>>>>>> Update fixtures with latest model definitions
     "fields": {
-      "story": "This is the story, all about how my life got flip turned upside down!"
+      "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh_api/testdata/media/cat.jpg",
+      "caption": "Meow!",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
     }
   },
   {
+<<<<<<< HEAD:project_fish/whats_fresh/testdata/fixtures.json
     "model": "whats_fresh.Preparation",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -263,6 +360,9 @@
     "pk": 1,
 >>>>>>> Begin fixtures. Can not proceed until models are underway
 =======
+=======
+    "model": "whats_fresh_api.Preparation",
+>>>>>>> Write manual fixtures, generate auto fixtures, write fixture docs:whats_fresh/whats_fresh_api/tests/testdata/fixtures.json
     "pk": "1",
 >>>>>>> Update fixtures with latest model definitions
     "fields": {
@@ -272,6 +372,7 @@
     }
   },
   {
+<<<<<<< HEAD:project_fish/whats_fresh/testdata/fixtures.json
     "model": "whats_fresh.Preparation",
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -280,6 +381,9 @@
     "pk": 2,
 >>>>>>> Begin fixtures. Can not proceed until models are underway
 =======
+=======
+    "model": "whats_fresh_api.Preparation",
+>>>>>>> Write manual fixtures, generate auto fixtures, write fixture docs:whats_fresh/whats_fresh_api/tests/testdata/fixtures.json
     "pk": "2",
 >>>>>>> Update fixtures with latest model definitions
     "fields": {
@@ -289,3 +393,4 @@
     }
   }
 ]
+
