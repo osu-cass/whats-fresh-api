@@ -125,7 +125,7 @@ the ``requirements.txt`` file provided in the root of the repository::
 
 Now, create the database tables using ``manage.py``::
 
-$ python manage.py syncdb
+(venv)[vagrant@project-fish ~]$ python manage.py syncdb
 
 You should now be ready to run the Django app!
 ::
