@@ -17,6 +17,11 @@ class VendorProductJoinTestCase(TestCase):
             'id': models.AutoField
         }
 
+        self.optional_fields = {
+            'vendor_price',
+            'available'
+        }
+
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'VendorProduct')
         for field, field_type in self.expected_fields.items():
@@ -34,5 +39,7 @@ class VendorProductJoinTestCase(TestCase):
             self.fail("No __unicode__ method found")
 
     def test_optional_fields(self):
-        self.assertEqual(VendorProduct._meta.get_field_by_name('vendor_price')[0].null,
-                True)
+        model = models.get_model('whats_fresh_api', 'VendorProduct')
+        for field in self.optional_fields:
+            self.assertEqual(VendorProduct._meta.get_field_by_name(field)[0].null, True)
+            self.assertEqual(VendorProduct._meta.get_field_by_name(field)[0].blank, True)

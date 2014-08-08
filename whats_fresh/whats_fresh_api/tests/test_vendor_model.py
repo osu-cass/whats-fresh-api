@@ -10,7 +10,6 @@ import time
 import sys
 import datetime
 
-
 class VendorTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
@@ -37,6 +36,13 @@ class VendorTestCase(TestCase):
             'id': models.AutoField
         }
 
+        self.optional_fields = {
+            'status',
+            'location_description',
+            'website',
+            'email'
+        }
+
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'Vendor')
         for field, field_type in self.expected_fields.items():
@@ -58,7 +64,7 @@ class VendorTestCase(TestCase):
             self.fail("No __unicode__ method found")
 
     def test_optional_fields(self):
-            self.assertEqual(Vendor._meta.get_field_by_name('status')[0].null, True)
-            self.assertEqual(Vendor._meta.get_field_by_name('location_description')[0].null, True)
-            self.assertEqual(Vendor._meta.get_field_by_name('website')[0].null, True)
-            self.assertEqual(Vendor._meta.get_field_by_name('email')[0].null, True)
+        model = models.get_model('whats_fresh_api', 'Vendor')
+        for field in self.optional_fields:
+            self.assertEqual(Vendor._meta.get_field_by_name(field)[0].null, True)
+            self.assertEqual(Vendor._meta.get_field_by_name(field)[0].blank, True)
