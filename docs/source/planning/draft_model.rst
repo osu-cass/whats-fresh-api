@@ -15,7 +15,7 @@ products
 	season          varchar (string describing season?)
 	available       bool (optional, is or isn't available now?)
 	market_price    varchar
-	link            url (link to industry info site)
+	link            url (optional, link to industry info site)
 	image_id        int (optional, image foreign key)
 	stories_id      int (optional, image foreign key)
 	created         datetime
