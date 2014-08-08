@@ -50,12 +50,12 @@ class Vendor(models.Model):
     contact_name = models.TextField()
     website = models.URLField(null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
-    phone = PhoneNumberField()
+    phone = PhoneNumberField(null=True, blank=True)
 
-    lat = models.FloatField()
-    long = models.FloatField()
+    lat = models.FloatField(null=True, blank=True)
+    long = models.FloatField(null=True, blank=True)
 
-    story_id = models.ForeignKey('Story')
+    story_id = models.ForeignKey('Story', null=True, blank=True)
     products = models.ManyToManyField(
         'Product',
         related_name='vendors',
@@ -85,9 +85,9 @@ class Product(models.Model):
     season = models.TextField()
     available = models.NullBooleanField(null=True, blank=True)
     market_price = models.TextField()
-    link = models.URLField()
+    link = models.URLField(null=True, blank=True)
 
-    image_id = models.ForeignKey('Image')
+    image_id = models.ForeignKey('Image', null=True, blank=True)
     story_id = models.ForeignKey('Story')
 
     preparations = models.ManyToManyField(

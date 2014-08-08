@@ -38,7 +38,9 @@ class ProductTestCase(TestCase):
             'variety',
             'alt_name',
             'origin',
-            'available'
+            'available',
+            'image_id',
+            'link'
         }
 
     def test_fields_exist(self):

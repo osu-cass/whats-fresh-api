@@ -40,7 +40,11 @@ class VendorTestCase(TestCase):
             'status',
             'location_description',
             'website',
-            'email'
+            'email',
+            'phone',
+            'lat',
+            'long',
+            'story_id'
         }
 
     def test_fields_exist(self):
