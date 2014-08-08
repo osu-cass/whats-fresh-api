@@ -20,6 +20,45 @@ import os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
+import sys
+
+class Mock(object):
+
+    __all__ = []
+
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def ImageField(self, upload_to=None):
+        pass
+
+    def ForeignKey(self, model, null=None):
+        pass
+
+    def ManyToManyField(self, model, related_name=None, through=None):
+        pass
+
+    def DateTimeField(self, auto_now_add=None, auto_now=None):
+        pass
+
+    def __call__(self, *args, **kwargs):
+        return Mock()
+
+    @classmethod
+    def __getattr__(cls, name):
+        if name in ('__file__', '__path__'):
+            return '/dev/null'
+        elif name[0] == name[0].upper():
+            mockType = type(name, (), {})
+            mockType.__module__ = __name__
+            return mockType
+        else:
+            return Mock()
+
+MOCK_MODULES = ['django.contrib.gis.db']
+for mod_name in MOCK_MODULES:
+    sys.modules[mod_name] = Mock()
+
 sys.path.insert(0, os.path.abspath('../../whats_fresh'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "whats_fresh.settings")
 
