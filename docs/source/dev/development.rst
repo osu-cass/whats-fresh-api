@@ -112,10 +112,16 @@ Your prompt should look like this now::
 
 (venv)[vagrant@project-fish ~]$
 
+It's a good idea to navigate to the project directory now, so that ``manage.py``
+functions as expected.
+
+::
+(venv)[vagrant@project-fish ~]$ cd whats-fresh/whats_fresh
+
 To install the Python packages needed to run the Django project, run pip with
 the ``requirements.txt`` file provided in the root of the repository::
 
-$ pip install -r whats-fresh/requirements.txt
+(venv)[vagrant@project-fish ~]$ pip install -r ~/whats-fresh/requirements.txt
 
 Now, create the database tables using ``manage.py``::
 
@@ -123,7 +129,7 @@ $ python whats-fresh/whats_fresh/manage.py syncdb
 
 You should now be ready to run the Django app!
 ::
-    $ python whats-fresh/whats_fresh/manage.py runserver 0.0.0.0:8000
+(venv)[vagrant@project-fish ~]$ python manage.py runserver 0.0.0.0:8000
 
 Testing
 -------
