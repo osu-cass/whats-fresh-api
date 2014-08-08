@@ -1,0 +1,192 @@
+[
+  {
+    "model": "whats_fresh_api.Story",
+    "pk": "1",
+    "fields": {
+      "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations...",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Story",
+    "pk": "2",
+    "fields": {
+      "story": "This is the story, all about how my life got flip turned upside down!",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Product",
+    "pk": "1",
+    "fields": {
+      "name": "Starfish Voyager",
+      "variety": "Tuna",
+      "alt_name": "The Stargazer",
+      "description": "This is one sweet fish!",
+      "origin": "The Delta Quadrant",
+      "season": "Season 1",
+      "available": "True",
+      "market_price": "$33.31",
+      "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
+      "image_id": "1",
+      "story_id": "1",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Product",
+    "pk": "2",
+    "fields": {
+      "name": "Ezri Dax",
+      "variety": "Freshwater Eel",
+      "alt_name": "Jadzia",
+      "description": "That's not actually an eel, it's a symbiote.",
+      "origin": "Trill",
+      "season": "Season 7",
+      "available": "True",
+      "market_price": "$32.64 per season",
+      "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
+      "image_id": "1",
+      "story_id": "2",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Vendor",
+    "pk": "1",
+    "fields": {
+      "name": "No Optional Null Fields Are Null",
+      "status": "True",
+      "description": "This is a vendor shop.",
+      "lat": "37.833688", 
+      "long": "-122.478002",
+      "street": "1633 Sommerville Rd",
+      "city": "Sausalito",
+      "state": "CA",
+      "zip": "94965",
+      "location_description": "Location description",
+      "contact_name": "A. Persson",
+      "phone": "+1 541-737-7627",
+      "story_id": "1",
+      "website": "http://example.com",
+      "email": "a@perr.com",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Vendor",
+    "pk": "2",
+    "fields": {
+      "name": "All Optional Null Fields Are Null",
+      "status": null,
+      "description": "Ceci n'est pas un magasin.",
+      "lat": "43.418297",
+      "long": "-124.219635",
+      "street": "501 Isabelle Rd",
+      "city": "North Bend",
+      "state": "OR",
+      "zip": "97459",
+      "location_description": "",
+      "contact_name": "Isabelle",
+      "phone": "555 123 4567",
+      "story_id": "2",
+      "website": "",
+      "email": "",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.VendorProduct",
+    "pk": "1",
+    "fields": {
+       "vendor": "1",
+       "product": "2",
+       "preparation": "1",
+       "vendor_price": "$12 per dozen",
+       "available": "None"
+    }
+  },
+  {
+    "model": "whats_fresh_api.ProductPreparation",
+    "pk": "1",
+    "fields": {
+       "preparation": "1",
+       "product": "2"
+    }
+  },
+  {
+    "model": "whats_fresh_api.ProductPreparation",
+    "pk": "2",
+    "fields": {
+       "preparation": "2",
+       "product": "1"
+    }
+  },
+  {
+    "model": "whats_fresh_api.VendorProduct",
+    "pk": "2",
+    "fields": {
+       "vendor": "2",
+       "product": "1",
+       "preparation": "1",
+       "vendor_price": "$6 per pound",
+       "available": "False"
+    }
+  },
+  {
+    "model": "whats_fresh_api.VendorProduct",
+    "pk": "3",
+    "fields": {
+       "vendor": "1",
+       "product": "1",
+       "preparation": "1",
+       "vendor_price": "Free!",
+       "available": "False"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Image",
+    "pk": "1",
+    "fields": {
+      "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh_api/testdata/media/dog.jpg",
+      "caption": "Woof!",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Image",
+    "pk": "2",
+    "fields": {
+      "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh_api/testdata/media/cat.jpg",
+      "caption": "Meow!",
+      "created": "2014-08-08 23:27:05.568395",
+      "modified": "2014-08-08 23:27:05.568395"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Preparation",
+    "pk": "1",
+    "fields": {
+      "name": "Live",
+      "description": "The food goes straight from sea to you with live food, sitting in saltwater tanks!",
+      "additional_info": "Live octopus requires a locking container"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Preparation",
+    "pk": "2",
+    "fields": {
+      "name": "Filet",
+      "description": "",
+      "additional_info": ""
+    }
+  }
+]
+
