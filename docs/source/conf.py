@@ -20,9 +20,14 @@ import os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
-import sys
-
 class Mock(object):
+    """
+    Mocks the methods necessary for autodoc to import models.py.
+    This is a bit of a hack, and will probably need updating as we continue.
+
+    See Read The Docs' docs for more info:
+    http://read-the-docs.readthedocs.org/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
+    """
 
     __all__ = []
 
