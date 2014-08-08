@@ -23,14 +23,6 @@ Developer Setup:
 
    dev/development
 
-Temporary Draft Documentation:
-
-.. toctree::
-   :maxdepth: 2
-
-   planning/draft_model
-   planning/draft_api
-
 Model and View documentation:
 
 .. toctree::
@@ -38,31 +30,6 @@ Model and View documentation:
 
    dev/models
    dev/views
-
-Temporary Draft Documentation:
-
-.. toctree::
-   :maxdepth: 2
-
-   planning/draft_model
-   planning/draft_api
-
-Model and View documentation:
-
-.. toctree::
-   :maxdepth: 2
-
-   dev/models
-   dev/views
-
-Temporary Draft Documentation:
-
-.. toctree::
-   :maxdepth: 2
-
-   planning/draft_model
-   planning/draft_api
-
 
 Indices and tables
 ==================
@@ -70,4 +37,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
