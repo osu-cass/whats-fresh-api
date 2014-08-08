@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.core import management
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 
@@ -9,11 +8,9 @@ import json
 
 
 class VendorsTestCase(TestCase):
+    fixtures = ['fixtures']
+
     def setUp(self):
-        """
-        Install fixtures and define initial expected JSON
-        """
-        management.call_command('loaddata', 'fixtures', verbosity=0)
 
         # This is the expected return, as JSON
         # We can't use this, unfortunately, because we nede to allow
@@ -43,8 +40,8 @@ class VendorsTestCase(TestCase):
         "email": "a@perr.com",
         "story": "1",
         "ext": {},
-        "created": "known string",
-        "updated": "known string",
+        "created": "2014-08-08 23:27:05.568395",
+        "updated": "2014-08-08 23:27:05.568395",
         "products": {
             "1": {
                 "name": "Starfish Voyager",
@@ -73,8 +70,8 @@ class VendorsTestCase(TestCase):
         "email": null,
         "story": null,
         "ext": {},
-        "created": "known string",
-        "updated": "known string",
+        "created": "2014-08-08 23:27:05.568395",
+        "updated": "2014-08-08 23:27:05.568395",
         "products": {
             "1": {
                 "name": "Starfish Voyager",
@@ -83,7 +80,6 @@ class VendorsTestCase(TestCase):
         }
     }
 }"""
-
 
     def test_url_endpoint(self):
         url = reverse('vendors-list')
@@ -96,12 +92,4 @@ class VendorsTestCase(TestCase):
 
         expected_answer = json.loads(self.expected_json)
 
-        # Set created and updated to known strings
-        for dictionary in [parsed_answer, expected_answer]:
-            for first_key in ['1', '2']:
-                for second_key in ['created', 'updated']:
-                    dictionary[first_key][second_key] = "known string"
-
-        self.assertTrue(parsed_answer['1'] == expected_answer['1'])
-        self.assertTrue(parsed_answer['2'] == expected_answer['2'])
-        self.assertTrue(parsed_answer['error'] == expected_answer['error'])
+        self.assertTrue(parsed_answer == expected_answer)
