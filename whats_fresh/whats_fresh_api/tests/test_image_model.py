@@ -54,3 +54,7 @@ class ImageTestCase(TestCase):
             result = Image.filename(Image(image="cat.jpg"))
         except AttributeError as e:
             self.fail("No __unicode__ method found")
+
+    def test_optional_fields(self):
+        self.assertEqual(Image._meta.get_field_by_name('caption')[0].null, True)
+

@@ -32,3 +32,7 @@ class VendorProductJoinTestCase(TestCase):
             result = VendorProduct.__unicode__(VendorProduct())
         except AttributeError as e:
             self.fail("No __unicode__ method found")
+
+    def test_optional_fields(self):
+        self.assertEqual(VendorProduct._meta.get_field_by_name('vendor_price')[0].null,
+                True)

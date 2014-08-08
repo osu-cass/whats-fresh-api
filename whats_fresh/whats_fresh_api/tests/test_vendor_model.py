@@ -20,6 +20,7 @@ class VendorTestCase(TestCase):
             'city': models.TextField,
             'state': models.TextField,
             'zip': models.TextField,
+            'status': models.NullBooleanField,
             'location_description': models.TextField,
             'contact_name': models.TextField,
             'website': models.URLField,
@@ -55,3 +56,9 @@ class VendorTestCase(TestCase):
             result = Vendor.__unicode__(Vendor())
         except AttributeError as e:
             self.fail("No __unicode__ method found")
+
+    def test_optional_fields(self):
+            self.assertEqual(Vendor._meta.get_field_by_name('status')[0].null, True)
+            self.assertEqual(Vendor._meta.get_field_by_name('location_description')[0].null, True)
+            self.assertEqual(Vendor._meta.get_field_by_name('website')[0].null, True)
+            self.assertEqual(Vendor._meta.get_field_by_name('email')[0].null, True)

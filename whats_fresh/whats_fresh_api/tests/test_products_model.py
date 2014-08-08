@@ -53,3 +53,9 @@ class ProductTestCase(TestCase):
             result = Product.__unicode__(Product())
         except AttributeError as e:
             self.fail("No __unicode__ method found")
+
+    def test_optional_fields(self):
+        self.assertEqual(Product._meta.get_field_by_name('variety')[0].null, True)
+        self.assertEqual(Product._meta.get_field_by_name('alt_name')[0].null, True)
+        self.assertEqual(Product._meta.get_field_by_name('origin')[0].null, True)
+        self.assertEqual(Product._meta.get_field_by_name('available')[0].null, True)
