@@ -21,7 +21,7 @@ class Image(models.Model):
         return self.filename()
 
     image = models.ImageField(upload_to='images')
-    caption = models.TextField()
+    caption = models.TextField(blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -45,17 +45,18 @@ class Vendor(models.Model):
     city = models.TextField()
     state = models.TextField()
     zip = models.TextField()
-    location_description = models.TextField()
+    location_description = models.TextField(blank=True)
+    status = models.NullBooleanField()
 
     contact_name = models.TextField()
-    website = models.URLField()
-    email = models.EmailField()
-    phone = PhoneNumberField()
+    website = models.URLField(blank=True)
+    email = models.EmailField(blank=True)
+    phone = PhoneNumberField(blank=True)
 
     lat = models.FloatField()
     long = models.FloatField()
 
-    story_id = models.ForeignKey('Story')
+    story_id = models.ForeignKey('Story', null=True)
     products = models.ManyToManyField(
         'Product',
         related_name='vendors',
@@ -77,18 +78,18 @@ class Product(models.Model):
         return self.name
 
     name = models.TextField()
-    variety = models.TextField()
-    alt_name = models.TextField()
+    variety = models.TextField(blank=True)
+    alt_name = models.TextField(blank=True)
     description = models.TextField()
-    origin = models.TextField()
+    origin = models.TextField(blank=True)
 
     season = models.TextField()
     available = models.NullBooleanField()
     market_price = models.TextField()
-    link = models.URLField()
+    link = models.URLField(blank=True)
 
-    image_id = models.ForeignKey('Image')
-    story_id = models.ForeignKey('Story')
+    image_id = models.ForeignKey('Image', null=True)
+    story_id = models.ForeignKey('Story', null=True)
 
     preparations = models.ManyToManyField(
         'Preparation', related_name='products', through='ProductPreparation')
@@ -123,9 +124,9 @@ class Preparation(models.Model):
     def __unicode__(self):
         return self.name
 
-    name = models.TextField()
-    description = models.TextField()
-    additional_info = models.TextField()
+    name = models.TextField(blank=True)
+    description = models.TextField(blank=True)
+    additional_info = models.TextField(blank=True)
 
 
 class ProductPreparation(models.Model):
@@ -139,7 +140,7 @@ class ProductPreparation(models.Model):
         else:
             return "Preparations for product %s" % (self.product.name)
 
-    product = models.ForeignKey(Product, null=True)
+    product = models.ForeignKey(Product)
     preparation = models.ForeignKey(Preparation)
 
 
@@ -158,9 +159,9 @@ class VendorProduct(models.Model):
         else:
             return "Products for vendor %s" % (self.vendor.name)
 
-    vendor = models.ForeignKey(Vendor, null=True)
+    vendor = models.ForeignKey(Vendor)
     product = models.ForeignKey(Product)
     preparation = models.ForeignKey(Preparation)
 
-    vendor_price = models.TextField()
+    vendor_price = models.TextField(blank=True)
     available = models.NullBooleanField()

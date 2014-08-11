@@ -31,6 +31,10 @@ class ProductPreparationTestCase(TestCase):
 
     def test___unicode___method(self):
         try:
-            result = ProductPreparation.__unicode__(ProductPreparation())
+            result = ProductPreparation.__unicode__(
+                ProductPreparation(
+                    product=Product(name='test'),
+                    preparation=Preparation(name='test')
+                ))
         except AttributeError as e:
             self.fail("No __unicode__ method found")

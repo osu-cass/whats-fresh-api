@@ -34,6 +34,15 @@ class ProductTestCase(TestCase):
             'id': models.AutoField
         }
 
+        self.optional_fields = {
+            'variety',
+            'alt_name',
+            'origin',
+            'link'
+        }
+
+        self.null_fields = {'story_id', 'image_id'}
+
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'Product')
         for field, field_type in self.expected_fields.items():
@@ -53,3 +62,10 @@ class ProductTestCase(TestCase):
             result = Product.__unicode__(Product())
         except AttributeError as e:
             self.fail("No __unicode__ method found")
+
+    def test_optional_fields(self):
+        model = models.get_model('whats_fresh_api', 'Product')
+        for field in self.optional_fields:
+            self.assertEqual(Product._meta.get_field_by_name(field)[0].blank, True)
+        for field in self.null_fields:
+            self.assertEqual(Product._meta.get_field_by_name(field)[0].null, True)

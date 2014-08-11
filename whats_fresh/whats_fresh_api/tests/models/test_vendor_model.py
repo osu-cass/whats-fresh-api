@@ -10,7 +10,6 @@ import time
 import sys
 import datetime
 
-
 class VendorTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
@@ -21,6 +20,7 @@ class VendorTestCase(TestCase):
             'city': models.TextField,
             'state': models.TextField,
             'zip': models.TextField,
+            'status': models.NullBooleanField,
             'location_description': models.TextField,
             'contact_name': models.TextField,
             'website': models.URLField,
@@ -36,6 +36,15 @@ class VendorTestCase(TestCase):
             'vendorproduct': models.related.RelatedObject,
             'id': models.AutoField
         }
+
+        self.optional_fields = {
+            'location_description',
+            'website',
+            'email',
+            'phone'
+        }
+
+        self.null_fields = {'story_id'}
 
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'Vendor')
@@ -56,3 +65,10 @@ class VendorTestCase(TestCase):
             result = Vendor.__unicode__(Vendor())
         except AttributeError as e:
             self.fail("No __unicode__ method found")
+
+    def test_optional_fields(self):
+        model = models.get_model('whats_fresh_api', 'Vendor')
+        for field in self.optional_fields:
+            self.assertEqual(Vendor._meta.get_field_by_name(field)[0].blank, True)
+        for field in self.null_fields:
+            self.assertEqual(Vendor._meta.get_field_by_name(field)[0].null, True)

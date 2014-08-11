@@ -24,6 +24,10 @@ class ImageTestCase(TestCase):
             'id': models.AutoField
         }
 
+        self.optional_fields = {
+            'caption'
+        }
+
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'Image')
         for field, field_type in self.expected_fields.items():
@@ -54,3 +58,8 @@ class ImageTestCase(TestCase):
             result = Image.filename(Image(image="cat.jpg"))
         except AttributeError as e:
             self.fail("No __unicode__ method found")
+
+    def test_optional_fields(self):
+        model = models.get_model('whats_fresh_api', 'Image')
+        for field in self.optional_fields:
+            self.assertEqual(Image._meta.get_field_by_name(field)[0].blank, True)
