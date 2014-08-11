@@ -26,6 +26,9 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+FIXTURE_DIRS = (
+    'whats_fresh_api/tests/testdata',
+)
 
 # Application definition
 

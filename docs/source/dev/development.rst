@@ -106,7 +106,7 @@ Now you should be on the Vagrant machine::
 To get developing, you'll need to prepare your virtual environment. To do so,
 first activate the Python virtualenv::
 
-$ source venv/bin/activate
+(venv)[vagrant@project-fish ~]$ source venv/bin/activate
 
 Your prompt should look like this now::
 
@@ -149,7 +149,7 @@ Let's say you've just modified the code -- say, you edited the Vendor model
 due to a bug you found. Instead of running the entire testing suite, you can
 run just one set of tests at a time::
 
-    $ python manage.py test whats_fresh_api.tests.models.test_vendor_model.VendorTestCase
+(venv)[vagrant@project-fish ~]$ python manage.py test whats_fresh_api.tests.models.test_vendor_model.VendorTestCase
 
 .. note::
 
@@ -160,10 +160,25 @@ run just one set of tests at a time::
     For a test called ImageTestCase inside of ``tests/views/test_image_view.py``,
     you would need to run the following command::
 
-        $ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
+(venv)[vagrant@project-fish ~]$ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
 
 To make sure that you didn't break anything unexpected, it can be a good idea
 to periodically run the entire testing suite, especially before committing any
 particularly hairy commits::
 
-    $ python manage.py test
+(venv)[vagrant@project-fish ~]$ python manage.py test
+
+**Fixtures**
+
+Django allows you to load pre-written data into the database for testing
+purposes. The data is stored in files called fixtures, and for testing
+purposes, the What's Fresh API comes with a few hand-written (for running
+tests where we need to know the input data) and a large number of automatically
+generated (for when we simply want to have data in our database).
+
+To install a fixture, use the ``manage.py`` command's loaddata option::
+
+(venv)[vagrant@project-fish ~]$ manage.py loaddata fixtures
+
+The hand-written fixtures are stored in ``fixtures``, and the automatically
+generated ones in ``random``.
