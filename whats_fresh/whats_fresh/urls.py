@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    (r'^',include('whats_fresh_api.urls')),
 )
 
 if settings.DEBUG:

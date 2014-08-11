@@ -8,7 +8,7 @@ import json
 
 
 class VendorsTestCase(TestCase):
-    fixtures = ['fixtures']
+    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
 
     def setUp(self):
 
@@ -27,28 +27,28 @@ class VendorsTestCase(TestCase):
         "name": "No Optional Null Fields Are Null",
         "status": true,
         "description": "This is a vendor shop.",
-        "lat": "37.833688000000002",
-        "long": "-122.478002",
+        "lat": 37.833688,
+        "long": -122.478002,
         "street": "1633 Sommerville Rd",
         "city": "Sausalito",
         "state": "CA",
         "zip": "94965",
         "location_description": "Location description",
         "contact_name": "A. Persson",
-        "phone": "5417377627",
+        "phone": 5417377627,
         "website": "http://example.com",
         "email": "a@perr.com",
-        "story": "1",
+        "story": 1,
         "ext": {},
-        "created": "2014-08-08 23:27:05.568395",
-        "updated": "2014-08-08 23:27:05.568395",
+        "created": "2014-08-08 23:27:05.568395+00:00",
+        "updated": "2014-08-08 23:27:05.568395+00:00",
         "products": {
             "1": {
                 "name": "Starfish Voyager",
                 "preparation": "Live"
             },
             "2": {
-                "name": "Something",
+                "name": "Ezri Dax",
                 "preparation": "Live"
             }
         }
@@ -57,21 +57,21 @@ class VendorsTestCase(TestCase):
         "name": "All Optional Null Fields Are Null",
         "status": null,
         "description": "Ceci n'est pas un magasin.",
-        "lat": "43.418297000000003",
-        "long": "-124.219635",
+        "lat": 43.418297,
+        "long": -124.219635,
         "street": "501 Isabelle Rd",
         "city": "North Bend",
         "state": "OR",
         "zip": "97459",
-        "location_description": null,
+        "location_description": "",
         "contact_name": "Isabelle",
         "phone": null,
-        "website": null,
-        "email": null,
+        "website": "",
+        "email": "",
         "story": null,
         "ext": {},
-        "created": "2014-08-08 23:27:05.568395",
-        "updated": "2014-08-08 23:27:05.568395",
+        "created": "2014-08-08 23:27:05.568395+00:00",
+        "updated": "2014-08-08 23:27:05.568395+00:00",
         "products": {
             "1": {
                 "name": "Starfish Voyager",
