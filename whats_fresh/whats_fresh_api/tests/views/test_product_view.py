@@ -12,8 +12,11 @@ import sys
 import datetime
 import json
 
+
 class ProductViewTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']         
+
+    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+
     def setup(self):
         self.expected_json = {
             "error": {
@@ -32,7 +35,7 @@ class ProductViewTestCase(TestCase):
                     "description": "This is one sweet fish!",
                     "origin": "The Delta Quadrant",
                     "season": "Season 1",
-                    "available": True,
+                    "available": true,
                     "market_price": "$33.31",
                     "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
                     "image_id": 1,
@@ -51,7 +54,7 @@ class ProductViewTestCase(TestCase):
                     "description": "That's not actually an eel, it's a symbiote.",
                     "origin": "Trill",
                     "season": "Season 7",
-                    "available": True,
+                    "available": true,
                     "market_price": "$32.64 per season",
                     "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
                     "image_id": 1,
