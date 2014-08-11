@@ -10,9 +10,9 @@ class StoriesTestCase(TestCase):
     fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
 
     def setUp(self):
-        self.expected_json = """"
+        self.expected_json = """
 {
-    error": {
+    "error": {
         "error_status": false,
         "error_name": null,
         "error_text": null,
@@ -23,10 +23,9 @@ class StoriesTestCase(TestCase):
     }
 }"""
 
-
     def test_url_endpoint(self):
-       url = reverse('story-details', kwargs={'id': '1'})
-       self.assertEqual(url, '/stories/1')
+        url = reverse('story-details', kwargs={'id': '1'})
+        self.assertEqual(url, '/stories/1')
 
     def test_json_equals(self):
         c = Client()
