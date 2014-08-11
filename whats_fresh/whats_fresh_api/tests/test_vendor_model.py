@@ -37,15 +37,13 @@ class VendorTestCase(TestCase):
         }
 
         self.optional_fields = {
-            'status',
             'location_description',
             'website',
             'email',
-            'phone',
-            'lat',
-            'long',
-            'story_id'
+            'phone'
         }
+
+        self.null_fields = {'story_id'}
 
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'Vendor')
@@ -70,5 +68,6 @@ class VendorTestCase(TestCase):
     def test_optional_fields(self):
         model = models.get_model('whats_fresh_api', 'Vendor')
         for field in self.optional_fields:
-            self.assertEqual(Vendor._meta.get_field_by_name(field)[0].null, True)
             self.assertEqual(Vendor._meta.get_field_by_name(field)[0].blank, True)
+        for field in self.null_fields:
+            self.assertEqual(Vendor._meta.get_field_by_name(field)[0].null, True)

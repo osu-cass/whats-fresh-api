@@ -38,10 +38,10 @@ class ProductTestCase(TestCase):
             'variety',
             'alt_name',
             'origin',
-            'available',
-            'image_id',
             'link'
         }
+
+        self.null_fields = {'story_id', 'image_id'}
 
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'Product')
@@ -66,5 +66,6 @@ class ProductTestCase(TestCase):
     def test_optional_fields(self):
         model = models.get_model('whats_fresh_api', 'Product')
         for field in self.optional_fields:
-            self.assertEqual(Product._meta.get_field_by_name(field)[0].null, True)
             self.assertEqual(Product._meta.get_field_by_name(field)[0].blank, True)
+        for field in self.null_fields:
+            self.assertEqual(Product._meta.get_field_by_name(field)[0].null, True)
