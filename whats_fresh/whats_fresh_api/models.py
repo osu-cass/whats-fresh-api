@@ -21,7 +21,7 @@ class Image(models.Model):
         return self.filename()
 
     image = models.ImageField(upload_to='images')
-    caption = models.TextField()
+    caption = models.TextField(blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -39,17 +39,17 @@ class Vendor(models.Model):
 
     name = models.TextField()
     description = models.TextField()
-    status = models.NullBooleanField()
+    status = models.NullBooleanField(null=True, blank=True)
 
     street = models.TextField()
     city = models.TextField()
     state = models.TextField()
     zip = models.TextField()
-    location_description = models.TextField()
+    location_description = models.TextField(blank=True)
 
     contact_name = models.TextField()
-    website = models.URLField()
-    email = models.EmailField()
+    website = models.URLField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
     phone = PhoneNumberField()
 
     lat = models.FloatField()
@@ -77,13 +77,13 @@ class Product(models.Model):
         return self.name
 
     name = models.TextField()
-    variety = models.TextField()
-    alt_name = models.TextField()
+    variety = models.TextField(blank=True)
+    alt_name = models.TextField(blank=True)
     description = models.TextField()
     origin = models.TextField()
 
     season = models.TextField()
-    available = models.NullBooleanField()
+    available = models.NullBooleanField(null=True, blank=True)
     market_price = models.TextField()
     link = models.URLField()
 
@@ -162,5 +162,5 @@ class VendorProduct(models.Model):
     product = models.ForeignKey(Product)
     preparation = models.ForeignKey(Preparation)
 
-    vendor_price = models.TextField()
+    vendor_price = models.TextField(blank=True)
     available = models.NullBooleanField()
