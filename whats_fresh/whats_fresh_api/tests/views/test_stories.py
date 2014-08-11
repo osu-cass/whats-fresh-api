@@ -18,14 +18,12 @@ class StoriesTestCase(TestCase):
         "error_text": null,
         "error_level": null
     },
-    {
-        "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations..."
-    }
+    "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations..."
 }"""
 
     def test_url_endpoint(self):
-        url = reverse('story-details', kwargs={'id': '1'})
-        self.assertEqual(url, '/stories/1')
+       url = reverse('story-details', kwargs={'id': '1'})
+       self.assertEqual(url, '/stories/1')
 
     def test_json_equals(self):
         c = Client()
