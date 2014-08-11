@@ -4,8 +4,8 @@
     "pk": "1",
     "fields": {
       "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations...",
-      "created": "2014-08-08 23:27:05.568395",
-      "modified": "2014-08-08 23:27:05.568395"
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
@@ -13,13 +13,13 @@
     "pk": "2",
     "fields": {
       "story": "This is the story, all about how my life got flip turned upside down!",
-      "created": "2014-08-08 23:27:05.568395",
-      "modified": "2014-08-08 23:27:05.568395"
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
     "model": "whats_fresh_api.Product",
-    "pk": "1",
+    "pk": "2",
     "fields": {
       "name": "Starfish Voyager",
       "variety": "Tuna",
@@ -32,13 +32,13 @@
       "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
       "image_id": "1",
       "story_id": "1",
-      "created": "2014-08-08 23:27:05.568395",
-      "modified": "2014-08-08 23:27:05.568395"
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
     "model": "whats_fresh_api.Product",
-    "pk": "2",
+    "pk": "1",
     "fields": {
       "name": "Ezri Dax",
       "variety": "Freshwater Eel",
@@ -51,8 +51,8 @@
       "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
       "image_id": "1",
       "story_id": "2",
-      "created": "2014-08-08 23:27:05.568395",
-      "modified": "2014-08-08 23:27:05.568395"
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
@@ -74,8 +74,8 @@
       "story_id": "1",
       "website": "http://example.com",
       "email": "a@perr.com",
-      "created": "2014-08-08 23:27:05.568395",
-      "modified": "2014-08-08 23:27:05.568395"
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
@@ -94,11 +94,11 @@
       "location_description": "",
       "contact_name": "Isabelle",
       "phone": "555 123 4567",
-      "story_id": "2",
+      "story_id": null,
       "website": "",
       "email": "",
-      "created": "2014-08-08 23:27:05.568395",
-      "modified": "2014-08-08 23:27:05.568395"
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
@@ -156,8 +156,8 @@
     "fields": {
       "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh_api/testdata/media/dog.jpg",
       "caption": "Woof!",
-      "created": "2014-08-08 23:27:05.568395",
-      "modified": "2014-08-08 23:27:05.568395"
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
@@ -166,8 +166,8 @@
     "fields": {
       "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh_api/testdata/media/cat.jpg",
       "caption": "Meow!",
-      "created": "2014-08-08 23:27:05.568395",
-      "modified": "2014-08-08 23:27:05.568395"
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
