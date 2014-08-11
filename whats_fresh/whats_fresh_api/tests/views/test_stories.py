@@ -10,10 +10,19 @@ class StoriesTestCase(TestCase):
     fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
 
     def setUp(self):
-        self.expected_json = """
+        self.expected_json = """"
 {
-    "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations..."
+    error": {
+        "error_status": false,
+        "error_name": null,
+        "error_text": null,
+        "error_level": null
+    },
+    {
+        "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations..."
+    }
 }"""
+
 
     def test_url_endpoint(self):
        url = reverse('story-details', kwargs={'id': '1'})
