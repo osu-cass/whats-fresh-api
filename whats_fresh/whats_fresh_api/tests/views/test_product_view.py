@@ -35,8 +35,8 @@ class ProductViewTestCase(TestCase):
                     "available": True,
                     "market_price": "$33.31",
                     "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
-                    "image_id": "1",
-                    "story_id": "1",
+                    "image_id": 1,
+                    "story_id": 1,
                     "created": "2014-08-08 23:27:05.568395+00:00",
                     "modified": "2014-08-08 23:27:05.568395+00:00"
                 }
@@ -54,8 +54,8 @@ class ProductViewTestCase(TestCase):
                     "available": True,
                     "market_price": "$32.64 per season",
                     "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
-                    "image_id": "1",
-                    "story_id": "2",
+                    "image_id": 1,
+                    "story_id": 2,
                     "created": "2014-08-08 23:27:05.568395+00:00",
                     "modified": "2014-08-08 23:27:05.568395+00:00"
                 }
