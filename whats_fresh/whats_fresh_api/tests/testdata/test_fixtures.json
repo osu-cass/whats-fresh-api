@@ -154,7 +154,7 @@
     "model": "whats_fresh_api.Image",
     "pk": "1",
     "fields": {
-      "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh_api/testdata/media/dog.jpg",
+      "image": "/media/dog.jpg",
       "caption": "Woof!",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
@@ -164,7 +164,7 @@
     "model": "whats_fresh_api.Image",
     "pk": "2",
     "fields": {
-      "image": "/home/vagrant/whats-fresh/project_fish/whats_fresh_api/testdata/media/cat.jpg",
+      "image": "/media/cat.jpg",
       "caption": "Meow!",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
