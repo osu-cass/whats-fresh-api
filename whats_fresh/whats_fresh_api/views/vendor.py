@@ -85,7 +85,7 @@ def vendors_products(request, id=None):
             'error_text': 'Could not find any vendors for product %s!' % id,
             'error_name': 'No Vendors for product %s' % id
         }
-        return HttpResponseNotFound(
+        return HttpResponse(
             json.dumps(data),
             content_type="application/json"
         )
