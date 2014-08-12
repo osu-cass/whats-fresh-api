@@ -66,7 +66,7 @@ def product_details(request, id=None):
             'error_text': 'Product with id %s not found!' % id,
             'error_name': 'Product Not Found'
         }
-        return HttpResponseNotFound(
+        return HttpResponse(
             json.dumps(data),
             content_type="application/json"
         )
