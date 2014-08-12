@@ -10,6 +10,10 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    (r'^',include('whats_fresh_api.urls')),
+    #url(r'^vendors/(?P<id>\d+)/?$', 
+        #'whats_fresh_api.views.vendor.vendor_details', 
+        #name='vendor-details')
 )
 
 if settings.DEBUG:
