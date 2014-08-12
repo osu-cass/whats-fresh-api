@@ -18,7 +18,7 @@ def story_details(request, id=None):
             'error_text': 'Story with id %s not found!' % id,
             'error_name': 'Story Not Found'
         }
-        return HttpResponseNotFound(
+        return HttpResponse(
             json.dumps(data),
             content_type="application/json"
         )
