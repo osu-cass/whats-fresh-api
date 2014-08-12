@@ -24,7 +24,8 @@ def product_list(request):
 
     try:
         for product in product_list:
-            data[str(product.id)] = model_to_dict(product, fields=[], exclude=[])
+            data[str(product.id)] = model_to_dict(
+                product, fields=[], exclude=[])
             del data[str(product.id)]['id']
             del data[str(product.id)]['preparations']
             del data[str(product.id)]['image_id']
@@ -70,7 +71,7 @@ def product_details(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
-        
+
     try:
         data = model_to_dict(product, fields=[], exclude=[])
         del data['id']
@@ -90,10 +91,11 @@ def product_details(request, id=None):
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     except:
+        error_text = 'An unknown error occurred processing product %s' % id
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing product %s' % id,
+            'error_text': error_text,
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
