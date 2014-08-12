@@ -6,7 +6,7 @@ from django.contrib.gis.db import models
 import json
 
 
-class StoriesTestCase(TestCase):
+class VendorTestCase(TestCase):
     fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
 
     def setUp(self):
