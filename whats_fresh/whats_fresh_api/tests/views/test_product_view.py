@@ -18,7 +18,8 @@ class ProductViewTestCase(TestCase):
     fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
 
     def setUp(self):
-        self.expected_json = '{
+        self.expected_json = 
+        {
             "error": {
                 "error_status": false,
                 "error_name": null,
@@ -57,7 +58,7 @@ class ProductViewTestCase(TestCase):
                 "modified": "2014-08-08 23:27:05.568395+00:00"
                 }
             }
-        }'
+        }
 
     def test_url_endpoint(self):
         url = reverse('products-list')
