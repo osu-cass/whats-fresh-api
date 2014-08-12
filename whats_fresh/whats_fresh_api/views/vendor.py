@@ -20,7 +20,6 @@ def vendor_list(request):
             json.dumps(data),
             content_type="application/json"
         )
-
     try:
         for vendor in vendor_list:
             data[str(vendor.id)] = model_to_dict(vendor, fields=[], exclude=[])
@@ -41,16 +40,16 @@ def vendor_list(request):
                 product_data = {
                     'preparation': product.preparation.name,
                     'name': product.product.name
-                }
-                data[str(vendor.id)]['products'][product_id] = product_data
-
-            data['error'] = {
-                'error_status': False,
-                'error_level': None,
-                'error_text': None,
-                'error_name': None
             }
-            return HttpResponse(json.dumps(data), content_type="application/json")
+            data[str(vendor.id)]['products'][product_id] = product_data
+
+        data['error'] = {
+            'error_status': False,
+            'error_level': None,
+            'error_text': None,
+            'error_name': None
+        }
+        return HttpResponse(json.dumps(data), content_type="application/json")
     except:
         data['error'] = {
             'error_status': True,
