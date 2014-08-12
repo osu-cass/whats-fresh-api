@@ -40,8 +40,8 @@ def vendor_list(request):
                 product_data = {
                     'preparation': product.preparation.name,
                     'name': product.product.name
-            }
-            data[str(vendor.id)]['products'][product_id] = product_data
+                }
+                data[str(vendor.id)]['products'][product_id] = product_data
 
         data['error'] = {
             'error_status': False,
