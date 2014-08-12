@@ -13,3 +13,9 @@ def products_details():
     This is another docstring.
     """
     pass
+
+def vendors_details():
+    """
+    The view for the vendors model
+    """
+
