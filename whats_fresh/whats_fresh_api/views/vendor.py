@@ -88,10 +88,22 @@ def vendor_details(request, id=None):
         del data['story_id']
         """
 
-        data['story'] = vendor.story_id.id
+        data['story_id'] = vendor.story_id.id
         data['phone'] = data['phone'].national_number
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
+        data['ext'] = {}
+
+        products = data['products']
+        data['products'] = {}
+        for product_id in products:
+            product = VendorProduct.objects.get(id=product_id)
+            product_data = {
+                'preparation': product.preparation.name,
+                'name': product.product.name
+            }
+            data['products'][product_id] = product_data
+
 
         data['error'] = {
             'error_status': False,
