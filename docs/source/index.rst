@@ -9,6 +9,7 @@ API and Usage Documentation:
    usage/usage
    api/api
    install/install
+   planning/planning
 
 Developer Setup:
 
