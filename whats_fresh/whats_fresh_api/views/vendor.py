@@ -25,7 +25,7 @@ def vendor_list(request):
         for vendor in vendor_list:
             data[str(vendor.id)] = model_to_dict(vendor, fields=[], exclude=[])
             data[str(vendor.id)]['phone'] = data[
-                 str(vendor.id)]['phone'].national_number
+                  str(vendor.id)]['phone'].national_number
 
             data[str(vendor.id)]['created'] = str(vendor.created)
             data[str(vendor.id)]['updated'] = str(vendor.modified)
@@ -33,7 +33,7 @@ def vendor_list(request):
             del data[str(vendor.id)]['id']
 
             data[str(vendor.id)]['story'] = data[
-                 str(vendor.id)].pop('story_id')
+                  str(vendor.id)].pop('story_id')
 
             products = data[str(vendor.id)]['products']
             data[str(vendor.id)]['products'] = {}
@@ -84,11 +84,6 @@ def vendor_details(request, id=None):
 
     try:
         data = model_to_dict(vendor, fields=[], exclude=[])
-        """
-        del data['id']
-        del data['phone']
-        del data['story_id']
-        """
 
         data['story_id'] = vendor.story_id.id
         data['phone'] = data['phone'].national_number
@@ -122,6 +117,6 @@ def vendor_details(request, id=None):
             'error_name': e
         }
         return HttpResponseServerError(
-            json.dumps(data),
-            content_type="application/json"
+                json.dumps(data),
+                content_type="application/json"
         )
