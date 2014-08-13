@@ -5,6 +5,7 @@ from whats_fresh_api.models import Vendor, Product, VendorProduct
 from django.forms.models import model_to_dict
 import json
 
+
 def vendor_list(request):
     data = {}
     vendor_list = Vendor.objects.all()
@@ -24,14 +25,15 @@ def vendor_list(request):
         for vendor in vendor_list:
             data[str(vendor.id)] = model_to_dict(vendor, fields=[], exclude=[])
             data[str(vendor.id)]['phone'] = data[
-                str(vendor.id)]['phone'].national_number
+                 str(vendor.id)]['phone'].national_number
 
             data[str(vendor.id)]['created'] = str(vendor.created)
             data[str(vendor.id)]['updated'] = str(vendor.modified)
             data[str(vendor.id)]['ext'] = {}
             del data[str(vendor.id)]['id']
 
-            data[str(vendor.id)]['story'] = data[str(vendor.id)].pop('story_id')
+            data[str(vendor.id)]['story'] = data[
+                 str(vendor.id)].pop('story_id')
 
             products = data[str(vendor.id)]['products']
             data[str(vendor.id)]['products'] = {}
@@ -62,10 +64,11 @@ def vendor_list(request):
             content_type="application/json"
         )
 
+
 def vendor_details(request, id=None):
     data = {}
-    
-    try: 
+
+    try:
         vendor = Vendor.objects.get(id=id)
     except Exception as e:
         data['error'] = {
@@ -103,7 +106,6 @@ def vendor_details(request, id=None):
             }
             data['products'][product_id] = product_data
 
-
         data['error'] = {
             'error_status': False,
             'error_level': None,
@@ -115,7 +117,8 @@ def vendor_details(request, id=None):
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing vendor %s' % id,
+            'error_text': 'An unknown error occurred processing vendor %s'
+                            % id,
             'error_name': e
         }
         return HttpResponseServerError(

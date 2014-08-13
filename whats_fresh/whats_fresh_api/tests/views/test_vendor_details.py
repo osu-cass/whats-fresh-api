@@ -50,8 +50,8 @@ class VendorTestCase(TestCase):
 }"""
 
     def test_url_endpoint(self):
-       url = reverse('vendor-details', kwargs={'id': '1'})
-       self.assertEqual(url, '/vendors/1')
+        url = reverse('vendor-details', kwargs={'id': '1'})
+        self.assertEqual(url, '/vendors/1')
 
     def test_json_equals(self):
         c = Client()
