@@ -1,0 +1,42 @@
+from django.test import TestCase
+from django.test.client import Client
+from django.core.urlresolvers import reverse
+
+from whats_fresh_api.models import *
+from django.contrib.gis.db import models
+
+import json
+
+class ProductVendorTestCase(TestCase):
+    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+
+    def setUp(self):
+        self.expected_json = """
+        {
+            "error": {
+                "error_status": false,
+                "error_name": null,
+                "error_text": null,
+                "error_level": null
+            },
+            "1": {
+                    "name": "Starfish Voyager",
+                    "preparation": "Live"
+                },
+                "2": {
+                    "name": "Ezri Dax",
+                    "preparation": "Live"
+            }
+        }"""
+
+    def test_url_endpoint(self):
+        url = reverse('product-vendor-details', kwargs={'id': '1'})
+        self.assertEqual(url, '/products/vendors/1')
+
+    def test_json_equals(self):
+        c = Client()
+        response = c.get(reverse('product-vendor-details', kwargs={'id': '1'})).content
+        parsed_answer = json.loads(response)
+
+        expected_answer = json.loads(self.expected_json)
+        self.assertTrue(parsed_answer == expected_answer)
