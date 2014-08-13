@@ -65,7 +65,6 @@ def vendor_list(request):
         )
 
 
-<<<<<<< HEAD
 def vendors_products(request, id=None):
     data = {}
     try:
@@ -86,27 +85,11 @@ def vendors_products(request, id=None):
             'error_name': 'No Vendors for product %s' % id
         }
         return HttpResponse(
-=======
-def vendor_details(request, id=None):
-    data = {}
-
-    try:
-        vendor = Vendor.objects.get(id=id)
-    except Exception as e:
-        data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Vendor with id %s not found!' % id,
-            'error_name': 'Vendor not found'
-        }
-        return HttpResponseNotFound(
->>>>>>> feature/16497
             json.dumps(data),
             content_type="application/json"
         )
 
     try:
-<<<<<<< HEAD
         for vendor in vendor_list:
             data[str(vendor.id)] = model_to_dict(vendor, fields=[], exclude=[])
             data[str(vendor.id)]['phone'] = data[
@@ -128,7 +111,45 @@ def vendor_details(request, id=None):
                     'name': product.product.name
                 }
                 data[str(vendor.id)]['products'][product_id] = product_data
-=======
+
+        data['error'] = {
+            'error_status': False,
+            'error_level': None,
+            'error_text': None,
+            'error_name': None
+        }
+        return HttpResponse(json.dumps(data), content_type="application/json")
+
+    except:
+        data['error'] = {
+            'error_status': True,
+            'error_level': 'Severe',
+            'error_text': 'An unknown error occurred processing the vendors for product %s' % id,
+            'error_name': 'Unknown'
+        }
+        return HttpResponseServerError(
+            json.dumps(data),
+            content_type="application/json"
+        )
+
+def vendor_details(request, id=None):
+    data = {}
+
+    try:
+        vendor = Vendor.objects.get(id=id)
+    except Exception as e:
+        data['error'] = {
+            'error_status': True,
+            'error_level': 'Important',
+            'error_text': 'Vendor with id %s not found!' % id,
+            'error_name': 'Vendor not found'
+        }
+        return HttpResponseNotFound(
+                json.dumps(data),
+                content_type="application/json"
+        )
+
+    try:
         data = model_to_dict(vendor, fields=[], exclude=[])
 
         data['story_id'] = vendor.story_id.id
@@ -146,7 +167,6 @@ def vendor_details(request, id=None):
                 'name': product.product.name
             }
             data['products'][product_id] = product_data
->>>>>>> feature/16497
 
         data['error'] = {
             'error_status': False,
@@ -155,19 +175,7 @@ def vendor_details(request, id=None):
             'error_name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
-<<<<<<< HEAD
 
-    except:
-        data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing the vendors for product %s' % id,
-            'error_name': 'Unknown'
-        }
-        return HttpResponseServerError(
-            json.dumps(data),
-            content_type="application/json"
-=======
     except Exception as e:
         data['error'] = {
             'error_status': True,
@@ -176,8 +184,9 @@ def vendor_details(request, id=None):
                             % id,
             'error_name': e
         }
+
         return HttpResponseServerError(
                 json.dumps(data),
                 content_type="application/json"
->>>>>>> feature/16497
         )
+
