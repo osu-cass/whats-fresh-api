@@ -1,17 +1,11 @@
-.. What's Fresh documentation master file, created by
-   sphinx-quickstart on Fri Aug  1 09:45:05 2014.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+What's Fresh's API documentation
+================================
 
-Welcome to What's Fresh's documentation!
-========================================
-
-Draft Implementation Documentation:
+API and Usage Documentation:
 
 .. toctree::
    :maxdepth: 2
 
-   planning/planning
    usage/usage
    api/api
    install/install

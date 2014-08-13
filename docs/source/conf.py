@@ -37,6 +37,15 @@ class Mock(object):
     def ImageField(self, upload_to=None):
         pass
 
+    def TextField(self, blank=None):
+        pass
+
+    def URLField(self, blank=None):
+        pass
+
+    def EmailField(self, blank=None):
+        pass
+
     def ForeignKey(self, model, null=None):
         pass
 

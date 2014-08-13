@@ -7,6 +7,14 @@ import json
 
 
 def vendor_list(request):
+    """
+    */vendors/*
+
+    Returns a list of all vendors in the database. In the future this function
+    will support the ?limit=<int> parameter to limit the number of vendors
+    returned, the ?lat=<float>&long=<float> parameters to sort by location, and
+    the ?proximity=<int> parameter to limit the distance of the vendors.
+    """
     data = {}
     vendor_list = Vendor.objects.all()
 

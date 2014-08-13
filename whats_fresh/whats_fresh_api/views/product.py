@@ -7,6 +7,13 @@ import json
 
 
 def product_list(request):
+    """
+    */products/*
+
+    Returns a list of all products in the database. In the future this function
+    will support the ?limit=<int> parameter to limit the number of products
+    returned.
+    """
     data = {}
     product_list = Product.objects.all()
 
@@ -56,6 +63,11 @@ def product_list(request):
 
 
 def product_details(request, id=None):
+    """
+    */products/<id>*
+
+    Returns the product data for product <id>.
+    """
     data = {}
 
     try:

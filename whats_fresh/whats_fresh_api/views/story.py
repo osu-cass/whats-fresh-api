@@ -7,6 +7,11 @@ import json
 
 
 def story_details(request, id=None):
+    """
+    */stories/<id>*
+
+    Returns the story data for story <id>.
+    """
     data = {}
 
     try:
