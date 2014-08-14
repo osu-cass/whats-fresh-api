@@ -76,7 +76,7 @@ def vendor_list(request):
 def vendors_products(request, id=None):
     data = {}
     try:
-        vendor_list = Vendor.objects.filter(products__id__contains=id)
+        vendor_list = Vendor.objects.filter(products__id__exact=id)
     except Exception as e:
         data['error'] = {
             'error_status': True,
