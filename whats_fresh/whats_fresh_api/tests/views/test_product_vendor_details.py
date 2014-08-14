@@ -31,6 +31,7 @@ class ProductVendorTestCase(TestCase):
                 "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
                 "image": "/media/dog.jpg",
                 "story_id": 1,
+                "id": 2,
                 "created": "2014-08-08 23:27:05.568395+00:00",
                 "modified": "2014-08-08 23:27:05.568395+00:00"
             },
@@ -46,18 +47,19 @@ class ProductVendorTestCase(TestCase):
                 "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
                 "image": "/media/cat.jpg",
                 "story_id": 2,
+                "id": 1,
                 "created": "2014-08-08 23:27:05.568395+00:00",
                 "modified": "2014-08-08 23:27:05.568395+00:00"
             }
         }"""
 
     def test_url_endpoint(self):
-        url = reverse('product-vendor-details', kwargs={'id': '1'})
+        url = reverse('product-vendor', kwargs={'id': '1'})
         self.assertEqual(url, '/products/vendors/1')
 
     def test_json_equals(self):
         c = Client()
-        response = c.get(reverse('product-vendor-details', kwargs={'id': '1'})).content
+        response = c.get(reverse('product-vendor', kwargs={'id': '1'})).content
         parsed_answer = json.loads(response)
 
         expected_answer = json.loads(self.expected_json)

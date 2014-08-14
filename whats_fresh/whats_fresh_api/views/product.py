@@ -102,3 +102,53 @@ def product_details(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
+
+def product_vendor(request, id=None):
+    data = {}
+
+    try:
+        product_list = Product.objects.filter(vendors__id__exact=id)
+    except Exception as e:
+        data['error'] = {
+            'error_status': True,
+            'error_level': 'Important',
+            'error_text': 'Vendor with id %s not found!' % id,
+            'error_name': 'Vendor Not Found'
+        }
+        return HttpResponse(
+            json.dumps(data),
+            content_type="application/json"
+        )
+
+    try:
+        for product in product_list:
+            data[str(product.id)] = model_to_dict(product, fields=[], exclude=[])
+            del data[str(product.id)]['id']
+            del data[str(product.id)]['preparations']
+            del data[str(product.id)]['image_id']
+
+            data[str(product.id)]['story_id'] = product.story_id.id
+            data[str(product.id)]['image'] = product.image_id.image.url
+            data[str(product.id)]['created'] = str(product.created)
+            data[str(product.id)]['modified'] = str(product.modified)
+           
+        data['error'] = {
+            'error_status': False,
+            'error_level': None,
+            'error_text': None,
+            'error_name': None
+        }
+        return HttpResponse(json.dumps(data), content_type="application/json")
+
+    except Exception as e:
+        error_text = 'An unknown error occurred processing product %s' % id
+        data['error'] = {
+            'error_status': True,
+            'error_level': 'Severe',
+            'error_text': error_text,
+            'error_name': e
+        }
+        return HttpResponseServerError(
+            json.dumps(data),
+            content_type="application/json"
+        )
