@@ -24,4 +24,8 @@ urlpatterns = patterns('',
     url(r'^vendors/products/(?P<id>\d+)/?$', 
         'whats_fresh_api.views.vendor.vendors_products', 
         name='vendors-products'),
+
+    url(r'^entry/vendor/new/?$', 
+        'whats_fresh_api.views.data_entry.new_vendor', 
+        name='new-vendor'),
 )
