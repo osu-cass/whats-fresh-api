@@ -149,6 +149,8 @@ Vendors listing
 The vendors listing is available at ``/vendors/``. It returns a JSON array
 consisting of each of the vendors, and information about them.
 
+.. note:: Coordinates used in the API are standard, decimal degree coordinates. Many results will contain negative coordinates.
+
 Optional Fields
 ^^^^^^^^^^^^^^^
 

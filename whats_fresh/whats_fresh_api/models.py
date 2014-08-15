@@ -40,7 +40,7 @@ class Vendor(models.Model):
 
     name = models.TextField()
     description = models.TextField()
-    status = models.NullBooleanField(null=True, blank=True)
+    status = models.NullBooleanField()
 
     street = models.TextField()
     city = models.TextField()
@@ -85,7 +85,7 @@ class Product(models.Model):
     origin = models.TextField(blank=True)
 
     season = models.TextField()
-    available = models.NullBooleanField(null=True, blank=True)
+    available = models.NullBooleanField()
     market_price = models.TextField()
     link = models.URLField(blank=True)
 
