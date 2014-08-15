@@ -29,8 +29,6 @@ class ProductTestCase(TestCase):
             'modified': models.DateTimeField,
             'preparations': models.ManyToManyField,
             'productpreparation': models.related.RelatedObject,
-            'vendors': models.related.RelatedObject,
-            'vendorproduct': models.related.RelatedObject,
             'id': models.AutoField
         }
 

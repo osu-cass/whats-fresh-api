@@ -32,7 +32,7 @@ class VendorTestCase(TestCase):
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
             'story_id': models.ForeignKey,
-            'products': models.ManyToManyField,
+            'products_preparations': models.ManyToManyField,
             'vendorproduct': models.related.RelatedObject,
             'id': models.AutoField
         }
