@@ -23,6 +23,7 @@ class ProductViewTestCase(TestCase):
     "error_text": null,
     "error_level": null
   },
+  "id": 1,
   "name": "Ezri Dax",
   "variety": "Freshwater Eel",
    "alt_name": "Jadzia",
