@@ -106,8 +106,7 @@
     "pk": "10",
     "fields": {
        "vendor": "10",
-       "product": "10",
-       "preparation": "10",
+       "product_preparation": "10",
        "vendor_price": "$12 per dozen",
        "available": "None"
     }
@@ -133,8 +132,7 @@
     "pk": "20",
     "fields": {
        "vendor": "20",
-       "product": "100",
-       "preparation": "10",
+       "product_preparation": "20",
        "vendor_price": "$6 per pound",
        "available": "False"
     }
@@ -144,8 +142,7 @@
     "pk": "30",
     "fields": {
        "vendor": "10",
-       "product": "100",
-       "preparation": "10",
+       "product_preparation": "20",
        "vendor_price": "Free!",
        "available": "False"
     }
