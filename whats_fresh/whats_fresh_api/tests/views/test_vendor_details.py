@@ -38,11 +38,11 @@ class VendorTestCase(TestCase):
   "created": "2014-08-08 23:27:05.568395+00:00",
   "updated": "2014-08-08 23:27:05.568395+00:00",
   "products": {
-    "1": {
+    "2": {
       "name": "Starfish Voyager",
       "preparation": "Live"
     },
-    "2": {
+    "1": {
       "name": "Ezri Dax",
       "preparation": "Live"
     }

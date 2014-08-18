@@ -33,7 +33,7 @@ def vendor_list(request):
         for vendor in vendor_list:
             data[str(vendor.id)] = model_to_dict(vendor, fields=[], exclude=[])
             data[str(vendor.id)]['phone'] = data[
-                  str(vendor.id)]['phone'].national_number
+                str(vendor.id)]['phone'].national_number
 
             data[str(vendor.id)]['created'] = str(vendor.created)
             data[str(vendor.id)]['updated'] = str(vendor.modified)
@@ -41,17 +41,17 @@ def vendor_list(request):
             del data[str(vendor.id)]['id']
 
             data[str(vendor.id)]['story'] = data[
-                  str(vendor.id)].pop('story_id')
+                str(vendor.id)].pop('story_id')
 
-            products = data[str(vendor.id)]['products']
+            vendor_products = vendor.vendorproduct_set.all()
             data[str(vendor.id)]['products'] = {}
-            for product_id in products:
-                product = VendorProduct.objects.get(id=product_id)
+            for vendor_product in vendor_products:
                 product_data = {
-                    'preparation': product.preparation.name,
-                    'name': product.product.name
+                    'preparation': vendor_product.preparation.name,
+                    'name': vendor_product.product.name
                 }
-                data[str(vendor.id)]['products'][product_id] = product_data
+                data[str(vendor.id)]['products'][
+                    vendor_product.product.id] = product_data
 
         data['error'] = {
             'error_status': False,
@@ -108,17 +108,18 @@ def vendors_products(request, id=None):
             data[str(vendor.id)]['ext'] = {}
             del data[str(vendor.id)]['id']
 
-            data[str(vendor.id)]['story'] = data[str(vendor.id)].pop('story_id')
+            data[str(vendor.id)]['story'] = data[
+                str(vendor.id)].pop('story_id')
 
-            products = data[str(vendor.id)]['products']
+            vendor_products = vendor.vendorproduct_set.all()
             data[str(vendor.id)]['products'] = {}
-            for product_id in products:
-                product = VendorProduct.objects.get(id=product_id)
+            for vendor_product in vendor_products:
                 product_data = {
-                    'preparation': product.preparation.name,
-                    'name': product.product.name
+                    'preparation': vendor_product.preparation.name,
+                    'name': vendor_product.product.name
                 }
-                data[str(vendor.id)]['products'][product_id] = product_data
+                data[str(vendor.id)]['products'][
+                    vendor_product.product.id] = product_data
 
         data['error'] = {
             'error_status': False,
@@ -128,17 +129,18 @@ def vendors_products(request, id=None):
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
-    except:
+    except Exception as e:
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing the vendors for product %s' % id,
+            'error_text': 'Error {0} occurred processing the vendors for product {1}'.format(e, id),
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
             json.dumps(data),
             content_type="application/json"
         )
+
 
 def vendor_details(request, id=None):
     data = {}
@@ -153,8 +155,8 @@ def vendor_details(request, id=None):
             'error_name': 'Vendor not found'
         }
         return HttpResponseNotFound(
-                json.dumps(data),
-                content_type="application/json"
+            json.dumps(data),
+            content_type="application/json"
         )
 
     try:
@@ -166,15 +168,15 @@ def vendor_details(request, id=None):
         data['updated'] = str(vendor.modified)
         data['ext'] = {}
 
-        products = data['products']
+        vendor_products = vendor.vendorproduct_set.all()
         data['products'] = {}
-        for product_id in products:
-            product = VendorProduct.objects.get(id=product_id)
+        for vendor_product in vendor_products:
             product_data = {
-                'preparation': product.preparation.name,
-                'name': product.product.name
+                'preparation': vendor_product.preparation.name,
+                'name': vendor_product.product.name
             }
-            data['products'][product_id] = product_data
+            data['products'][
+                vendor_product.product.id] = product_data
 
         data['error'] = {
             'error_status': False,
@@ -189,12 +191,12 @@ def vendor_details(request, id=None):
             'error_status': True,
             'error_level': 'Severe',
             'error_text': 'An unknown error occurred processing vendor %s'
-                            % id,
+            % id,
             'error_name': e
         }
 
         return HttpResponseServerError(
-                json.dumps(data),
-                content_type="application/json"
+            json.dumps(data),
+            content_type="application/json"
         )
 
