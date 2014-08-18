@@ -7,14 +7,6 @@ import json
 
 
 def vendor_list(request):
-    """
-    */vendors/*
-
-    Returns a list of all vendors in the database. In the future this function
-    will support the ?limit=<int> parameter to limit the number of vendors
-    returned, the ?lat=<float>&long=<float> parameters to sort by location, and
-    the ?proximity=<int> parameter to limit the distance of the vendors.
-    """
     data = {}
     vendor_list = Vendor.objects.all()
 
@@ -39,6 +31,7 @@ def vendor_list(request):
             data[str(vendor.id)]['updated'] = str(vendor.modified)
             data[str(vendor.id)]['ext'] = {}
             del data[str(vendor.id)]['id']
+            del data[str(vendor.id)]['products_preparations']
 
             data[str(vendor.id)]['story'] = data[
                 str(vendor.id)].pop('story_id')
@@ -47,11 +40,11 @@ def vendor_list(request):
             data[str(vendor.id)]['products'] = {}
             for vendor_product in vendor_products:
                 product_data = {
-                    'preparation': vendor_product.preparation.name,
-                    'name': vendor_product.product.name
+                    'preparation': vendor_product.product_preparation.preparation.name,
+                    'name': vendor_product.product_preparation.product.name
                 }
                 data[str(vendor.id)]['products'][
-                    vendor_product.product.id] = product_data
+                    vendor_product.product_preparation.product.id] = product_data
 
         data['error'] = {
             'error_status': False,
@@ -76,7 +69,8 @@ def vendor_list(request):
 def vendors_products(request, id=None):
     data = {}
     try:
-        vendor_list = Vendor.objects.filter(products__id__exact=id)
+        vendor_list = Vendor.objects.filter(
+            vendorproduct__product_preparation__product__id__exact=id)
     except Exception as e:
         data['error'] = {
             'error_status': True,
@@ -84,6 +78,10 @@ def vendors_products(request, id=None):
             'error_text': 'Product id is invalid',
             'error_name': 'Invalid product'
         }
+        return HttpResponseNotFound(
+            json.dumps(data),
+            content_type="application/json"
+        )
 
     if len(vendor_list) == 0:
         data['error'] = {
@@ -107,6 +105,7 @@ def vendors_products(request, id=None):
             data[str(vendor.id)]['updated'] = str(vendor.modified)
             data[str(vendor.id)]['ext'] = {}
             del data[str(vendor.id)]['id']
+            del data[str(vendor.id)]['products_preparations']
 
             data[str(vendor.id)]['story'] = data[
                 str(vendor.id)].pop('story_id')
@@ -115,11 +114,11 @@ def vendors_products(request, id=None):
             data[str(vendor.id)]['products'] = {}
             for vendor_product in vendor_products:
                 product_data = {
-                    'preparation': vendor_product.preparation.name,
-                    'name': vendor_product.product.name
+                    'preparation': vendor_product.product_preparation.preparation.name,
+                    'name': vendor_product.product_preparation.product.name
                 }
                 data[str(vendor.id)]['products'][
-                    vendor_product.product.id] = product_data
+                    vendor_product.product_preparation.product.id] = product_data
 
         data['error'] = {
             'error_status': False,
@@ -167,16 +166,17 @@ def vendor_details(request, id=None):
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
         data['ext'] = {}
+        del data['products_preparations']
 
         vendor_products = vendor.vendorproduct_set.all()
         data['products'] = {}
         for vendor_product in vendor_products:
             product_data = {
-                'preparation': vendor_product.preparation.name,
-                'name': vendor_product.product.name
+                'preparation': vendor_product.product_preparation.preparation.name,
+                'name': vendor_product.product_preparation.product.name
             }
             data['products'][
-                vendor_product.product.id] = product_data
+                vendor_product.product_preparation.product.id] = product_data
 
         data['error'] = {
             'error_status': False,
@@ -199,4 +199,5 @@ def vendor_details(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
+
 

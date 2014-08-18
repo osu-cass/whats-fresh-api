@@ -106,8 +106,7 @@
     "pk": "1",
     "fields": {
        "vendor": "1",
-       "product": "2",
-       "preparation": "1",
+       "product_preparation": "1",
        "vendor_price": "$12 per dozen",
        "available": "None"
     }
@@ -129,12 +128,19 @@
     }
   },
   {
+    "model": "whats_fresh_api.ProductPreparation",
+    "pk": "3",
+    "fields": {
+       "preparation": "1",
+       "product": "1"
+    }
+  },
+  {
     "model": "whats_fresh_api.VendorProduct",
     "pk": "2",
     "fields": {
        "vendor": "2",
-       "product": "1",
-       "preparation": "1",
+       "product_preparation": "3",
        "vendor_price": "$6 per pound",
        "available": "False"
     }
@@ -144,8 +150,7 @@
     "pk": "3",
     "fields": {
        "vendor": "1",
-       "product": "1",
-       "preparation": "1",
+       "product_preparation": "3",
        "vendor_price": "Free!",
        "available": "False"
     }

@@ -119,7 +119,7 @@ def product_vendor(request, id=None):
     data = {}
 
     try:
-        product_list = Product.objects.filter(vendors__id__exact=id)
+        product_list = Product.objects.filter(productpreparation__vendorproduct__vendor__id__exact=id)
     except Exception as e:
         data['error'] = {
             'error_status': True,
