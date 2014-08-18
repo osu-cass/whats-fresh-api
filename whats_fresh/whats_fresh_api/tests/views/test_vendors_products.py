@@ -62,3 +62,4 @@ class VendorsProductsTestCase(TestCase):
 
         expected_answer = json.loads(self.expected_json)
         self.assertTrue(parsed_answer == expected_answer)
+
