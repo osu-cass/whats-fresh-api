@@ -42,7 +42,6 @@ The following fields in a product can be either a value, or null:
 * origin: text or empty string
 * link: valid URL or empty string
 * available: boolean or null
-* story: integer or null
 
 Parameters
 ^^^^^^^^^^
@@ -114,7 +113,6 @@ The following fields in a product can be either a value, or null:
 * origin: text or empty string
 * link: valid URL or empty string
 * available: boolean or null
-* story: integer or null
 
 Example: GET /products/2
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -161,7 +159,6 @@ The following fields in a vendor can be either a value, or null:
 * phone: valid 10-digit US phone number or null
 * website: valid URL or empty string
 * email: valid email or empty string
-* story: integer or null
 
 Parameters
 ^^^^^^^^^^
@@ -287,7 +284,6 @@ The following fields in a vendor can be either a value, or null:
 * phone: valid 10-digit US phone number or null
 * website: valid URL or empty string
 * email: valid email or empty string
-* story: integer or null
 
 Parameters
 ^^^^^^^^^^
@@ -414,7 +410,6 @@ The following fields in a vendor can be either a value, or null:
 * phone: valid 10-digit US phone number or null
 * website: valid URL or empty string
 * email: valid email or empty string
-* story: integer or null
 
 Example: GET /vendors/2
 ^^^^^^^^^^^^^^^^^^^^^^^

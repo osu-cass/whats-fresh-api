@@ -1,84 +1,104 @@
 <!doctype html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Select Test</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<style type="text/css">
-select {
-    min-width: 100px;
-}
-
-.add {
-    height: 32px;
-}
-</style>
-</head>
-
-<body>
-<center>
-<form action="/entry/vendors/new" method="post">{% csrf_token %}
-{{ vendor_form.as_p }}
-<div class="container">
-    <div class="add"><button type="button" onclick="appendProduct()">Add Product</button></div>
-</div>
-
-<div id="new_product" style="display:none;">
-<select id="product$iteration" onchange="showPreparations($iteration)">
-  <option selected disabled></option>
-{% for product in product_list %}
-  <option value="{{ product }}">{{ product }}</option>
-{% endfor %}
-</select> 
-
-<select disabled id="preparation$iteration" class="preparation">
-  <option selected disabled></option>
-</select>
-</p>
-</div>
-
-<input id="preparation_ids" name="preparation_ids" type="hidden" />
-
-<input type="submit" onclick="setPreparationField();" value="Submit" />
-</form>
-</center>
-</body>
-<script>
-var preparation_options = {{ json_preparations|safe }};
-
-number_of_products = 0;
-
-function showPreparations(prep_number)
-{
-    var preparation_select = document.getElementById("preparation" + prep_number);
-    var product_select = document.getElementById("product" + prep_number);
-    var current_product = product_select.options[product_select.selectedIndex].value
-    preparation_select.options.length = 0;
-    for (preparation in preparation_options[current_product]) {
-        var option = document.createElement("option");
-        option.value = preparation_options[current_product][preparation].value;
-        option.text = preparation_options[current_product][preparation].name;
-        preparation_select.add(option);
-    }
-    preparation_select.disabled=false;
-}
-
-function appendProduct()
-{
-    var new_product_html = $('#new_product').html();
-    var new_product_html = new_product_html.split("$iteration").join(number_of_products);
-    $( ".container" ).append( new_product_html );
-    number_of_products++;
-}
-
-function setPreparationField()
-{
-    var preparation_ids = []
-    $( ".preparation:visible" ).each( function( index, element ){
-        preparation_ids.push(this.options[this.selectedIndex].value);
-    });
-
-    $('input[name="preparation_ids"]').val(preparation_ids);
-}
-</script>
+   <head>
+      <meta charset="utf-8">
+      <title>What's Fresh | Add Vendor</title>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      {% load staticfiles %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+   </head>
+   <body>
+      <div id="header">&lt; Fish logo here</div>
+      <div id="title">New Vendor</div>
+      <div id="body">
+         {% if vendor_form.errors %}
+         <div id="error">
+            {{ vendor_form.errors }}
+         </div>
+         {% endif %}
+         <form action="/entry/vendor/new" method="post">
+            {% csrf_token %}
+            <div id="info">
+               <span class="title_text">Basic Info</span><br>
+               <span class="required field" id="name">Name: {{ vendor_form.name }}</span><br>
+               <span class="required field" id="description">Description: {{ vendor_form.description }}</span><br>
+               <span class="optional field" id="story">Story: {{ vendor_form.story_id }}</span><br>
+               <span class="optional field" id="status">In Port? {{ vendor_form.status }}</span><br>
+            </div>
+            <div id="location">
+               <span class="title_text">Location</span><br>
+               <span class="required field" id="street">Street Address: {{ vendor_form.street }}</span><br>
+               <span class="required field" id="city">City: {{ vendor_form.city }}</span><br>
+               <span class="required field" id="State">State: {{ vendor_form.state }}</span><br>
+               <span class="required field" id="zip">Zipcode: {{ vendor_form.zip }}</span><br>
+               <span class="optional field" id="location_description">Location Description: {{ vendor_form.location_description }}</span><br>
+            </div>
+            <div id="contact">
+               <span class="title_text">Contact</span><br>
+               <span class="required field" id="contact">Contact Name: {{ vendor_form.contact_name }}</span><br>
+               <span class="optional field" id="website">Website: {{ vendor_form.website }}</span><br>
+               <span class="optional field" id="email">Email: {{ vendor_form.email }}</span><br>
+               <span class="optional field" id="phone">Phone: {{ vendor_form.phone }}</span><br>
+            </div>
+            <div id="products">
+               <div class="container">
+                  <div class="add"><button type="button" onclick="appendProduct()">Add Product</button></div>
+               </div>
+            </div>
+            <input id="preparation_ids" name="preparation_ids" type="hidden" />
+            <input type="submit" onclick="setPreparationField();" value="Submit" />
+         </form>
+      </div>
+      <!-- The template div used by appendProduct() -->
+      <div id="new_product" style="display:none;">
+         <select id="product$iteration" onchange="showPreparations($iteration)">
+            <option selected disabled></option>
+            {% for product in product_list %}
+            <option value="{{ product }}">{{ product }}</option>
+            {% endfor %}
+         </select>
+         <select disabled id="preparation$iteration" class="preparation">
+            <option selected disabled></option>
+         </select>
+         </p>
+      </div>
+   </body>
+   <script>
+      var preparation_options = {{ json_preparations|safe }};
+      
+      number_of_products = 0;
+      
+      function showPreparations(prep_number)
+      {
+          var preparation_select = document.getElementById("preparation" + prep_number);
+          var product_select = document.getElementById("product" + prep_number);
+          var current_product = product_select.options[product_select.selectedIndex].value
+          preparation_select.options.length = 0;
+          for (preparation in preparation_options[current_product]) {
+              var option = document.createElement("option");
+              option.value = preparation_options[current_product][preparation].value;
+              option.text = preparation_options[current_product][preparation].name;
+              preparation_select.add(option);
+          }
+          preparation_select.disabled=false;
+      }
+      
+      function appendProduct()
+      {
+          var new_product_html = $('#new_product').html();
+          var new_product_html = new_product_html.split("$iteration").join(number_of_products);
+          $( ".container" ).append( new_product_html );
+          number_of_products++;
+      }
+      
+      function setPreparationField()
+      {
+          var preparation_ids = []
+          $( ".preparation:visible" ).each( function( index, element ){
+              preparation_ids.push(this.options[this.selectedIndex].value);
+          });
+      
+          $('input[name="preparation_ids"]').val(preparation_ids);
+      }
+   </script>
 </html>
