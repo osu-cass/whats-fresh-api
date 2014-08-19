@@ -13,5 +13,5 @@ class VendorForm(forms.ModelForm):
             'state': forms.TextInput,
             'zip': forms.TextInput,
             'contact_name': forms.TextInput,
-            'products': forms.HiddenInput
+            'lat': forms.HiddenInput
         }

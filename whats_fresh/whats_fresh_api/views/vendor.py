@@ -162,7 +162,10 @@ def vendor_details(request, id=None):
         data = model_to_dict(vendor, fields=[], exclude=[])
 
         data['story_id'] = vendor.story_id.id
-        data['phone'] = data['phone'].national_number
+        if data['phone']:
+            data['phone'] = data['phone'].national_number
+        else:
+            data['phone'] = None
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
         data['ext'] = {}

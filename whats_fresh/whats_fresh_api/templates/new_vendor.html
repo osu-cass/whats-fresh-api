@@ -11,9 +11,18 @@
       <div id="header">&lt; Fish logo here</div>
       <div id="title">New Vendor</div>
       <div id="body">
-         {% if vendor_form.errors %}
+         {% if vendor_form.errors or errors %}
          <div id="error">
-            {{ vendor_form.errors }}
+            <ul>
+            {% for error in vendor_form.errors %}
+            {% if error != "lat" and error != "long" %}
+            <li>Invalid {{ error|escape }}!</li>
+            {% endif %}
+            {% endfor %}
+            {% for error in errors %}
+            <li>{{ error|escape }}</li>
+            {% endfor %}
+            </ul>
          </div>
          {% endif %}
          <form action="/entry/vendor/new" method="post">
@@ -22,7 +31,7 @@
                <span class="title_text">Basic Info</span><br>
                <span class="required field" id="name">Name: {{ vendor_form.name }}</span><br>
                <span class="required field" id="description">Description: {{ vendor_form.description }}</span><br>
-               <span class="optional field" id="story">Story: {{ vendor_form.story_id }}</span><br>
+               <span class="required field" id="story">Story: {{ vendor_form.story_id }}</span><br>
                <span class="optional field" id="status">In Port? {{ vendor_form.status }}</span><br>
             </div>
             <div id="location">

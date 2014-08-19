@@ -61,7 +61,8 @@ class Vendor(models.Model):
     products_preparations = models.ManyToManyField(
         'ProductPreparation',
         related_name='vendors',
-        through='VendorProduct')
+        through='VendorProduct',
+        blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
