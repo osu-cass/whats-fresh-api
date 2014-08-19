@@ -7,10 +7,142 @@ select {
 }
 
 .required {
+  font-weight: 600;
+}
+
+.title_text {
+  margin-bottom: -10px;
+  font-size: 1.6em;
+  text-decoration: underline;
+  font-weight: 300;
+}
+
+
+html, body {
+  height: 100%;
+}
+
+#title {
+  font-size: 1.8em;
+  font-family: Open Sans;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
+}
+
+#message {
+  width: 100%;
+  text-align: center;
+}
+
+#header {
+  position: relative;
+  background: #483C3E;
+  height: 50px;
+  width: 100%;
+  margin: 0px auto;
+  font-size: 2em;
+  font-family: Open Sans;
   color: #FFFFFF;
-  text-shadow:
-   -1px -1px 0 #000,  
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-     1px 1px 0 #000;
+  font-weight: 700;
+  box-shadow: inset 0px -4px 3px -2px rgba(10,10,10,0.52);
+  z-index: 1;
+  text-align: center;
+}
+
+body {
+  margin:0px;
+  background: #4D6A7C;
+  font-family: Open Sans;
+}
+
+#body {
+  position: relative;
+  background: #DFD1B7;
+  min-height: calc(100% - 70px);
+  height: auto;
+  width: 750px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  z-index: 0;
+  box-shadow: -1px 2px 6px 2px rgba(10,10,10,0.75);
+}
+
+.field_text {
+  text-align: right;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 3%;
+  width: 47%;
+  margin-bottom: 5px;
+}
+
+.form {
+  display: inline-block;
+  margin-left: 3%;
+  margin-right: auto;
+  width: 47%;
+}
+
+.products {
+  text-align: right;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 2%;
+  width: 47%;
+  margin-bottom: 5px;
+}
+
+.preparations {
+  display: inline-block;
+  margin-left: 2%;
+  margin-right: auto;
+  width: 47%;
+}
+
+.container {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.products select, .preparations select {
+   background: #FFFFFF;
+   width: 268px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 1;
+   border-radius: 10;
+   height: 32px;
+}
+
+.delete {
+  margin-bottom: -10px;
+}
+
+.add button {
+  margin-right: 10px;
+  float: right;
+}
+
+button {
+  background-color: #483C3E;
+  border: 2px solid #4A3F4E;
+  color: #FFFFFF;
+}
+
+.save {
+  width: 100%;
+  text-align: right;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.save button {
+  font-size: 1.4em;
+  margin: 10px;
 }

@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>What's Fresh | {{ title }}</title>
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,300italic' rel='stylesheet' type='text/css'>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      {% load staticfiles %}
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+   </head>
+   <body>
+      <div id="header">What's Fresh</div>
+      <div id="body">
+         <div id="title">{{ title }}</div>
+         <div id="message">{{ message }}</div>
+         {% if vendor_form.errors or errors %}
+         <div id="error">
+            <ul>
+            {% for error in vendor_form.errors %}
+            {% if error != "lat" and error != "long" %}
+            <li>Invalid {{ error|escape }}!</li>
+            {% endif %}
+            {% endfor %}
+            {% for error in errors %}
+            <li>{{ error|escape }}</li>
+            {% endfor %}
+            </ul>
+         </div>
+         {% endif %}
+         <form action="{{ post_url }}" method="post">
+            {% csrf_token %}
+            <div id="info">
+               <div class="title_text">Basic Info</div><br>
+               <div class="required field_text" id="name">Name:</div><div class="form">{{ vendor_form.name }}</div><br>
+               <div class="required field_text" id="description">Description:</div><div class="form">{{ vendor_form.description }}</div><br>
+               <div class="required field_text" id="story">Story:</div><div class="form">{{ vendor_form.story_id }}</div><br>
+               <div class="optional field_text" id="status">In Port?</div><div class="form">{{ vendor_form.status }}</div><br>
+            </div>
+            <div id="location">
+               <div class="title_text">Location</div><br>
+               <div class="required field_text" id="street">Street Address:</div><div class="form">{{ vendor_form.street }}</div><br>
+               <div class="required field_text" id="city">City:</div><div class="form">{{ vendor_form.city }}</div><br>
+               <div class="required field_text" id="State">State:</div><div class="form">{{ vendor_form.state }}</div><br>
+               <div class="required field_text" id="zip">Zipcode:</div><div class="form">{{ vendor_form.zip }}</div><br>
+               <div class="optional field_text" id="location_description">Location Description:</div><div class="form">{{ vendor_form.location_description }}</div><br>
+            </div>
+            <div id="contact">
+               <div class="title_text">Contact</div><br>
+               <div class="required field_text" id="contact">Contact Name:</div><div class="form">{{ vendor_form.contact_name }}</div><br>
+               <div class="optional field_text" id="website">Website:</div><div class="form">{{ vendor_form.website }}</div><br>
+               <div class="optional field_text" id="email">Email:</div><div class="form">{{ vendor_form.email }}</div><br>
+               <div class="optional field_text" id="phone">Phone:</div><div class="form">{{ vendor_form.phone }}</div><br>
+            </div>
+            <div id="products">
+               <div class="title_text">Products<div class="add"><button type="button" onclick="appendProduct()">Add Product</button></div></div><br>
+               <div class="container">
+                  {% if existing_product_preparations %}
+                  {% for pp in existing_product_preparations %}
+               <div class="product_preparations">
+                  <div class="products">
+                     <a href="#" onclick="deleteProduct(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+                     <select disabled id="existing{{ pp.id }}">
+                        <option value="{{ pp.product }}">{{ pp.product }}</option>
+                     </select>
+                     </div>
+                     <div class="preparations">
+                        <select disabled id="existing{{ pp.id }}" class="preparation">
+                           <option value="{{ pp.id }}">{{ pp.preparation_text }}</option>
+                        </select>
+                     </div>
+                  </div>
+                  {% endfor %}
+                  {% else %}
+                  <span class="no_products">No Products Yet!</span>
+                  {% endif %}
+               </div>
+            </div>
+            <input id="preparation_ids" name="preparation_ids" type="hidden" />
+            <div class="save"><button type="submit" onclick="setPreparationField();" />Save</button></div>
+         </form>
+      </div>
+      <!-- The template div used by appendProduct() -->
+      <div id="new_product" style="display:none;">
+         <div class="product_preparations">
+            <div class="products">
+               <a href="#" onclick="deleteProduct(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+               <select id="product$iteration" onchange="showPreparations($iteration)">
+                  <option selected disabled></option>
+                  {% for product in product_list %}
+                  <option value="{{ product }}">{{ product }}</option>
+                  {% endfor %}
+               </select>
+               </div>
+               <div class="preparations">
+                  <select disabled id="preparation$iteration" class="preparation">
+                     <option selected disabled></option>
+                  </select>
+               </div>
+         </div>
+      </div>
+   </body>
+   <script>
+      var preparation_options = {{ json_preparations|safe }};
+      
+      number_of_products = 0;
+
+      function deleteProduct(element)
+      {
+          $( element ).parent().parent().css("display", "none");
+          if ($( ".preparation:visible" ).length === 0) {
+              $( ".no_products" ).show();    
+          };
+      }
+      
+      function showPreparations(prep_number)
+      {
+          var preparation_select = document.getElementById("preparation" + prep_number);
+          var product_select = document.getElementById("product" + prep_number);
+          var current_product = product_select.options[product_select.selectedIndex].value
+          preparation_select.options.length = 0;
+          for (preparation in preparation_options[current_product]) {
+              var option = document.createElement("option");
+              option.value = preparation_options[current_product][preparation].value;
+              option.text = preparation_options[current_product][preparation].name;
+              preparation_select.add(option);
+          }
+          preparation_select.disabled=false;
+      }
+      
+      function appendProduct()
+      {
+          $( ".no_products" ).hide();
+          var new_product_html = $('#new_product').html();
+          var new_product_html = new_product_html.split("$iteration").join(number_of_products);
+          $( ".container" ).append( new_product_html );
+          number_of_products++;
+      }
+      
+      function setPreparationField()
+      {
+          var preparation_ids = []
+          $( ".preparation:visible" ).each( function( index, element ){
+              preparation_ids.push(this.options[this.selectedIndex].value);
+          });
+      
+          $('input[name="preparation_ids"]').val(preparation_ids);
+      }
+   </script>
+</html>
