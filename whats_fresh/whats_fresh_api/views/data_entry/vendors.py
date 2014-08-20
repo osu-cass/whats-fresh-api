@@ -28,9 +28,10 @@ def vendor(request, id=None):
 
         if len(post_data['preparation_ids']) == 0:
             errors.append("You must choose at least one product.")
-
-        product_preparations = list(set(post_data['preparation_ids'].split(',')))
-        post_data['products_preparations'] = 1 # Needed for form validation to pass
+            product_preparations = []
+        else:
+            product_preparations = list(set(post_data['preparation_ids'].split(',')))
+            post_data['products_preparations'] = 1 # Needed for form validation to pass
 
         vendor_form = VendorForm(post_data)
         if vendor_form.is_valid() and not errors:
@@ -62,7 +63,6 @@ def vendor(request, id=None):
                         product_preparation=ProductPreparation.objects.get(
                             id=product_preparation))
                 vendor.save()
-            print vendor.description
             return HttpResponseRedirect("%s?success=true" % reverse('edit-vendor', kwargs={'id': vendor.id}))
 
         existing_product_preparations = []
@@ -95,10 +95,13 @@ def vendor(request, id=None):
                 })
         if request.GET.get('success') == 'true':
             message = "Vendor saved successfully!"
-    else:
+    elif request.method != 'POST':
         title = "New Vendor"
         post_url = reverse('new-vendor')
         vendor_form = VendorForm()
+    else:
+        title = "New Vendor"
+        post_url = reverse('new-vendor')
 
     data = {}
     product_list = []
@@ -115,6 +118,8 @@ def vendor(request, id=None):
     json_preparations = json.dumps(data)
 
     return render(request, 'vendor.html', {
+        'parent_url': reverse('list-vendors-edit'),
+        'parent_text': '< Vendor List',
         'message': message,
         'title': title,
         'post_url': post_url,
@@ -123,4 +128,29 @@ def vendor(request, id=None):
         'vendor_form': vendor_form,
         'json_preparations': json_preparations,
         'product_list': product_list,
+    })
+
+
+def vendor_list(request):
+    vendors = Vendor.objects.all()
+    vendors_list = []
+
+    for vendor in vendors:
+        vendor_data = {}
+        vendor_data['name'] = vendor.name
+        vendor_data['modified'] = vendor.modified.strftime("%I:%M %P, %d %b %Y")
+        vendor_data['description'] = vendor.description
+        vendor_data['link'] = reverse('edit-vendor', kwargs={'id': vendor.id})
+
+        if len(vendor_data['description']) > 100:
+            vendor_data['description'] = vendor_data['description'][:100] + "..."
+
+        vendors_list.append(vendor_data)
+
+    return render(request, 'list.html', {
+        'new_url': reverse('new-vendor'),
+        'new_text': "New Vendor",
+        'title': "All Vendors",
+        'item_classification': "vendor",
+        'item_list': vendors_list,
     })

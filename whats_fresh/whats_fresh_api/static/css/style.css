@@ -17,12 +17,96 @@ select {
   font-weight: 300;
 }
 
+.whole_div_link { 
+  position: absolute; 
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+} 
 
 html, body {
   height: 100%;
 }
 
+.inline_items {
+  width: 100%;
+}
+
+a:active, a:hover, a:visited, a:link {
+    text-decoration: none;
+    border-bottom: 1px dotted;
+    color: #343434;
+}
+
+.list_container, .entry_box {
+  padding: 10px;
+  background-color:rgba(255, 255, 255, 0.5);
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.list_container:hover {
+  background-color:rgba(255, 255, 255, 0.25);
+}
+
+.item_name {
+  font-size: 1.4em;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 3%;
+  vertical-align:top;
+  width: 46%;
+  margin-bottom: 5px;
+}
+
+.item_modified {
+  font-size: 1.2em;
+  text-align: right;
+  display: inline-block;
+  margin-left: 3%;
+  margin-right: auto;
+  width: 46%;
+  vertical-align:top;
+}
+
+#new {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  float: right;
+  font-size: .8em;
+}
+
+#back_to_parent {
+  padding: 6px;
+  border-radius: 5px;
+  background: rgba(10,10,10,0.52);
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  float: left;
+  font-size: .6em;
+}
+
+#back_to_parent a:active, #back_to_parent a:hover, #back_to_parent a:visited, #back_to_parent a:link {
+  color: #FFFFFF;
+  border-bottom: none;
+}
+
+.item_description {
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.title {
+  color: #000000;
+}
+
 #title {
+  color: #000000;
+  margin-bottom: 15px;
   font-size: 1.8em;
   font-family: Open Sans;
   font-weight: 300;
@@ -31,6 +115,7 @@ html, body {
 }
 
 #message {
+  margin-bottom: 5px;
   width: 100%;
   text-align: center;
 }
@@ -54,6 +139,13 @@ body {
   margin:0px;
   background: #4D6A7C;
   font-family: Open Sans;
+}
+
+#centered_header {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 750px;
 }
 
 #body {
@@ -103,6 +195,7 @@ body {
 }
 
 .container {
+  margin-top: -25px;
   text-align: center;
   font-size: 1.4em;
   font-weight: 300;
@@ -125,6 +218,8 @@ body {
 }
 
 .add button {
+  margin-top: -25px;
+  margin-bottom: 25px;
   margin-right: 10px;
   float: right;
 }

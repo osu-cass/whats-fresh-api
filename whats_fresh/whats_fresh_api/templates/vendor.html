@@ -1,17 +1,11 @@
-<!doctype html>
-<html>
-   <head>
-      <meta charset="utf-8">
-      <title>What's Fresh | {{ title }}</title>
-      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,300italic' rel='stylesheet' type='text/css'>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+{% extends "generic.html" %}
+
+{% block header_expansion %}
+<div id="back_to_parent"><a href="{{ parent_url }}">{{ parent_text }}</a></div>
+{% endblock %}
+
+{% block body %}
       {% load staticfiles %}
-      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-   </head>
-   <body>
-      <div id="header">What's Fresh</div>
-      <div id="body">
-         <div id="title">{{ title }}</div>
          <div id="message">{{ message }}</div>
          {% if vendor_form.errors or errors %}
          <div id="error">
@@ -30,28 +24,35 @@
          <form action="{{ post_url }}" method="post">
             {% csrf_token %}
             <div id="info">
+               <div class="entry_box">
                <div class="title_text">Basic Info</div><br>
                <div class="required field_text" id="name">Name:</div><div class="form">{{ vendor_form.name }}</div><br>
                <div class="required field_text" id="description">Description:</div><div class="form">{{ vendor_form.description }}</div><br>
                <div class="required field_text" id="story">Story:</div><div class="form">{{ vendor_form.story_id }}</div><br>
                <div class="optional field_text" id="status">In Port?</div><div class="form">{{ vendor_form.status }}</div><br>
+               </div>
             </div>
             <div id="location">
+               <div class="entry_box">
                <div class="title_text">Location</div><br>
                <div class="required field_text" id="street">Street Address:</div><div class="form">{{ vendor_form.street }}</div><br>
                <div class="required field_text" id="city">City:</div><div class="form">{{ vendor_form.city }}</div><br>
                <div class="required field_text" id="State">State:</div><div class="form">{{ vendor_form.state }}</div><br>
                <div class="required field_text" id="zip">Zipcode:</div><div class="form">{{ vendor_form.zip }}</div><br>
                <div class="optional field_text" id="location_description">Location Description:</div><div class="form">{{ vendor_form.location_description }}</div><br>
+               </div>
             </div>
             <div id="contact">
+               <div class="entry_box">
                <div class="title_text">Contact</div><br>
                <div class="required field_text" id="contact">Contact Name:</div><div class="form">{{ vendor_form.contact_name }}</div><br>
                <div class="optional field_text" id="website">Website:</div><div class="form">{{ vendor_form.website }}</div><br>
                <div class="optional field_text" id="email">Email:</div><div class="form">{{ vendor_form.email }}</div><br>
                <div class="optional field_text" id="phone">Phone:</div><div class="form">{{ vendor_form.phone }}</div><br>
+               </div>
             </div>
             <div id="products">
+               <div class="entry_box">
                <div class="title_text">Products<div class="add"><button type="button" onclick="appendProduct()">Add Product</button></div></div><br>
                <div class="container">
                   {% if existing_product_preparations %}
@@ -73,6 +74,7 @@
                   {% else %}
                   <span class="no_products">No Products Yet!</span>
                   {% endif %}
+               </div>
                </div>
             </div>
             <input id="preparation_ids" name="preparation_ids" type="hidden" />
@@ -98,7 +100,8 @@
                </div>
          </div>
       </div>
-   </body>
+{% endblock %}
+{% block footer %}
    <script>
       var preparation_options = {{ json_preparations|safe }};
       
@@ -146,4 +149,4 @@
           $('input[name="preparation_ids"]').val(preparation_ids);
       }
    </script>
-</html>
+{% endblock %}
