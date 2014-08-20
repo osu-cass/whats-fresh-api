@@ -1,7 +1,7 @@
 {% extends "generic.html" %}
 
 {% block header_expansion %}
-<div id="back_to_parent"><a href="{{ parent_url }}">{{ parent_text }}</a></div>
+<div id="back_to_parent"><a href="{{ parent_url }}">&lt; <span class="parent_text">{{ parent_text }}</span></a></div>
 {% endblock %}
 
 {% block body %}
@@ -53,13 +53,13 @@
             </div>
             <div id="products">
                <div class="entry_box">
-               <div class="title_text">Products<div class="add"><button type="button" onclick="appendProduct()">Add Product</button></div></div><br>
+               <div class="title_text product_title">Products<div class="add"><button type="button" onclick="appendProduct()">Add Product</button></div></div><br>
                <div class="container">
                   {% if existing_product_preparations %}
                   {% for pp in existing_product_preparations %}
                <div class="product_preparations">
                   <div class="products">
-                     <a href="#" onclick="deleteProduct(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+                     <a href="#" onclick="deleteProduct(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /><div class="delete">Delete</div></a>
                      <select disabled id="existing{{ pp.id }}">
                         <option value="{{ pp.product }}">{{ pp.product }}</option>
                      </select>
@@ -85,7 +85,7 @@
       <div id="new_product" style="display:none;">
          <div class="product_preparations">
             <div class="products">
-               <a href="#" onclick="deleteProduct(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+               <a href="#" onclick="deleteProduct(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /><div class="delete">Delete</div></a>
                <select id="product$iteration" onchange="showPreparations($iteration)">
                   <option selected disabled></option>
                   {% for product in product_list %}

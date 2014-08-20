@@ -4,6 +4,7 @@ select {
 
 .add {
     height:32px;
+    float: right;
 }
 
 .required {
@@ -145,7 +146,7 @@ body {
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  width: 750px;
+  max-width: 750px;
 }
 
 #body {
@@ -153,7 +154,7 @@ body {
   background: #DFD1B7;
   min-height: calc(100% - 70px);
   height: auto;
-  width: 750px;
+  max-width: 750px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -178,12 +179,20 @@ body {
   width: 47%;
 }
 
+#new {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  float: right;
+  font-size: .8em;
+}
+
 .products {
   text-align: right;
   display: inline-block;
   margin-left: auto;
   margin-right: 2%;
-  width: 47%;
+  max-width: 47%;
   margin-bottom: 5px;
 }
 
@@ -191,7 +200,7 @@ body {
   display: inline-block;
   margin-left: 2%;
   margin-right: auto;
-  width: 47%;
+  max-width: 47%;
 }
 
 .container {
@@ -218,10 +227,12 @@ body {
 }
 
 .add button {
-  margin-top: -25px;
-  margin-bottom: 25px;
   margin-right: 10px;
   float: right;
+}
+
+.product_title {
+  margin-bottom: 25px;
 }
 
 button {
@@ -240,4 +251,104 @@ button {
 .save button {
   font-size: 1.4em;
   margin: 10px;
+}
+
+#new_mobile {
+  display: none;
+}
+
+div.delete {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .products select, .preparations select {
+    width: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .item_modified {
+    display: none;
+  }
+  .item_name {
+    width: 92%;
+  }
+
+  .parent_text {
+    display: none;
+  }
+
+  #new {
+    display: none;
+  }
+
+  #new_mobile {
+    display: inline;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    float: right;
+    font-size: .8em;
+  }
+
+  .field_text {
+    text-align: left;
+    display: block;
+    margin-left: 15px;
+    margin-right: auto;
+    margin-bottom: 5px;
+  }
+
+  .form {
+    display: block;
+    width: 100%;
+    margin-left: 25px;
+    margin-right: auto;
+  }
+
+  textarea {
+    width: calc(100% - 40px);
+  }
+
+
+
+  .products {
+    text-align: left;
+    display: block;
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%;
+    margin-bottom: 5px;
+  }
+
+  .preparations {
+    display: block;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 15px;
+    width: 96%;
+    border-bottom: 1px solid #ccc;
+  }
+
+  img.delete {
+    display: none;
+  }
+
+  .product_preparations {
+    width: 200%;
+  }
+
+  div.delete {
+    float: right;
+    margin-bottom: 10px;
+    width: 200%;
+    text-align: right;
+    font-size: 0.8em;
+    display: inline;
+  }
+
+  .products select, .preparations select {
+     width: 100%;
+  }
 }

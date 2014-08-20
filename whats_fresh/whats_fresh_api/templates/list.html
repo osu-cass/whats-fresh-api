@@ -1,6 +1,6 @@
 {% extends "generic.html" %}
-
-{% block title_expansion %}<div id="new"><a href="{{ new_url }}">{{ new_text }}</a></div>{% endblock %}
+{% load staticfiles %}
+{% block title_expansion %}<div id="new"><a href="{{ new_url }}">{{ new_text }}</a></div><div id="new_mobile"><a href="{{ new_url }}">New</a></div>{% endblock %}
 
 {% block body %}
          <div id="message">{{ message }}</div>

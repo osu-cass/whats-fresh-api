@@ -119,7 +119,7 @@ def vendor(request, id=None):
 
     return render(request, 'vendor.html', {
         'parent_url': reverse('list-vendors-edit'),
-        'parent_text': '< Vendor List',
+        'parent_text': 'Vendor List',
         'message': message,
         'title': title,
         'post_url': post_url,
