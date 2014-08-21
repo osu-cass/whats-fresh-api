@@ -51,6 +51,12 @@ class NewVendorTestCase(TestCase):
 
         # It needs a story, and we'll want multiple product_preparations to
         # allow us to test the multi-product logic.
+
+        # We can't predict what the ID of the new vendor will be, so we can
+        # delete all of the vendors, and then choose the only vendor left
+        # after creation.
+        Vendor.objects.all().delete()
+
         Story.objects.create(id=1)
         product = Product.objects.create(id=1)
         preparation = Preparation.objects.create(id=1)
@@ -81,7 +87,7 @@ class NewVendorTestCase(TestCase):
         new_vendor['phone'] = None
         new_vendor['story_id'] = Story.objects.get(id=new_vendor['story_id'])
 
-        vend = Vendor.objects.get(id=1)
+        vend = Vendor.objects.all()[0]
         for field in new_vendor:
             self.assertEqual(getattr(vend, field), new_vendor[field])
 
@@ -112,7 +118,8 @@ class NewVendorTestCase(TestCase):
 
         # Test non-automatically generated errors written into the view
         self.assertIn(
-            'You must choose at least one product.', response.context['errors'])
+            'You must choose at least one product.',
+            response.context['errors'])
         self.assertIn('Full address is required.', response.context['errors'])
 
         required_fields = [
