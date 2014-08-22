@@ -28,11 +28,15 @@ def vendor_list(request):
             data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
             data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
 
+<<<<<<< HEAD
             data['vendors'][-1]['created'] = str(vendor.created)
             data['vendors'][-1]['updated'] = str(vendor.modified)
             data['vendors'][-1]['ext'] = {}
             data['vendors'][-1]['story'] = data['vendors'][-1].pop('story_id')
             data['vendors'][-1]['id'] = vendor.id
+
+            data['vendors'][-1]['lat'] = vendor.location.y
+            data['vendors'][-1]['long'] = vendor.location.x
 
             del data['vendors'][-1]['products_preparations']
 
@@ -111,6 +115,8 @@ def vendors_products(request, id=None):
             data['vendors'][-1]['id'] = vendor.id
 
             data['vendors'][-1]['story'] = data['vendors'][-1].pop('story_id')
+            data['vendors'][-1]['lat'] = vendor.location.y
+            data['vendors'][-1]['long'] = vendor.location.x
 
             del data['vendors'][-1]['products_preparations']
 
@@ -169,11 +175,17 @@ def vendor_details(request, id=None):
     try:
         data = model_to_dict(vendor, fields=[], exclude=[])
 
+<<<<<<< HEAD
         data['story_id'] = vendor.story_id.id
         if data['phone']:
             data['phone'] = data['phone'].national_number
         else:
             data['phone'] = None
+=======
+        data['lat'] = vendor.location.y
+        data['long'] = vendor.location.x
+
+>>>>>>> Update Vendor to use GeoDjango point rather than lat/long
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
         data['ext'] = {}
@@ -181,6 +193,7 @@ def vendor_details(request, id=None):
         data['id'] = vendor.id
 
         del data['products_preparations']
+        del data['location']
 
         vendor_products = vendor.vendorproduct_set.all()
         data['products'] = []

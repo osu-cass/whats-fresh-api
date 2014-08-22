@@ -64,8 +64,8 @@ class VendorsTestCase(TestCase):
         "name": "All Optional Null Fields Are Null",
         "status": null,
         "description": "Ceci n'est pas un magasin.",
-        "lat": 43.418297,
-        "long": -124.219635,
+        "lat": 37.833688,
+        "long": -122.478002,
         "street": "501 Isabelle Rd",
         "city": "North Bend",
         "state": "OR",
@@ -99,6 +99,7 @@ class VendorsTestCase(TestCase):
         self.assertEqual(url, '/vendors')
 
     def test_json_equals(self):
+        self.maxDiff = None
         c = Client()
         response = self.client.get(reverse('vendors-list')).content
         parsed_answer = json.loads(response)
@@ -132,4 +133,5 @@ class NoVendorViewTestCase(TestCase):
         expected_answer = json.loads(self.expected_no_vendors)
 
         self.maxDiff = None
+
         self.assertEqual(parsed_answer, expected_answer)

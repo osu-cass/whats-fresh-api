@@ -91,4 +91,5 @@ class VendorsProductsTestCase(TestCase):
                 vendor['products'], key=lambda k: k['product_id'])
 
         self.maxDiff = None
+
         self.assertEqual(parsed_answer, expected_answer)
