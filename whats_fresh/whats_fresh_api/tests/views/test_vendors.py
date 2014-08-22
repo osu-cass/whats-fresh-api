@@ -49,12 +49,12 @@ class VendorsTestCase(TestCase):
       "products": [
         {
           "id": 1,
-          "name": "Starfish Voyager",
+          "name": "Ezri Dax",
           "preparation": "Live"
         },
         {
           "id": 2,
-          "name": "Ezri Dax",
+          "name": "Starfish Voyager",
           "preparation": "Live"
         }
       ]
@@ -81,7 +81,7 @@ class VendorsTestCase(TestCase):
         "updated": "2014-08-08 23:27:05.568395+00:00",
         "products": [
             {
-                "id": 1,
+                "id": 2,
                 "name": "Starfish Voyager",
                 "preparation": "Live"
             }
@@ -103,4 +103,5 @@ class VendorsTestCase(TestCase):
 
         expected_answer = json.loads(self.expected_json)
 
-        self.assertTrue(parsed_answer == expected_answer)
+        self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)

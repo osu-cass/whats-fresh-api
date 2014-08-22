@@ -30,28 +30,27 @@ def vendor_list(request):
             content_type="application/json"
         )
     try:
+        data['vendors'] = []
         for vendor in vendor_list:
-            data[str(vendor.id)] = model_to_dict(vendor, fields=[], exclude=[])
-            data[str(vendor.id)]['phone'] = data[
-                  str(vendor.id)]['phone'].national_number
+            data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
+            data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
 
-            data[str(vendor.id)]['created'] = str(vendor.created)
-            data[str(vendor.id)]['updated'] = str(vendor.modified)
-            data[str(vendor.id)]['ext'] = {}
-            del data[str(vendor.id)]['id']
+            data['vendors'][-1]['created'] = str(vendor.created)
+            data['vendors'][-1]['updated'] = str(vendor.modified)
+            data['vendors'][-1]['ext'] = {}
+            data['vendors'][-1]['story'] = data['vendors'][-1].pop('story_id')
+            data['vendors'][-1]['id'] = vendor.id
 
-            data[str(vendor.id)]['story'] = data[
-                  str(vendor.id)].pop('story_id')
-
-            products = data[str(vendor.id)]['products']
-            data[str(vendor.id)]['products'] = {}
+            products = data['vendors'][-1]['products']
+            data['vendors'][-1]['products'] = []
             for product_id in products:
                 product = VendorProduct.objects.get(id=product_id)
                 product_data = {
+                    'id': product.product.id,
                     'preparation': product.preparation.name,
                     'name': product.product.name
                 }
-                data[str(vendor.id)]['products'][product_id] = product_data
+                data['vendors'][-1]['products'].append(product_data)
 
         data['error'] = {
             'error_status': False,
@@ -60,11 +59,11 @@ def vendor_list(request):
             'error_name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
-    except:
+    except Exception as e:
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing the vendors',
+            'error_text': str(e),
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -98,27 +97,28 @@ def vendors_products(request, id=None):
         )
 
     try:
+        data['vendors'] = []
         for vendor in vendor_list:
-            data[str(vendor.id)] = model_to_dict(vendor, fields=[], exclude=[])
-            data[str(vendor.id)]['phone'] = data[
-                str(vendor.id)]['phone'].national_number
+            data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
+            data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
 
-            data[str(vendor.id)]['created'] = str(vendor.created)
-            data[str(vendor.id)]['updated'] = str(vendor.modified)
-            data[str(vendor.id)]['ext'] = {}
-            del data[str(vendor.id)]['id']
+            data['vendors'][-1]['created'] = str(vendor.created)
+            data['vendors'][-1]['updated'] = str(vendor.modified)
+            data['vendors'][-1]['ext'] = {}
+            data['vendors'][-1]['id'] = vendor.id
 
-            data[str(vendor.id)]['story'] = data[str(vendor.id)].pop('story_id')
+            data['vendors'][-1]['story'] = data['vendors'][-1].pop('story_id')
 
-            products = data[str(vendor.id)]['products']
-            data[str(vendor.id)]['products'] = {}
+            products = data['vendors'][-1]['products']
+            data['vendors'][-1]['products'] = []
             for product_id in products:
                 product = VendorProduct.objects.get(id=product_id)
                 product_data = {
-                    'preparation': product.preparation.name,
-                    'name': product.product.name
-                }
-                data[str(vendor.id)]['products'][product_id] = product_data
+                        'id': product.product.id,
+                        'preparation': product.preparation.name,
+                        'name': product.product.name
+                        }
+                data['vendors'][-1]['products'].append(product_data)
 
         data['error'] = {
             'error_status': False,
@@ -128,11 +128,11 @@ def vendors_products(request, id=None):
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
-    except:
+    except Exception as e:
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing the vendors for product %s' % id,
+            'error_text': e,
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -158,23 +158,25 @@ def vendor_details(request, id=None):
         )
 
     try:
-        data = model_to_dict(vendor, fields=[], exclude=[])
-
-        data['story_id'] = vendor.story_id.id
+        data = (model_to_dict(vendor, fields=[], exclude=[]))
         data['phone'] = data['phone'].national_number
+
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
         data['ext'] = {}
+        data['story'] = data.pop('story_id')
+        data['id'] = vendor.id
 
         products = data['products']
-        data['products'] = {}
+        data['products'] = []
         for product_id in products:
             product = VendorProduct.objects.get(id=product_id)
             product_data = {
+                'id': product.product.id,
                 'preparation': product.preparation.name,
                 'name': product.product.name
             }
-            data['products'][product_id] = product_data
+            data['products'].append(product_data)
 
         data['error'] = {
             'error_status': False,
@@ -188,13 +190,11 @@ def vendor_details(request, id=None):
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing vendor %s'
-                            % id,
-            'error_name': e
+            'error_text': e,
+            'error_name': 'Unknown'
         }
 
         return HttpResponseServerError(
                 json.dumps(data),
                 content_type="application/json"
         )
-

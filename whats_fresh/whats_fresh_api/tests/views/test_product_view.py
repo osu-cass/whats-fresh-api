@@ -71,4 +71,6 @@ class ProductViewTestCase(TestCase):
         response = c.get(reverse('products-list')).content
         parsed_answer = json.loads(response)
         expected_answer = json.loads(self.expected_json)
-        self.assertTrue(parsed_answer == expected_answer)
+
+        self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)
