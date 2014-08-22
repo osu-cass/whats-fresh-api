@@ -27,7 +27,11 @@ def vendor_list(request):
             data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
             data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
 
-<<<<<<< HEAD
+            try:
+                data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+            except AttributeError:
+                data['vendors'][-1]['phone'] = None
+
             data['vendors'][-1]['created'] = str(vendor.created)
             data['vendors'][-1]['updated'] = str(vendor.modified)
             data['vendors'][-1]['ext'] = {}
@@ -102,7 +106,12 @@ def vendors_products(request, id=None):
         data['vendors'] = []
         for vendor in vendor_list:
             data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
-            data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+
+            try:
+                data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+            except AttributeError:
+                data['vendors'][-1]['phone'] = None
+
             data['vendors'][-1]['created'] = str(vendor.created)
             data['vendors'][-1]['updated'] = str(vendor.modified)
             data['vendors'][-1]['ext'] = {}
@@ -163,11 +172,17 @@ def vendor_details(request, id=None):
         )
 
     try:
-        data = (model_to_dict(vendor, fields=[], exclude=[]))
-        data['phone'] = data['phone'].national_number
+        data = model_to_dict(vendor, fields=[], exclude=[])
+
+        data['story_id'] = vendor.story_id.id
+        try:
+            data['phone'] = vendor.phone.national_number
+       except AttributeError:
+            data['phone'] = None
 
         data['lat'] = vendor.location.y
         data['long'] = vendor.location.x
+        del data['location']
 
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
@@ -176,7 +191,6 @@ def vendor_details(request, id=None):
         data['id'] = vendor.id
 
         del data['products_preparations']
-        del data['location']
 
         vendor_products = vendor.vendorproduct_set.all()
         data['products'] = []
