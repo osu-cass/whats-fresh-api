@@ -58,8 +58,6 @@ class Vendor(models.Model):
 
     # Geo Django field to store a point
     location = models.PointField()
-
-    # You MUST use GeoManager to make Geo Queries
     objects = models.GeoManager()
 
     story_id = models.ForeignKey('Story', null=True)
