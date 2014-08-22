@@ -54,8 +54,11 @@ class Vendor(models.Model):
     email = models.EmailField(blank=True)
     phone = PhoneNumberField(blank=True)
 
-    lat = models.FloatField()
-    long = models.FloatField()
+    # Geo Django field to store a point
+    location = models.PointField()
+
+    # You MUST use GeoManager to make Geo Queries
+    objects = models.GeoManager()
 
     story_id = models.ForeignKey('Story', null=True)
     products_preparations = models.ManyToManyField(
