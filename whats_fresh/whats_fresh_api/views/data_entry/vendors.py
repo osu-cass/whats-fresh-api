@@ -4,6 +4,7 @@ from django.http import (HttpResponse,
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
+from django.utils.datastructures import MultiValueDictKeyError
 
 from whats_fresh_api.models import *
 from whats_fresh_api.forms import *
@@ -23,15 +24,24 @@ def vendor(request, id=None):
                 post_data['zip'])
             post_data['lat'] = float(coordinates[0])
             post_data['long'] = float(coordinates[1])
+        # Bad Address will be thrown if Google does not return coordinates for
+        # the address, and MultiValueDictKeyError will be thrown if the POST
+        # data being passed in is empty.
         except BadAddressException:
             errors.append("Bad address!")
+        except MultiValueDictKeyError:
+            errors.append("Full address is required.")
 
-        if len(post_data['preparation_ids']) == 0:
+        try:
+            if len(post_data['preparation_ids']) == 0:
+                errors.append("You must choose at least one product.")
+                product_preparations = []
+            else:
+                product_preparations = list(set(post_data['preparation_ids'].split(',')))
+                post_data['products_preparations'] = 1 # Needed for form validation to pass
+        except MultiValueDictKeyError:
             errors.append("You must choose at least one product.")
             product_preparations = []
-        else:
-            product_preparations = list(set(post_data['preparation_ids'].split(',')))
-            post_data['products_preparations'] = 1 # Needed for form validation to pass
 
         vendor_form = VendorForm(post_data)
         if vendor_form.is_valid() and not errors:
