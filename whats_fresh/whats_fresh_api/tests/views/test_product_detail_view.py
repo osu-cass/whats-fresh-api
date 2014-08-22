@@ -50,4 +50,5 @@ class ProductViewTestCase(TestCase):
 
         expected_answer = json.loads(self.expected_json)
         self.maxDiff = None
+
         self.assertEqual(parsed_answer, expected_answer)

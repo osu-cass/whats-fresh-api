@@ -31,4 +31,4 @@ class StoriesTestCase(TestCase):
         parsed_answer = json.loads(response)
 
         expected_answer = json.loads(self.expected_json)
-        self.assertTrue(parsed_answer == expected_answer)
+        self.assertEqual(parsed_answer, expected_answer)

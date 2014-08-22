@@ -8,13 +8,9 @@ import json
 
 
 class VendorsTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
-
-        # This is the expected return, as JSON
-        # We can't use this, unfortunately, because we nede to allow
-        # for 'created' and 'updated' to be changed
         self.expected_json = """
 {
   "error": {
@@ -64,8 +60,8 @@ class VendorsTestCase(TestCase):
         "name": "All Optional Null Fields Are Null",
         "status": null,
         "description": "Ceci n'est pas un magasin.",
-        "lat": 43.418297,
-        "long": -124.219635,
+        "lat": 37.833688,
+        "long": -122.478002,
         "street": "501 Isabelle Rd",
         "city": "North Bend",
         "state": "OR",
@@ -97,6 +93,7 @@ class VendorsTestCase(TestCase):
         self.assertEqual(url, '/vendors')
 
     def test_json_equals(self):
+        self.maxDiff = None
         c = Client()
         response = c.get(reverse('vendors-list')).content
         parsed_answer = json.loads(response)
@@ -104,4 +101,5 @@ class VendorsTestCase(TestCase):
         expected_answer = json.loads(self.expected_json)
 
         self.maxDiff = None
+
         self.assertEqual(parsed_answer, expected_answer)
