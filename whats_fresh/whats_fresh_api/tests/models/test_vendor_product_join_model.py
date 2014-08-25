@@ -10,8 +10,7 @@ class VendorProductJoinTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
             'vendor': models.ForeignKey,
-            'product': models.ForeignKey,
-            'preparation': models.ForeignKey,
+            'product_preparation': models.ForeignKey,
             'vendor_price': models.TextField,
             'available': models.NullBooleanField,
             'id': models.AutoField
@@ -37,8 +36,10 @@ class VendorProductJoinTestCase(TestCase):
             result = VendorProduct.__unicode__(
                 VendorProduct(
                     vendor=Vendor(name='test'),
-                    product=Product(name='test'),
-                    preparation=Preparation(name='test')
+                    product_preparation=ProductPreparation(
+                        product=Product(name='test'),
+                        preparation=Preparation(name='test')
+                    )
                 ))
         except AttributeError as e:
             self.fail("No __unicode__ method found")

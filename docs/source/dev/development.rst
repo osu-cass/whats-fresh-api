@@ -131,6 +131,8 @@ You should now be ready to run the Django app!
 ::
 (venv)[vagrant@project-fish ~]$ python manage.py runserver 0.0.0.0:8000
 
+To access the server in your web browser, navigate to ``http://172.16.16.2:8000``.
+
 Testing
 -------
 

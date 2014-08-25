@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
   config.vm.box       = "centos-6-#{box_ver}"
   config.vm.box_url   = "#{box_url}"
 
-  config.vm.network :private_network, ip: "33.33.33.50", adapter: 2
+  config.vm.network :private_network, ip: "172.16.16.2", adapter: 2
 
   config.berkshelf.berksfile_path = "chef/Berksfile"
   config.berkshelf.enabled = true

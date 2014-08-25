@@ -7,11 +7,9 @@ import json
 
 
 class VendorsProductsTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['overlapping_fixtures']
 
-    def setUp(self):
-        # In the test fixtures, there are two vendors. Only vendor
-        # 1 sells Product 2. 
+    def setUp(self): 
         self.expected_json = """
 {
   "error": {
@@ -22,7 +20,7 @@ class VendorsProductsTestCase(TestCase):
   },
   "vendors": [
     {
-      "id": 1,
+      "id": 10,
       "name": "No Optional Null Fields Are Null",
       "status": true,
       "description": "This is a vendor shop.",
@@ -37,7 +35,7 @@ class VendorsProductsTestCase(TestCase):
       "phone": 5417377627,
       "website": "http://example.com",
       "email": "a@perr.com",
-      "story": 1,
+      "story": 10,
       "ext": {
         
       },
@@ -45,13 +43,13 @@ class VendorsProductsTestCase(TestCase):
       "updated": "2014-08-08 23:27:05.568395+00:00",
       "products": [
         {
-          "id": 1,
-          "name": "Ezri Dax",
+          "id": 10,
+          "name": "Starfish Voyager",
           "preparation": "Live"
         },
         {
-          "id": 2,
-          "name": "Starfish Voyager",
+          "id": 100,
+          "name": "Ezri Dax",
           "preparation": "Live"
         }
       ]
@@ -60,13 +58,13 @@ class VendorsProductsTestCase(TestCase):
 }"""
 
     def test_url_endpoint(self):
-       url = reverse('vendors-products', kwargs={'id': '2'})
-       self.assertEqual(url, '/vendors/products/2')
+       url = reverse('vendors-products', kwargs={'id': '10'})
+       self.assertEqual(url, '/vendors/products/10')
 
     def test_json_equals(self):
         c = Client()
         response = c.get(
-            reverse('vendors-products', kwargs={'id': '2'})).content
+            reverse('vendors-products', kwargs={'id': '10'})).content
         parsed_answer = json.loads(response)
 
         expected_answer = json.loads(self.expected_json)

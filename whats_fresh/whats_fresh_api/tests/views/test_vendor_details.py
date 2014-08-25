@@ -7,7 +7,7 @@ import json
 
 
 class VendorTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
         self.expected_json = """
@@ -39,15 +39,14 @@ class VendorTestCase(TestCase):
   "updated": "2014-08-08 23:27:05.568395+00:00",
   "products": [
     {
-      "id": 1,
-      "name": "Ezri Dax",
-      "preparation": "Live"
-    },
-    {
       "id": 2,
       "name": "Starfish Voyager",
       "preparation": "Live"
- 
+    },
+    {
+      "id": 1,
+      "name": "Ezri Dax",
+      "preparation": "Live"
     }
   ]
 }"""

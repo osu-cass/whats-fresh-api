@@ -48,13 +48,13 @@ class VendorsTestCase(TestCase):
       "updated": "2014-08-08 23:27:05.568395+00:00",
       "products": [
         {
-          "id": 1,
-          "name": "Ezri Dax",
+          "id": 2,
+          "name": "Starfish Voyager",
           "preparation": "Live"
         },
         {
-          "id": 2,
-          "name": "Starfish Voyager",
+          "id": 1,
+          "name": "Ezri Dax",
           "preparation": "Live"
         }
       ]
@@ -81,8 +81,8 @@ class VendorsTestCase(TestCase):
         "updated": "2014-08-08 23:27:05.568395+00:00",
         "products": [
             {
-                "id": 2,
-                "name": "Starfish Voyager",
+                "id": 1,
+                "name": "Ezri Dax",
                 "preparation": "Live"
             }
         ]

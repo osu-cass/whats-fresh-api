@@ -1,7 +1,7 @@
 [
   {
     "model": "whats_fresh_api.Story",
-    "pk": "1",
+    "pk": "10",
     "fields": {
       "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations...",
       "created": "2014-08-08 23:27:05.568395+00:00",
@@ -10,7 +10,7 @@
   },
   {
     "model": "whats_fresh_api.Story",
-    "pk": "2",
+    "pk": "20",
     "fields": {
       "story": "This is the story, all about how my life got flip turned upside down!",
       "created": "2014-08-08 23:27:05.568395+00:00",
@@ -19,7 +19,7 @@
   },
   {
     "model": "whats_fresh_api.Product",
-    "pk": "2",
+    "pk": "10",
     "fields": {
       "name": "Starfish Voyager",
       "variety": "Tuna",
@@ -30,15 +30,15 @@
       "available": "True",
       "market_price": "$33.31",
       "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
-      "image_id": "1",
-      "story_id": "1",
+      "image_id": "10",
+      "story_id": "10",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
     "model": "whats_fresh_api.Product",
-    "pk": "1",
+    "pk": "100",
     "fields": {
       "name": "Ezri Dax",
       "variety": "Freshwater Eel",
@@ -49,15 +49,15 @@
       "available": "True",
       "market_price": "$32.64 per season",
       "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
-      "image_id": "2",
-      "story_id": "2",
+      "image_id": "20",
+      "story_id": "20",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
     "model": "whats_fresh_api.Vendor",
-    "pk": "1",
+    "pk": "10",
     "fields": {
       "name": "No Optional Null Fields Are Null",
       "status": "True",
@@ -71,7 +71,7 @@
       "location_description": "Location description",
       "contact_name": "A. Persson",
       "phone": "+1 541-737-7627",
-      "story_id": "1",
+      "story_id": "10",
       "website": "http://example.com",
       "email": "a@perr.com",
       "created": "2014-08-08 23:27:05.568395+00:00",
@@ -80,7 +80,7 @@
   },
   {
     "model": "whats_fresh_api.Vendor",
-    "pk": "2",
+    "pk": "20",
     "fields": {
       "name": "All Optional Null Fields Are Null",
       "status": null,
@@ -103,61 +103,53 @@
   },
   {
     "model": "whats_fresh_api.VendorProduct",
-    "pk": "1",
+    "pk": "10",
     "fields": {
-       "vendor": "1",
-       "product_preparation": "1",
+       "vendor": "10",
+       "product_preparation": "10",
        "vendor_price": "$12 per dozen",
        "available": "None"
     }
   },
   {
     "model": "whats_fresh_api.ProductPreparation",
-    "pk": "1",
+    "pk": "10",
     "fields": {
-       "preparation": "1",
-       "product": "2"
+       "preparation": "10",
+       "product": "10"
     }
   },
   {
     "model": "whats_fresh_api.ProductPreparation",
-    "pk": "2",
+    "pk": "20",
     "fields": {
-       "preparation": "2",
-       "product": "1"
-    }
-  },
-  {
-    "model": "whats_fresh_api.ProductPreparation",
-    "pk": "3",
-    "fields": {
-       "preparation": "1",
-       "product": "1"
+       "preparation": "10",
+       "product": "100"
     }
   },
   {
     "model": "whats_fresh_api.VendorProduct",
-    "pk": "2",
+    "pk": "20",
     "fields": {
-       "vendor": "2",
-       "product_preparation": "3",
+       "vendor": "20",
+       "product_preparation": "20",
        "vendor_price": "$6 per pound",
        "available": "False"
     }
   },
   {
     "model": "whats_fresh_api.VendorProduct",
-    "pk": "3",
+    "pk": "30",
     "fields": {
-       "vendor": "1",
-       "product_preparation": "3",
+       "vendor": "10",
+       "product_preparation": "20",
        "vendor_price": "Free!",
        "available": "False"
     }
   },
   {
     "model": "whats_fresh_api.Image",
-    "pk": "1",
+    "pk": "10",
     "fields": {
       "image": "/media/dog.jpg",
       "caption": "Woof!",
@@ -167,7 +159,7 @@
   },
   {
     "model": "whats_fresh_api.Image",
-    "pk": "2",
+    "pk": "20",
     "fields": {
       "image": "/media/cat.jpg",
       "caption": "Meow!",
@@ -177,7 +169,7 @@
   },
   {
     "model": "whats_fresh_api.Preparation",
-    "pk": "1",
+    "pk": "10",
     "fields": {
       "name": "Live",
       "description": "The food goes straight from sea to you with live food, sitting in saltwater tanks!",
@@ -186,7 +178,7 @@
   },
   {
     "model": "whats_fresh_api.Preparation",
-    "pk": "2",
+    "pk": "20",
     "fields": {
       "name": "Filet",
       "description": "",

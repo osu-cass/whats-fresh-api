@@ -58,8 +58,8 @@ class Vendor(models.Model):
     long = models.FloatField()
 
     story_id = models.ForeignKey('Story', null=True)
-    products = models.ManyToManyField(
-        'Product',
+    products_preparations = models.ManyToManyField(
+        'ProductPreparation',
         related_name='vendors',
         through='VendorProduct')
 
@@ -161,8 +161,7 @@ class VendorProduct(models.Model):
             return "Products for vendor %s" % (self.vendor.name)
 
     vendor = models.ForeignKey(Vendor)
-    product = models.ForeignKey(Product)
-    preparation = models.ForeignKey(Preparation)
+    product_preparation = models.ForeignKey(ProductPreparation)
 
     vendor_price = models.TextField(blank=True)
     available = models.NullBooleanField()
