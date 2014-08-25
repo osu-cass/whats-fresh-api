@@ -262,7 +262,7 @@ class LocationTestCase(TestCase):
     "website": "",
     "email": "",
     "created": "2014-08-08 23:27:05.568395+00:00",
-    "updated": "2014-08-08 23:27:05.568395+00:00"
+    "updated": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
       
     },
@@ -589,7 +589,7 @@ class LocationTestCase(TestCase):
             '%s?lat=not_a_latitude&long=not_a_longitude' % reverse('vendors-list')
             ).content)
 
-        expected_answer = json.loads(self.self.expected_all_vendors_products)
+        expected_answer = json.loads(self.expected_all_vendors_products)
         self.assertEqual(broken_data, expected_answer)
 
     def test_no_vendors_nearby_vendor_products(self):
@@ -597,9 +597,11 @@ class LocationTestCase(TestCase):
         Test that, when there are no vendors, we get an empty list back for the
         vendors/products endpoint.
         """
-        no_vendor_data = (self.client.get(
-            '%s?lat=44.015225&long=-123.016873' % reverse('vendors-products',
-                                                     kwargs={'id': '1'})
+        no_vendor_data = json.loads(
+        self.client.get(
+            '%s?lat=44.015225&long=-123.016873' % reverse(
+                'vendors-products', kwargs={'id': '1'})
+        ).content)
 
         expected_answer = json.loads(self.expected_no_vendors)
         self.assertEqual(all_vendors_data, expected_answer)
