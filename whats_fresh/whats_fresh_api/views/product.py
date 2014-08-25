@@ -53,7 +53,7 @@ def product_list(request):
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': e,
+            'error_text': str(e),
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -159,7 +159,7 @@ def product_vendor(request, id=None):
             'error_status': True,
             'error_level': 'Severe',
             'error_text': error_text,
-            'error_name': e
+            'error_name': str(e)
         }
         return HttpResponseServerError(
             json.dumps(data),

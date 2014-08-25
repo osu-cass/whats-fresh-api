@@ -132,7 +132,7 @@ def vendors_products(request, id=None):
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': e,
+            'error_text': str(e),
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -190,7 +190,7 @@ def vendor_details(request, id=None):
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': e,
+            'error_text': str(e),
             'error_name': 'Unknown'
         }
 
