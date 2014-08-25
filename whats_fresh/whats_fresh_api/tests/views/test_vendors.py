@@ -517,6 +517,20 @@ class VendorsLocationTestCase(TestCase):
         expected_answer = json.loads(self.expected_error_result)
         self.assertEqual(all_vendors_data, expected_answer)
 
+        # Lat is missing
+        all_vendors_data = json.loads(self.client.get(
+            '%s?lat=-45.232' % reverse('vendors-list')
+            ).content)
+
+        self.assertEqual(all_vendors_data, expected_answer)
+
+        # Long is missing
+        all_vendors_data = json.loads(self.client.get(
+            '%s?long=-45.232' % reverse('vendors-list')
+            ).content)
+
+        self.assertEqual(all_vendors_data, expected_answer)
+
     def test_no_vendors_nearby(self):
         """
         Test that, when there are no vendors, we get an empty list back.

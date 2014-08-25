@@ -348,3 +348,19 @@ class VendorsProductsLocationTestCase(TestCase):
 
         expected_answer = json.loads(self.expected_all_vendors_products)
         self.assertEqual(broken_data, expected_answer)
+
+        # lat is missing
+        broken_data = json.loads(self.client.get(
+            '%s?long=-45.232' % reverse(
+                'vendors-products', kwargs={'id': '1'})
+            ).content)
+
+        self.assertEqual(broken_data, expected_answer)
+
+        # long is missing
+        broken_data = json.loads(self.client.get(
+            '%s?lat=-45.232' % reverse(
+                'vendors-products', kwargs={'id': '1'})
+            ).content)
+
+        self.assertEqual(broken_data, expected_answer)
