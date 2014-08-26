@@ -8,7 +8,7 @@ import json
 
 
 class VendorsTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
 
@@ -92,6 +92,54 @@ class VendorsTestCase(TestCase):
 }
 """
 
+        self.limited_vendors = """
+{
+  "error": {
+    "error_status": false,
+    "error_name": null,
+    "error_text": null,
+    "error_level": null
+  },
+  "vendors": [
+    {
+      "id": 1,
+      "name": "No Optional Null Fields Are Null",
+      "status": true,
+      "description": "This is a vendor shop.",
+      "lat": 37.833688,
+      "long": -122.478002,
+      "street": "1633 Sommerville Rd",
+      "city": "Sausalito",
+      "state": "CA",
+      "zip": "94965",
+      "location_description": "Location description",
+      "contact_name": "A. Persson",
+      "phone": 5417377627,
+      "website": "http://example.com",
+      "email": "a@perr.com",
+      "story": 1,
+      "ext": {
+        
+      },
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "updated": "2014-08-08 23:27:05.568395+00:00",
+      "products": [
+        {
+          "id": 2,
+          "name": "Starfish Voyager",
+          "preparation": "Live"
+        },
+        {
+          "id": 1,
+          "name": "Ezri Dax",
+          "preparation": "Live"
+        }
+      ]
+    }
+  ]
+}
+"""
+
     def test_url_endpoint(self):
         url = reverse('vendors-list')
         self.assertEqual(url, '/vendors')
@@ -104,4 +152,13 @@ class VendorsTestCase(TestCase):
         expected_answer = json.loads(self.expected_json)
 
         self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)
+
+    def test_limited_vendors(self):
+        response = self.client.get(
+            "%s?limit=1" % reverse('vendors-list')).content
+        parsed_answer = json.loads(response)
+
+        expected_answer = json.loads(self.limited_vendors)
+
         self.assertEqual(parsed_answer, expected_answer)

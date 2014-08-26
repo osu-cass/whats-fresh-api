@@ -14,8 +14,7 @@ import json
 
 
 class ProductViewTestCase(TestCase):
-
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
         self.expected_json = """
@@ -62,6 +61,34 @@ class ProductViewTestCase(TestCase):
   ]
 }"""
 
+        self.limited_products = """
+{
+  "error": {
+    "error_status": false,
+    "error_name": null,
+    "error_text": null,
+    "error_level": null
+  },
+  "products": [
+    {
+      "id": 2,
+      "name": "Starfish Voyager",
+      "variety": "Tuna",
+      "alt_name": "The Stargazer",
+      "description": "This is one sweet fish!",
+      "origin": "The Delta Quadrant",
+      "season": "Season 1",
+      "available": true,
+      "market_price": "$33.31",
+      "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
+      "image": "/media/dog.jpg",
+      "story_id": 1,
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
+    }
+  ]
+}"""
+
     def test_url_endpoint(self):
         url = reverse('products-list')
         self.assertEqual(url, '/products')
@@ -73,4 +100,13 @@ class ProductViewTestCase(TestCase):
         expected_answer = json.loads(self.expected_json)
 
         self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)
+
+    def test_limited_vendors(self):
+        response = self.client.get(
+            "%s?limit=1" % reverse('products-list')).content
+        parsed_answer = json.loads(response)
+
+        expected_answer = json.loads(self.limited_products)
+
         self.assertEqual(parsed_answer, expected_answer)
