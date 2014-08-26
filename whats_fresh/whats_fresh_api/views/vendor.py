@@ -24,11 +24,14 @@ def vendor_list(request):
     try:
         data['vendors'] = []
         for vendor in vendor_list:
-            data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
-            data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+            data['vendors'].append(
+                model_to_dict(
+                   vendor,
+                   fields=[],
+                   exclude=['location', 'phone', 'products_preparations']))
 
             try:
-                data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+                data['vendors'][-1]['phone'] = vendor.phone.national_number
             except AttributeError:
                 data['vendors'][-1]['phone'] = None
 
@@ -41,15 +44,14 @@ def vendor_list(request):
             data['vendors'][-1]['lat'] = vendor.location.y
             data['vendors'][-1]['long'] = vendor.location.x
 
-            del data['vendors'][-1]['products_preparations']
-
             vendor_products = vendor.vendorproduct_set.all()
             data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
                     'id': vendor_product.product_preparation.product.id,
-                    'preparation': vendor_product.product_preparation.preparation.name,
-                    'name': vendor_product.product_preparation.product.name
+                    'name': vendor_product.product_preparation.product.name,
+                    'preparation':
+                        vendor_product.product_preparation.preparation.name
                 }
                 data['vendors'][-1]['products'].append(product_data)
 
@@ -105,10 +107,14 @@ def vendors_products(request, id=None):
     try:
         data['vendors'] = []
         for vendor in vendor_list:
-            data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
+            data['vendors'].append(
+                model_to_dict(
+                    vendor,
+                    fields=[],
+                    exclude=['location', 'phone', 'products_preparations']))
 
             try:
-                data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+                data['vendors'][-1]['phone'] = vendor.phone.national_number
             except AttributeError:
                 data['vendors'][-1]['phone'] = None
 
@@ -121,15 +127,14 @@ def vendors_products(request, id=None):
             data['vendors'][-1]['lat'] = vendor.location.y
             data['vendors'][-1]['long'] = vendor.location.x
 
-            del data['vendors'][-1]['products_preparations']
-
             vendor_products = vendor.vendorproduct_set.all()
             data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
                     'id': vendor_product.product_preparation.product.id,
-                    'preparation': vendor_product.product_preparation.preparation.name,
-                    'name': vendor_product.product_preparation.product.name
+                    'name': vendor_product.product_preparation.product.name,
+                    'preparation':
+                        vendor_product.product_preparation.preparation.name
                 }
                 data['vendors'][-1]['products'].append(product_data)
 
@@ -145,7 +150,8 @@ def vendors_products(request, id=None):
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': 'Error {0} occurred processing the vendors for product {1}'.format(e, id),
+            'error_text': """Error {0} occurred processing the \
+vendors for product {1}""".format(e, id),
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -172,17 +178,18 @@ def vendor_details(request, id=None):
         )
 
     try:
-        data = model_to_dict(vendor, fields=[], exclude=[])
+        data = model_to_dict(
+            vendor, fields=[], exclude=[
+                'location', 'phone', 'products_preparations'])
 
         data['story_id'] = vendor.story_id.id
         try:
             data['phone'] = vendor.phone.national_number
-       except AttributeError:
+        except AttributeError:
             data['phone'] = None
 
         data['lat'] = vendor.location.y
         data['long'] = vendor.location.x
-        del data['location']
 
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
@@ -190,15 +197,14 @@ def vendor_details(request, id=None):
         data['story'] = data.pop('story_id')
         data['id'] = vendor.id
 
-        del data['products_preparations']
-
         vendor_products = vendor.vendorproduct_set.all()
         data['products'] = []
         for vendor_product in vendor_products:
             product_data = {
                 'id': vendor_product.product_preparation.product.id,
-                'preparation': vendor_product.product_preparation.preparation.name,
-                'name': vendor_product.product_preparation.product.name
+                'name': vendor_product.product_preparation.product.name,
+                'preparation':
+                    vendor_product.product_preparation.preparation.name
             }
             data['products'].append(product_data)
 
