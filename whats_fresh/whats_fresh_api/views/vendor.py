@@ -25,11 +25,14 @@ def vendor_list(request):
     try:
         data['vendors'] = []
         for vendor in vendor_list:
-            data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
-            data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+            data['vendors'].append(
+                model_to_dict(
+                   vendor,
+                   fields=[],
+                   exclude=['location', 'phone', 'products_preparations']))
 
             try:
-                data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+                data['vendors'][-1]['phone'] = vendor.phone.national_number
             except AttributeError:
                 data['vendors'][-1]['phone'] = None
 
@@ -42,16 +45,21 @@ def vendor_list(request):
             data['vendors'][-1]['lat'] = vendor.location.y
             data['vendors'][-1]['long'] = vendor.location.x
 
-            del data['vendors'][-1]['products_preparations']
-
             vendor_products = vendor.vendorproduct_set.all()
             data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
+<<<<<<< HEAD
                     'product_id': vendor_product.product_preparation.product.id,
                     'preparation_id': vendor_product.product_preparation.preparation.id,
                     'preparation': vendor_product.product_preparation.preparation.name,
                     'name': vendor_product.product_preparation.product.name
+=======
+                    'id': vendor_product.product_preparation.product.id,
+                    'name': vendor_product.product_preparation.product.name,
+                    'preparation':
+                        vendor_product.product_preparation.preparation.name
+>>>>>>> Rebase/merge off of develop
                 }
                 data['vendors'][-1]['products'].append(product_data)
 
@@ -111,10 +119,14 @@ def vendors_products(request, id=None):
     try:
         data['vendors'] = []
         for vendor in vendor_list:
-            data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
+            data['vendors'].append(
+                model_to_dict(
+                    vendor,
+                    fields=[],
+                    exclude=['location', 'phone', 'products_preparations']))
 
             try:
-                data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+                data['vendors'][-1]['phone'] = vendor.phone.national_number
             except AttributeError:
                 data['vendors'][-1]['phone'] = None
 
@@ -127,16 +139,21 @@ def vendors_products(request, id=None):
             data['vendors'][-1]['lat'] = vendor.location.y
             data['vendors'][-1]['long'] = vendor.location.x
 
-            del data['vendors'][-1]['products_preparations']
-
             vendor_products = vendor.vendorproduct_set.all()
             data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
+<<<<<<< HEAD
                     'product_id': vendor_product.product_preparation.product.id,
                     'preparation_id': vendor_product.product_preparation.preparation.id,
                     'preparation': vendor_product.product_preparation.preparation.name,
                     'name': vendor_product.product_preparation.product.name
+=======
+                    'id': vendor_product.product_preparation.product.id,
+                    'name': vendor_product.product_preparation.product.name,
+                    'preparation':
+                        vendor_product.product_preparation.preparation.name
+>>>>>>> Rebase/merge off of develop
                 }
                 data['vendors'][-1]['products'].append(product_data)
 
@@ -151,11 +168,19 @@ def vendors_products(request, id=None):
 
     except Exception as e:
         data['error'] = {
+<<<<<<< HEAD
             'debug': "{0}: {1}".format(type(e).__name__, str(e)),
             'status': True,
             'level': 'Error',
             'text': 'Error {0} occurred processing the vendors for product {1}'.format(e, id),
             'name': 'Unknown'
+=======
+            'error_status': True,
+            'error_level': 'Severe',
+            'error_text': """Error {0} occurred processing the \
+vendors for product {1}""".format(e, id),
+            'error_name': 'Unknown'
+>>>>>>> Rebase/merge off of develop
         }
         return HttpResponseServerError(
             json.dumps(data),
@@ -182,14 +207,20 @@ def vendor_details(request, id=None):
         )
 
     try:
+<<<<<<< HEAD
         data = model_to_dict(vendor, fields=[], exclude=[])
 <<<<<<< HEAD
 =======
+=======
+        data = model_to_dict(
+            vendor, fields=[], exclude=[
+                'location', 'phone', 'products_preparations'])
+>>>>>>> Rebase/merge off of develop
 
         data['story_id'] = vendor.story_id.id
         try:
             data['phone'] = vendor.phone.national_number
-       except AttributeError:
+        except AttributeError:
             data['phone'] = None
 >>>>>>> Write location-based tests
 
@@ -202,7 +233,6 @@ def vendor_details(request, id=None):
 =======
         data['lat'] = vendor.location.y
         data['long'] = vendor.location.x
-        del data['location']
 
 >>>>>>> Update Vendor to use GeoDjango point rather than lat/long
         data['created'] = str(vendor.created)
@@ -211,16 +241,21 @@ def vendor_details(request, id=None):
         data['story'] = data.pop('story_id')
         data['id'] = vendor.id
 
-        del data['products_preparations']
-
         vendor_products = vendor.vendorproduct_set.all()
         data['products'] = []
         for vendor_product in vendor_products:
             product_data = {
+<<<<<<< HEAD
                 'product_id': vendor_product.product_preparation.product.id,
                 'preparation_id': vendor_product.product_preparation.preparation.id,
                 'preparation': vendor_product.product_preparation.preparation.name,
                 'name': vendor_product.product_preparation.product.name
+=======
+                'id': vendor_product.product_preparation.product.id,
+                'name': vendor_product.product_preparation.product.name,
+                'preparation':
+                    vendor_product.product_preparation.preparation.name
+>>>>>>> Rebase/merge off of develop
             }
             data['products'].append(product_data)
 
