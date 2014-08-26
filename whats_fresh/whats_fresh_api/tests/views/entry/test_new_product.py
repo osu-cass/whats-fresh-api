@@ -56,6 +56,8 @@ class NewProductTestCase(TestCase):
         Product.objects.all().delete()
 
         Story.objects.create(id=1)
+        Preparation.objects.create(id=1)
+        Preparation.objects.create(id=2)
         Image.objects.create(id=1)
 
         # Data that we'll post to the server to get the new vendor created
@@ -63,7 +65,7 @@ class NewProductTestCase(TestCase):
                   'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',
                   'description': 'It\'s salmon -- from the Pacific!',
                   'season': 'Always', 'available': '', 'image_id': 1,
-                  'market_price': '$3 a pack',
+                  'market_price': '$3 a pack', 'preparation_ids': '1,2',
                   'link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
         response = self.client.post(reverse('new-product'), new_product)
@@ -74,9 +76,15 @@ class NewProductTestCase(TestCase):
         new_product['story_id'] = Story.objects.get(id=new_product['story_id'])
         new_product['image_id'] = Image.objects.get(id=new_product['image_id'])
 
+        del new_product['preparation_ids']
+
         product = Product.objects.all()[0]
         for field in new_product:
             self.assertEqual(getattr(product, field), new_product[field])
+
+        preparations = ([
+            preparation.id for preparation in product.preparations.all()])
+        self.assertEqual(sorted(preparations), [1, 2])
 
     def test_no_data_error(self):
         """

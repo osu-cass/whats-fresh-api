@@ -36,7 +36,15 @@ def product_list(request):
             del data['products'][-1]['preparations']
             del data['products'][-1]['image_id']
 
-            data['products'][-1]['image'] = product.image_id.image.url
+            try:
+                data['products'][-1]['image'] = product.image_id.image.url
+            except AttributeError:
+                data['products'][-1]['image'] = None
+            try:
+                data['products'][-1]['story_id'] = product.story_id.id
+            except AttributeError:
+                data['products'][-1]['story_id'] = None
+
             data['products'][-1]['created'] = str(product.created)
             data['products'][-1]['modified'] = str(product.modified)
             data['products'][-1]['id'] = product.id
@@ -89,7 +97,15 @@ def product_details(request, id=None):
         del data['preparations']
         del data['image_id']
 
-        data['image'] = product.image_id.image.url
+        try:
+            data['image'] = product.image_id.image.url
+        except AttributeError:
+            data['image'] = None
+        try:
+            data['story_id'] = product.story_id.id
+        except AttributeError:
+            data['story_id'] = None
+
         data['created'] = str(product.created)
         data['updated'] = str(product.modified)
         data['id'] = product.id
@@ -139,8 +155,14 @@ def product_vendor(request, id=None):
             del data['products'][-1]['preparations']
             del data['products'][-1]['image_id']
 
-            data['products'][-1]['story_id'] = product.story_id.id
-            data['products'][-1]['image'] = product.image_id.image.url
+            try:
+                data['products'][-1]['story_id'] = product.story_id.id
+            except AttributeError:
+                data['products'][-1]['story_id'] = None
+            try:
+                data['products'][-1]['image'] = product.image_id.image.url
+            except AttributeError:
+                data['products'][-1]['image'] = None
             data['products'][-1]['created'] = str(product.created)
             data['products'][-1]['modified'] = str(product.modified)
             data['products'][-1]['id'] = product.id

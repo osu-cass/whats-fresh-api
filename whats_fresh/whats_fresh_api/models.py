@@ -90,8 +90,8 @@ class Product(models.Model):
     market_price = models.TextField()
     link = models.URLField(blank=True)
 
-    image_id = models.ForeignKey('Image', null=True)
-    story_id = models.ForeignKey('Story', null=True)
+    image_id = models.ForeignKey('Image', null=True, blank=True)
+    story_id = models.ForeignKey('Story', null=True, blank=True)
 
     preparations = models.ManyToManyField(
         'Preparation', related_name='products', through='ProductPreparation')

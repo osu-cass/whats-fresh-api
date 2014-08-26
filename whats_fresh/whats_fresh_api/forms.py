@@ -14,4 +14,17 @@ class VendorForm(forms.ModelForm):
             'zip': forms.TextInput,
             'contact_name': forms.TextInput,
             'lat': forms.HiddenInput
+
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        widgets = {
+            'name': forms.TextInput,
+            'variety': forms.TextInput,
+            'season': forms.TextInput,
+            'origin': forms.TextInput,
+            'alt_name': forms.TextInput,
+            'description': forms.TextInput,
+            'market_price': forms.TextInput
         }

@@ -211,7 +211,7 @@ body {
   font-style: italic;
 }
 
-.products select, .preparations select {
+.products select, .preparations select , .preparations_inner select {
    background: #FFFFFF;
    width: 268px;
    padding: 5px;
