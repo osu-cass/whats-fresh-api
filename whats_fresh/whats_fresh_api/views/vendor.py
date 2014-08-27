@@ -22,29 +22,28 @@ def vendor_list(request):
             content_type="application/json"
         )
     try:
+        data['vendors'] = []
         for vendor in vendor_list:
-            data[str(vendor.id)] = model_to_dict(vendor, fields=[], exclude=[])
-            data[str(vendor.id)]['phone'] = data[
-                str(vendor.id)]['phone'].national_number
+            data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
+            data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
 
-            data[str(vendor.id)]['created'] = str(vendor.created)
-            data[str(vendor.id)]['updated'] = str(vendor.modified)
-            data[str(vendor.id)]['ext'] = {}
-            del data[str(vendor.id)]['id']
-            del data[str(vendor.id)]['products_preparations']
+            data['vendors'][-1]['created'] = str(vendor.created)
+            data['vendors'][-1]['updated'] = str(vendor.modified)
+            data['vendors'][-1]['ext'] = {}
+            data['vendors'][-1]['story'] = data['vendors'][-1].pop('story_id')
+            data['vendors'][-1]['id'] = vendor.id
 
-            data[str(vendor.id)]['story'] = data[
-                str(vendor.id)].pop('story_id')
+            del data['vendors'][-1]['products_preparations']
 
             vendor_products = vendor.vendorproduct_set.all()
-            data[str(vendor.id)]['products'] = {}
+            data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
+                    'id': vendor_product.product_preparation.product.id,
                     'preparation': vendor_product.product_preparation.preparation.name,
                     'name': vendor_product.product_preparation.product.name
                 }
-                data[str(vendor.id)]['products'][
-                    vendor_product.product_preparation.product.id] = product_data
+                data['vendors'][-1]['products'].append(product_data)
 
         data['error'] = {
             'error_status': False,
@@ -53,11 +52,11 @@ def vendor_list(request):
             'error_name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
-    except:
+    except Exception as e:
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing the vendors',
+            'error_text': e,
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -96,29 +95,28 @@ def vendors_products(request, id=None):
         )
 
     try:
+        data['vendors'] = []
         for vendor in vendor_list:
-            data[str(vendor.id)] = model_to_dict(vendor, fields=[], exclude=[])
-            data[str(vendor.id)]['phone'] = data[
-                str(vendor.id)]['phone'].national_number
+            data['vendors'].append(model_to_dict(vendor, fields=[], exclude=[]))
+            data['vendors'][-1]['phone'] = data['vendors'][-1]['phone'].national_number
+            data['vendors'][-1]['created'] = str(vendor.created)
+            data['vendors'][-1]['updated'] = str(vendor.modified)
+            data['vendors'][-1]['ext'] = {}
+            data['vendors'][-1]['id'] = vendor.id
 
-            data[str(vendor.id)]['created'] = str(vendor.created)
-            data[str(vendor.id)]['updated'] = str(vendor.modified)
-            data[str(vendor.id)]['ext'] = {}
-            del data[str(vendor.id)]['id']
-            del data[str(vendor.id)]['products_preparations']
+            data['vendors'][-1]['story'] = data['vendors'][-1].pop('story_id')
 
-            data[str(vendor.id)]['story'] = data[
-                str(vendor.id)].pop('story_id')
+            del data['vendors'][-1]['products_preparations']
 
             vendor_products = vendor.vendorproduct_set.all()
-            data[str(vendor.id)]['products'] = {}
+            data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
+                    'id': vendor_product.product_preparation.product.id,
                     'preparation': vendor_product.product_preparation.preparation.name,
                     'name': vendor_product.product_preparation.product.name
                 }
-                data[str(vendor.id)]['products'][
-                    vendor_product.product_preparation.product.id] = product_data
+                data['vendors'][-1]['products'].append(product_data)
 
         data['error'] = {
             'error_status': False,
@@ -169,17 +167,20 @@ def vendor_details(request, id=None):
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
         data['ext'] = {}
+        data['story'] = data.pop('story_id')
+        data['id'] = vendor.id
+
         del data['products_preparations']
 
         vendor_products = vendor.vendorproduct_set.all()
-        data['products'] = {}
+        data['products'] = []
         for vendor_product in vendor_products:
             product_data = {
+                'id': vendor_product.product_preparation.product.id,
                 'preparation': vendor_product.product_preparation.preparation.name,
                 'name': vendor_product.product_preparation.product.name
             }
-            data['products'][
-                vendor_product.product_preparation.product.id] = product_data
+            data['products'].append(product_data)
 
         data['error'] = {
             'error_status': False,
@@ -202,5 +203,3 @@ def vendor_details(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
-
-

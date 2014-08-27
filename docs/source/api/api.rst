@@ -62,37 +62,41 @@ Example: GET /products/
         "error_text": null,
         "error_level": null
       },
-      "1": {
-        "name": "Salmon",
-        "variety": "Chinook",
-        "alt_name": "Chinook Salmon",
-        "description": "Oregon's state fish, the chinook salmon is the largest in the Pacific salmon genus",
-        "origin": "",
-        "season": "Late March to October",
-        "available": true,
-        "market_price": "$24.99",
-        "link": "http://en.wikipedia.org/wiki/Chinook_salmon",
-        "image": "/media/salmon.jpg",
-        "story_id": 2,
-        "created": "2014-08-08 23:27:05.568395+00:00",
-        "modified": "2014-08-08 23:27:05.568395+00:00"
-      },
-      "2": {
-        "name": "Tuna",
-        "variety": "Albacore",
-        "alt_name": "Tuna fish",
-        "description": "Albacore tuna is an Oregon classic, and delicious too!",
-        "origin": "",
-        "season": "June through October",
-        "available": null,
-        "market_price": "$2.75 per pound",
-        "link": "https://www.youtube.com/watch?v=2lspr6Uh_Dk",
-        "image": "/media/tuna.jpg",
-        "story_id": 1,
-        "created": "2014-08-08 23:27:05.568395+00:00",
-        "modified": "2014-08-08 23:27:05.568395+00:00"
-      },
+      "products": [
+        {
+          "id": 1,
+          "name": "Salmon",
+          "variety": "Chinook",
+          "alt_name": "Chinook Salmon",
+          "description": "Oregon's state fish, the chinook salmon is the largest in the Pacific salmon genus",
+          "origin": "",
+          "season": "Late March to October",
+          "available": true,
+          "market_price": "$24.99",
+          "link": "http://en.wikipedia.org/wiki/Chinook_salmon",
+          "image": "/media/salmon.jpg",
+          "story_id": 2,
+          "created": "2014-08-08 23:27:05.568395+00:00",
+          "modified": "2014-08-08 23:27:05.568395+00:00"
+        },
+        {
+          "id": 2,
+          "name": "Tuna",
+          "variety": "Albacore",
+          "alt_name": "Tuna fish",
+          "description": "Albacore tuna is an Oregon classic, and delicious too!",
+          "origin": "",
+          "season": "June through October",
+          "available": null,
+          "market_price": "$2.75 per pound",
+          "link": "https://www.youtube.com/watch?v=2lspr6Uh_Dk",
+          "image": "/media/tuna.jpg",
+          "story_id": 1,
+          "created": "2014-08-08 23:27:05.568395+00:00",
+          "modified": "2014-08-08 23:27:05.568395+00:00"
+        },
       ...
+      ]
     }
 
 Product details
@@ -126,6 +130,7 @@ Example: GET /products/2
         "error_text": null,
         "error_level": null
       },
+      "id": 2,
       "name": "Tuna",
       "variety": "Albacore",
       "alt_name": "Tuna fish",
@@ -204,66 +209,75 @@ Example: GET /vendors/
         "error_text": null,
         "error_level": null
       },
-      "1": {
-        "name": "Fish Shack",
-        "status": true,
-        "description": "We sell fish.",
-        "lat": 44.622746,
-        "long": -124.056278,
-        "street": "1900 SW Coast Hwy",
-        "city": "Newport",
-        "state": "OR",
-        "zip": "97365",
-        "location_description": "On top of the bridge",
-        "contact_name": "Joe Fisherman",
-        "phone": 5551234567,
-        "website": "http://example.com",
-        "email": "joefisherman@example.com",
-        "story": 1,
-        "ext": {},
-        "created": "2014-08-08 23:27:05.568395+00:00",
-        "updated": "2014-08-08 23:27:05.568395+00:00",
-        "products": {
-          "1": {
-            "name": "Salmon",
-            "preparation": "Frozen"
-          },
-          "2": {
-            "name": "Tuna",
-            "preparation": "Frozen"
-          },
-          "3": {
-            "name": "Clams",
-            "preparation": "Frozen"
-          }
-        }
-      },
-      "2": {
-        "name": "Nullfield Fishery",
-        "status": null,
-        "description": "All optional fields are blank",
-        "lat": 43.423949,
-        "long": -124.222432,
-        "street": "18632 Oregon Coast Hwy",
-        "city": "North Bend",
-        "state": "OR",
-        "zip": "97459",
-        "location_description": "",
-        "contact_name": "Hex Fisher",
-        "phone": null,
-        "website": "",
-        "email": "",
-        "story": null,
-        "ext": {},
-        "created": "2014-08-08 23:27:05.568395+00:00",
-        "updated": "2014-08-08 23:27:05.568395+00:00",
-        "products": {
-          "1": {
-            "name": "Salmon",
-            "preparation": "Live"
-          }
-        }
-      }
+      "vendors": [
+        {
+          "id": 1,
+          "name": "Fish Shack",
+          "status": true,
+          "description": "We sell fish.",
+          "lat": 44.622746,
+          "long": -124.056278,
+          "street": "1900 SW Coast Hwy",
+          "city": "Newport",
+          "state": "OR",
+          "zip": "97365",
+          "location_description": "On top of the bridge",
+          "contact_name": "Joe Fisherman",
+          "phone": 5551234567,
+          "website": "http://example.com",
+          "email": "joefisherman@example.com",
+          "story": 1,
+         "ext": {},
+          "created": "2014-08-08 23:27:05.568395+00:00",
+          "updated": "2014-08-08 23:27:05.568395+00:00",
+          "products": [
+            {
+              "id": 1,
+              "name": "Salmon",
+              "preparation": "Frozen"
+            },
+            {
+              "id": 2,
+              "name": "Tuna",
+              "preparation": "Frozen"
+            },
+            {
+              "id": 3,
+              "name": "Clams",
+              "preparation": "Frozen"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Nullfield Fishery",
+          "status": null,
+          "description": "All optional fields are blank",
+          "lat": 43.423949,
+          "long": -124.222432,
+          "street": "18632 Oregon Coast Hwy",
+          "city": "North Bend",
+          "state": "OR",
+          "zip": "97459",
+          "location_description": "",
+          "contact_name": "Hex Fisher",
+          "phone": null,
+          "website": "",
+          "email": "",
+          "story": null,
+          "ext": {},
+          "created": "2014-08-08 23:27:05.568395+00:00",
+          "updated": "2014-08-08 23:27:05.568395+00:00",
+          "products": [
+            {
+              "id": 1,
+              "name": "Salmon",
+              "preparation": "Live"
+            }
+          ]
+        },
+        ...
+      ]
     }
 
 Vendors selling a product
@@ -330,66 +344,74 @@ Example: GET /vendors/products/3
         "error_text": null,
         "error_level": null
       },
-      "1": {
-        "name": "Fish Shack",
-        "status": true,
-        "description": "We sell fish.",
-        "lat": 44.622746,
-        "long": -124.056278,
-        "street": "1900 SW Coast Hwy",
-        "city": "Newport",
-        "state": "OR",
-        "zip": "97365",
-        "location_description": "On top of the bridge",
-        "contact_name": "Joe Fisherman",
-        "phone": 5551234567,
-        "website": "http://example.com",
-        "email": "joefisherman@example.com",
-        "story": 1,
-        "ext": {},
-        "created": "2014-08-08 23:27:05.568395+00:00",
-        "updated": "2014-08-08 23:27:05.568395+00:00",
-        "products": {
-          "1": {
-            "name": "Salmon",
-            "preparation": "Frozen"
-          },
-          "2": {
+      "vendors": [
+        {
+          "id": 1,
+          "name": "Fish Shack",
+          "status": true,
+          "description": "We sell fish.",
+          "lat": 44.622746,
+          "long": -124.056278,
+          "street": "1900 SW Coast Hwy",
+          "city": "Newport",
+          "state": "OR",
+          "zip": "97365",
+          "location_description": "On top of the bridge",
+          "contact_name": "Joe Fisherman",
+          "phone": 5551234567,
+          "website": "http://example.com",
+          "email": "joefisherman@example.com",
+          "story": 1,
+          "ext": {},
+          "created": "2014-08-08 23:27:05.568395+00:00",
+          "updated": "2014-08-08 23:27:05.568395+00:00",
+          "products": [
+            {
+              "id": 1,
+              "name": "Salmon",
+              "preparation": "Frozen"
+            },
+            {
+              "id": 2,
             "name": "Tuna",
             "preparation": "Frozen"
-          },
-          "2": {
-            "name": "Clams",
-            "preparation": "Frozen"
-          }
+            },
+            {
+              "id": 3,
+              "name": "Clams",
+              "preparation": "Frozen"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "name": "Vendor the Third",
+          "status": null,
+          "description": "Coming in 3rd since 1998",
+          "lat": 44.432156,
+          "long": -124.070720,
+          "street": "1330 NW Pacific Coast Hwy",
+          "city": "Waldport",
+          "state": "OR",
+          "zip": "97394",
+          "location_description": "",
+          "contact_name": "Ana Ther",
+          "phone": null,
+          "website": "",
+          "email": "",
+          "story": null,
+          "ext": {},
+          "created": "2014-08-08 23:27:05.568395+00:00",
+          "updated": "2014-08-08 23:27:05.568395+00:00",
+          "products": [
+            {
+              "id": 3,
+              "name": "Clams",
+              "preparation": "Live"
+            }
+          ]
         }
-      },
-      "3": {
-        "name": "Vendor the Third",
-        "status": null,
-        "description": "Coming in 3rd since 1998",
-        "lat": 44.432156,
-        "long": -124.070720,
-        "street": "1330 NW Pacific Coast Hwy",
-        "city": "Waldport",
-        "state": "OR",
-        "zip": "97394",
-        "location_description": "",
-        "contact_name": "Ana Ther",
-        "phone": null,
-        "website": "",
-        "email": "",
-        "story": null,
-        "ext": {},
-        "created": "2014-08-08 23:27:05.568395+00:00",
-        "updated": "2014-08-08 23:27:05.568395+00:00",
-        "products": {
-          "3": {
-            "name": "Clams",
-            "preparation": "Live"
-          }
-        }
-      }
+      ]
     }
 
 Vendor details
@@ -423,6 +445,7 @@ Example: GET /vendors/2
         "error_text": null,
         "error_level": null
       },
+      "id": 2,
       "name": "Nullfield Fishery",
       "status": null,
       "description": "All optional fields are blank",
@@ -441,12 +464,13 @@ Example: GET /vendors/2
       "ext": {},
       "created": "2014-08-08 23:27:05.568395+00:00",
       "updated": "2014-08-08 23:27:05.568395+00:00",
-      "products": {
-        "1": {
+      "products": [
+         {
+          "id": 1,
           "name": "Salmon",
           "preparation": "Live"
         }
-      }
+      ]
     }
 
 Story details

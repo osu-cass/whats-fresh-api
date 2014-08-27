@@ -23,6 +23,7 @@ class ProductViewTestCase(TestCase):
     "error_text": null,
     "error_level": null
   },
+  "id": 1,
   "name": "Ezri Dax",
   "variety": "Freshwater Eel",
    "alt_name": "Jadzia",
@@ -48,4 +49,5 @@ class ProductViewTestCase(TestCase):
         parsed_answer = json.loads(response)
 
         expected_answer = json.loads(self.expected_json)
-        self.assertTrue(parsed_answer == expected_answer)
+        self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)

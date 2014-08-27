@@ -29,17 +29,17 @@ def product_list(request):
             content_type="application/json"
         )
 
+    data['products'] = []
     try:
         for product in product_list:
-            data[str(product.id)] = model_to_dict(
-                product, fields=[], exclude=[])
-            del data[str(product.id)]['id']
-            del data[str(product.id)]['preparations']
-            del data[str(product.id)]['image_id']
+            data['products'].append(model_to_dict(product, fields=[], exclude=[]))
+            del data['products'][-1]['preparations']
+            del data['products'][-1]['image_id']
 
-            data[str(product.id)]['image'] = product.image_id.image.url
-            data[str(product.id)]['created'] = str(product.created)
-            data[str(product.id)]['modified'] = str(product.modified)
+            data['products'][-1]['image'] = product.image_id.image.url
+            data['products'][-1]['created'] = str(product.created)
+            data['products'][-1]['modified'] = str(product.modified)
+            data['products'][-1]['id'] = product.id
 
         data['error'] = {
             'error_status': False,
@@ -49,11 +49,11 @@ def product_list(request):
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
-    except:
+    except Exception as e:
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing the products',
+            'error_text': str(e),
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -86,13 +86,13 @@ def product_details(request, id=None):
 
     try:
         data = model_to_dict(product, fields=[], exclude=[])
-        del data['id']
         del data['preparations']
         del data['image_id']
 
         data['image'] = product.image_id.image.url
         data['created'] = str(product.created)
         data['updated'] = str(product.modified)
+        data['id'] = product.id
 
         data['error'] = {
             'error_status': False,
@@ -131,18 +131,19 @@ def product_vendor(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
-
+ 
+    data['products'] = []
     try:
         for product in product_list:
-            data[str(product.id)] = model_to_dict(product, fields=[], exclude=[])
-            del data[str(product.id)]['id']
-            del data[str(product.id)]['preparations']
-            del data[str(product.id)]['image_id']
+            data['products'].append(model_to_dict(product, fields=[], exclude=[]))
+            del data['products'][-1]['preparations']
+            del data['products'][-1]['image_id']
 
-            data[str(product.id)]['story_id'] = product.story_id.id
-            data[str(product.id)]['image'] = product.image_id.image.url
-            data[str(product.id)]['created'] = str(product.created)
-            data[str(product.id)]['modified'] = str(product.modified)
+            data['products'][-1]['story_id'] = product.story_id.id
+            data['products'][-1]['image'] = product.image_id.image.url
+            data['products'][-1]['created'] = str(product.created)
+            data['products'][-1]['modified'] = str(product.modified)
+            data['products'][-1]['id'] = product.id
            
         data['error'] = {
             'error_status': False,
@@ -158,7 +159,7 @@ def product_vendor(request, id=None):
             'error_status': True,
             'error_level': 'Severe',
             'error_text': error_text,
-            'error_name': e
+            'error_name': str(e)
         }
         return HttpResponseServerError(
             json.dumps(data),

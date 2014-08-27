@@ -7,7 +7,7 @@ import json
 
 
 class VendorTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
         self.expected_json = """
@@ -32,21 +32,23 @@ class VendorTestCase(TestCase):
   "phone": 5417377627,
   "website": "http://example.com",
   "email": "a@perr.com",
-  "story_id": 1,
+  "story": 1,
   "ext": {},
   "id": 1,
   "created": "2014-08-08 23:27:05.568395+00:00",
   "updated": "2014-08-08 23:27:05.568395+00:00",
-  "products": {
-    "2": {
+  "products": [
+    {
+      "id": 2,
       "name": "Starfish Voyager",
       "preparation": "Live"
     },
-    "1": {
+    {
+      "id": 1,
       "name": "Ezri Dax",
       "preparation": "Live"
     }
-  }
+  ]
 }"""
 
     def test_url_endpoint(self):
@@ -56,7 +58,9 @@ class VendorTestCase(TestCase):
     def test_json_equals(self):
         c = Client()
         response = c.get(reverse('vendor-details', kwargs={'id': '1'})).content
-        parsed_answer = json.loads(response)
 
+        parsed_answer = json.loads(response)
         expected_answer = json.loads(self.expected_json)
-        self.assertTrue(parsed_answer == expected_answer)
+
+        self.maxDiff = None
+        self.assertEquals(parsed_answer, expected_answer)
