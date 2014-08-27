@@ -15,16 +15,17 @@ import json
 
 class ProductViewTestCase(TestCase):
 
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
-        self.expected_json = """
+        self.expected_list = """
 {
   "error": {
-    "error_status": false,
-    "error_name": null,
-    "error_text": null,
-    "error_level": null
+    "status": false,
+    "name": null,
+    "text": null,
+    "debug": null,
+    "level": null
   },
   "products": [
     {
@@ -66,11 +67,33 @@ class ProductViewTestCase(TestCase):
         url = reverse('products-list')
         self.assertEqual(url, '/products')
 
-    def test_json_equals(self):
-        c = Client()
-        response = c.get(reverse('products-list')).content
+    def test_products_list(self):
+        response = self.client.get(reverse('products-list')).content
         parsed_answer = json.loads(response)
-        expected_answer = json.loads(self.expected_json)
+        expected_answer = json.loads(self.expected_list)
+
+        self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)
+
+
+class NoProductViewTestCase(TestCase):
+    def setUp(self):
+        self.expected_no_products = """
+{
+  "error": {
+    "status": true,
+    "text": "No Products found",
+    "name": "No Products",
+    "debug": "",
+    "level": "Error"
+  }
+}"""
+
+    def test_no_products(self):
+        response = self.client.get(reverse('products-list')).content
+        parsed_answer = json.loads(response)
+        expected_answer = json.loads(self.expected_no_products)
+        self.assertEqual(response.status_code, 404)
 
         parsed_answer['products'] = sorted(
             parsed_answer['products'], key=lambda k: k['id'])
