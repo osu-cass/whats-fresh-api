@@ -22,6 +22,7 @@ class VendorTestCase(TestCase):
             'zip': models.TextField,
             'status': models.NullBooleanField,
             'location_description': models.TextField,
+            'hours': models.TextField,
             'contact_name': models.TextField,
             'website': models.URLField,
             'email': models.EmailField,
@@ -40,6 +41,7 @@ class VendorTestCase(TestCase):
         self.optional_fields = {
             'location_description',
             'website',
+            'hours',
             'email',
             'phone'
         }

@@ -29,7 +29,7 @@ class NewVendorTestCase(TestCase):
         """
         response = self.client.get(reverse('new-vendor'))
 
-        fields = {'name': 'input', 'description': 'input',
+        fields = {'name': 'input', 'description': 'input', 'hours': 'input',
                   'story_id': 'select', 'status': 'select', 'street': 'input',
                   'city': 'input', 'state': 'input', 'zip': 'input',
                   'location_description': 'textarea', 'contact_name': 'input',
@@ -68,7 +68,7 @@ class NewVendorTestCase(TestCase):
 
         # Data that we'll post to the server to get the new vendor created
         new_vendor = {
-            'zip': '97365', 'website': '',
+            'zip': '97365', 'website': '', 'hours': 'optional hours',
             'street': '750 NW Lighthouse Dr', 'story_id': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
@@ -112,7 +112,7 @@ class NewVendorTestCase(TestCase):
             'status': '', 'state': '', 'preparation_ids': None,
             'phone': '', 'name': '', 'location_description': '',
             'email': '', 'description': '', 'contact_name': '',
-            'city': ''}
+            'city': '', 'hours': ''}
 
         response = self.client.post(reverse('new-vendor'))
 
@@ -159,7 +159,7 @@ class NewVendorTestCase(TestCase):
 
         # Data that we'll post to the server to get the new vendor created
         new_vendor = {
-            'zip': '97477', 'website': '',
+            'zip': '97477', 'website': '', 'hours': '',
             'street': '123 Fake Street', 'story_id': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',

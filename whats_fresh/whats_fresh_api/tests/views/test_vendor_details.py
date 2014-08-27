@@ -27,6 +27,7 @@ class VendorTestCase(TestCase):
   "city": "Sausalito",
   "state": "CA",
   "zip": "94965",
+  "hours": "Open Tuesday, 10am to 5pm",
   "location_description": "Location description",
   "contact_name": "A. Persson",
   "phone": 5417377627,

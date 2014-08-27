@@ -30,7 +30,7 @@ class EditVendorTestCase(TestCase):
         """
         # Data that we'll post to the server to get the new vendor created
         new_vendor = {
-            'zip': '97365', 'website': '',
+            'zip': '97365', 'website': '', 'hours': '',
             'street': '750 NW Lighthouse Dr', 'story_id': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
@@ -73,6 +73,7 @@ class EditVendorTestCase(TestCase):
             "name": "No Optional Null Fields Are Null",
             "status": True,
             "description": "This is a vendor shop.",
+            "hours": "Open Tuesday, 10am to 5pm",
             "street": "1633 Sommerville Rd",
             "city": "Sausalito",
             "state": "CA",
