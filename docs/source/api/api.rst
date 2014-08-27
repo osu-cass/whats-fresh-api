@@ -233,17 +233,20 @@ Example: GET /vendors/
           "updated": "2014-08-08 23:27:05.568395+00:00",
           "products": [
             {
-              "id": 1,
+              "product_id": 1,
+              "preparation_id": 1,
               "name": "Salmon",
               "preparation": "Frozen"
             },
             {
-              "id": 2,
+              "product_id": 2,
+              "preparation_id": 1,
               "name": "Tuna",
               "preparation": "Frozen"
             },
             {
-              "id": 3,
+              "product_id": 3,
+              "preparation_id": 1,
               "name": "Clams",
               "preparation": "Frozen"
             }
@@ -272,7 +275,8 @@ Example: GET /vendors/
           "updated": "2014-08-08 23:27:05.568395+00:00",
           "products": [
             {
-              "id": 1,
+              "product_id": 1,
+              "preparation_id": 2,
               "name": "Salmon",
               "preparation": "Live"
             }
@@ -370,17 +374,20 @@ Example: GET /vendors/products/3
           "updated": "2014-08-08 23:27:05.568395+00:00",
           "products": [
             {
-              "id": 1,
+              "product_id": 1,
+              "preparation_id": 1,
               "name": "Salmon",
               "preparation": "Frozen"
             },
             {
-              "id": 2,
+              "product_id": 2,
+              "preparation_id": 1,
             "name": "Tuna",
             "preparation": "Frozen"
             },
             {
-              "id": 3,
+              "product_id": 3,
+              "preparation_id": 1,
               "name": "Clams",
               "preparation": "Frozen"
             }
@@ -409,7 +416,8 @@ Example: GET /vendors/products/3
           "updated": "2014-08-08 23:27:05.568395+00:00",
           "products": [
             {
-              "id": 3,
+              "product_id": 3,
+              "preparation_id": 2,
               "name": "Clams",
               "preparation": "Live"
             }
@@ -471,7 +479,7 @@ Example: GET /vendors/2
       "updated": "2014-08-08 23:27:05.568395+00:00",
       "products": [
          {
-          "id": 1,
+          "product_id": 1,
           "name": "Salmon",
           "preparation": "Live"
         }
