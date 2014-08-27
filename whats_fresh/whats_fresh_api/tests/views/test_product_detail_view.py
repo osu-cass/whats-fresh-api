@@ -15,13 +15,14 @@ import json
 class ProductViewTestCase(TestCase):
     fixtures = ['test_fixtures']
     def setUp(self):
-        self.expected_json = """
+        self.expected_product = """
 {
   "error": {
-    "error_status": false,
-    "error_name": null,
-    "error_text": null,
-    "error_level": null
+    "status": false,
+    "name": null,
+    "text": null,
+    "debug": null,
+    "level": null
   },
   "id": 1,
   "name": "Ezri Dax",
@@ -39,15 +40,36 @@ class ProductViewTestCase(TestCase):
   "updated": "2014-08-08 23:27:05.568395+00:00"
 }"""
 
+        self.expected_not_found = """
+{
+  "error": {
+    "status": true,
+    "text": "Product id 999 was not found.",
+    "name": "Product Not Found",
+    "debug": "DoesNotExist: Product matching query does not exist.",
+    "level": "Error"
+  }
+}"""
+
     def test_url_endpoint(self):
        url = reverse('product-details', kwargs={'id': '1'})
        self.assertEqual(url, '/products/1')
 
-    def test_json_equals(self):
-        c = Client()
-        response = c.get(reverse('product-details', kwargs={'id': '1'})).content
+    def test_known_product(self):
+        response = self.client.get(
+            reverse('product-details', kwargs={'id': '1'})).content
         parsed_answer = json.loads(response)
 
-        expected_answer = json.loads(self.expected_json)
+        expected_answer = json.loads(self.expected_product)
+        self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)
+
+    def test_product_not_found(self):
+        response = self.client.get(
+            reverse('product-details', kwargs={'id': '999'})).content
+        parsed_answer = json.loads(response)
+        self.assertEqual(response.status_code, 404)
+
+        expected_answer = json.loads(self.expected_not_found)
         self.maxDiff = None
         self.assertEqual(parsed_answer, expected_answer)

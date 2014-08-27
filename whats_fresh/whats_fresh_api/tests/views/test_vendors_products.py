@@ -13,10 +13,11 @@ class VendorsProductsTestCase(TestCase):
         self.expected_json = """
 {
   "error": {
-    "error_status": false,
-    "error_name": null,
-    "error_text": null,
-    "error_level": null
+    "status": false,
+    "name": null,
+    "text": null,
+    "debug": null,
+    "level": null
   },
   "vendors": [
     {
