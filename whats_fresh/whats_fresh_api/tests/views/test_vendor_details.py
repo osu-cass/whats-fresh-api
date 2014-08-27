@@ -10,13 +10,14 @@ class VendorTestCase(TestCase):
     fixtures = ['test_fixtures']
 
     def setUp(self):
-        self.expected_json = """
+        self.expected_vendor = """
 {
   "error": {
-    "error_status": false,
-    "error_name": null,
-    "error_text": null,
-    "error_level": null
+    "status": false,
+    "name": null,
+    "text": null,
+    "debug": null,
+    "level": null
   },
   "name": "No Optional Null Fields Are Null",
   "status": true,
@@ -51,16 +52,38 @@ class VendorTestCase(TestCase):
   ]
 }"""
 
+        self.expected_not_found = """
+{
+  "error": {
+    "status": true,
+    "text": "Vendor id 999 was not found.",
+    "name": "Vendor Not Found",
+    "debug": "DoesNotExist: Vendor matching query does not exist.",
+    "level": "Error"
+  }
+}"""
+
     def test_url_endpoint(self):
         url = reverse('vendor-details', kwargs={'id': '1'})
         self.assertEqual(url, '/vendors/1')
 
-    def test_json_equals(self):
-        c = Client()
-        response = c.get(reverse('vendor-details', kwargs={'id': '1'})).content
+    def test_known_vendor(self):
+        response = self.client.get(
+            reverse('vendor-details', kwargs={'id': '1'})).content
 
         parsed_answer = json.loads(response)
-        expected_answer = json.loads(self.expected_json)
+        expected_answer = json.loads(self.expected_vendor)
+
+        self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)
+
+    def test_vendor_not_found(self):
+        response = self.client.get(
+            reverse('vendor-details', kwargs={'id': '999'})).content
+        self.asserEqual(response.status_code, 404)
+
+        parsed_answer = json.loads(response)
+        expected_answer = json.loads(self.expected_not_found)
 
         self.maxDiff = None
         self.assertEquals(parsed_answer, expected_answer)

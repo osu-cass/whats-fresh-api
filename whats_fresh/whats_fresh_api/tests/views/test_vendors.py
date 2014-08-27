@@ -8,20 +8,17 @@ import json
 
 
 class VendorsTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
-
-        # This is the expected return, as JSON
-        # We can't use this, unfortunately, because we nede to allow
-        # for 'created' and 'updated' to be changed
-        self.expected_json = """
+        self.expected_list = """
 {
   "error": {
-    "error_status": false,
-    "error_name": null,
-    "error_text": null,
-    "error_level": null
+    "status": false,
+    "name": null,
+    "text": null,
+    "debug": null,
+    "level": null
   },
   "vendors": [
     {
@@ -98,10 +95,33 @@ class VendorsTestCase(TestCase):
 
     def test_json_equals(self):
         c = Client()
-        response = c.get(reverse('vendors-list')).content
+        response = self.client.get(reverse('vendors-list')).content
         parsed_answer = json.loads(response)
 
-        expected_answer = json.loads(self.expected_json)
+        expected_answer = json.loads(self.expected_list)
+
+        self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)
+
+
+class NoVendorViewTestCase(TestCase):
+    def setUp(self):
+        self.expected_no_vendors = """
+{
+  "error": {
+    "status": true,
+    "text": "No Vendors found",
+    "name": "No Vendors",
+    "debug": "",
+    "level": "Error"
+  }
+}"""
+
+    def test_no_products(self):
+        response = self.client.get(reverse('vendors-list')).content
+        parsed_answer = json.loads(response)
+        expected_answer = json.loads(self.expected_no_vendors)
+        self.assertEqual(response.status_code, 404)
 
         self.maxDiff = None
         self.assertEqual(parsed_answer, expected_answer)

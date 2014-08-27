@@ -8,16 +8,17 @@ from django.contrib.gis.db import models
 import json
 
 class ProductVendorTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
-        self.expected_json = """
+        self.expected_products = """
 {
   "error": {
-    "error_status": false,
-    "error_name": null,
-    "error_text": null,
-    "error_level": null
+    "status": false,
+    "name": null,
+    "text": null,
+    "debug": null,
+    "level": null
   },
   "products": [
     {
@@ -59,9 +60,9 @@ class ProductVendorTestCase(TestCase):
         url = reverse('product-vendor', kwargs={'id': '1'})
         self.assertEqual(url, '/products/vendors/1')
 
-    def test_json_equals(self):
-        c = Client()
-        response = c.get(reverse('product-vendor', kwargs={'id': '1'})).content
+    def test_known_product_vendors(self):
+        response = self.client.get(
+            reverse('product-vendor', kwargs={'id': '1'})).content
         parsed_answer = json.loads(response)
 
         expected_answer = json.loads(self.expected_json)

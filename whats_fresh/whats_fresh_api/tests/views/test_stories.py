@@ -7,28 +7,50 @@ import json
 
 
 class StoriesTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
         self.expected_json = """
 {
     "error": {
-        "error_status": false,
-        "error_name": null,
-        "error_text": null,
-        "error_level": null
+        "status": false,
+        "name": null,
+        "text": null,
+        "debug": null,
+        "level": null
     },
     "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations..."
+}"""
+
+        self.expected_not_found = """
+{
+  "error": {
+    "status": true,
+    "text": "Story id 999 was not found.",
+    "name": "Story Not Found",
+    "debug": "DoesNotExist: Story matching query does not exist.",
+    "level": "Error"
+  }
 }"""
 
     def test_url_endpoint(self):
         url = reverse('story-details', kwargs={'id': '1'})
         self.assertEqual(url, '/stories/1')
 
-    def test_json_equals(self):
-        c = Client()
-        response = c.get(reverse('story-details', kwargs={'id': '1'})).content
+    def test_known_story(self):
+        response = self.client.get(
+            reverse('story-details', kwargs={'id': '1'})).content
         parsed_answer = json.loads(response)
 
         expected_answer = json.loads(self.expected_json)
         self.assertTrue(parsed_answer == expected_answer)
+
+    def test_story_not_found(self):
+        response = self.client.get(
+            reverse('story-details', kwargs={'id': '999'})).content
+        parsed_answer = json.loads(response)
+        self.assertEqual(response.status_code, 404)
+
+        expected_answer = json.loads(self.expected_not_found)
+        self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)
