@@ -167,12 +167,13 @@ class VendorsProductsLocationTestCase(TestCase):
     "ext": {
       
     },
-    "products": {
-      "1": {
+    "products": [
+      {
+        "id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
-    }
+    ]
   },
   {
     "id": 6,
@@ -239,12 +240,13 @@ class VendorsProductsLocationTestCase(TestCase):
     "ext": {
       
     },
-    "products": {
-      "1": {
+    "products": [
+      {
+        "id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
-    }
+    ]
   },{
     "id": 4,
     "website": "",
@@ -267,12 +269,13 @@ class VendorsProductsLocationTestCase(TestCase):
     "ext": {
       
     },
-    "products": {
-      "1": {
+    "products": [
+      {
+        "id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
-    }
+    ]
   },
   {
     "id": 6,
