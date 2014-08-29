@@ -285,7 +285,9 @@ class VendorsLocationTestCase(TestCase):
     "error_name": "Bad location",
     "error_text": "String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
   },
-  "1": {
+  "vendors": [
+  {
+    "id": 1,
     "website": "",
     "street": "720 SW Broadway",
     "contact_name": "Portland Tuna Contact",
@@ -306,14 +308,16 @@ class VendorsLocationTestCase(TestCase):
     "ext": {
       
     },
-    "products": {
-      "2": {
+    "products": [
+      {
+        "id": 2,
         "preparation": "Frozen",
         "name": "Tuna"
       }
-    }
+    ]
   },
-  "3": {
+  {
+    "id": 3,
     "website": "",
     "street": "146 SE Bay Blvd",
     "contact_name": "Newport Tuna Contact",
@@ -334,14 +338,16 @@ class VendorsLocationTestCase(TestCase):
     "ext": {
       
     },
-    "products": {
-      "2": {
+    "products": [
+      {
+        "id": 2,
         "preparation": "Frozen",
         "name": "Tuna"
       }
-    }
+    ]
   },
-  "2": {
+  {
+    "id": 2,
     "website": "",
     "street": "1 SW Pine St",
     "contact_name": "Portland Halibut Contact",
@@ -362,14 +368,16 @@ class VendorsLocationTestCase(TestCase):
     "ext": {
       
     },
-    "products": {
-      "1": {
+    "products": [
+      {
+        "id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
-    }
+    ]
   },
-  "5": {
+  {
+    "id": 5,
     "website": "",
     "street": "522 NW Spring St",
     "contact_name": "Waldport Tuna Contact",
@@ -390,14 +398,16 @@ class VendorsLocationTestCase(TestCase):
     "ext": {
       
     },
-    "products": {
-      "2": {
+    "products": [
+      {
+        "id": 2,
         "preparation": "Frozen",
         "name": "Tuna"
       }
-    }
+    ]
   },
-  "4": {
+  {
+    "id": 4,
     "website": "",
     "street": "1226 Oregon Coast Hwy",
     "contact_name": "Newpotr Halibut Contact",
@@ -418,14 +428,16 @@ class VendorsLocationTestCase(TestCase):
     "ext": {
       
     },
-    "products": {
-      "1": {
+    "products": [
+      {
+        "id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
-    }
+    ]
   },
-  "6": {
+  {
+    "id": 6,
     "website": "",
     "street": "190 SW Maple St",
     "contact_name": "Waldport Halibut Contact",
@@ -446,13 +458,15 @@ class VendorsLocationTestCase(TestCase):
     "ext": {
       
     },
-    "products": {
-      "1": {
+    "products": [
+       {
+        "id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
-    }
+    ]
   }
+  ]
 }"""
 
     def test_successful_location_all_products(self):
