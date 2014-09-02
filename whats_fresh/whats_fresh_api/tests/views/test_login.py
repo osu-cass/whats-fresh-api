@@ -29,9 +29,9 @@ class LoginViewTestCase(TestCase):
             'name': 'dataentry',
             'password': 'password'}
         self.user = User.objects.create_user(
-            user_credentials['name'],
+            self.user_credentials['name'],
             'data@example.com',
-            user_credentials['password'])
+            self.user_credentials['password'])
 
     def test_url_endpoint(self):
         url = reverse('login')
@@ -73,7 +73,7 @@ class LoginViewTestCase(TestCase):
             reverse('login'), self.user_credentials, follow=True)
         self.assertRedirects(response, '/entry')
 
-   def test_redirect(self):
+    def test_redirect(self):
         """
         POST a login command to the server with a good user and a 'next'
         parameter, and see if we get logged in
