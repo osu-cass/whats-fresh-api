@@ -61,6 +61,8 @@ class VendorTestCase(TestCase):
 
         parsed_answer = json.loads(response)
         expected_answer = json.loads(self.expected_json)
+        parsed_answer['products'].sort()
+        expected_answer['products'].sort()
 
         self.maxDiff = None
         self.assertEquals(parsed_answer, expected_answer)
