@@ -64,4 +64,8 @@ urlpatterns = patterns('',
     url(r'^entry/preparations/?$', 
         'whats_fresh_api.views.data_entry.preparations.preparation_list', 
         name='entry-list-preparations'),
+
+    url(r'^login/?$', 
+        'whats_fresh_api.views.data_entry.login.login_user', 
+        name='login'),
 )
