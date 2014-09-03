@@ -26,12 +26,13 @@ class LoginViewTestCase(TestCase):
     """
     def setUp(self):
         self.user_credentials = {
-            'name': 'dataentry',
+            'username': 'dataentry',
             'password': 'password'}
         self.user = User.objects.create_user(
-            self.user_credentials['name'],
+            self.user_credentials['username'],
             'data@example.com',
             self.user_credentials['password'])
+        self.user.save()
 
     def test_url_endpoint(self):
         url = reverse('login')
@@ -43,7 +44,7 @@ class LoginViewTestCase(TestCase):
         if we get logged in
         """
         bad_password = {
-            'name': self.user_credentials['name'],
+            'username': self.user_credentials['username'],
             'password': 'bad_password'
         }
 
@@ -51,18 +52,18 @@ class LoginViewTestCase(TestCase):
             reverse('login'), bad_password, follow=True)
 
         self.assertContains(
-            response, "Invalid username or password", status_code=401)
+            response, "Invalid username or password")
 
         bad_username = {
-            'name': 'bad_dataentry',
-            'password': self.user_credentials['name']
+            'username': 'bad_dataentry',
+            'password': self.user_credentials['username']
         }
 
         response = self.client.post(
             reverse('login'), bad_username, follow=True)
 
         self.assertContains(
-            response, "Invalid username or password", status_code=401)
+            response, "Invalid username or password")
 
     def test_good_password(self):
         """
@@ -70,7 +71,7 @@ class LoginViewTestCase(TestCase):
         we get logged in
         """
         response = self.client.post(
-            reverse('login'), self.user_credentials, follow=True)
+            reverse('login'), self.user_credentials)
         self.assertRedirects(response, '/entry')
 
     def test_redirect(self):
@@ -79,8 +80,8 @@ class LoginViewTestCase(TestCase):
         parameter, and see if we get logged in
         """
         post_data = self.user_credentials.copy()
-        post_data['next'] = '/entry/vendors/1'
+        post_data['next'] = '/entry/vendors/'
 
         response = self.client.post(
-            reverse('login'), self.user_credentials, follow=True)
-        self.assertRedirects(response, '/entry/vendors/1')
+            reverse('login'), post_data)
+        self.assertRedirects(response, '/entry/vendors/')

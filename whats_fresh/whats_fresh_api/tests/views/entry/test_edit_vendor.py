@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from whats_fresh_api.models import *
 from django.contrib.gis.db import models
+from django.contrib.auth.models import User
 import json
 
 
@@ -19,6 +20,15 @@ class EditVendorTestCase(TestCase):
     """
     fixtures = ['test_fixtures']
 
+    def setUp(self):
+        user = User.objects.create_user(
+            'temporary', 'temporary@gmail.com', 'temporary')
+        user.save()
+
+        self.client.post(
+            reverse('login'),
+            {'username': 'temporary', 'password': 'temporary'})
+
     def test_url_endpoint(self):
         url = reverse('edit-vendor', kwargs={'id': '1'})
         self.assertEqual(url, '/entry/vendors/1')
@@ -28,6 +38,7 @@ class EditVendorTestCase(TestCase):
         POST a proper "new vendor" command to the server, and see if the
         new vendor appears in the database
         """
+
         # Data that we'll post to the server to get the new vendor created
         new_vendor = {
             'zip': '97365', 'website': '', 'hours': '',
@@ -67,6 +78,7 @@ class EditVendorTestCase(TestCase):
         Tests to see if the form contains all of the right fields with the
         right initial data
         """
+
         response = self.client.get(reverse('edit-vendor', kwargs={'id': '1'}))
 
         fields = {

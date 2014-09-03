@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from whats_fresh_api.models import *
 from django.contrib.gis.db import models
+from django.contrib.auth.models import User
 import json
 
 
@@ -19,6 +20,11 @@ class NewVendorTestCase(TestCase):
         POSTing a valid object with a bad address returns an error saying
             bad adddress. This behaviour may be changed in the future.
     """
+    def setUp(self):
+        user = User.objects.create_user(
+            'temporary', 'temporary@gmail.com', 'temporary')
+        user.save()
+
     def test_url_endpoint(self):
         url = reverse('new-vendor')
         self.assertEqual(url, '/entry/vendors/new')
@@ -27,6 +33,9 @@ class NewVendorTestCase(TestCase):
         """
         Tests to see if the form contains all of the right fields
         """
+        response = self.client.post(
+            reverse('login'),
+            {'username': 'temporary', 'password': 'temporary'})
         response = self.client.get(reverse('new-vendor'))
 
         fields = {'name': 'input', 'description': 'input', 'hours': 'input',
@@ -46,6 +55,9 @@ class NewVendorTestCase(TestCase):
         POST a proper "new vendor" command to the server, and see if the
         new vendor appears in the database
         """
+        response = self.client.post(
+            reverse('login'),
+            {'username': 'temporary', 'password': 'temporary'})
         # Create objects that we'll be setting as the foreign objects for
         # our test vendor
 
@@ -104,6 +116,9 @@ class NewVendorTestCase(TestCase):
         POST a "new vendor" command to the server missing all of the
         required fields, and test to see what the error comes back as.
         """
+        response = self.client.post(
+            reverse('login'),
+            {'username': 'temporary', 'password': 'temporary'})
         # Create a list of all objects before sending bad POST data
         all_vendors = Vendor.objects.all()
 
@@ -140,6 +155,9 @@ class NewVendorTestCase(TestCase):
         test_successful_vendor_creation, but with a bad address. This means
         the only error returned should be a Bad Address error.
         """
+        response = self.client.post(
+            reverse('login'),
+            {'username': 'temporary', 'password': 'temporary'})
         # Create a list of all objects before sending bad POST data
         all_vendors = Vendor.objects.all()
 
