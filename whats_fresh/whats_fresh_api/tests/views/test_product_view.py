@@ -72,8 +72,10 @@ class ProductViewTestCase(TestCase):
         parsed_answer = json.loads(response)
         expected_answer = json.loads(self.expected_json)
 
-        expected_answer['products'].sort()
-        parsed_answer['products'].sort()
+        parsed_answer['products'] = sorted(
+            parsed_answer['products'], key=lambda k: k['id'])
+        expected_answer['products'] = sorted(
+            expected_answer['products'], key=lambda k: k['id'])
 
         self.maxDiff = None
         self.assertEqual(parsed_answer, expected_answer)
