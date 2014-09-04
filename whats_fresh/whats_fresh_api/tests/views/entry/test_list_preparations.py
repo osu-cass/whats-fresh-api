@@ -22,9 +22,14 @@ class ListPreparationTestCase(TestCase):
 
         for preparation in Preparation.objects.all():
             self.assertEqual(
-                items[preparation.id-1]['description'], preparation.description)
+                items[preparation.id-1]['description'],
+                preparation.description)
             self.assertEqual(
                 items[preparation.id-1]['name'], preparation.name)
             self.assertEqual(
                 items[preparation.id-1]['link'],
                 reverse('edit-preparation', kwargs={'id': preparation.id}))
+
+
+
+
