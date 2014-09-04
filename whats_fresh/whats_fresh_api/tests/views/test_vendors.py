@@ -104,11 +104,11 @@ class VendorsTestCase(TestCase):
 
         for vendor in expected_answer['vendors']:
             vendor['products'] = sorted(
-                vendor['products'], key=lambda k: k['id'])
+                vendor['products'], key=lambda k: k['product_id'])
 
         for vendor in parsed_answer['vendors']:
             vendor['products'] = sorted(
-                vendor['products'], key=lambda k: k['id'])
+                vendor['products'], key=lambda k: k['product_id'])
 
         parsed_answer['vendors'] = sorted(
             parsed_answer['vendors'], key=lambda k: k['id'])

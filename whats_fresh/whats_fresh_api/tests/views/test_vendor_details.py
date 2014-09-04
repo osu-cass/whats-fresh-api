@@ -40,11 +40,13 @@ class VendorTestCase(TestCase):
   "products": [
     {
       "product_id": 2,
+      "preparation_id": 1,
       "name": "Starfish Voyager",
       "preparation": "Live"
     },
     {
       "product_id": 1,
+      "preparation_id": 1,
       "name": "Ezri Dax",
       "preparation": "Live"
     }
@@ -64,9 +66,9 @@ class VendorTestCase(TestCase):
 
 
         parsed_answer['products'] = sorted(
-            parsed_answer['products'], key=lambda k: k['id'])
+            parsed_answer['products'], key=lambda k: k['product_id'])
         expected_answer['products'] = sorted(
-            expected_answer['products'], key=lambda k: k['id'])
+            expected_answer['products'], key=lambda k: k['product_id'])
 
         self.maxDiff = None
         self.assertEquals(parsed_answer, expected_answer)
