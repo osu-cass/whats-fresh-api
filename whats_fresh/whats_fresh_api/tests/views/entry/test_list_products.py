@@ -14,23 +14,30 @@ class ListProductTestCase(TestCase):
 
     def test_list_items(self):
         """
-        Tests to see if the list of products contains the proper productss and
+        Tests to see if the list of products contains the proper products and
         proper product data
         """
         response = self.client.get(reverse('entry-list-products'))
         items = response.context['item_list']
 
+        product_dict = {}
+
+        for product in items:
+            product_id = product['link'].split('/')[-1]
+            product_dict[str(product_id)] = product
+
         for product in Product.objects.all():
             self.assertEqual(
-                items[product.id-1]['description'], product.description)
+                product_dict[str(product.id)]['description'],
+                product.description)
             self.assertEqual(
-                items[product.id-1]['name'], product.name)
+                product_dict[str(product.id)]['name'], product.name)
             self.assertEqual(
-                items[product.id-1]['link'],
+                product_dict[str(product.id)]['link'],
                 reverse('edit-product', kwargs={'id': product.id}))
             self.assertEqual(
-                items[product.id-1]['modified'],
+                product_dict[str(product.id)]['modified'],
                 product.modified.strftime("%I:%M %P, %d %b %Y"))
             self.assertEqual(
-                sort(items[product.id-1]['preparations']),
+                sort(product_dict[str(product.id)]['preparations']),
                 sort([prep.name for prep in product.preparations.all()]))
