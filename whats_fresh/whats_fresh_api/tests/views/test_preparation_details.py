@@ -10,7 +10,8 @@ class PreparationsTestCase(TestCase):
     fixtures = ['test_fixtures']
 
     def setUp(self):
-        self.expected_json = """
+        self.maxDiff = None
+        self.expected_preparation = """
 {
     "error": {
         "error_status": false,
@@ -18,6 +19,7 @@ class PreparationsTestCase(TestCase):
         "error_text": null,
         "error_level": null
     },
+    "id": 1,
     "name": "Live",
     "description": "The food goes straight from sea to you with live food, sitting in saltwater tanks!",
     "additional_info": "Live octopus requires a locking container"
@@ -32,5 +34,5 @@ class PreparationsTestCase(TestCase):
             reverse('preparation-details', kwargs={'id': '1'})).content
         parsed_answer = json.loads(response)
 
-        expected_answer = json.loads(self.expected_json)
+        expected_answer = json.loads(self.expected_preparation)
         self.assertEqual(parsed_answer, expected_answer)

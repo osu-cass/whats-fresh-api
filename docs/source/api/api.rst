@@ -511,6 +511,7 @@ Example: GET /preparations/1
         "error_text": null,
         "error_level": null
       },
+      "id": 1,
       "name": "Frozen",
       "description": "Fish is generally cooled and frozen as quickly as possible after catching to preserve the meat.",
       "additional_info": "Be sure to ask the fisherman how quickly the fish was cooled after being caught. It is important to get the fish on ice as soon as possible."
