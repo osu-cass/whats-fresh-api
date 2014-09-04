@@ -33,5 +33,4 @@ class ListProductTestCase(TestCase):
                 product.modified.strftime("%I:%M %P, %d %b %Y"))
             self.assertEqual(
                 sort(items[product.id-1]['preparations']),
-                sort([prep.name for prep in product.preparations.all()])
-
+                sort([prep.name for prep in product.preparations.all()]))
