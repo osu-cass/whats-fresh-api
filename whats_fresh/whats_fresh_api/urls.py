@@ -49,7 +49,7 @@ urlpatterns = patterns('',
         'whats_fresh_api.views.data_entry.products.product', 
         name='new-product'),
 
-    url(r'^entry/products/?$', 
+    url(r'^entry/products/?$',
         'whats_fresh_api.views.data_entry.products.product_list', 
         name='entry-list-products'),
 

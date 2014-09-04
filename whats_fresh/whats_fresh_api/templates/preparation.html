@@ -1,0 +1,36 @@
+{% extends "generic.html" %}
+
+{% block header_expansion %}
+<div id="back_to_parent"><a href="{{ parent_url }}">&lt; <span class="{{ parent_text }}"></span></a></div>
+{% endblock %}
+
+{% block body %}
+      {% load staticfiles %}
+         <div id="message">{{ message }}</div>
+         {% if preparation_form.errors or errors %}
+         <div id="error">
+            <ul>
+            {% for error in preparation_form.errors %}
+            <li>Invalid {{ error|escape }}!</li>
+            {% endfor %}
+            {% for error in errors %}
+            <li>{{ error|escape }}</li>
+            {% endfor %}
+            </ul>
+         </div>
+         {% endif %}
+         <form action="{{ post_url }}" method="post">
+            {% csrf_token %}
+            <div id="info">
+               <div class="entry_box">
+               <div class="title_text">Basic Info</div><br>
+               <div class="required field_text" id="name">Name:</div><div class="form">{{ preparation_form.name }}</div><br>
+               <div class="optional field_text" id="name">Description:</div><div class="form">{{ preparation_form.description }}</div><br>
+               <div class="optional field_text" id="name">Additional Information:</div><div class="form">{{ preparation_form.additional_info }}</div><br>
+               </div>
+            </div>
+
+         <div class="save"><button type="submit"/>Save</button></div>
+         </form>
+      </div>
+{% endblock %}

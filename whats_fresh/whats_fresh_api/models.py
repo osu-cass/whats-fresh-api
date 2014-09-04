@@ -128,7 +128,7 @@ class Preparation(models.Model):
     def __unicode__(self):
         return self.name
 
-    name = models.TextField(blank=True)
+    name = models.TextField()
     description = models.TextField(blank=True)
     additional_info = models.TextField(blank=True)
 

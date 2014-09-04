@@ -38,4 +38,31 @@ def preparation_list(request):
 
 
 def preparation(request, id=None):
-    pass
+    if request.method == 'POST':
+        post_data = request.POST.copy()
+        errors = []
+
+        preparation_form = PreparationForm(post_data)
+        if preparation_form.is_valid() and not errors:
+            preparation = Preparation.objects.create(**preparation_form.cleaned_data)
+            preparation.save()
+            return HttpResponseRedirect(reverse('preparations-list-edit'))
+        else:
+            pass
+    else:
+        preparation_form = PreparationForm()
+
+    title = "New Preparation"
+    post_url = reverse('new-preparation')
+
+    message = "Fields marked with bold are required."
+
+    return render(request, 'preparation.html', {
+        'parent_url': reverse('preparations-list-edit'),
+        'parent_text': 'Preparation List',
+        'message': message,
+        'title': title,
+        'post_url': post_url,
+        'errors': [],
+        'preparation_form': preparation_form,
+    })

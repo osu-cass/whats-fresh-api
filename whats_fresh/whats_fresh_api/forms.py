@@ -30,3 +30,13 @@ class ProductForm(forms.ModelForm):
             'description': forms.TextInput,
             'market_price': forms.TextInput
         }
+
+
+class PreparationForm(forms.ModelForm):
+    class Meta:
+        model = Preparation
+        widgets = {
+            'name': forms.TextInput,
+            'additional_info': forms.TextInput,
+            'description': forms.TextInput
+        }
