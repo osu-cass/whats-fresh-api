@@ -1,0 +1,19 @@
+{% extends "generic.html" %}
+{% load staticfiles %}
+{% block title_expansion %}<div id="new"><a href="{{ new_url }}">{{ new_text }}</a></div><div id="new_mobile"><a href="{{ new_url }}">New</a></div>{% endblock %}
+
+{% block body %}
+         <div id="message">{{ message }}</div>
+         {% for item in item_list %}
+         <a class="full_div_link" href="{{ item.link }}">
+         <div class="{{ item_classification }} list_container">
+             <div class="inline_items">
+                <div class="item_name">{{ item.name }}</div>
+                <div class="item_modified">{{ item.modified }}</div>
+             </div>
+             <div class="item_description">{{ item.description }}</div>
+         </div>
+         </a>
+         {% endfor %}
+      </div>
+{% endblock %}

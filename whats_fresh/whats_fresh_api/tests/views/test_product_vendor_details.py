@@ -8,7 +8,7 @@ from django.contrib.gis.db import models
 import json
 
 class ProductVendorTestCase(TestCase):
-    fixtures = ['whats_fresh_api/tests/testdata/test_fixtures.json']
+    fixtures = ['test_fixtures']
 
     def setUp(self):
         self.expected_json = """
@@ -63,6 +63,11 @@ class ProductVendorTestCase(TestCase):
         c = Client()
         response = c.get(reverse('product-vendor', kwargs={'id': '1'})).content
         parsed_answer = json.loads(response)
-
         expected_answer = json.loads(self.expected_json)
+
+        parsed_answer['products'] = sorted(
+            parsed_answer['products'], key=lambda k: k['id'])
+        expected_answer['products'] = sorted(
+            expected_answer['products'], key=lambda k: k['id'])
+
         self.assertEqual(parsed_answer, expected_answer)

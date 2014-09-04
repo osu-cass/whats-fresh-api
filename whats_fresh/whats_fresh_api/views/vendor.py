@@ -191,6 +191,11 @@ def vendor_details(request, id=None):
         data['lat'] = vendor.location.y
         data['long'] = vendor.location.x
 
+        data['story_id'] = vendor.story_id.id
+        if data['phone']:
+            data['phone'] = data['phone'].national_number
+        else:
+            data['phone'] = None
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
         data['ext'] = {}
