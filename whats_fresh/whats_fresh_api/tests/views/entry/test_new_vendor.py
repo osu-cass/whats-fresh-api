@@ -123,7 +123,7 @@ class NewVendorTestCase(TestCase):
         self.assertIn('Full address is required.', response.context['errors'])
 
         required_fields = [
-            'city', 'name', 'zip', 'story_id', 'long', 'lat', 'state',
+            'city', 'name', 'zip', 'story_id', 'location', 'state',
             'street', 'contact_name', 'description']
         for field_name in required_fields:
             self.assertIn(field_name, response.context['vendor_form'].errors)
