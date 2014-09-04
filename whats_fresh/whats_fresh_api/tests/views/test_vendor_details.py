@@ -42,11 +42,13 @@ class VendorTestCase(TestCase):
   "products": [
     {
       "product_id": 2,
+      "preparation_id": 1,
       "name": "Starfish Voyager",
       "preparation": "Live"
     },
     {
       "product_id": 1,
+      "preparation_id": 1,
       "name": "Ezri Dax",
       "preparation": "Live"
     }
