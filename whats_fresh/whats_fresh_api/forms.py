@@ -8,6 +8,7 @@ class VendorForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput,
             'description': forms.TextInput,
+            'hours': forms.TextInput,
             'street': forms.TextInput,
             'city': forms.TextInput,
             'state': forms.TextInput,
