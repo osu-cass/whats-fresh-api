@@ -8,7 +8,6 @@ from django.utils.datastructures import MultiValueDictKeyError
 
 from whats_fresh_api.models import *
 from whats_fresh_api.forms import *
-from whats_fresh_api.functions import *
 
 import json
 
@@ -61,7 +60,7 @@ def product(request, id=None):
     json_preparations = json.dumps(data)
 
     return render(request, 'product.html', {
-        'parent_url': reverse('products-list-edit'),
+        'parent_url': reverse('entry-list-products'),
         'json_preparations': json_preparations,
         'preparation_dict': data,
         'parent_text': 'Product List',
@@ -72,5 +71,30 @@ def product(request, id=None):
         'product_form': product_form,
     })
 
+
 def product_list(request):
-    pass
+    products = Product.objects.all()
+    products_list = []
+
+    for product in products:
+        product_data = {}
+        product_data['name'] = product.name
+        product_data['modified'] = product.modified.strftime("%I:%M %P, %d %b %Y")
+        product_data['description'] = product.description
+        product_data['link'] = reverse('edit-product', kwargs={'id': product.id})
+
+        product_data['preparations'] = [
+            preparation.name for preparation in product.preparations.all()]
+
+        if len(product_data['description']) > 100:
+            product_data['description'] = product_data['description'][:100] + "..."
+
+        products_list.append(product_data)
+
+    return render(request, 'products_list.html', {
+        'new_url': reverse('new-product'),
+        'new_text': "New product",
+        'title': "All products",
+        'item_classification': "product",
+        'item_list': products_list,
+    })

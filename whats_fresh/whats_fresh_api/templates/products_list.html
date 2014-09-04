@@ -1,0 +1,8 @@
+{% extends "list.html" %}
+{% block extra_information %}
+<div class="product_preparations"><ul>
+{% for preparation in item.preparations %}
+<li class="inline_list">{{ preparation }}</li>
+{% endfor %}
+</ul></div>
+{% endblock %}

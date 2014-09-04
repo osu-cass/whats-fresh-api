@@ -14,6 +14,7 @@
                 {% endif %}
              </div>
              <div class="item_description">{{ item.description }}</div>
+             {% block extra_information %}{% endblock %}
          </div>
          </a>
          {% endfor %}

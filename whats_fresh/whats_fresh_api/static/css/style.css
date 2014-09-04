@@ -11,6 +11,10 @@ select {
   font-weight: 600;
 }
 
+.inline_list {
+  list-style-type: none;
+}
+
 .title_text {
   margin-bottom: -10px;
   font-size: 1.6em;

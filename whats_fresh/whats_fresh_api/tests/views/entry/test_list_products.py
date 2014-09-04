@@ -27,7 +27,7 @@ class ListProductTestCase(TestCase):
             product_dict[str(product_id)] = product
 
         for db_product in Product.objects.all():
-            list_product = product_dict[str(product.id)]
+            list_product = product_dict[str(db_product.id)]
             self.assertEqual(
                 list_product['description'],
                 db_product.description)
@@ -40,5 +40,5 @@ class ListProductTestCase(TestCase):
                 list_product['modified'],
                 db_product.modified.strftime("%I:%M %P, %d %b %Y"))
             self.assertEqual(
-                sort(list_product['preparations']),
-                sort([prep.name for prep in db_product.preparations.all()]))
+                sorted(list_product['preparations']),
+                sorted([prep.name for prep in db_product.preparations.all()]))
