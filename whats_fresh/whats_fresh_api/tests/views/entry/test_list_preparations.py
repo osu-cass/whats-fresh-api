@@ -22,8 +22,7 @@ class ListPreparationTestCase(TestCase):
 
         for preparation in Preparation.objects.all():
             self.assertEqual(
-                items[preparation.id-1]['description'],
-                preparation.description)
+                items[preparation.id-1]['description'], preparation.description)
             self.assertEqual(
                 items[preparation.id-1]['name'], preparation.name)
             self.assertEqual(
@@ -31,5 +30,26 @@ class ListPreparationTestCase(TestCase):
                 reverse('edit-preparation', kwargs={'id': preparation.id}))
 
 
+    def test_list_items(self):
+        """
+        Tests to see if the list of preparations contains the proper preparations and
+        proper preparation data
+        """
+        response = self.client.get(reverse('list-preparations-edit'))
+        items = response.context['item_list']
 
+        preparation_dict = {}
 
+        for preparation in items:
+            preparation_id = preparation['link'].split('/')[-1]
+            preparation_dict[str(preparation_id)] = preparation
+
+        for db_preparation in Preparation.objects.all():
+            list_preparation = preparation_dict[str(db_preparation.id)]
+            self.assertEqual(
+                list_preparation['description'], db_preparation.description)
+            self.assertEqual(
+                list_preparation['name'], db_preparation.name)
+            self.assertEqual(
+                list_preparation['link'],
+                reverse('edit-preparation', kwargs={'id': db_preparation.id}))
