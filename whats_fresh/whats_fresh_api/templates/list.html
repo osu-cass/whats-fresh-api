@@ -9,7 +9,9 @@
          <div class="{{ item_classification }} list_container">
              <div class="inline_items">
                 <div class="item_name">{{ item.name }}</div>
+                {% if item.modified %}
                 <div class="item_modified">{{ item.modified }}</div>
+                {% endif %}
              </div>
              <div class="item_description">{{ item.description }}</div>
          </div>

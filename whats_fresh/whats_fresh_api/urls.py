@@ -43,4 +43,16 @@ urlpatterns = patterns('',
     url(r'^entry/products/?$', 
         'whats_fresh_api.views.data_entry.products.product_list', 
         name='products-list-edit'),
+
+    url(r'^entry/preparations/new/?$', 
+        'whats_fresh_api.views.data_entry.preparations.preparation', 
+        name='new-preparation'),
+
+    url(r'^entry/preparations/(?P<id>\d+)/?$', 
+        'whats_fresh_api.views.data_entry.preparations.preparation', 
+        name='edit-preparation'),
+
+    url(r'^entry/preparations/?$', 
+        'whats_fresh_api.views.data_entry.preparations.preparation_list', 
+        name='entry-list-preparations'),
 )

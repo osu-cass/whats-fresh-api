@@ -35,7 +35,7 @@ class ListPreparationTestCase(TestCase):
         Tests to see if the list of preparations contains the proper preparations and
         proper preparation data
         """
-        response = self.client.get(reverse('list-preparations-edit'))
+        response = self.client.get(reverse('entry-list-preparations'))
         items = response.context['item_list']
 
         preparation_dict = {}
