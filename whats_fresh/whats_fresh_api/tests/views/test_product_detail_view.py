@@ -66,8 +66,8 @@ class ProductViewTestCase(TestCase):
 
     def test_product_not_found(self):
         response = self.client.get(
-            reverse('product-details', kwargs={'id': '999'})).content
-        parsed_answer = json.loads(response)
+            reverse('product-details', kwargs={'id': '999'}))
+        parsed_answer = json.loads(response.content)
         self.assertEqual(response.status_code, 404)
 
         expected_answer = json.loads(self.expected_not_found)

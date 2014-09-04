@@ -100,6 +100,19 @@ class VendorsTestCase(TestCase):
 
         expected_answer = json.loads(self.expected_list)
 
+        for vendor in expected_answer['vendors']:
+            vendor['products'] = sorted(
+                vendor['products'], key=lambda k: k['id'])
+
+        for vendor in parsed_answer['vendors']:
+            vendor['products'] = sorted(
+                vendor['products'], key=lambda k: k['id'])
+
+        parsed_answer['vendors'] = sorted(
+            parsed_answer['vendors'], key=lambda k: k['id'])
+        expected_answer['vendors'] = sorted(
+            expected_answer['vendors'], key=lambda k: k['id'])
+
         self.maxDiff = None
         self.assertEqual(parsed_answer, expected_answer)
 
@@ -118,23 +131,13 @@ class NoVendorViewTestCase(TestCase):
 }"""
 
     def test_no_products(self):
-        response = self.client.get(reverse('vendors-list')).content
-        parsed_answer = json.loads(response)
+        response = self.client.get(reverse('vendors-list'))
+
+        parsed_answer = json.loads(response.content)
         expected_answer = json.loads(self.expected_no_vendors)
         self.assertEqual(response.status_code, 404)
 
-        for vendor in expected_answer['vendors']:
-            vendor['products'] = sorted(
-                vendor['products'], key=lambda k: k['id'])
-
-        for vendor in parsed_answer['vendors']:
-            vendor['products'] = sorted(
-                vendor['products'], key=lambda k: k['id'])
-
-        parsed_answer['vendors'] = sorted(
-            parsed_answer['vendors'], key=lambda k: k['id'])
-        expected_answer['vendors'] = sorted(
-            expected_answer['vendors'], key=lambda k: k['id'])
+        expected_answer = json.loads(self.expected_no_vendors)
 
         self.maxDiff = None
         self.assertEqual(parsed_answer, expected_answer)

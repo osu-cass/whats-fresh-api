@@ -72,6 +72,11 @@ class ProductViewTestCase(TestCase):
         parsed_answer = json.loads(response)
         expected_answer = json.loads(self.expected_list)
 
+        parsed_answer['products'] = sorted(
+            parsed_answer['products'], key=lambda k: k['id'])
+        expected_answer['products'] = sorted(
+            expected_answer['products'], key=lambda k: k['id'])
+
         self.maxDiff = None
         self.assertEqual(parsed_answer, expected_answer)
 
@@ -90,15 +95,10 @@ class NoProductViewTestCase(TestCase):
 }"""
 
     def test_no_products(self):
-        response = self.client.get(reverse('products-list')).content
-        parsed_answer = json.loads(response)
+        response = self.client.get(reverse('products-list'))
+        parsed_answer = json.loads(response.content)
         expected_answer = json.loads(self.expected_no_products)
         self.assertEqual(response.status_code, 404)
-
-        parsed_answer['products'] = sorted(
-            parsed_answer['products'], key=lambda k: k['id'])
-        expected_answer['products'] = sorted(
-            expected_answer['products'], key=lambda k: k['id'])
 
         self.maxDiff = None
         self.assertEqual(parsed_answer, expected_answer)
