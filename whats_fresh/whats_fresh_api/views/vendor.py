@@ -226,6 +226,7 @@ def vendor_details(request, id=None):
 
 <<<<<<< HEAD
         data['story_id'] = vendor.story_id.id
+<<<<<<< HEAD
         if data['phone']:
             data['phone'] = data['phone'].national_number
         else:
@@ -235,6 +236,9 @@ def vendor_details(request, id=None):
         data['long'] = vendor.location.x
 
 >>>>>>> Update Vendor to use GeoDjango point rather than lat/long
+=======
+
+>>>>>>> Update new vendor test for location, rebase off develop
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
         data['ext'] = {}
