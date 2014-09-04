@@ -26,18 +26,19 @@ class ListProductTestCase(TestCase):
             product_id = product['link'].split('/')[-1]
             product_dict[str(product_id)] = product
 
-        for product in Product.objects.all():
+        for db_product in Product.objects.all():
+            list_product = product_dict[str(product.id)]
             self.assertEqual(
-                product_dict[str(product.id)]['description'],
-                product.description)
+                list_product['description'],
+                db_product.description)
             self.assertEqual(
-                product_dict[str(product.id)]['name'], product.name)
+                list_product['name'], db_product.name)
             self.assertEqual(
-                product_dict[str(product.id)]['link'],
-                reverse('edit-product', kwargs={'id': product.id}))
+                list_product['link'],
+                reverse('edit-product', kwargs={'id': db_product.id}))
             self.assertEqual(
-                product_dict[str(product.id)]['modified'],
-                product.modified.strftime("%I:%M %P, %d %b %Y"))
+                list_product['modified'],
+                db_product.modified.strftime("%I:%M %P, %d %b %Y"))
             self.assertEqual(
-                sort(product_dict[str(product.id)]['preparations']),
-                sort([prep.name for prep in product.preparations.all()]))
+                sort(list_product['preparations']),
+                sort([prep.name for prep in db_product.preparations.all()]))
