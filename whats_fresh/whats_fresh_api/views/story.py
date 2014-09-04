@@ -18,12 +18,13 @@ def story_details(request, id=None):
         story = Story.objects.get(id=id)
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Story with id %s not found!' % id,
-            'error_name': 'Story Not Found'
+            'status': True,
+            'level': 'Error',
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'text': 'Story id %s was not found.' % id,
+            'name': 'Story Not Found'
         }
-        return HttpResponse(
+        return HttpResponseNotFound(
             json.dumps(data),
             content_type="application/json"
         )
@@ -32,19 +33,21 @@ def story_details(request, id=None):
         data = model_to_dict(story, fields=[], exclude=[])
         del data['id']
         data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
+            'status': False,
+            'level': None,
+            'debug': None,
+            'text': None,
+            'name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     except:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing story %s' % id,
-            'error_name': 'Unknown'
+            'status': True,
+            'level': 'Error',
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'text': 'An unknown error occurred processing story %s' % id,
+            'name': 'Unknown'
         }
         return HttpResponseServerError(
             json.dumps(data),
