@@ -12,10 +12,11 @@ def vendor_list(request):
 
     if len(vendor_list) == 0:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Could not find any vendors!',
-            'error_name': 'No Vendors'
+            'debug': '',
+            'status': True,
+            'level': 'Error',
+            'text': 'No Vendors found',
+            'name': 'No Vendors'
         }
         return HttpResponseNotFound(
             json.dumps(data),
@@ -46,18 +47,20 @@ def vendor_list(request):
                 data['vendors'][-1]['products'].append(product_data)
 
         data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
+            'debug': None,
+            'status': False,
+            'level': None,
+            'text': None,
+            'name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': e,
-            'error_name': 'Unknown'
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Error',
+            'text': e,
+            'name': 'Unknown'
         }
         return HttpResponseServerError(
             json.dumps(data),
@@ -72,10 +75,11 @@ def vendors_products(request, id=None):
             vendorproduct__product_preparation__product__id__exact=id)
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': 'Product id is invalid',
-            'error_name': 'Invalid product'
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Error',
+            'text': 'Product id is invalid',
+            'name': 'Invalid product'
         }
         return HttpResponseNotFound(
             json.dumps(data),
@@ -84,10 +88,11 @@ def vendors_products(request, id=None):
 
     if len(vendor_list) == 0:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Could not find any vendors for product %s!' % id,
-            'error_name': 'No Vendors for product %s' % id
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Important',
+            'text': 'Could not find any vendors for product %s!' % id,
+            'name': 'No Vendors for product %s' % id
         }
         return HttpResponse(
             json.dumps(data),
@@ -119,19 +124,21 @@ def vendors_products(request, id=None):
                 data['vendors'][-1]['products'].append(product_data)
 
         data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
+            'debug': None,
+            'status': False,
+            'level': None,
+            'text': None,
+            'name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': 'Error {0} occurred processing the vendors for product {1}'.format(e, id),
-            'error_name': 'Unknown'
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Error',
+            'text': 'Error {0} occurred processing the vendors for product {1}'.format(e, id),
+            'name': 'Unknown'
         }
         return HttpResponseServerError(
             json.dumps(data),
@@ -146,10 +153,11 @@ def vendor_details(request, id=None):
         vendor = Vendor.objects.get(id=id)
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Vendor with id %s not found!' % id,
-            'error_name': 'Vendor not found'
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Error',
+            'text': 'Vendor id %s was not found.' % id,
+            'name': 'Vendor Not Found'
         }
         return HttpResponseNotFound(
             json.dumps(data),
@@ -183,20 +191,22 @@ def vendor_details(request, id=None):
             data['products'].append(product_data)
 
         data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
+            'debug': None,
+            'status': False,
+            'level': None,
+            'text': None,
+            'name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing vendor %s'
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Error',
+            'text': 'An unknown error occurred processing vendor %s'
             % id,
-            'error_name': e
+            'name': e
         }
 
         return HttpResponseServerError(

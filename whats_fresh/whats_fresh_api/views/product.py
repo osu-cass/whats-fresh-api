@@ -19,10 +19,11 @@ def product_list(request):
 
     if len(product_list) == 0:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Could not find any products!',
-            'error_name': 'No products'
+            'status': True,
+            'level': 'Error',
+            'debug': '',
+            'text': 'No Products found',
+            'name': 'No Products'
         }
         return HttpResponseNotFound(
             json.dumps(data),
@@ -50,19 +51,21 @@ def product_list(request):
             data['products'][-1]['id'] = product.id
 
         data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
+            'status': False,
+            'level': None,
+            'text': None,
+            'debug': None,
+            'name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': str(e),
-            'error_name': 'Unknown'
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Severe',
+            'text': str(e),
+            'name': 'Unknown'
         }
         return HttpResponseServerError(
             json.dumps(data),
@@ -82,12 +85,13 @@ def product_details(request, id=None):
         product = Product.objects.get(id=id)
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Product with id %s not found!' % id,
-            'error_name': 'Product Not Found'
+            'status': True,
+            'level': 'Error',
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'text': 'Product id %s was not found.' % id,
+            'name': 'Product Not Found'
         }
-        return HttpResponse(
+        return HttpResponseNotFound(
             json.dumps(data),
             content_type="application/json"
         )
@@ -111,20 +115,22 @@ def product_details(request, id=None):
         data['id'] = product.id
 
         data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
+            'status': False,
+            'level': None,
+            'debug': None,
+            'text': None,
+            'name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     except:
-        error_text = 'An unknown error occurred processing product %s' % id
+        text = 'An unknown error occurred processing product %s' % id
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': error_text,
-            'error_name': 'Unknown'
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Severe',
+            'text': text,
+            'name': 'Unknown'
         }
         return HttpResponseServerError(
             json.dumps(data),
@@ -138,10 +144,11 @@ def product_vendor(request, id=None):
         product_list = Product.objects.filter(productpreparation__vendorproduct__vendor__id__exact=id)
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Vendor with id %s not found!' % id,
-            'error_name': 'Vendor Not Found'
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Important',
+            'text': 'Vendor with id %s not found!' % id,
+            'name': 'Vendor Not Found'
         }
         return HttpResponse(
             json.dumps(data),
@@ -168,20 +175,22 @@ def product_vendor(request, id=None):
             data['products'][-1]['id'] = product.id
            
         data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
+            'status': False,
+            'level': None,
+            'debug': None,
+            'text': None,
+            'name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     except Exception as e:
-        error_text = 'An unknown error occurred processing product %s' % id
+        text = 'An unknown error occurred processing product %s' % id
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': error_text,
-            'error_name': str(e)
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Severe',
+            'text': text,
+            'name': str(e)
         }
         return HttpResponseServerError(
             json.dumps(data),
