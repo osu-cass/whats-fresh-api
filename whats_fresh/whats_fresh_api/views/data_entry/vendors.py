@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
+from django.contrib.gis.geos import fromstr
 
 from whats_fresh_api.models import *
 from whats_fresh_api.forms import *
@@ -22,8 +23,10 @@ def vendor(request, id=None):
             coordinates = get_coordinates_from_address(
                 post_data['street'], post_data['city'], post_data['state'],
                 post_data['zip'])
-            post_data['lat'] = float(coordinates[0])
-            post_data['long'] = float(coordinates[1])
+
+            post_data['location'] = fromstr(
+                'POINT(%s %s)' % (coordinates[0], coordinates[1]),
+                srid=4326)
         # Bad Address will be thrown if Google does not return coordinates for
         # the address, and MultiValueDictKeyError will be thrown if the POST
         # data being passed in is empty.

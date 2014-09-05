@@ -1,22 +1,42 @@
 from django.http import (HttpResponse,
                          HttpResponseNotFound,
                          HttpResponseServerError)
+from django.contrib.gis.measure import D
+from django.contrib.gis.geos import fromstr
 from whats_fresh_api.models import Vendor, Product, VendorProduct
 from django.forms.models import model_to_dict
 import json
 
-
 def vendor_list(request):
     data = {}
-    vendor_list = Vendor.objects.all()
+
+    lat = request.GET.get('lat', None)
+    lng = request.GET.get('long', None)
+
+    if lat or lng:
+        try:
+            point = fromstr('POINT(%s %s)' % (lng, lat), srid=4326)
+            vendor_list = Vendor.objects.filter(
+                location__distance_lte=(point, D(mi=20)))
+        except Exception as e:
+            data['error'] = {
+                "error_level": "Warning",
+                "error_status": True,
+                "error_name": "Bad location",
+                "error_text": str(e)
+            }
+            vendor_list = Vendor.objects.all()
+    else:
+        vendor_list = Vendor.objects.all()
 
     if len(vendor_list) == 0:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Could not find any vendors!',
-            'error_name': 'No Vendors'
+            'error_status': False,
+            'error_level': None,
+            'error_text': None,
+            'error_name': None
         }
+        data['vendors'] = []
         return HttpResponseNotFound(
             json.dumps(data),
             content_type="application/json"
@@ -55,18 +75,19 @@ def vendor_list(request):
                 }
                 data['vendors'][-1]['products'].append(product_data)
 
-        data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
-        }
+        if not 'error' in data:
+            data['error'] = {
+                'error_status': False,
+                'error_level': None,
+                'error_text': None,
+                'error_name': None
+            }
         return HttpResponse(json.dumps(data), content_type="application/json")
     except Exception as e:
         data['error'] = {
             'error_status': True,
             'error_level': 'Severe',
-            'error_text': e,
+            'error_text': str(e),
             'error_name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -77,28 +98,49 @@ def vendor_list(request):
 
 def vendors_products(request, id=None):
     data = {}
-    try:
-        vendor_list = Vendor.objects.filter(
-            vendorproduct__product_preparation__product__id__exact=id)
-    except Exception as e:
-        data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': 'Product id is invalid',
-            'error_name': 'Invalid product'
-        }
-        return HttpResponseNotFound(
-            json.dumps(data),
-            content_type="application/json"
-        )
+
+    lat = request.GET.get('lat', None)
+    lng = request.GET.get('long', None)
+
+    if lat or lng:
+        try:
+            point = fromstr('POINT(%s %s)' % (lng, lat), srid=4326)
+            vendor_list = Vendor.objects.filter(
+                vendorproduct__product_preparation__product__id__exact=id,
+                location__distance_lte=(point, D(mi=20)))
+        except Exception as e:
+            data['error'] = {
+                "error_level": "Warning",
+                "error_status": True,
+                "error_name": "Bad location",
+                "error_text": str(e)
+            }
+            vendor_list = Vendor.objects.filter(
+                vendorproduct__product_preparation__product__id__exact=id)
+    else:
+        try:
+            vendor_list = Vendor.objects.filter(
+                vendorproduct__product_preparation__product__id__exact=id)
+        except Exception as e:
+            data['error'] = {
+                'error_status': True,
+                'error_level': 'Severe',
+                'error_text': 'Product id is invalid',
+                'error_name': 'Invalid product'
+            }
+            return HttpResponseNotFound(
+                json.dumps(data),
+                content_type="application/json"
+            )
 
     if len(vendor_list) == 0:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Could not find any vendors for product %s!' % id,
-            'error_name': 'No Vendors for product %s' % id
+            'error_status': False,
+            'error_level': None,
+            'error_text': None,
+            'error_name': None
         }
+        data['vendors'] = []
         return HttpResponse(
             json.dumps(data),
             content_type="application/json"
@@ -138,12 +180,13 @@ def vendors_products(request, id=None):
                 }
                 data['vendors'][-1]['products'].append(product_data)
 
-        data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
-        }
+        if not 'error' in data:
+            data['error'] = {
+                'error_status': False,
+                'error_level': None,
+                'error_text': None,
+                'error_name': None
+            }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     except Exception as e:
@@ -224,7 +267,7 @@ def vendor_details(request, id=None):
             'error_level': 'Severe',
             'error_text': 'An unknown error occurred processing vendor %s'
             % id,
-            'error_name': e
+            'error_name': str(e)
         }
 
         return HttpResponseServerError(
