@@ -64,11 +64,11 @@ class ProductVendorTestCase(TestCase):
         response = self.client.get(
             reverse('product-vendor', kwargs={'id': '1'})).content
         parsed_answer = json.loads(response)
-        expected_answer = json.loads(self.expected_json)
+        expected_answer = json.loads(self.expected_products)
 
         parsed_answer['products'] = sorted(
             parsed_answer['products'], key=lambda k: k['id'])
         expected_answer['products'] = sorted(
             expected_answer['products'], key=lambda k: k['id'])
 
-        self.assertTrue(parsed_answer == expected_answer)
+        self.assertEqual(parsed_answer, expected_answer)

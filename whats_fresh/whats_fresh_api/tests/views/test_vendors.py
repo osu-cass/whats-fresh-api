@@ -140,3 +140,29 @@ class NoVendorViewTestCase(TestCase):
 
         self.maxDiff = None
         self.assertEqual(parsed_answer, expected_answer)
+
+
+class NoVendorViewTestCase(TestCase):
+    def setUp(self):
+        self.expected_no_vendors = """
+{
+  "error": {
+    "status": true,
+    "text": "No Vendors found",
+    "name": "No Vendors",
+    "debug": "",
+    "level": "Error"
+  }
+}"""
+
+    def test_no_products(self):
+        response = self.client.get(reverse('vendors-list'))
+
+        parsed_answer = json.loads(response.content)
+        expected_answer = json.loads(self.expected_no_vendors)
+        self.assertEqual(response.status_code, 404)
+
+        expected_answer = json.loads(self.expected_no_vendors)
+
+        self.maxDiff = None
+        self.assertEqual(parsed_answer, expected_answer)

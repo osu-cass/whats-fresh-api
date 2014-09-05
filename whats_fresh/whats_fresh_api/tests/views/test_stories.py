@@ -43,12 +43,12 @@ class StoriesTestCase(TestCase):
         parsed_answer = json.loads(response)
 
         expected_answer = json.loads(self.expected_json)
-        self.assertTrue(parsed_answer == expected_answer)
+        self.assertEqual(parsed_answer, expected_answer)
 
     def test_story_not_found(self):
         response = self.client.get(
-            reverse('story-details', kwargs={'id': '999'})).content
-        parsed_answer = json.loads(response)
+            reverse('story-details', kwargs={'id': '999'}))
+        parsed_answer = json.loads(response.content)
         self.assertEqual(response.status_code, 404)
 
         expected_answer = json.loads(self.expected_not_found)

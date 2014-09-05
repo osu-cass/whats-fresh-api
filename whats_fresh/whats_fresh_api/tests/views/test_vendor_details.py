@@ -86,11 +86,13 @@ class VendorTestCase(TestCase):
         parsed_answer = json.loads(response)
         expected_answer = json.loads(self.expected_not_found)
 
+    def test_vendor_not_found(self):
+        response = self.client.get(
+            reverse('vendor-details', kwargs={'id': '999'}))
+        self.assertEqual(response.status_code, 404)
 
-        parsed_answer['products'] = sorted(
-            parsed_answer['products'], key=lambda k: k['id'])
-        expected_answer['products'] = sorted(
-            expected_answer['products'], key=lambda k: k['id'])
+        parsed_answer = json.loads(response.content)
+        expected_answer = json.loads(self.expected_not_found)
 
         self.maxDiff = None
         self.assertEquals(parsed_answer, expected_answer)
