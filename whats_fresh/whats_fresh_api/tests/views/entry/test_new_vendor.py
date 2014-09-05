@@ -90,6 +90,8 @@ class NewVendorTestCase(TestCase):
 
         response = self.client.post(reverse('new-vendor'), new_vendor)
 
+        self.assertGreater(len(Vendor.objects.all()), 0)
+
         # These values are changed by the server after being received from
         # the client/web page. The preparation IDs are going to be changed
         # into vendor_product objects, so we'll not need the preparations_id
