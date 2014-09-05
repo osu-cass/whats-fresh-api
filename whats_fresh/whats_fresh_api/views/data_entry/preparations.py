@@ -46,7 +46,7 @@ def preparation(request, id=None):
         if preparation_form.is_valid() and not errors:
             preparation = Preparation.objects.create(**preparation_form.cleaned_data)
             preparation.save()
-            return HttpResponseRedirect(reverse('preparations-list-edit'))
+            return HttpResponseRedirect(reverse('entry-list-preparations'))
         else:
             pass
     else:
@@ -58,7 +58,7 @@ def preparation(request, id=None):
     message = "Fields marked with bold are required."
 
     return render(request, 'preparation.html', {
-        'parent_url': reverse('preparations-list-edit'),
+        'parent_url': reverse('entry-list-preparations'),
         'parent_text': 'Preparation List',
         'message': message,
         'title': title,
