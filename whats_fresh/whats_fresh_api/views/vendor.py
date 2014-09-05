@@ -40,7 +40,8 @@ def vendor_list(request):
             data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
-                    'id': vendor_product.product_preparation.product.id,
+                    'product_id': vendor_product.product_preparation.product.id,
+                    'preparation_id': vendor_product.product_preparation.preparation.id,
                     'preparation': vendor_product.product_preparation.preparation.name,
                     'name': vendor_product.product_preparation.product.name
                 }
@@ -117,7 +118,8 @@ def vendors_products(request, id=None):
             data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
-                    'id': vendor_product.product_preparation.product.id,
+                    'product_id': vendor_product.product_preparation.product.id,
+                    'preparation_id': vendor_product.product_preparation.preparation.id,
                     'preparation': vendor_product.product_preparation.preparation.name,
                     'name': vendor_product.product_preparation.product.name
                 }
@@ -184,7 +186,8 @@ def vendor_details(request, id=None):
         data['products'] = []
         for vendor_product in vendor_products:
             product_data = {
-                'id': vendor_product.product_preparation.product.id,
+                'product_id': vendor_product.product_preparation.product.id,
+                'preparation_id': vendor_product.product_preparation.preparation.id,
                 'preparation': vendor_product.product_preparation.preparation.name,
                 'name': vendor_product.product_preparation.product.name
             }
