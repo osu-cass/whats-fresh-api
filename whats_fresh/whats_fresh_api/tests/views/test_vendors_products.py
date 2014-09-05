@@ -46,13 +46,13 @@ class VendorsProductsTestCase(TestCase):
           "product_id": 10,
           "name": "Starfish Voyager",
           "preparation": "Live",
-          "preparation_id": 1
+          "preparation_id": 10
         },
         {
           "product_id": 100,
           "name": "Ezri Dax",
           "preparation": "Live",
-          "preparation_id": 1
+          "preparation_id": 10
         }
       ]
     }
