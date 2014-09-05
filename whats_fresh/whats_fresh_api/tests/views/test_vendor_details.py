@@ -82,14 +82,8 @@ class VendorTestCase(TestCase):
 
     def test_vendor_not_found(self):
         response = self.client.get(
-            reverse('vendor-details', kwargs={'id': '999'})).content
+            reverse('vendor-details', kwargs={'id': '999'}))
         self.assertEqual(response.status_code, 404)
-
-        parsed_answer = json.loads(response)
-        expected_answer = json.loads(self.expected_not_found)
-
-        for product in parsed_answer['products']:
-            self.assertTrue('product_id' in product)
 
         parsed_answer = json.loads(response.content)
         expected_answer = json.loads(self.expected_not_found)
