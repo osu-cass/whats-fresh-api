@@ -219,36 +219,6 @@ class VendorsLocationTestCase(TestCase):
     ]
   },
   {
-    "id": 5,
-    "website": "",
-    "street": "522 NW Spring St",
-    "contact_name": "Waldport Tuna Contact",
-    "city": "Waldport",
-    "story": 2,
-    "zip": "97394",
-    "location_description": "Located on Spring St in Waldport",
-    "long": -124.066166,
-    "state": "OR",
-    "email": "",
-    "status": true,
-    "updated": "2014-08-08 23:27:05.568395+00:00",
-    "description": "Fake Waldport Tuna",
-    "phone": null,
-    "lat": 44.427761,
-    "name": "Waldport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
-    "ext": {
-      
-    },
-    "products": [
-      {
-        "id": 2,
-        "preparation": "Frozen",
-        "name": "Tuna"
-      }
-    ]
-  },
-  {
     "id": 4,
     "website": "",
     "street": "1226 Oregon Coast Hwy",
@@ -275,6 +245,36 @@ class VendorsLocationTestCase(TestCase):
         "id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "website": "",
+    "street": "522 NW Spring St",
+    "contact_name": "Waldport Tuna Contact",
+    "city": "Waldport",
+    "story": 2,
+    "zip": "97394",
+    "location_description": "Located on Spring St in Waldport",
+    "long": -124.066166,
+    "state": "OR",
+    "email": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Waldport Tuna",
+    "phone": null,
+    "lat": 44.427761,
+    "name": "Waldport Tuna",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+      {
+        "id": 2,
+        "preparation": "Frozen",
+        "name": "Tuna"
       }
     ]
   },
@@ -505,6 +505,201 @@ class VendorsLocationTestCase(TestCase):
   ]
 }"""
 
+        # All vendors for all products
+        # This JSON contains the six fish stores in Newport, Waldport,
+        # and Portland. This is the return for a bad coordinates.
+        self.expected_error_missing_coord = """
+{
+  "error": {
+    "error_level": "Warning",
+    "error_status": true,
+    "error_name": "Bad location",
+    "error_text": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+  },
+  "vendors": [
+  {
+    "id": 1,
+    "website": "",
+    "street": "720 SW Broadway",
+    "contact_name": "Portland Tuna Contact",
+    "city": "Portland",
+    "story": 2,
+    "zip": "97204",
+    "location_description": "Located on Broadway in Portland",
+    "long": -122.67963,
+    "state": "OR",
+    "email": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Portland Tuna",
+    "phone": null,
+    "lat": 45.518962,
+    "name": "Portland Tuna",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+      {
+        "id": 2,
+        "preparation": "Frozen",
+        "name": "Tuna"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "website": "",
+    "street": "146 SE Bay Blvd",
+    "contact_name": "Newport Tuna Contact",
+    "city": "Newport",
+    "story": 2,
+    "zip": "97365",
+    "location_description": "Located on Bay Blvd in Newport",
+    "long": -124.050122,
+    "state": "OR",
+    "email": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Tuna",
+    "phone": null,
+    "lat": 44.631592,
+    "name": "Newport Tuna",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+      {
+        "id": 2,
+        "preparation": "Frozen",
+        "name": "Tuna"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "website": "",
+    "street": "1 SW Pine St",
+    "contact_name": "Portland Halibut Contact",
+    "city": "Portland",
+    "story": 1,
+    "zip": "97204",
+    "location_description": "Located on Pine in Portland",
+    "long": -122.670619,
+    "state": "OR",
+    "email": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Portland Halibut",
+    "phone": null,
+    "lat": 45.520988,
+    "name": "Portland Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+      {
+        "id": 1,
+        "preparation": "Frozen",
+        "name": "Halibut"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "website": "",
+    "street": "522 NW Spring St",
+    "contact_name": "Waldport Tuna Contact",
+    "city": "Waldport",
+    "story": 2,
+    "zip": "97394",
+    "location_description": "Located on Spring St in Waldport",
+    "long": -124.066166,
+    "state": "OR",
+    "email": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Waldport Tuna",
+    "phone": null,
+    "lat": 44.427761,
+    "name": "Waldport Tuna",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+      {
+        "id": 2,
+        "preparation": "Frozen",
+        "name": "Tuna"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "website": "",
+    "street": "1226 Oregon Coast Hwy",
+    "contact_name": "Newpotr Halibut Contact",
+    "city": "Newport",
+    "story": 1,
+    "zip": "97365",
+    "location_description": "Located on Oregon Coast Hwy in Newport",
+    "long": -124.052868,
+    "state": "OR",
+    "email": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Halibut",
+    "phone": null,
+    "lat": 44.646006,
+    "name": "Newport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+      {
+        "id": 1,
+        "preparation": "Frozen",
+        "name": "Halibut"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "website": "",
+    "street": "190 SW Maple St",
+    "contact_name": "Waldport Halibut Contact",
+    "city": "Waldport",
+    "story": 1,
+    "zip": "97364",
+    "location_description": "Located on SW Maple St in Waldport",
+    "long": -124.069126,
+    "state": "OR",
+    "email": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Waldport Halibut",
+    "phone": null,
+    "lat": 44.425188,
+    "name": "Waldport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+       {
+        "id": 1,
+        "preparation": "Frozen",
+        "name": "Halibut"
+      }
+    ]
+  }
+  ]
+}"""
+
     def test_successful_location_all_products(self):
         """
         Test that good parameters return all vendors ordered by location.
@@ -529,12 +724,48 @@ class VendorsLocationTestCase(TestCase):
             ).content)
 
         expected_answer = json.loads(self.expected_error_result)
+
+        all_vendors_data['vendors'] = sorted(
+            all_vendors_data['vendors'], key=lambda k: k['id'])
+        expected_answer['vendors'] = sorted(
+            expected_answer['vendors'], key=lambda k: k['id'])
+
+        for vendor in all_vendors_data['vendors']:
+            for product in vendor['products']:
+                self.assertTrue('id' in product)
+
+        for vendor in expected_answer['vendors']:
+            vendor['products'] = sorted(
+                vendor['products'], key=lambda k: k['id'])
+
+        for vendor in all_vendors_data['vendors']:
+            vendor['products'] = sorted(
+                vendor['products'], key=lambda k: k['id'])
+
         self.assertEqual(all_vendors_data, expected_answer)
 
         # Lat is missing
+        expected_answer = json.loads(self.expected_error_missing_coord)
+
         all_vendors_data = json.loads(self.client.get(
             '%s?lat=-45.232' % reverse('vendors-list')
             ).content)
+        all_vendors_data['vendors'] = sorted(
+            all_vendors_data['vendors'], key=lambda k: k['id'])
+        expected_answer['vendors'] = sorted(
+            expected_answer['vendors'], key=lambda k: k['id'])
+
+        for vendor in all_vendors_data['vendors']:
+            for product in vendor['products']:
+                self.assertTrue('id' in product)
+
+        for vendor in expected_answer['vendors']:
+            vendor['products'] = sorted(
+                vendor['products'], key=lambda k: k['id'])
+
+        for vendor in all_vendors_data['vendors']:
+            vendor['products'] = sorted(
+                vendor['products'], key=lambda k: k['id'])
 
         self.assertEqual(all_vendors_data, expected_answer)
 
@@ -542,6 +773,18 @@ class VendorsLocationTestCase(TestCase):
         all_vendors_data = json.loads(self.client.get(
             '%s?long=-45.232' % reverse('vendors-list')
             ).content)
+        all_vendors_data['vendors'] = sorted(
+            all_vendors_data['vendors'], key=lambda k: k['id'])
+        expected_answer['vendors'] = sorted(
+            expected_answer['vendors'], key=lambda k: k['id'])
+
+        for vendor in expected_answer['vendors']:
+            vendor['products'] = sorted(
+                vendor['products'], key=lambda k: k['id'])
+
+        for vendor in all_vendors_data['vendors']:
+            vendor['products'] = sorted(
+                vendor['products'], key=lambda k: k['id'])
 
         self.assertEqual(all_vendors_data, expected_answer)
 
