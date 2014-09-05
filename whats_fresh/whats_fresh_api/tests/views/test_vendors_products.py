@@ -76,6 +76,9 @@ class VendorsProductsTestCase(TestCase):
         expected_answer['vendors'] = sorted(
             expected_answer['vendors'], key=lambda k: k['id'])
 
+        for vendor in parsed_answer['vendors']:
+            for product in vendor['products']:
+                self.assertTrue('product_id' in product)
 
         for vendor in expected_answer['vendors']:
             vendor['products'] = sorted(

@@ -102,6 +102,10 @@ class VendorsTestCase(TestCase):
 
         expected_answer = json.loads(self.expected_json)
 
+        for vendor in parsed_answer['vendors']:
+            for product in vendor['products']:
+                self.assertTrue('product_id' in product)
+
         for vendor in expected_answer['vendors']:
             vendor['products'] = sorted(
                 vendor['products'], key=lambda k: k['product_id'])
