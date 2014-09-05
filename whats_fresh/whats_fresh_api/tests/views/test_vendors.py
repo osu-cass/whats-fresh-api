@@ -128,6 +128,10 @@ class NoVendorViewTestCase(TestCase):
         expected_answer = json.loads(self.expected_no_vendors)
         self.assertEqual(response.status_code, 404)
 
+        for vendor in parsed_answer['vendors']:
+            for product in vendor['products']:
+                self.assertTrue('product_id' in product)
+
         for vendor in expected_answer['vendors']:
             vendor['products'] = sorted(
                 vendor['products'], key=lambda k: k['product_id'])
