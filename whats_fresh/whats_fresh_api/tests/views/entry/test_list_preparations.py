@@ -12,11 +12,10 @@ class ListPreparationTestCase(TestCase):
         url = reverse('entry-list-preparations')
         self.assertEqual(url, '/entry/preparations')
 
-
     def test_list_items(self):
         """
-        Tests to see if the list of preparations contains the proper preparations and
-        proper preparation data
+        Tests to see if the list of preparations contains the proper
+        preparations and proper preparation data
         """
         response = self.client.get(reverse('entry-list-preparations'))
         items = response.context['item_list']

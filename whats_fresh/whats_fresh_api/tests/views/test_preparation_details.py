@@ -14,10 +14,11 @@ class PreparationsTestCase(TestCase):
         self.expected_preparation = """
 {
     "error": {
-        "error_status": false,
-        "error_name": null,
-        "error_text": null,
-        "error_level": null
+        "status": false,
+        "name": null,
+        "text": null,
+        "debug": null,
+        "level": null
     },
     "id": 1,
     "name": "Live",

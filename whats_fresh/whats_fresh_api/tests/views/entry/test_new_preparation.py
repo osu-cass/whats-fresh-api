@@ -93,4 +93,3 @@ class NewPreparationTestCase(TestCase):
         # Test that we didn't add any new objects
         self.assertEqual(
             list(Preparation.objects.all()), list(all_preparations))
-

@@ -90,6 +90,8 @@ class NewVendorTestCase(TestCase):
 
         response = self.client.post(reverse('new-vendor'), new_vendor)
 
+        self.assertGreater(len(Vendor.objects.all()), 0)
+
         # These values are changed by the server after being received from
         # the client/web page. The preparation IDs are going to be changed
         # into vendor_product objects, so we'll not need the preparations_id
@@ -138,7 +140,7 @@ class NewVendorTestCase(TestCase):
         self.assertIn('Full address is required.', response.context['errors'])
 
         required_fields = [
-            'city', 'name', 'zip', 'story_id', 'long', 'lat', 'state',
+            'city', 'name', 'zip', 'story_id', 'location', 'state',
             'street', 'contact_name', 'description']
         for field_name in required_fields:
             self.assertIn(field_name, response.context['vendor_form'].errors)

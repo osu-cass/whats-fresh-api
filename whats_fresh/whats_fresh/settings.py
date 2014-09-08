@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     'whats_fresh_api',
 )
 
@@ -90,3 +91,7 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join('/home/vagrant/media')
 MEDIA_URL = '/media/'
+
+# Proximity used for location queries if
+# proximity parameter is not also passed
+DEFAULT_PROXIMITY = 20

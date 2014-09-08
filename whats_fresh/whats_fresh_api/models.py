@@ -4,6 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 import datetime
 
+
 class Image(models.Model):
     """
     The Image model holds an image and related data.
@@ -56,8 +57,9 @@ class Vendor(models.Model):
     email = models.EmailField(blank=True)
     phone = PhoneNumberField(blank=True)
 
-    lat = models.FloatField()
-    long = models.FloatField()
+    # Geo Django field to store a point
+    location = models.PointField()
+    objects = models.GeoManager()
 
     story_id = models.ForeignKey('Story', null=True)
     products_preparations = models.ManyToManyField(

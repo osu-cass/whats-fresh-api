@@ -8,6 +8,7 @@ import json
 
 class ListVendorTestCase(TestCase):
     fixtures = ['test_fixtures']
+
     def setUp(self):
         user = User.objects.create_user(
             'temporary', 'temporary@gmail.com', 'temporary')

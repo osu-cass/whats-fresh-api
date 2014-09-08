@@ -47,4 +47,5 @@ class VendorProductJoinTestCase(TestCase):
     def test_optional_fields(self):
         model = models.get_model('whats_fresh_api', 'VendorProduct')
         for field in self.optional_fields:
-            self.assertEqual(VendorProduct._meta.get_field_by_name(field)[0].blank, True)
+            self.assertEqual(
+                VendorProduct._meta.get_field_by_name(field)[0].blank, True)

@@ -33,7 +33,8 @@ def product_list(request):
     data['products'] = []
     try:
         for product in product_list:
-            data['products'].append(model_to_dict(product, fields=[], exclude=[]))
+            data['products'].append(
+                model_to_dict(product, fields=[], exclude=[]))
             del data['products'][-1]['preparations']
             del data['products'][-1]['image_id']
 
@@ -137,11 +138,13 @@ def product_details(request, id=None):
             content_type="application/json"
         )
 
+
 def product_vendor(request, id=None):
     data = {}
 
     try:
-        product_list = Product.objects.filter(productpreparation__vendorproduct__vendor__id__exact=id)
+        product_list = Product.objects.filter(
+            productpreparation__vendorproduct__vendor__id__exact=id)
     except Exception as e:
         data['error'] = {
             'debug': "{0}: {1}".format(type(e).__name__, str(e)),
@@ -154,11 +157,12 @@ def product_vendor(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
- 
+
     data['products'] = []
     try:
         for product in product_list:
-            data['products'].append(model_to_dict(product, fields=[], exclude=[]))
+            data['products'].append(
+                model_to_dict(product, fields=[], exclude=[]))
             del data['products'][-1]['preparations']
             del data['products'][-1]['image_id']
 
@@ -173,7 +177,7 @@ def product_vendor(request, id=None):
             data['products'][-1]['created'] = str(product.created)
             data['products'][-1]['modified'] = str(product.modified)
             data['products'][-1]['id'] = product.id
-           
+
         data['error'] = {
             'status': False,
             'level': None,

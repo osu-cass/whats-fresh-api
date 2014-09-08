@@ -12,8 +12,10 @@ import sys
 import datetime
 import json
 
+
 class ProductViewTestCase(TestCase):
     fixtures = ['test_fixtures']
+
     def setUp(self):
         self.expected_product = """
 {
@@ -52,8 +54,8 @@ class ProductViewTestCase(TestCase):
 }"""
 
     def test_url_endpoint(self):
-       url = reverse('product-details', kwargs={'id': '1'})
-       self.assertEqual(url, '/products/1')
+        url = reverse('product-details', kwargs={'id': '1'})
+        self.assertEqual(url, '/products/1')
 
     def test_known_product(self):
         response = self.client.get(
@@ -64,6 +66,7 @@ class ProductViewTestCase(TestCase):
 
         expected_answer = json.loads(self.expected_product)
         self.maxDiff = None
+
         self.assertEqual(parsed_answer, expected_answer)
 
     def test_product_not_found(self):
@@ -74,4 +77,5 @@ class ProductViewTestCase(TestCase):
 
         expected_answer = json.loads(self.expected_not_found)
         self.maxDiff = None
+
         self.assertEqual(parsed_answer, expected_answer)

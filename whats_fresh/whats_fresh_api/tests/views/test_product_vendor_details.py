@@ -7,6 +7,7 @@ from django.contrib.gis.db import models
 
 import json
 
+
 class ProductVendorTestCase(TestCase):
     fixtures = ['test_fixtures']
 

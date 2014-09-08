@@ -10,6 +10,7 @@ import time
 import sys
 import datetime
 
+
 class VendorTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
@@ -27,8 +28,7 @@ class VendorTestCase(TestCase):
             'website': models.URLField,
             'email': models.EmailField,
             'phone': PhoneNumberField,
-            'lat': models.FloatField,
-            'long': models.FloatField,
+            'location': models.PointField,
             'story_id': models.ForeignKey,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
@@ -71,6 +71,8 @@ class VendorTestCase(TestCase):
     def test_optional_fields(self):
         model = models.get_model('whats_fresh_api', 'Vendor')
         for field in self.optional_fields:
-            self.assertEqual(Vendor._meta.get_field_by_name(field)[0].blank, True)
+            self.assertEqual(
+                Vendor._meta.get_field_by_name(field)[0].blank, True)
         for field in self.null_fields:
-            self.assertEqual(Vendor._meta.get_field_by_name(field)[0].null, True)
+            self.assertEqual(
+                Vendor._meta.get_field_by_name(field)[0].null, True)
