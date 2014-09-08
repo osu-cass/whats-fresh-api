@@ -30,6 +30,7 @@ class ProductForm(forms.ModelForm):
             'description': forms.TextInput,
             'market_price': forms.TextInput
         }
+        exclude = ('preparations',)
 
 
 class PreparationForm(forms.ModelForm):

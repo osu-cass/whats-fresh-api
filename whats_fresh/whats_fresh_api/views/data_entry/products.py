@@ -8,6 +8,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 
 from whats_fresh_api.models import *
 from whats_fresh_api.forms import *
+from django.forms.models import save_instance
 
 import json
 
@@ -23,26 +24,65 @@ def product(request, id=None):
                 preparations = []
             else:
                 preparations = list(set(post_data['preparation_ids'].split(',')))
-                post_data['preparations'] = 1 # Needed for form validation to pass
         except MultiValueDictKeyError:
             errors.append("You must choose at least one preparation.")
             preparations = []
 
         product_form = ProductForm(post_data)
         if product_form.is_valid() and not errors:
-            del product_form.cleaned_data['preparations']
-            product = Product.objects.create(**product_form.cleaned_data)
-            for preparation in preparations:
+            if id:
+                product = Product.objects.get(id=id)
+                for preparation in product.preparations.all():
+                    # Delete any that aren't in the returned list
+                    if preparation.id not in preparations:
+                        product_preparation = ProductPreparation.objects.get(
+                            product=product, preparation=preparation)
+                        product_preparation.delete()
+                    # And ignore any that are in both the existing and the returned list
+                    elif preparation.id in preparations:
+                        preparations.remove(preparation.id)
+                # Then, create all of the new ones
+                for preparation in preparations:
+                    preparation = ProductPreparation.objects.create(
+                        product=product,
+                        preparation=Preparation.objects.get(
+                            id=preparation))
+                save_instance(product_form, product)
+            else:
+                product = Product.objects.create(**product_form.cleaned_data)
+                for preparation in preparations:
                     product_preparation = ProductPreparation.objects.create(
                         product=product,
                         preparation=Preparation.objects.get(
                             id=preparation))
-            product.save()
-            return HttpResponseRedirect(reverse('products-list'))
-        else:
-            pass
+                product.save()
+            return HttpResponseRedirect("%s?success=true" % reverse('edit-product', kwargs={'id': product.id}))
     else:
+        errors = []
+
+    message = "Fields marked with bold are required."
+
+    if id:
+        product = Product.objects.get(id=id)
+        title = "Edit {0}".format(product.name)
+        post_url = reverse('edit-product', kwargs={'id': id})
+        product_form = ProductForm(instance=product)
+
+        existing_preparations = product.preparations.all()
+
+        if request.GET.get('success') == 'true':
+            message = "Product saved successfully!"
+
+    elif request.method != 'POST':
         product_form = ProductForm()
+        post_url = reverse('new-product')
+        title = "New Product"
+        existing_preparations = []
+
+    else:
+        post_url = reverse('new-product')
+        title = "New Product"
+        existing_preparations = []
 
     data = {'preparations': []}
 
@@ -52,22 +92,18 @@ def product(request, id=None):
             'name': preparation.name
         })
 
-    title = "New Product"
-    post_url = reverse('new-product')
-
-    message = "Fields marked with bold are required."
-
     json_preparations = json.dumps(data)
 
     return render(request, 'product.html', {
         'parent_url': reverse('entry-list-products'),
         'json_preparations': json_preparations,
         'preparation_dict': data,
+        'existing_preparations': existing_preparations,
         'parent_text': 'Product List',
         'message': message,
         'title': title,
         'post_url': post_url,
-        'errors': [],
+        'errors': errors,
         'product_form': product_form,
     })
 
