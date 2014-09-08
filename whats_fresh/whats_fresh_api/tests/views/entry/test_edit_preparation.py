@@ -57,7 +57,10 @@ class EditPreparationTestCase(TestCase):
             reverse('edit-preparation', kwargs={'id': '1'}))
 
         fields = {
-            'name': u'Fried', 'description': u'', 'additional_info': u''}
+            'name': u'Live',
+            'description': u'The food goes straight from sea to you with live food, sitting in saltwater tanks!',
+            'additional_info': u'Live octopus requires a locking container'
+        }
 
         form = response.context['preparation_form']
 

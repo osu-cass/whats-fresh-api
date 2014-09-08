@@ -44,18 +44,38 @@ def preparation(request, id=None):
 
         preparation_form = PreparationForm(post_data)
         if preparation_form.is_valid() and not errors:
-            preparation = Preparation.objects.create(**preparation_form.cleaned_data)
-            preparation.save()
-            return HttpResponseRedirect(reverse('entry-list-preparations'))
+            if id:
+                preparation = Preparation.objects.get(id=id)
+                preparation.__dict__.update(**preparation_form.cleaned_data)
+                preparation.save()
+            else:
+                preparation = Preparation.objects.create(**preparation_form.cleaned_data)
+                preparation.save()
+            return HttpResponseRedirect("%s?success=true" % reverse('edit-preparation', kwargs={'id': preparation.id}))
         else:
             pass
     else:
-        preparation_form = PreparationForm()
-
-    title = "New Preparation"
-    post_url = reverse('new-preparation')
+        errors = []
 
     message = "Fields marked with bold are required."
+
+    if id:
+        preparation = Preparation.objects.get(id=id)
+        title = "Edit {0}".format(preparation.name)
+        post_url = reverse('edit-preparation', kwargs={'id': id})
+        preparation_form = PreparationForm(instance=preparation)
+
+        if request.GET.get('success') == 'true':
+            message = "Preparation saved successfully!"
+
+    elif request.method != 'POST':
+        preparation_form = PreparationForm()
+        post_url = reverse('new-preparation')
+        title = "New Preparation"
+
+    else:
+        post_url = reverse('new-preparation')
+        title = "New Preparation"
 
     return render(request, 'preparation.html', {
         'parent_url': reverse('entry-list-preparations'),
@@ -63,6 +83,6 @@ def preparation(request, id=None):
         'message': message,
         'title': title,
         'post_url': post_url,
-        'errors': [],
+        'errors': errors,
         'preparation_form': preparation_form,
     })
