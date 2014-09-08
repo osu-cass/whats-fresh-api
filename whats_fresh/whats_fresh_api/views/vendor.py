@@ -61,9 +61,12 @@ def vendor_list(request):
             data['vendors'][-1]['created'] = str(vendor.created)
             data['vendors'][-1]['updated'] = str(vendor.modified)
             data['vendors'][-1]['ext'] = {}
-            data['vendors'][-1]['story'] = data['vendors'][-1].pop('story_id')
-            data['vendors'][-1]['id'] = vendor.id
 
+            data['vendors'][-1]['id'] = vendor.id
+            try:
+                data['vendors'][-1]['story_id'] = vendor.story_id.id
+            except:
+                data['vendors'][-1]['story_id'] = None
             data['vendors'][-1]['lat'] = vendor.location.y
             data['vendors'][-1]['long'] = vendor.location.x
 
@@ -92,7 +95,7 @@ def vendor_list(request):
             'debug': "{0}: {1}".format(type(e).__name__, str(e)),
             'status': True,
             'level': 'Error',
-            'text': e,
+            'text': str(e),
             'name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -143,11 +146,11 @@ def vendors_products(request, id=None):
 
     if len(vendor_list) == 0:
         data['error'] = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'debug': '',
             'status': True,
-            'level': 'Important',
-            'text': 'Could not find any vendors for product %s!' % id,
-            'name': 'No Vendors for product %s' % id
+            'level': 'Error',
+            'text': 'No Vendors found for product {0}'.format(id),
+            'name': 'No Vendors'
         }
         data['vendors'] = []
         return HttpResponse(
@@ -174,7 +177,8 @@ def vendors_products(request, id=None):
             data['vendors'][-1]['ext'] = {}
             data['vendors'][-1]['id'] = vendor.id
 
-            data['vendors'][-1]['story'] = data['vendors'][-1].pop('story_id')
+            data['vendors'][-1]['story_id'] = vendor.story_id.id
+
             data['vendors'][-1]['lat'] = vendor.location.y
             data['vendors'][-1]['long'] = vendor.location.x
 

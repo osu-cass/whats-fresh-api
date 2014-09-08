@@ -39,7 +39,7 @@ class VendorsProductsTestCase(TestCase):
       "phone": 5417377627,
       "website": "http://example.com",
       "email": "a@perr.com",
-      "story": 10,
+      "story_id":  10,
       "ext": {
         
       },
@@ -126,12 +126,12 @@ class VendorsProductsLocationTestCase(TestCase):
         self.expected_no_vendors = """
 {
   "error": {
-    "level": null,
-    "status": false,
-    "name": null,
-    "debug": null,
-    "text": null
-  },
+    "debug": "",
+    "status": true,
+    "level": "Error",
+    "text": "No Vendors found for product 1",
+    "name": "No Vendors"
+    },
   "vendors": []
 }"""
 
@@ -153,12 +153,13 @@ class VendorsProductsLocationTestCase(TestCase):
     "street": "1226 Oregon Coast Hwy",
     "contact_name": "Newpotr Halibut Contact",
     "city": "Newport",
-    "story": 1,
+    "story_id":  1,
     "zip": "97365",
     "location_description": "Located on Oregon Coast Hwy in Newport",
     "long": -124.052868,
     "state": "OR",
     "email": "",
+    "hours": "",
     "status": true,
     "updated": "2014-08-08 23:27:05.568395+00:00",
     "description": "Fake Newport Halibut",
@@ -171,7 +172,7 @@ class VendorsProductsLocationTestCase(TestCase):
     },
     "products": [
       {
-        "id": 1,
+        "product_id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
@@ -183,12 +184,13 @@ class VendorsProductsLocationTestCase(TestCase):
     "street": "190 SW Maple St",
     "contact_name": "Waldport Halibut Contact",
     "city": "Waldport",
-    "story": 1,
+    "story_id":  1,
     "zip": "97364",
     "location_description": "Located on SW Maple St in Waldport",
     "long": -124.069126,
     "state": "OR",
     "email": "",
+    "hours": "",
     "status": true,
     "updated": "2014-08-08 23:27:05.568395+00:00",
     "description": "Fake Waldport Halibut",
@@ -201,7 +203,8 @@ class VendorsProductsLocationTestCase(TestCase):
     },
     "products": [
       {
-        "id": 1,
+        "product_id": 1,
+        "preparation_id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
@@ -217,7 +220,7 @@ class VendorsProductsLocationTestCase(TestCase):
   "error": {
     "level": "Warning",
     "status": true,
-    "text": "Invalid coords",
+    "text": "There was an error with the given coordinates not_a_latitude, not_a_longitude",
     "name": "Bad location",
     "debug": "String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
   },
@@ -235,7 +238,8 @@ class VendorsProductsLocationTestCase(TestCase):
     "location_description": "Located on Pine in Portland",
     "contact_name": "Portland Halibut Contact",
     "phone": null,
-    "story": 1,
+    "story_id":  1,
+    "hours": "",
     "website": "",
     "email": "",
     "created": "2014-08-08 23:27:05.568395+00:00",
@@ -245,7 +249,8 @@ class VendorsProductsLocationTestCase(TestCase):
     },
     "products": [
       {
-        "id": 1,
+        "product_id": 1,
+        "preparation_id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
@@ -256,12 +261,13 @@ class VendorsProductsLocationTestCase(TestCase):
     "street": "1226 Oregon Coast Hwy",
     "contact_name": "Newpotr Halibut Contact",
     "city": "Newport",
-    "story": 1,
+    "story_id":  1,
     "zip": "97365",
     "location_description": "Located on Oregon Coast Hwy in Newport",
     "long": -124.052868,
     "state": "OR",
     "email": "",
+    "hours": "",
     "status": true,
     "updated": "2014-08-08 23:27:05.568395+00:00",
     "description": "Fake Newport Halibut",
@@ -274,8 +280,9 @@ class VendorsProductsLocationTestCase(TestCase):
     },
     "products": [
       {
-        "id": 1,
+        "product_id": 1,
         "preparation": "Frozen",
+        "preparation_id": 1,
         "name": "Halibut"
       }
     ]
@@ -286,12 +293,13 @@ class VendorsProductsLocationTestCase(TestCase):
     "street": "190 SW Maple St",
     "contact_name": "Waldport Halibut Contact",
     "city": "Waldport",
-    "story": 1,
+    "story_id":  1,
     "zip": "97364",
     "location_description": "Located on SW Maple St in Waldport",
     "long": -124.069126,
     "state": "OR",
     "email": "",
+    "hours": "",
     "status": true,
     "updated": "2014-08-08 23:27:05.568395+00:00",
     "description": "Fake Waldport Halibut",
@@ -304,8 +312,9 @@ class VendorsProductsLocationTestCase(TestCase):
     },
     "products": [
       {
-        "id": 1,
+        "product_id": 1,
         "preparation": "Frozen",
+        "preparation_id": 1,
         "name": "Halibut"
       }
     ]
@@ -315,13 +324,13 @@ class VendorsProductsLocationTestCase(TestCase):
         # All vendors for product Halibut (1)
         # This JSON contains the three halibut stores in Newport, Waldport,
         # and Portland. This is the return for a bad coordinates.
-        self.expected_all_missing_coord = """
+        self.expected_all_missing_long = """
 {
   "error": {
     "level": "Warning",
     "status": true,
     "name": "Bad location",
-    "text": "Invalid coords",
+    "text": "There was an error with the given coordinates -45.232, None",
     "debug": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [{
@@ -338,7 +347,8 @@ class VendorsProductsLocationTestCase(TestCase):
     "location_description": "Located on Pine in Portland",
     "contact_name": "Portland Halibut Contact",
     "phone": null,
-    "story": 1,
+    "story_id":  1,
+    "hours": "",
     "website": "",
     "email": "",
     "created": "2014-08-08 23:27:05.568395+00:00",
@@ -348,8 +358,9 @@ class VendorsProductsLocationTestCase(TestCase):
     },
     "products": [
       {
-        "id": 1,
+        "product_id": 1,
         "preparation": "Frozen",
+        "preparation_id": 1,
         "name": "Halibut"
       }
     ]
@@ -359,12 +370,13 @@ class VendorsProductsLocationTestCase(TestCase):
     "street": "1226 Oregon Coast Hwy",
     "contact_name": "Newpotr Halibut Contact",
     "city": "Newport",
-    "story": 1,
+    "story_id":  1,
     "zip": "97365",
     "location_description": "Located on Oregon Coast Hwy in Newport",
     "long": -124.052868,
     "state": "OR",
     "email": "",
+    "hours": "",
     "status": true,
     "updated": "2014-08-08 23:27:05.568395+00:00",
     "description": "Fake Newport Halibut",
@@ -377,8 +389,9 @@ class VendorsProductsLocationTestCase(TestCase):
     },
     "products": [
       {
-        "id": 1,
+        "product_id": 1,
         "preparation": "Frozen",
+        "preparation_id": 1,
         "name": "Halibut"
       }
     ]
@@ -389,12 +402,13 @@ class VendorsProductsLocationTestCase(TestCase):
     "street": "190 SW Maple St",
     "contact_name": "Waldport Halibut Contact",
     "city": "Waldport",
-    "story": 1,
+    "story_id":  1,
     "zip": "97364",
     "location_description": "Located on SW Maple St in Waldport",
     "long": -124.069126,
     "state": "OR",
     "email": "",
+    "hours": "",
     "status": true,
     "updated": "2014-08-08 23:27:05.568395+00:00",
     "description": "Fake Waldport Halibut",
@@ -407,8 +421,118 @@ class VendorsProductsLocationTestCase(TestCase):
     },
     "products": [
       {
-        "id": 1,
+        "product_id": 1,
         "preparation": "Frozen",
+        "preparation_id": 1,
+        "name": "Halibut"
+      }
+    ]
+  }]
+}"""
+
+        # All vendors for product Halibut (1)
+        # This JSON contains the three halibut stores in Newport, Waldport,
+        # and Portland. This is the return for a bad coordinates.
+        self.expected_all_missing_lat = """
+{
+  "error": {
+    "level": "Warning",
+    "status": true,
+    "name": "Bad location",
+    "text": "There was an error with the given coordinates None, -45.232",
+    "debug": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+  },
+  "vendors": [{
+    "id": 2,
+    "name": "Portland Halibut",
+    "status": true,
+    "description": "Fake Portland Halibut",
+    "lat": 45.520988,
+    "long": -122.670619, 
+    "street": "1 SW Pine St",
+    "city": "Portland",
+    "state": "OR",
+    "zip": "97204",
+    "location_description": "Located on Pine in Portland",
+    "contact_name": "Portland Halibut Contact",
+    "phone": null,
+    "story_id":  1,
+    "hours": "",
+    "website": "",
+    "email": "",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation": "Frozen",
+        "preparation_id": 1,
+        "name": "Halibut"
+      }
+    ]
+  },{
+    "id": 4,
+    "website": "",
+    "street": "1226 Oregon Coast Hwy",
+    "contact_name": "Newpotr Halibut Contact",
+    "city": "Newport",
+    "story_id":  1,
+    "zip": "97365",
+    "location_description": "Located on Oregon Coast Hwy in Newport",
+    "long": -124.052868,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Halibut",
+    "phone": null,
+    "lat": 44.646006,
+    "name": "Newport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation": "Frozen",
+        "preparation_id": 1,
+        "name": "Halibut"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "website": "",
+    "street": "190 SW Maple St",
+    "contact_name": "Waldport Halibut Contact",
+    "city": "Waldport",
+    "story_id":  1,
+    "zip": "97364",
+    "location_description": "Located on SW Maple St in Waldport",
+    "long": -124.069126,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Waldport Halibut",
+    "phone": null,
+    "lat": 44.425188,
+    "name": "Waldport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+      
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation": "Frozen",
+        "preparation_id": 1,
         "name": "Halibut"
       }
     ]
@@ -463,7 +587,7 @@ class VendorsProductsLocationTestCase(TestCase):
             '%s?long=-45.232' % reverse(
                 'vendors-products', kwargs={'id': '1'})
             ).content)
-        expected_answer = json.loads(self.expected_all_missing_coord)
+        expected_answer = json.loads(self.expected_all_missing_lat)
 
         self.assertEqual(broken_data, expected_answer)
 
@@ -472,5 +596,6 @@ class VendorsProductsLocationTestCase(TestCase):
             '%s?lat=-45.232' % reverse(
                 'vendors-products', kwargs={'id': '1'})
             ).content)
+        expected_answer = json.loads(self.expected_all_missing_long)
 
         self.assertEqual(broken_data, expected_answer)
