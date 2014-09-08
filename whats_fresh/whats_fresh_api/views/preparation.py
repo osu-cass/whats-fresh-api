@@ -18,10 +18,11 @@ def preparation_details(request, id=None):
         preparation = Preparation.objects.get(id=id)
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Important',
-            'error_text': 'Preparation with id %s not found!' % id,
-            'error_name': 'Preparation Not Found'
+            'status': True,
+            'debug': '',
+            'level': 'Important',
+            'text': 'Preparation with id %s not found!' % id,
+            'name': 'Preparation Not Found'
         }
         return HttpResponse(
             json.dumps(data),
@@ -31,19 +32,20 @@ def preparation_details(request, id=None):
     try:
         data = model_to_dict(preparation, fields=[], exclude=[])
         data['error'] = {
-            'error_status': False,
-            'error_level': None,
-            'error_text': None,
-            'error_name': None
+            'status': False,
+            'level': None,
+            'debug': None,
+            'text': None,
+            'name': None
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
     except Exception as e:
         data['error'] = {
-            'error_status': True,
-            'error_level': 'Severe',
-            'error_text': 'An unknown error occurred processing preparation %s' % id,
-            'error_name': 'Unknown'
+            'status': True,
+            'level': 'Severe',
+            'text': 'An unknown error occurred processing preparation %s' % id,
+            'name': 'Unknown'
         }
         return HttpResponseServerError(
             json.dumps(data),

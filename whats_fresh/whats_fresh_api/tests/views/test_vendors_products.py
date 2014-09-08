@@ -126,10 +126,11 @@ class VendorsProductsLocationTestCase(TestCase):
         self.expected_no_vendors = """
 {
   "error": {
-    "error_level": null,
-    "error_status": false,
-    "error_name": null,
-    "error_text": null
+    "level": null,
+    "status": false,
+    "name": null,
+    "debug": null,
+    "text": null
   },
   "vendors": []
 }"""
@@ -140,10 +141,11 @@ class VendorsProductsLocationTestCase(TestCase):
         self.expected_halibut = """
 {
   "error": {
-    "error_level": null,
-    "error_status": false,
-    "error_name": null,
-    "error_text": null
+    "level": null,
+    "status": false,
+    "name": null,
+    "debug": null,
+    "text": null
   },
   "vendors": [{
     "id": 4,
@@ -213,10 +215,11 @@ class VendorsProductsLocationTestCase(TestCase):
         self.expected_all_vendors_products = """
 {
   "error": {
-    "error_level": "Warning",
-    "error_status": true,
-    "error_name": "Bad location",
-    "error_text": "String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
+    "level": "Warning",
+    "status": true,
+    "text": "Invalid coords",
+    "name": "Bad location",
+    "debug": "String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
   },
   "vendors": [{
     "id": 2,
@@ -315,10 +318,11 @@ class VendorsProductsLocationTestCase(TestCase):
         self.expected_all_missing_coord = """
 {
   "error": {
-    "error_level": "Warning",
-    "error_status": true,
-    "error_name": "Bad location",
-    "error_text": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "level": "Warning",
+    "status": true,
+    "name": "Bad location",
+    "text": "Invalid coords",
+    "debug": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [{
     "id": 2,

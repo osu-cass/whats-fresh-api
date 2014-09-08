@@ -78,6 +78,7 @@ class ProductViewTestCase(TestCase):
             expected_answer['products'], key=lambda k: k['id'])
 
         self.maxDiff = None
+
         self.assertEqual(parsed_answer, expected_answer)
 
 
