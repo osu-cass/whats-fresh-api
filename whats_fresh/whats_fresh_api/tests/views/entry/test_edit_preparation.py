@@ -38,7 +38,7 @@ class EditPreparationTestCase(TestCase):
         """
         # Data that we'll post to the server to get the new preparation created
         new_preparation = {
-            'name': 'Fried', 'description': '', 'additional_info': ''}
+            'name': u'Fried', 'description': u'', 'additional_info': u''}
 
         response = self.client.post(
             reverse('edit-preparation', kwargs={'id': '1'}),
@@ -57,7 +57,7 @@ class EditPreparationTestCase(TestCase):
             reverse('edit-preparation', kwargs={'id': '1'}))
 
         fields = {
-            'name': 'Fried', 'description': '', 'additional_info': ''}
+            'name': u'Fried', 'description': u'', 'additional_info': u''}
 
         form = response.context['preparation_form']
 
