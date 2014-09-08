@@ -41,7 +41,7 @@ class VendorsTestCase(TestCase):
       "email": "a@perr.com",
       "story_id":  1,
       "ext": {
-        
+
       },
       "created": "2014-08-08 23:27:05.568395+00:00",
       "updated": "2014-08-08 23:27:05.568395+00:00",
@@ -153,10 +153,10 @@ class VendorsLocationTestCase(TestCase):
     """
     fixtures = ['location_fixtures']
 
+
     # These tests are made assuming a proximity of 20. If this default value
     # is changed, then the tests would break without overriding it.
     @override_settings(DEFAULT_PROXIMITY='20')
-
     def setUp(self):
         self.maxDiff = None
 
@@ -207,7 +207,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Newport Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -239,7 +239,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Newport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -271,7 +271,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Waldport Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -303,7 +303,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Waldport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -350,7 +350,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Portland Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -382,7 +382,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Newport Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -414,7 +414,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Portland Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -446,7 +446,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Waldport Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -478,7 +478,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Newport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -510,7 +510,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Waldport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
        {
@@ -558,7 +558,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Portland Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -590,7 +590,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Newport Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -622,7 +622,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Portland Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -654,7 +654,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Waldport Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -686,7 +686,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Newport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -718,7 +718,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Waldport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
        {
@@ -766,7 +766,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Portland Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -798,7 +798,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Newport Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -830,7 +830,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Portland Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -862,7 +862,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Waldport Tuna",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -894,7 +894,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Newport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -926,7 +926,7 @@ class VendorsLocationTestCase(TestCase):
     "name": "Waldport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
        {
@@ -960,7 +960,8 @@ class VendorsLocationTestCase(TestCase):
 
         # Coordinates are not numbers
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=not_a_latitude&long=not_a_longitude' % reverse('vendors-list')
+            '%s?lat=not_a_latitude&long=not_a_longitude' % reverse(
+                'vendors-list')
             ).content)
 
         expected_answer = json.loads(self.expected_error_result)

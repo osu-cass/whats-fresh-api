@@ -7,6 +7,7 @@ from whats_fresh_api.models import Vendor, Product, VendorProduct
 from django.forms.models import model_to_dict
 import json
 
+
 def vendor_list(request):
     data = {}
 
@@ -19,12 +20,12 @@ def vendor_list(request):
             vendor_list = Vendor.objects.filter(
                 location__distance_lte=(point, D(mi=20)))
         except Exception as e:
-            error_text = "There was an error with the given coordinates {0}, {1}".format(lat, lng)
             data['error'] = {
                 "level": "Warning",
                 "status": True,
                 "name": "Bad location",
-                "text": error_text,
+                "text": "There was an error with the given "
+                    "coordinates {0}, {1}".format(lat, lng),
                 "debug": str(e)
             }
             vendor_list = Vendor.objects.all()
@@ -74,9 +75,12 @@ def vendor_list(request):
             data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
-                    'product_id': vendor_product.product_preparation.product.id,
-                    'preparation_id': vendor_product.product_preparation.preparation.id,
-                    'preparation': vendor_product.product_preparation.preparation.name,
+                    'product_id':
+                        vendor_product.product_preparation.product.id,
+                    'preparation_id':
+                        vendor_product.product_preparation.preparation.id,
+                    'preparation':
+                        vendor_product.product_preparation.preparation.name,
                     'name': vendor_product.product_preparation.product.name
                 }
                 data['vendors'][-1]['products'].append(product_data)
@@ -117,12 +121,12 @@ def vendors_products(request, id=None):
                 vendorproduct__product_preparation__product__id__exact=id,
                 location__distance_lte=(point, D(mi=20)))
         except Exception as e:
-            error_text = "There was an error with the given coordinates {0}, {1}".format(lat, lng)
             data['error'] = {
                 "level": "Warning",
                 "status": True,
                 "name": "Bad location",
-                "text": error_text,
+                "text": "There was an error with the "
+                    "given coordinates {0}, {1}".format(lat, lng),
                 "debug": str(e)
             }
             vendor_list = Vendor.objects.filter(
@@ -186,9 +190,12 @@ def vendors_products(request, id=None):
             data['vendors'][-1]['products'] = []
             for vendor_product in vendor_products:
                 product_data = {
-                    'product_id': vendor_product.product_preparation.product.id,
-                    'preparation_id': vendor_product.product_preparation.preparation.id,
-                    'preparation': vendor_product.product_preparation.preparation.name,
+                    'product_id':
+                        vendor_product.product_preparation.product.id,
+                    'preparation_id':
+                        vendor_product.product_preparation.preparation.id,
+                    'preparation':
+                        vendor_product.product_preparation.preparation.name,
                     'name': vendor_product.product_preparation.product.name
                 }
                 data['vendors'][-1]['products'].append(product_data)
@@ -208,7 +215,8 @@ def vendors_products(request, id=None):
             'debug': "{0}: {1}".format(type(e).__name__, str(e)),
             'status': True,
             'level': 'Error',
-            'text': 'Error {0} occurred processing the vendors for product {1}'.format(e, id),
+            'text': 'Error {0} occurred processing the '
+                'vendors for product {1}'.format(e, id),
             'name': 'Unknown'
         }
         return HttpResponseServerError(
@@ -259,8 +267,10 @@ def vendor_details(request, id=None):
         for vendor_product in vendor_products:
             product_data = {
                 'product_id': vendor_product.product_preparation.product.id,
-                'preparation_id': vendor_product.product_preparation.preparation.id,
-                'preparation': vendor_product.product_preparation.preparation.name,
+                'preparation_id':
+                    vendor_product.product_preparation.preparation.id,
+                'preparation':
+                    vendor_product.product_preparation.preparation.name,
                 'name': vendor_product.product_preparation.product.name
             }
             data['products'].append(product_data)

@@ -10,7 +10,7 @@ import json
 class VendorsProductsTestCase(TestCase):
     fixtures = ['overlapping_fixtures']
 
-    def setUp(self): 
+    def setUp(self):
         self.maxDiff = None
         self.expected_json = """
 {
@@ -41,7 +41,7 @@ class VendorsProductsTestCase(TestCase):
       "email": "a@perr.com",
       "story_id":  10,
       "ext": {
-        
+
       },
       "created": "2014-08-08 23:27:05.568395+00:00",
       "updated": "2014-08-08 23:27:05.568395+00:00",
@@ -64,8 +64,8 @@ class VendorsProductsTestCase(TestCase):
 }"""
 
     def test_url_endpoint(self):
-       url = reverse('vendors-products', kwargs={'id': '10'})
-       self.assertEqual(url, '/vendors/products/10')
+        url = reverse('vendors-products', kwargs={'id': '10'})
+        self.assertEqual(url, '/vendors/products/10')
 
     def test_no_location_parameter(self):
         c = Client()
@@ -114,10 +114,10 @@ class VendorsProductsLocationTestCase(TestCase):
     """
     fixtures = ['location_fixtures']
 
+
     # These tests are made assuming a proximity of 20. If this default value
     # is changed, then the tests would break without overriding it.
     @override_settings(DEFAULT_PROXIMITY='20')
-
     def setUp(self):
         self.maxDiff = None
 
@@ -168,7 +168,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "name": "Newport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -199,7 +199,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "name": "Waldport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -230,7 +230,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "description": "Fake Portland Halibut",
     "lat": 45.520988,
-    "long": -122.670619, 
+    "long": -122.670619,
     "street": "1 SW Pine St",
     "city": "Portland",
     "state": "OR",
@@ -245,7 +245,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "created": "2014-08-08 23:27:05.568395+00:00",
     "updated": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -276,7 +276,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "name": "Newport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -308,7 +308,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "name": "Waldport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -339,7 +339,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "description": "Fake Portland Halibut",
     "lat": 45.520988,
-    "long": -122.670619, 
+    "long": -122.670619,
     "street": "1 SW Pine St",
     "city": "Portland",
     "state": "OR",
@@ -354,7 +354,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "created": "2014-08-08 23:27:05.568395+00:00",
     "updated": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -385,7 +385,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "name": "Newport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -417,7 +417,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "name": "Waldport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -448,7 +448,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "description": "Fake Portland Halibut",
     "lat": 45.520988,
-    "long": -122.670619, 
+    "long": -122.670619,
     "street": "1 SW Pine St",
     "city": "Portland",
     "state": "OR",
@@ -463,7 +463,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "created": "2014-08-08 23:27:05.568395+00:00",
     "updated": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -494,7 +494,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "name": "Newport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {
@@ -526,7 +526,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "name": "Waldport Halibut",
     "created": "2014-08-08 23:27:05.568395+00:00",
     "ext": {
-      
+
     },
     "products": [
       {

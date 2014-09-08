@@ -4,6 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 import datetime
 
+
 class Image(models.Model):
     """
     The Image model holds an image and related data.

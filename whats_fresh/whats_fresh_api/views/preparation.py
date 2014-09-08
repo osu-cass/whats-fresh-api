@@ -28,7 +28,7 @@ def preparation_details(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
-        
+
     try:
         data = model_to_dict(preparation, fields=[], exclude=[])
         data['error'] = {
