@@ -107,7 +107,6 @@ class VendorsProductsTestCase(TestCase):
 
         self.assertEqual(parsed_answer, expected_answer)
 
-
     def test_limit_parameter(self):
         response = self.client.get(
             "%s?limit=1" % reverse(
