@@ -335,7 +335,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "text": "There was an error with the given coordinates not_a_latitude, not_a_longitude",
     "name": "Bad location",
-    "debug": "String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
+    "debug": "ValueError: String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
   },
   "vendors": [{
     "id": 2,
@@ -555,7 +555,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates -45.232, None",
-    "debug": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [{
     "id": 2,
@@ -696,7 +696,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates None, -45.232",
-    "debug": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [{
     "id": 2,
