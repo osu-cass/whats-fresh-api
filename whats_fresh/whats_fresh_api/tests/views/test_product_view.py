@@ -14,7 +14,6 @@ import json
 
 
 class ProductViewTestCase(TestCase):
-
     fixtures = ['test_fixtures']
 
     def setUp(self):
@@ -63,6 +62,17 @@ class ProductViewTestCase(TestCase):
   ]
 }"""
 
+        self.limited_products_error = """
+{
+  "error": {
+    "status": false,
+    "name": null,
+    "text": null,
+    "debug": null,
+    "level": null
+  }
+}"""
+
     def test_url_endpoint(self):
         url = reverse('products-list')
         self.assertEqual(url, '/products')
@@ -80,6 +90,16 @@ class ProductViewTestCase(TestCase):
         self.maxDiff = None
 
         self.assertEqual(parsed_answer, expected_answer)
+
+    def test_limited_products(self):
+        response = self.client.get(
+            "%s?limit=1" % reverse('products-list')).content
+        parsed_answer = json.loads(response)
+
+        expected_answer = json.loads(self.limited_products_error)
+
+        self.assertEqual(parsed_answer['error'], expected_answer['error'])
+        self.assertEqual(len(parsed_answer['products']), 1)
 
 
 class NoProductViewTestCase(TestCase):

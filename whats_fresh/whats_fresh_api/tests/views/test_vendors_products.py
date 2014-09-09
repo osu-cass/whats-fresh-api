@@ -63,6 +63,17 @@ class VendorsProductsTestCase(TestCase):
   ]
 }"""
 
+        self.limited_vendors_error = """
+{
+  "error": {
+    "status": false,
+    "name": null,
+    "text": null,
+    "debug": null,
+    "level": null
+  }
+}"""
+
     def test_url_endpoint(self):
         url = reverse('vendors-products', kwargs={'id': '10'})
         self.assertEqual(url, '/vendors/products/10')
@@ -95,6 +106,19 @@ class VendorsProductsTestCase(TestCase):
         self.maxDiff = None
 
         self.assertEqual(parsed_answer, expected_answer)
+
+
+    def test_limit_parameter(self):
+        response = self.client.get(
+            "%s?limit=1" % reverse(
+                'vendors-products', kwargs={'id': '100'})
+            ).content
+
+        parsed_answer = json.loads(response)
+        expected_error = json.loads(self.limited_vendors_error)
+
+        self.assertEqual(parsed_answer['error'], expected_error)
+        self.assertEqual(len(parsed_answer['vendors']), 1)
 
 
 class VendorsProductsLocationTestCase(TestCase):
