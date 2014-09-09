@@ -14,11 +14,8 @@ def vendor_list(request):
 
     lat = request.GET.get('lat', None)
     lng = request.GET.get('long', None)
-<<<<<<< HEAD
     proximity = request.GET.get('proximity', None)
-=======
     limit = request.GET.get('limit', None)
->>>>>>> Add limit parameter when using lat and long parameters
 
     if lat or lng:
         if limit:
@@ -33,29 +30,26 @@ def vendor_list(request):
                     'debug': "{0}: {1}".format(type(e).__name__, str(e)),
                 }
                 limit = None
-        try:
-            if proximity:
-                try:
-                    proximity = int(proximity)
-                except Exception as e:
-                    data['error'] = {
-                        "level": "Warning",
-                        "status": True,
-                        "name": "Bad proximity",
-                        "text": "There was an error finding vendors " \
-                            "within {0} miles".format(proximity),
-                        'debug': "{0}: {1}".format(type(e).__name__, str(e))
-                    }
-                    proximity = settings.DEFAULT_PROXIMITY
-            else:
+        if proximity:
+            try:
+                proximity = int(proximity)
+            except Exception as e:
+                data['error'] = {
+                    "level": "Warning",
+                    "status": True,
+                    "name": "Bad proximity",
+                    "text": "There was an error finding vendors " \
+                        "within {0} miles".format(proximity),
+                    'debug': "{0}: {1}".format(type(e).__name__, str(e))
+                }
                 proximity = settings.DEFAULT_PROXIMITY
+        else:
+            proximity = settings.DEFAULT_PROXIMITY
+
+        try:
             point = fromstr('POINT(%s %s)' % (lng, lat), srid=4326)
             vendor_list = Vendor.objects.filter(
-<<<<<<< HEAD
-                location__distance_lte=(point, D(mi=proximity)))
-=======
-                location__distance_lte=(point, D(mi=20)))[:limit]
->>>>>>> Add limit parameter when using lat and long parameters
+                location__distance_lte=(point, D(mi=proximity)))[:limit]
         except Exception as e:
             data['error'] = {
                 "level": "Warning",
@@ -65,9 +59,9 @@ def vendor_list(request):
                     "coordinates {0}, {1}".format(lat, lng),
                 'debug': "{0}: {1}".format(type(e).__name__, str(e))
             }
-            vendor_list = Vendor.objects.all()
+            vendor_list = Vendor.objects.all()[:limit]
     else:
-        vendor_list = Vendor.objects.all()
+        vendor_list = Vendor.objects.all()[:limit]
 
     if len(vendor_list) == 0:
         data['error'] = {
@@ -150,11 +144,8 @@ def vendors_products(request, id=None):
 
     lat = request.GET.get('lat', None)
     lng = request.GET.get('long', None)
-<<<<<<< HEAD
     proximity = request.GET.get('proximity', None)
-=======
     limit = request.GET.get('limit', None)
->>>>>>> Add limit parameter when using lat and long parameters
 
     if lat or lng:
         if limit:
@@ -169,30 +160,26 @@ def vendors_products(request, id=None):
                     'debug': "{0}: {1}".format(type(e).__name__, str(e)),
                 }
                 limit = None
-        try:
-            if proximity:
-                try:
-                    proximity = int(proximity)
-                except Exception as e:
-                    data['error'] = {
-                        "level": "Warning",
-                        "status": True,
-                        "name": "Bad proximity",
-                        "text": "There was an error finding vendors " \
-                            "within {0} miles".format(proximity),
-                        'debug': "{0}: {1}".format(type(e).__name__, str(e))
-                    }
-                    proximity = settings.DEFAULT_PROXIMITY
-            else:
+        if proximity:
+            try:
+                proximity = int(proximity)
+            except Exception as e:
+                data['error'] = {
+                    "level": "Warning",
+                    "status": True,
+                    "name": "Bad proximity",
+                    "text": "There was an error finding vendors " \
+                        "within {0} miles".format(proximity),
+                    'debug': "{0}: {1}".format(type(e).__name__, str(e))
+                }
                 proximity = settings.DEFAULT_PROXIMITY
+        else:
+            proximity = settings.DEFAULT_PROXIMITY
+        try:
             point = fromstr('POINT(%s %s)' % (lng, lat), srid=4326)
             vendor_list = Vendor.objects.filter(
                 vendorproduct__product_preparation__product__id__exact=id,
-<<<<<<< HEAD
-                location__distance_lte=(point, D(mi=proximity)))
-=======
-                location__distance_lte=(point, D(mi=20)))[:limit]
->>>>>>> Add limit parameter when using lat and long parameters
+                location__distance_lte=(point, D(mi=proximity)))[:limit]
         except Exception as e:
             data['error'] = {
                 "level": "Warning",
@@ -203,11 +190,11 @@ def vendors_products(request, id=None):
                 'debug': "{0}: {1}".format(type(e).__name__, str(e))
             }
             vendor_list = Vendor.objects.filter(
-                vendorproduct__product_preparation__product__id__exact=id)
+                vendorproduct__product_preparation__product__id__exact=id)[:limit]
     else:
         try:
             vendor_list = Vendor.objects.filter(
-                vendorproduct__product_preparation__product__id__exact=id)
+                vendorproduct__product_preparation__product__id__exact=id)[:limit]
         except Exception as e:
             data['error'] = {
                 'debug': "{0}: {1}".format(type(e).__name__, str(e)),
