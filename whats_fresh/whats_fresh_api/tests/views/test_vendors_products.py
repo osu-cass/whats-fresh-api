@@ -894,11 +894,11 @@ class VendorsProductsLocationTestCase(TestCase):
         location, with an extended proximity of 50 miles. This will include
         the Pacific City location.
         """
-        halibut_near_newport_extended = self.client.get(
+        halibut_near_newport_extended = json.loads(self.client.get(
             '%s?lat=44.609079&long=-124.052538' \
                 '&proximity=50' % reverse(
                     'vendors-products', kwargs={'id': '1'})
-            ).content
+            ).content)
 
         expected_answer = json.loads(self.expected_halibut_extended)
         self.assertEqual(halibut_near_newport_extended, expected_answer)

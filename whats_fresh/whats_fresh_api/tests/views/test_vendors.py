@@ -477,7 +477,12 @@ class VendorsLocationTestCase(TestCase):
       "state": "OR",
       "street": "35650 Roger Ave",
       "products": [
-
+        {
+          "preparation": "Frozen",
+          "preparation_id": 1,
+          "product_id": 2,
+          "name": "Tuna"
+        }
       ],
       "lat": 45.197105,
       "contact_name": "Pacific City Tuna Contact",
@@ -504,7 +509,12 @@ class VendorsLocationTestCase(TestCase):
       "state": "OR",
       "street": "34455 Brooten Rd",
       "products": [
-
+        {
+          "preparation": "Frozen",
+          "preparation_id": 1,
+          "product_id": 1,
+          "name": "Halibut"
+        }
       ],
       "lat": 45.207253,
       "contact_name": "Pacific City Halibut Contact",
@@ -524,7 +534,7 @@ class VendorsLocationTestCase(TestCase):
     "status": true,
     "text": "There was an error with the given coordinates not_a_latitude, not_a_longitude",
     "name": "Bad location",
-    "debug": "String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
+    "debug": "ValueError: String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
   },
   "vendors": [
   {
@@ -796,7 +806,7 @@ class VendorsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates -45.232, None",
-    "debug": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [
   {
@@ -1068,7 +1078,7 @@ class VendorsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates None, -45.232",
-    "debug": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [
   {
