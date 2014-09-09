@@ -363,6 +363,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "products": [
       {
         "product_id": 1,
+        "preparation_id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }
@@ -440,6 +441,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "products": [
       {
         "product_id": 1,
+        "preparation_id": 1,
         "preparation": "Frozen",
         "name": "Halibut"
       }

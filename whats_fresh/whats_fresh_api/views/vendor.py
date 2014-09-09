@@ -14,9 +14,25 @@ def vendor_list(request):
 
     lat = request.GET.get('lat', None)
     lng = request.GET.get('long', None)
+<<<<<<< HEAD
     proximity = request.GET.get('proximity', None)
+=======
+    limit = request.GET.get('limit', None)
+>>>>>>> Add limit parameter when using lat and long parameters
 
     if lat or lng:
+        if limit:
+            try:
+                limit = int(limit)
+            except Exception as e:
+                data['error'] = {
+                    "level": "Warning",
+                    "status": True,
+                    "name": "Bad Limit",
+                    "text": "Invalid limit. Returning all results.",
+                    'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+                }
+                limit = None
         try:
             if proximity:
                 try:
@@ -35,7 +51,11 @@ def vendor_list(request):
                 proximity = settings.DEFAULT_PROXIMITY
             point = fromstr('POINT(%s %s)' % (lng, lat), srid=4326)
             vendor_list = Vendor.objects.filter(
+<<<<<<< HEAD
                 location__distance_lte=(point, D(mi=proximity)))
+=======
+                location__distance_lte=(point, D(mi=20)))[:limit]
+>>>>>>> Add limit parameter when using lat and long parameters
         except Exception as e:
             data['error'] = {
                 "level": "Warning",
@@ -130,9 +150,25 @@ def vendors_products(request, id=None):
 
     lat = request.GET.get('lat', None)
     lng = request.GET.get('long', None)
+<<<<<<< HEAD
     proximity = request.GET.get('proximity', None)
+=======
+    limit = request.GET.get('limit', None)
+>>>>>>> Add limit parameter when using lat and long parameters
 
     if lat or lng:
+        if limit:
+            try:
+                limit = int(limit)
+            except Exception as e:
+                data['error'] = {
+                    "level": "Warning",
+                    "status": True,
+                    "name": "Bad Limit",
+                    "text": "Invalid limit. Returning all results.",
+                    'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+                }
+                limit = None
         try:
             if proximity:
                 try:
@@ -152,7 +188,11 @@ def vendors_products(request, id=None):
             point = fromstr('POINT(%s %s)' % (lng, lat), srid=4326)
             vendor_list = Vendor.objects.filter(
                 vendorproduct__product_preparation__product__id__exact=id,
+<<<<<<< HEAD
                 location__distance_lte=(point, D(mi=proximity)))
+=======
+                location__distance_lte=(point, D(mi=20)))[:limit]
+>>>>>>> Add limit parameter when using lat and long parameters
         except Exception as e:
             data['error'] = {
                 "level": "Warning",

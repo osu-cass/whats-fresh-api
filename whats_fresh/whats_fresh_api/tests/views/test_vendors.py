@@ -1612,10 +1612,17 @@ class VendorsLocationTestCase(TestCase):
                 'proximity=50' % reverse('vendors-list')
             ).content)
 
+<<<<<<< HEAD
         expected_answer = json.loads(self.expected_nearby_extended)
         self.assertEqual(extended_proximity, expected_answer)
 
     def test_bad_location_with_proximity_parameters(self):
+=======
+        expected_answer = json.loads(self.expected_nearby_limit_3)
+        self.assertEqual(all_vendors_data, expected_answer)
+
+    def test_bad_limit_with_location_all_products(self):
+>>>>>>> Add limit parameter when using lat and long parameters
         """
         Test that a bad location returns an error with good proximity.
         """
