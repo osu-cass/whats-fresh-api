@@ -1340,6 +1340,256 @@ class VendorsLocationTestCase(TestCase):
   ]
 }"""
 
+        # Nearest 3 fish stores, with a proximity of 20 miles.
+        self.expected_nearby_limit_3 = """
+{
+  "error": {
+    "level": null,
+    "status": false,
+    "name": null,
+    "debug": null,
+    "text": null
+  },
+  "vendors": [{
+    "id": 3,
+    "website": "",
+    "street": "146 SE Bay Blvd",
+    "contact_name": "Newport Tuna Contact",
+    "city": "Newport",
+    "story_id":  2,
+    "zip": "97365",
+    "location_description": "Located on Bay Blvd in Newport",
+    "long": -124.050122,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Tuna",
+    "phone": null,
+    "lat": 44.631592,
+    "name": "Newport Tuna",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 2,
+        "preparation_id": 1,
+        "preparation": "Frozen",
+        "name": "Tuna"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "website": "",
+    "street": "1226 Oregon Coast Hwy",
+    "contact_name": "Newpotr Halibut Contact",
+    "city": "Newport",
+    "story_id":  1,
+    "zip": "97365",
+    "location_description": "Located on Oregon Coast Hwy in Newport",
+    "long": -124.052868,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Halibut",
+    "phone": null,
+    "lat": 44.646006,
+    "name": "Newport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation": "Frozen",
+        "preparation_id": 1,
+        "name": "Halibut"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "website": "",
+    "street": "522 NW Spring St",
+    "contact_name": "Waldport Tuna Contact",
+    "city": "Waldport",
+    "story_id":  2,
+    "zip": "97394",
+    "location_description": "Located on Spring St in Waldport",
+    "long": -124.066166,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Waldport Tuna",
+    "phone": null,
+    "lat": 44.427761,
+    "name": "Waldport Tuna",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 2,
+        "preparation_id": 1,
+        "preparation": "Frozen",
+        "name": "Tuna"
+      }
+    ]
+  }]
+}"""
+
+        # When a bad limit is given, warn and ignore it.
+        # This JSON contains the four stores in Newport and Waldport,
+        # but not the Portland ones.
+        self.expected_nearby_bad_limit = """
+{
+  "error": {
+    "level": "Warning",
+    "status": true,
+    "name": "Bad Limit",
+    "debug": "ValueError: invalid literal for int() with base 10: 'cat'",
+    "text": "Invalid limit. Returning all results."
+  },
+  "vendors": [{
+    "id": 3,
+    "website": "",
+    "street": "146 SE Bay Blvd",
+    "contact_name": "Newport Tuna Contact",
+    "city": "Newport",
+    "story_id":  2,
+    "zip": "97365",
+    "location_description": "Located on Bay Blvd in Newport",
+    "long": -124.050122,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Tuna",
+    "phone": null,
+    "lat": 44.631592,
+    "name": "Newport Tuna",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 2,
+        "preparation_id": 1,
+        "preparation": "Frozen",
+        "name": "Tuna"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "website": "",
+    "street": "1226 Oregon Coast Hwy",
+    "contact_name": "Newpotr Halibut Contact",
+    "city": "Newport",
+    "story_id":  1,
+    "zip": "97365",
+    "location_description": "Located on Oregon Coast Hwy in Newport",
+    "long": -124.052868,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Halibut",
+    "phone": null,
+    "lat": 44.646006,
+    "name": "Newport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation": "Frozen",
+        "preparation_id": 1,
+        "name": "Halibut"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "website": "",
+    "street": "522 NW Spring St",
+    "contact_name": "Waldport Tuna Contact",
+    "city": "Waldport",
+    "story_id":  2,
+    "zip": "97394",
+    "location_description": "Located on Spring St in Waldport",
+    "long": -124.066166,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Waldport Tuna",
+    "phone": null,
+    "lat": 44.427761,
+    "name": "Waldport Tuna",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 2,
+        "preparation_id": 1,
+        "preparation": "Frozen",
+        "name": "Tuna"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "website": "",
+    "street": "190 SW Maple St",
+    "contact_name": "Waldport Halibut Contact",
+    "city": "Waldport",
+    "story_id":  1,
+    "zip": "97364",
+    "location_description": "Located on SW Maple St in Waldport",
+    "long": -124.069126,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Waldport Halibut",
+    "phone": null,
+    "lat": 44.425188,
+    "name": "Waldport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation_id": 1,
+        "preparation": "Frozen",
+        "name": "Halibut"
+      }
+    ]
+  }]
+}"""
+
     def test_successful_location_all_products(self):
         """
         Test that good parameters return all vendors ordered by location.
@@ -1472,4 +1722,43 @@ class VendorsLocationTestCase(TestCase):
             ).content)
 
         expected_answer = json.loads(self.expected_no_vendors)
+        self.assertEqual(all_vendors_data, expected_answer)
+
+    def test_limit_with_location_all_products(self):
+        """
+        Test that the limit parameter limits the number of vendors with the
+        location parameters. There will also be a default proximity of
+        20 miles.
+        """
+        all_vendors_data = json.loads(self.client.get(
+            '%s?lat=44.609079&long=-124.052538&limit=3' % reverse('vendors-list')
+            ).content)
+
+        expected_answer = json.loads(self.expected_nearby_limit_3)
+        self.assertEqual(all_vendors_data, expected_answer)
+
+    def test_bad_limit_with_location_all_products(self):
+        """
+        Test that invalid limit parameters return an error.
+        There will also be a default proximity of 20 miles.
+        """
+        all_vendors_data = json.loads(self.client.get(
+            '%s?lat=44.609079&long=-124.052538&limit=cat' % reverse(
+                'vendors-list')
+            ).content)
+
+        expected_answer = json.loads(self.expected_nearby_bad_limit)
+        self.assertEqual(all_vendors_data, expected_answer)
+
+    def test_limit_larger_than_length_all_products(self):
+        """
+        Test that a limit larger than the length of the list does not
+        affect the list.
+        """
+        all_vendors_data = json.loads(self.client.get(
+            '%s?lat=44.609079&long=-124.052538&'\
+                'limit=200' % reverse('vendors-list')
+            ).content)
+
+        expected_answer = json.loads(self.expected_nearby_all_vendors)
         self.assertEqual(all_vendors_data, expected_answer)
