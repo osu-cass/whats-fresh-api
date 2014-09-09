@@ -116,7 +116,7 @@ class VendorsProductsTestCase(TestCase):
         parsed_answer = json.loads(response)
         expected_error = json.loads(self.limited_vendors_error)
 
-        self.assertEqual(parsed_answer['error'], expected_error)
+        self.assertEqual(parsed_answer['error'], expected_error['error'])
         self.assertEqual(len(parsed_answer['vendors']), 1)
 
 

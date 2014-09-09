@@ -13,6 +13,20 @@ def vendor_list(request):
 
     lat = request.GET.get('lat', None)
     lng = request.GET.get('long', None)
+    limit = request.GET.get('limit', None)
+
+    if limit:
+        try:
+            limit = int(limit)
+        except Exception as e:
+            data['error'] = {
+                'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+                'status': True,
+                'level': 'Warning',
+                'text': 'Invalid limit. Returning all results.',
+                'name': 'Bad Limit'
+            }
+            limit = None
 
     if lat or lng:
         try:
@@ -28,9 +42,9 @@ def vendor_list(request):
                     "coordinates {0}, {1}".format(lat, lng),
                 "debug": str(e)
             }
-            vendor_list = Vendor.objects.all()
+            vendor_list = Vendor.objects.all()[:limit]
     else:
-        vendor_list = Vendor.objects.all()
+        vendor_list = Vendor.objects.all()[:limit]
 
     if len(vendor_list) == 0:
         data['error'] = {
@@ -113,6 +127,20 @@ def vendors_products(request, id=None):
 
     lat = request.GET.get('lat', None)
     lng = request.GET.get('long', None)
+    limit = request.GET.get('limit', None)
+
+    if limit:
+        try:
+            limit = int(limit)
+        except Exception as e:
+            data['error'] = {
+                'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+                'status': True,
+                'level': 'Warning',
+                'text': 'Invalid limit. Returning all results.',
+                'name': 'Bad Limit'
+            }
+            limit = None
 
     if lat or lng:
         try:
@@ -134,7 +162,7 @@ def vendors_products(request, id=None):
     else:
         try:
             vendor_list = Vendor.objects.filter(
-                vendorproduct__product_preparation__product__id__exact=id)
+                vendorproduct__product_preparation__product__id__exact=id)[:limit]
         except Exception as e:
             data['error'] = {
                 'debug': "{0}: {1}".format(type(e).__name__, str(e)),
@@ -181,7 +209,10 @@ def vendors_products(request, id=None):
             data['vendors'][-1]['ext'] = {}
             data['vendors'][-1]['id'] = vendor.id
 
-            data['vendors'][-1]['story_id'] = vendor.story_id.id
+            try:
+                data['vendors'][-1]['story_id'] = vendor.story_id.id
+            except AttributeError:
+                data['story_id'] = None
 
             data['vendors'][-1]['lat'] = vendor.location.y
             data['vendors'][-1]['long'] = vendor.location.x
@@ -219,6 +250,7 @@ def vendors_products(request, id=None):
                 'vendors for product {1}'.format(e, id),
             'name': 'Unknown'
         }
+        raise
         return HttpResponseServerError(
             json.dumps(data),
             content_type="application/json"
@@ -248,7 +280,10 @@ def vendor_details(request, id=None):
             vendor, fields=[], exclude=[
                 'location', 'phone', 'products_preparations'])
 
-        data['story_id'] = vendor.story_id.id
+        try:
+            data['story_id'] = vendor.story_id.id
+        except AttributeError:
+            data['story_id'] = None
         try:
             data['phone'] = vendor.phone.national_number
         except AttributeError:

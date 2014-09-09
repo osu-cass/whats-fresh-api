@@ -15,7 +15,21 @@ def product_list(request):
     returned.
     """
     data = {}
-    product_list = Product.objects.all()
+    limit = request.GET.get('limit', None)
+
+    try:
+        limit = int(limit)
+    except Exception as e:
+        data['error'] = {
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Warning',
+            'text': 'Invalid limit. Returning all results.',
+            'name': 'Bad Limit'
+        }
+        limit = None
+
+    product_list = Product.objects.all()[:limit]
 
     if len(product_list) == 0:
         data['error'] = {
