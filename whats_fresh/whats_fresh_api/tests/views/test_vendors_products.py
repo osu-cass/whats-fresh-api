@@ -235,6 +235,243 @@ class VendorsProductsLocationTestCase(TestCase):
   }]
 }"""
 
+        # Nearby vendors for product Halibut (1), with 50 mile range.
+        # This JSON contains the halibut stores in Newport, Waldport, and
+        # Pacific City, but not Portland. This is the return for a good
+        # coordinates.
+        self.expected_halibut_extended = """
+{
+  "error": {
+    "debug": null,
+    "status": false,
+    "text": null,
+    "name": null,
+    "level": null
+  },
+  "vendors": [
+    {
+      "status": true,
+      "city": "Newport",
+      "website": "",
+      "updated": "2014-08-08 23:27:05.568395+00:00",
+      "description": "Fake Newport Halibut",
+      "zip": "97365",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "story_id": 1,
+      "ext": {
+
+      },
+      "location_description": "Located on Oregon Coast Hwy in Newport",
+      "long": -124.052868,
+      "email": "",
+      "hours": "",
+      "phone": null,
+      "state": "OR",
+      "street": "1226 Oregon Coast Hwy",
+      "products": [
+        {
+          "preparation": "Frozen",
+          "preparation_id": 1,
+          "product_id": 1,
+          "name": "Halibut"
+        }
+      ],
+      "lat": 44.646006,
+      "contact_name": "Newpotr Halibut Contact",
+      "id": 4,
+      "name": "Newport Halibut"
+    },
+    {
+      "status": true,
+      "city": "Waldport",
+      "website": "",
+      "updated": "2014-08-08 23:27:05.568395+00:00",
+      "description": "Fake Waldport Halibut",
+      "zip": "97364",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "story_id": 1,
+      "ext": {
+
+      },
+      "location_description": "Located on SW Maple St in Waldport",
+      "long": -124.069126,
+      "email": "",
+      "hours": "",
+      "phone": null,
+      "state": "OR",
+      "street": "190 SW Maple St",
+      "products": [
+        {
+          "preparation": "Frozen",
+          "preparation_id": 1,
+          "product_id": 1,
+          "name": "Halibut"
+        }
+      ],
+      "lat": 44.425188,
+      "contact_name": "Waldport Halibut Contact",
+      "id": 6,
+      "name": "Waldport Halibut"
+    },
+    {
+      "status": true,
+      "city": "Cloverdale",
+      "website": "",
+      "updated": "2014-08-08 23:27:05.568395+00:00",
+      "description": "Fake Pacific City Halibut",
+      "zip": "97112",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "story_id": 1,
+      "ext": {
+
+      },
+      "location_description": "Located on Brooten Rd in Pacific City",
+      "long": -123.959418,
+      "email": "",
+      "hours": "",
+      "phone": null,
+      "state": "OR",
+      "street": "34455 Brooten Rd",
+      "products": [
+        {
+          "preparation": "Frozen",
+          "preparation_id": 1,
+          "product_id": 1,
+          "name": "Halibut"
+        }
+      ],
+      "lat": 45.207253,
+      "contact_name": "Pacific City Halibut Contact",
+      "id": 8,
+      "name": "Pacific City Halibut"
+    }
+  ]
+}"""
+
+        # Nearby vendors for product Halibut (1)
+        # This JSON contains the two halibut stores in Newport and Waldport,
+        # but not Portland. This is the return for a good coordinates.
+        self.expected_halibut_bad_limit = """
+{
+  "error": {
+    "level": "Warning",
+    "status": true,
+    "name": "Bad Limit",
+    "debug": "ValueError: invalid literal for int() with base 10: 'cat'",
+    "text": "Invalid limit. Returning all results."
+  },
+  "vendors": [{
+    "id": 4,
+    "website": "",
+    "street": "1226 Oregon Coast Hwy",
+    "contact_name": "Newpotr Halibut Contact",
+    "city": "Newport",
+    "story_id":  1,
+    "zip": "97365",
+    "location_description": "Located on Oregon Coast Hwy in Newport",
+    "long": -124.052868,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Halibut",
+    "phone": null,
+    "lat": 44.646006,
+    "name": "Newport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation_id": 1,
+        "preparation": "Frozen",
+        "name": "Halibut"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "website": "",
+    "street": "190 SW Maple St",
+    "contact_name": "Waldport Halibut Contact",
+    "city": "Waldport",
+    "story_id":  1,
+    "zip": "97364",
+    "location_description": "Located on SW Maple St in Waldport",
+    "long": -124.069126,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Waldport Halibut",
+    "phone": null,
+    "lat": 44.425188,
+    "name": "Waldport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation_id": 1,
+        "preparation": "Frozen",
+        "name": "Halibut"
+      }
+    ]
+  }]
+}"""
+
+        # Nearby vendors for product Halibut (1)
+        # This JSON contains the two halibut stores in Newport and Waldport,
+        # but not Portland. This is the return for a good coordinates.
+        self.expected_halibut_limit_1 = """
+{
+  "error": {
+    "level": null,
+    "status": false,
+    "name": null,
+    "debug": null,
+    "text": null
+  },
+  "vendors": [{
+    "id": 4,
+    "website": "",
+    "street": "1226 Oregon Coast Hwy",
+    "contact_name": "Newpotr Halibut Contact",
+    "city": "Newport",
+    "story_id":  1,
+    "zip": "97365",
+    "location_description": "Located on Oregon Coast Hwy in Newport",
+    "long": -124.052868,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Halibut",
+    "phone": null,
+    "lat": 44.646006,
+    "name": "Newport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation_id": 1,
+        "preparation": "Frozen",
+        "name": "Halibut"
+      }
+    ]
+  }]
+}"""
+
         # All vendors for product Halibut (1)
         # This JSON contains the three halibut stores in Newport, Waldport,
         # and Portland. This is the return for a bad coordinates.
@@ -245,7 +482,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "text": "There was an error with the given coordinates not_a_latitude, not_a_longitude",
     "name": "Bad location",
-    "debug": "String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
+    "debug": "ValueError: String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
   },
   "vendors": [{
     "id": 2,
@@ -338,6 +575,117 @@ class VendorsProductsLocationTestCase(TestCase):
         "product_id": 1,
         "preparation": "Frozen",
         "preparation_id": 1,
+        "name": "Halibut"
+      }
+    ]
+  },
+    {
+      "status": true,
+      "city": "Cloverdale",
+      "website": "",
+      "updated": "2014-08-08 23:27:05.568395+00:00",
+      "description": "Fake Pacific City Halibut",
+      "zip": "97112",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "story_id": 1,
+      "ext": {
+
+      },
+      "location_description": "Located on Brooten Rd in Pacific City",
+      "long": -123.959418,
+      "email": "",
+      "hours": "",
+      "phone": null,
+      "state": "OR",
+      "street": "34455 Brooten Rd",
+      "products": [
+        {
+          "preparation": "Frozen",
+          "preparation_id": 1,
+          "product_id": 1,
+          "name": "Halibut"
+        }
+      ],
+      "lat": 45.207253,
+      "contact_name": "Pacific City Halibut Contact",
+      "id": 8,
+      "name": "Pacific City Halibut"
+    }]
+}"""
+
+        # All vendors for product Halibut (1)
+        # This JSON contains the three halibut stores in Newport, Waldport,
+        # and Portland. This is the return for a bad proximity with good
+        # location -- the default proximity of 20 miles.
+        self.expected_vp_bad_prox = """
+{
+  "error": {
+    "level": "Warning",
+    "status": true,
+    "text": "There was an error finding vendors within cat miles",
+    "name": "Bad proximity",
+    "debug": "ValueError: invalid literal for int() with base 10: 'cat'"
+  },
+  "vendors": [{
+    "id": 4,
+    "website": "",
+    "street": "1226 Oregon Coast Hwy",
+    "contact_name": "Newpotr Halibut Contact",
+    "city": "Newport",
+    "story_id":  1,
+    "zip": "97365",
+    "location_description": "Located on Oregon Coast Hwy in Newport",
+    "long": -124.052868,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Newport Halibut",
+    "phone": null,
+    "lat": 44.646006,
+    "name": "Newport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation": "Frozen",
+        "preparation_id": 1,
+        "name": "Halibut"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "website": "",
+    "street": "190 SW Maple St",
+    "contact_name": "Waldport Halibut Contact",
+    "city": "Waldport",
+    "story_id":  1,
+    "zip": "97364",
+    "location_description": "Located on SW Maple St in Waldport",
+    "long": -124.069126,
+    "state": "OR",
+    "email": "",
+    "hours": "",
+    "status": true,
+    "updated": "2014-08-08 23:27:05.568395+00:00",
+    "description": "Fake Waldport Halibut",
+    "phone": null,
+    "lat": 44.425188,
+    "name": "Waldport Halibut",
+    "created": "2014-08-08 23:27:05.568395+00:00",
+    "ext": {
+
+    },
+    "products": [
+      {
+        "product_id": 1,
+        "preparation_id": 1,
+        "preparation": "Frozen",
         "name": "Halibut"
       }
     ]
@@ -354,7 +702,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates -45.232, None",
-    "debug": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [{
     "id": 2,
@@ -450,7 +798,39 @@ class VendorsProductsLocationTestCase(TestCase):
         "name": "Halibut"
       }
     ]
-  }]
+  },
+    {
+      "status": true,
+      "city": "Cloverdale",
+      "website": "",
+      "updated": "2014-08-08 23:27:05.568395+00:00",
+      "description": "Fake Pacific City Halibut",
+      "zip": "97112",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "story_id": 1,
+      "ext": {
+
+      },
+      "location_description": "Located on Brooten Rd in Pacific City",
+      "long": -123.959418,
+      "email": "",
+      "hours": "",
+      "phone": null,
+      "state": "OR",
+      "street": "34455 Brooten Rd",
+      "products": [
+        {
+          "preparation": "Frozen",
+          "preparation_id": 1,
+          "product_id": 1,
+          "name": "Halibut"
+        }
+      ],
+      "lat": 45.207253,
+      "contact_name": "Pacific City Halibut Contact",
+      "id": 8,
+      "name": "Pacific City Halibut"
+    }]
 }"""
 
         # All vendors for product Halibut (1)
@@ -463,7 +843,7 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates None, -45.232",
-    "debug": "Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [{
     "id": 2,
@@ -559,7 +939,39 @@ class VendorsProductsLocationTestCase(TestCase):
         "name": "Halibut"
       }
     ]
-  }]
+  },
+    {
+      "status": true,
+      "city": "Cloverdale",
+      "website": "",
+      "updated": "2014-08-08 23:27:05.568395+00:00",
+      "description": "Fake Pacific City Halibut",
+      "zip": "97112",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "story_id": 1,
+      "ext": {
+
+      },
+      "location_description": "Located on Brooten Rd in Pacific City",
+      "long": -123.959418,
+      "email": "",
+      "hours": "",
+      "phone": null,
+      "state": "OR",
+      "street": "34455 Brooten Rd",
+      "products": [
+        {
+          "preparation": "Frozen",
+          "preparation_id": 1,
+          "product_id": 1,
+          "name": "Halibut"
+        }
+      ],
+      "lat": 45.207253,
+      "contact_name": "Pacific City Halibut Contact",
+      "id": 8,
+      "name": "Pacific City Halibut"
+    }]
 }"""
 
     def test_no_vendors_nearby_vendor_products(self):
@@ -581,13 +993,52 @@ class VendorsProductsLocationTestCase(TestCase):
         Test that good parameters return vendor/product results ordered by
         location. There will also be a default limit of 20 miles.
         """
-        halibut_near_newport = self.client.get(
+        halibut_near_newport = json.loads(self.client.get(
             '%s?lat=44.609079&long=-124.052538' % reverse('vendors-products',
                                                      kwargs={'id': '1'})
-            ).content
+            ).content)
 
         expected_answer = json.loads(self.expected_halibut)
         self.assertEqual(expected_answer, expected_answer)
+
+    def test_good_limit_by_vendor_product(self):
+        """
+        Test that good parameters return vendor/product results ordered by
+        location. There will also be a default limit of 20 miles.
+        """
+        halibut_near_newport_limit = json.loads(self.client.get(
+            '%s?lat=44.609079&long=-124.052538&limit=1' % reverse(
+                'vendors-products', kwargs={'id': '1'})
+            ).content)
+
+        expected_answer = json.loads(self.expected_halibut_limit_1)
+        self.assertEqual(halibut_near_newport_limit, expected_answer)
+
+    def test_limit_larger_than_length_all_products(self):
+        """
+        Test that a limit larger than the length of the list does not
+        affect the list.
+        """
+        halibut_near_newport = json.loads(self.client.get(
+            '%s?lat=44.609079&long=-124.052538&limit=10' % reverse(
+                'vendors-products', kwargs={'id': '1'})
+            ).content)
+
+        expected_answer = json.loads(self.expected_halibut)
+        self.assertEqual(expected_answer, expected_answer)
+
+    def test_bad_limit_by_vendor_product(self):
+        """
+        Test that good parameters return vendor/product results ordered by
+        location. There will also be a default limit of 20 miles.
+        """
+        halibut_near_newport_limit = json.loads(self.client.get(
+            '%s?lat=44.609079&long=-124.052538&limit=cat' % reverse(
+                'vendors-products', kwargs={'id': '1'})
+            ).content)
+
+        expected_answer = json.loads(self.expected_halibut_bad_limit)
+        self.assertEqual(halibut_near_newport_limit, expected_answer)
 
     def test_bad_location_parameters_vendor_products(self):
         """
@@ -621,4 +1072,44 @@ class VendorsProductsLocationTestCase(TestCase):
             ).content)
         expected_answer = json.loads(self.expected_all_missing_long)
 
+        self.assertEqual(broken_data, expected_answer)
+
+    def test_successful_location_by_vendor_product_extended_proximity(self):
+        """
+        Test that good parameters return vendor/product results ordered by
+        location, with an extended proximity of 50 miles. This will include
+        the Pacific City location.
+        """
+        halibut_near_newport_extended = json.loads(self.client.get(
+            '%s?lat=44.609079&long=-124.052538' \
+                '&proximity=50' % reverse(
+                    'vendors-products', kwargs={'id': '1'})
+            ).content)
+
+        expected_answer = json.loads(self.expected_halibut_extended)
+        self.assertEqual(halibut_near_newport_extended, expected_answer)
+
+    def test_proximity_bad_location_vendor_products(self):
+        """
+        Test that bad location returns a Warning.
+        """
+        # Good proximity, bad location
+        broken_data = json.loads(self.client.get(
+            '%s?lat=not_a_latitude&long=not_a_longitude&proximity=50' % reverse(
+                'vendors-products', kwargs={'id': '1'})
+            ).content)
+
+        expected_answer = json.loads(self.expected_all_vendors_products)
+        self.assertEqual(broken_data, expected_answer)
+
+    def test_bad_proximity_good_location_vendor_products(self):
+        """
+        Test that bad proximity returns a Warning.
+        """
+        broken_data = json.loads(self.client.get(
+            '%s?lat=44.609079&long=-124.052538&proximity=cat' % reverse(
+                'vendors-products', kwargs={'id': '1'})
+            ).content)
+
+        expected_answer = json.loads(self.expected_vp_bad_prox)
         self.assertEqual(broken_data, expected_answer)
