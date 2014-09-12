@@ -3,9 +3,14 @@ from django.http import (HttpResponse,
                          HttpResponseServerError)
 from whats_fresh_api.models import Preparation
 from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 import json
 
 
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count() == 1,
+    login_url='/whats_fresh_api/denied/')
 def preparation_details(request, id=None):
     """
     */preparations/<id>*
