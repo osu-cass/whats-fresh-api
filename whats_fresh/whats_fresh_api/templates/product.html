@@ -1,126 +1,185 @@
-{% extends "generic.html" %}
+{% extends "base.html" %}
 
-{% block header_expansion %}
-<div id="back_to_parent"><a href="{{ parent_url }}">&lt; <span class="{{ parent_text }}"></span></a></div>
-{% endblock %}
+{% block header %}
+<div class="back">
+    {% for p in parent_url %}
+    <a href="{{ p.url }}">
+        &lt; <span>{{ p.name }}</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock header %}
 
-{% block body %}
-      {% load staticfiles %}
-         <div id="message">{{ message }}</div>
-         {% if product_form.errors or errors %}
-         <div id="error">
-            <ul>
-            {% for error in product_form.errors %}
-            {% if error != "lat" and error != "long" %}
-            <li>Invalid {{ error|escape }}!</li>
-            {% endif %}
+{% block title %}
+<h2 class='light'>{{ title }}</h2>
+<h4 class='light accent'>{{ message }}</h4>
+{% endblock title %}
+
+{% block content %}
+{% load staticfiles %}
+<form class='form' action="{{ post_url }}" method="post">
+    {% if product_form.errors or errors %}
+    <div class="error">
+        {% for error in product_form.errors %}
+        {% if error != "lat" and error != "long" %}
+        <p class='warning'>Invalid {{ error|escape }}!</p>
+        {% endif %}
+        {% endfor %}
+        {% for error in errors %}
+        <p class='warning'>{{ error|escape }}</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% csrf_token %}
+<h3>Basic Info</h3>
+<p class="field_text">Name*:</p>
+{{ product_form.name }}
+<p class="field_text" >Variety:</p>
+{{ product_form.variety }}
+<p class="field_text" >Alternate Name:</p>
+{{ product_form.alt_name }}
+<p class="field_text" >Origin:</p>
+{{ product_form.origin }}
+<p class="field_text" >Description*:</p>
+{{ product_form.description }}
+<p class="field_text" >Season*:</p>
+{{ product_form.season }}
+<p class="field_text" >Available?</p>
+{{ product_form.available }}
+<p class="field_text" >Market Price*:</p>
+{{ product_form.market_price }}
+<p class="field_text" >Link:</p>
+{{ product_form.link }}
+<p class="field_text" >Image:</p>
+{{ product_form.image_id }}
+<p class="field_text">Story:</p>
+{{ product_form.story_id }}
+<input class="preparations" name="preparations" type="hidden" />
+<div class="container">
+    <h3>Preparation</h3>
+    <button type="button" onclick="appendPreparation()">Add Preparation</button>
+    {% if existing_preparations %}
+    {% for prep in existing_preparations %}
+    <div class="preparation">
+        <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" />Delete</a>
+        <select disabled id="existing{{ prep.id }}">
+            <option value="{{ prep.id }}">{{ prep.name }}</option>
+        </select>
+    </div>
+    {% endfor %}
+    {% else %}
+    <span class="no_prep">No Preparations Yet!</span>
+    {% endif %}
+</div>
+
+<input class='preparation' name="preparation_ids" type="hidden" />
+<button type="submit" onclick="setPreparationField();"/>Save</button>
+</form>
+<!-- The template div used by appendPreparation() -->
+<div id='new_preparation'>
+    <div class="preparation">
+        <select>
+            <option selected disabled></option>
+            {% for preparation in preparation_dict.preparations %}
+            <option value="{{ preparation.id }}">{{ preparation.name }}</option>
             {% endfor %}
-            {% for error in errors %}
-            <li>{{ error|escape }}</li>
-            {% endfor %}
-            </ul>
-         </div>
-         {% endif %}
-         <form action="{{ post_url }}" method="post">
-            {% csrf_token %}
-            <div id="info">
-               <div class="entry_box">
-               <div class="title_text">Basic Info</div><br>
-               <div class="required field_text" id="name">Name:</div><div class="form">{{ product_form.name }}</div><br>
-               <div class="optional field_text" id="name">Variety:</div><div class="form">{{ product_form.variety }}</div><br>
-               <div class="optional field_text" id="name">Alternate Name:</div><div class="form">{{ product_form.alt_name }}</div><br>
-               <div class="optional field_text" id="name">Origin:</div><div class="form">{{ product_form.origin }}</div><br>
-               <div class="required field_text" id="name">Description:</div><div class="form">{{ product_form.description }}</div><br>
-               <div class="required field_text" id="name">Season:</div><div class="form">{{ product_form.season }}</div><br>
-               <div class="optional` field_text" id="name">Available?</div><div class="form">{{ product_form.available }}</div><br>
-               <div class="required field_text" id="name">Market Price:</div><div class="form">{{ product_form.market_price }}</div><br>
-               <div class="optional field_text" id="name">Link:</div><div class="form">{{ product_form.link }}</div><br>
-               <div class="optional field_text" id="name">Image:</div><div class="form">{{ product_form.image_id }}</div><br>
-               <div class="optional field_text" id="story">Story:</div><div class="form">{{ product_form.story_id }}</div><br>
+        </select>
+        <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+    </div>
+</div>
 
-               <input id="preparations" name="preparations" type="hidden" />
-               </div>
-            </div>
+{% endblock content %}
 
-            <div id="preparations_box">
-               <div class="entry_box">
-               <div class="title_text product_title">Preparations<div class="add"><button type="button" onclick="appendPreparation()">Add Preparation</button></div></div><br>
-               <div class="container">
-                  {% if existing_preparations %}
-                  {% for prep in existing_preparations %}
-               <div class="preparations_outer">
-                  <div class="preparations_inner">
-                     <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /><div class="delete">Delete</div></a>
-                     <select disabled id="existing{{ prep.id }}" class="preparation">
+<!--<div id="preparations_box">
+    <div class="entry_box">
+        <div class="title_text product_title">Preparations<div class="add"><button type="button" onclick="appendPreparation()">Add Preparation</button></div></div><br>
+        <div class="container">
+            {% if existing_preparations %}
+            {% for prep in existing_preparations %}
+            <div class="preparations_outer">
+                <div class="preparations_inner">
+                    <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /><div class="delete">Delete</div></a>
+                    <select disabled id="existing{{ prep.id }}" class="preparation">
                         <option value="{{ prep.id }}">{{ prep.name }}</option>
-                     </select>
-                     </div>
-                  </div>
-                  {% endfor %}
-                  {% else %}
-                  <span class="no_preparations">No Preparations Yet!</span>
-                  {% endif %}
-               </div>
-               </div>
+                    </select>
+                </div>
             </div>
-
-
-            <input id="preparation" name="preparation_ids" type="hidden" />
-            <div class="save"><button type="submit" onclick="setPreparationField();"/>Save</button></div>
-         </form>
-      </div>
-
-      <!-- The template div used by appendPreparation() -->
-      <div id="new_preparation" style="display:none;">
-         <div class="preparations_outer">
-            <div class="preparations_inner">
-               <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /><div class="delete">Delete</div></a>
-               <select id="preparation$iteration" class="preparation">
-                  <option selected disabled></option>
-                  {% for preparation in preparation_dict.preparations %}
-                  <option value="{{ preparation.id }}">{{ preparation.name }}</option>
-                  {% endfor %}
-               </select>
-               </div>
-         </div>
-      </div>
-
-{% endblock %}
+            {% endfor %}
+            {% else %}
+            <span class="no_preparations">No Preparations Yet!</span>
+            {% endif %}
+        </div>
+    </div>
+</div>-->
 
 {% block footer %}
-   <script>
-      var preparation_options = {{ json_preparations|safe }};
+<script>
+    var preparation_options = {{ json_preparations|safe }};
 
-      number_of_preparations = 0;
+    number_of_preparations = 0;
 
-      function deletePreparation(element)
-      {
-          $( element ).parent().parent().css("display", "none");
-          if ($( ".preparation:visible" ).length === 0) {
-              $( ".no_products" ).show();
-          };
-      }
+    function deletePreparation(element)
+    {
+        $( element ).parent().parent().css("display", "none");
+        if ($( ".preparation:visible" ).length === 0) {
+            $( ".no_products" ).show();    
+        };
+    }
 
-      function appendPreparation()
-      {
-          $( ".no_preparations" ).hide();
-          var new_html = $('#new_preparation').html();
-          var new_html = new_html.split("$iteration").join(number_of_preparations);
-          $( ".container" ).append( new_html );
-          number_of_preparations++;
-      }
+    function appendPreparation()
+    {
+        $( ".no_preparations" ).hide();
+        var new_html = $('#new_preparation').html();
+        var new_html = new_html.split("$iteration").join(number_of_preparations);
+        $( ".container" ).append( new_html );
+        number_of_preparations++;
+    }
+</script>
+<!--<script>
+    var preparation_options = {{ json_preparations|safe }};
 
-      function setPreparationField()
-      {
-          var preparation_ids = [];
-          $( ".preparation:visible" ).each( function( index, element ){
-              prep_id = this.options[this.selectedIndex].value;
-              if (prep_id) {
-                preparation_ids.push(prep_id);
-              };
-          });
+    number_of_preparations = 0;
 
-          $('input[name="preparation_ids"]').val(preparation_ids);
-      }
-   </script>
-{% endblock %}
+    function deletePreparation(element)
+    {
+    $( element ).parent().parent().css("display", "none");
+    if ($( ".preparation:visible" ).length === 0) {
+    $( ".no_products" ).show();
+    };
+    }
+
+    function appendPreparation()
+    {
+    $( ".no_preparations" ).hide();
+    var new_html = $('#new_preparation').html();
+    var new_html = new_html.split("$iteration").join(number_of_preparations);
+    $( ".container" ).append( new_html );
+    number_of_preparations++;
+    }
+
+    function setPreparationField()
+    {
+    var preparation_ids = [];
+    $( ".preparation:visible" ).each( function( index, element ){
+    prep_id = this.options[this.selectedIndex].value;
+    if (prep_id) {
+    preparation_ids.push(prep_id);
+    };
+    });
+
+    $('input[name="preparation_ids"]').val(preparation_ids);
+    }
+</script>-->
+<script>
+    function setPreparationField()
+    {
+        var preparation_ids = []
+        $( ".preparation:visible" ).each( function( index, element ){
+            preparation_ids.push(this.options[this.selectedIndex].value);
+        });
+
+        $('input[name="preparation_ids"]').val(preparation_ids);
+    }
+</script>
+{% endblock footer %}

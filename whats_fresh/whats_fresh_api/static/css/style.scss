@@ -1,0 +1,286 @@
+@import url(http://fonts.googleapis.com/css?family=Coustard|Montserrat|Arimo|Bitter|Noto+Sans|Open+Sans);
+
+$primary: #517285;
+$secondary: #FFF;
+$ternary: #483c3e;
+$accent: #FFCA5D;
+$light: #FFF;
+$dark: #333;
+$navheight: 70px;
+$sans: 'Montserrat', sans-serif;
+
+@mixin buttons {
+    background: $accent;
+    color: $dark;
+    border: 2px solid $dark;
+    font-size: 16pt;
+    font-family: $sans; 
+    height: auto;
+    padding: 2px;
+    display: block;
+    margin: 20px auto;
+}
+
+@mixin hover {   
+    cursor: pointer;
+    background: $secondary;
+    border: 2px solid $primary;
+    color: $primary;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-size: 100%;
+    background: $primary;
+    text-align: center;
+}
+
+body, html{
+    height: 100%;
+}
+
+//Typography
+h1, h2, h3, h4, p, a{
+    font-family: $sans;
+    margin: 0px;
+    line-height: 1.3em;
+    color: $dark;
+}
+
+h1{
+font-size: 40pt;}
+h2{
+font-size: 36pt;}
+h3{
+font-size: 28pt;}
+h4{
+font-size: 24pt;}
+p{
+    font-size: 16pt;
+    text-align: left;
+}
+a{
+    text-decoration: none;}
+
+.light{
+    color: $light;
+}
+
+.accent{
+    color: $accent;
+}
+
+.warning{
+    color: #D54133;
+}
+
+.error{
+    max-width: 550px;
+}
+
+//Header
+.header{
+    background: $secondary;
+    height: $navheight;
+    width: 100%;
+    margin: 0px auto;
+    font-weight: 700;
+
+    h2{
+        line-height: $navheight;
+        text-align: center;
+        color: $dark;
+    }
+
+    .logout{
+        position: absolute;
+        right: 20px;
+        top: 0px;
+        line-height: $navheight;
+    }
+
+    .logout:hover{
+        color: $primary;
+    }
+}
+
+.title{
+    p{
+        text-align: center;
+    }
+}
+
+.content {
+    background: $primary;
+    min-height: 100%;
+    width: 70%;
+    height: auto;
+    display: block;
+    margin: 50px auto;
+    padding: 10px;
+}
+
+//Entry page
+.entry{
+    background: rgba(255, 255, 255, .6);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 400px;
+    border: 2px solid $dark;
+
+    a{
+        display: block;
+    }
+
+}
+
+.entry:hover{
+    background: $secondary;
+}
+
+
+//Preparation page
+.back{
+    display: inline-block;
+    border-radius: 5px;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+
+    a{
+        color:$dark;
+        line-height: $navheight;
+        vertical-align: middle;
+    }
+
+    a :hover{
+        color: $primary;
+    }
+}
+
+.message {
+    width: 100%;
+    text-align: center;
+}
+
+.error {
+}
+
+//Forms
+.form, .entry_box{
+    display: inline-block;
+    margin: 10px auto;
+    background: $secondary;
+    border-radius: 10px;
+    padding: 15px 40px;
+
+    h3{
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    input, select, textarea{
+        border: 2px solid $dark;
+        display: block;
+        margin: 0px auto 20px;
+        font-size: 16pt;
+        font-family: $sans;
+        width: 90%;
+    }    
+
+    .sumit, button {
+        @include buttons;
+    }
+
+    .submit:hover, button:hover{
+        @include hover;
+    }
+
+    p{
+        margin-left: 5%;
+    }
+}
+
+
+.preparations{
+    display: inline-block;
+    max-width: 50%;
+}
+
+
+
+//List items
+.list{
+    margin: 0px auto 20px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, .6);
+    border-radius: 10px;
+    border: 2px solid $dark;
+    width: 80%;
+}
+
+.list:hover{
+    background-color: $secondary;
+}
+
+.item{
+    display: block;
+    font-size: 24pt;
+}
+
+.description{
+    width: 100%;
+}
+
+.new {
+    @include buttons;
+    display: inline-block;
+
+    p {
+        padding: 5px;
+        line-height: 50px;
+        vertical-align: middle;
+    }
+} 
+
+.new:hover{
+    @include hover;
+}
+
+//Product styles
+.form select{
+    display: inline-block;
+    background: $secondary;
+    width: 40%;
+
+}
+
+.product, .preparation{
+    display: block;
+    margin: 15px;
+}
+
+.no_products{
+    font-size: 18pt;
+    color: $dark;
+    font-family: $sans;
+}
+
+#new_product, #new_preparation{
+    display: none;
+}
+
+.product_list{
+    text-align: left;
+    ul {
+        list-style-type: none;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    ul li{
+        padding-left: 30px;
+    }
+}

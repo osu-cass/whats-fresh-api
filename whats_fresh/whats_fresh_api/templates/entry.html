@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% csrf_token %}
+<div class='entry'>
+    <a href='{% url 'list-vendors-edit' %}'>
+        <h4>Vendors</h4>
+    </a>
+</div>
+
+<div class='entry'>
+    <a href='{% url 'entry-list-preparations' %}'>
+        <h4>Preparations</h4>
+    </a>
+</div>
+
+<div class='entry'>
+    <a href='{% url 'entry-list-products' %}'>
+        <h4>Products</h4>
+    </a>
+</div>
+
+
+{% endblock %}

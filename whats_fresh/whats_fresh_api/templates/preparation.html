@@ -1,36 +1,42 @@
-{% extends "generic.html" %}
+{% extends "base.html" %}
 
-{% block header_expansion %}
-<div id="back_to_parent"><a href="{{ parent_url }}">&lt; <span class="{{ parent_text }}"></span></a></div>
-{% endblock %}
+{% block header %}
+<div class="back">
+    {% for p in parent_url %}
+    <a href="{{ p.url }}">
+        &lt; <span class="parent_text">{{ p.name }}</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock header %}
 
-{% block body %}
-      {% load staticfiles %}
-         <div id="message">{{ message }}</div>
-         {% if preparation_form.errors or errors %}
-         <div id="error">
-            <ul>
-            {% for error in preparation_form.errors %}
-            <li>Invalid {{ error|escape }}!</li>
-            {% endfor %}
-            {% for error in errors %}
-            <li>{{ error|escape }}</li>
-            {% endfor %}
-            </ul>
-         </div>
-         {% endif %}
-         <form action="{{ post_url }}" method="post">
-            {% csrf_token %}
-            <div id="info">
-               <div class="entry_box">
-               <div class="title_text">Basic Info</div><br>
-               <div class="required field_text" id="name">Name:</div><div class="form">{{ preparation_form.name }}</div><br>
-               <div class="optional field_text" id="name">Description:</div><div class="form">{{ preparation_form.description }}</div><br>
-               <div class="optional field_text" id="name">Additional Information:</div><div class="form">{{ preparation_form.additional_info }}</div><br>
-               </div>
-            </div>
+{% block title %}
+<h2 class='light'>{{ title }}</h2>
+<h4 class='light accent'>{{ message }}</h4>
+{% endblock title %}
 
-         <div class="save"><button type="submit"/>Save</button></div>
-         </form>
-      </div>
-{% endblock %}
+{% block content %}
+<form action="{{ post_url }}" method="post">
+<div class="error">
+{% if preparation_form.errors or errors %}
+        {% for error in preparation_form.errors %}
+        <p class='warning'>Invalid {{ error|escape }}!</p>
+        {% endfor %}
+        {% for error in errors %}
+        <p class='warning'>{{ error|escape }}</p>
+        {% endfor %}
+</div>
+{% endif %}
+    {% csrf_token %}
+    <div class="entry_box">
+        <h3>Basic Info</h3>
+        <p class="field_text">Name*:</p>
+        {{ preparation_form.name }}
+        <p class="field_text">Description:</p>
+        {{ preparation_form.description }}
+        <p class="field_text">Additional Information:</p>
+        {{ preparation_form.additional_info }}
+        <button>Save</button>
+    </div>
+</form>
+{% endblock content %}

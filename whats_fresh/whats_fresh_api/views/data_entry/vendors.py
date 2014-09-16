@@ -91,12 +91,11 @@ def vendor(request, id=None):
         existing_product_preparations = []
         errors = []
 
-    message = "Fields marked in bold are required."
-
     if id:
         vendor = Vendor.objects.get(id=id)
         vendor_form = VendorForm(instance=vendor)
         title = "Edit %s" % vendor.name
+        message = "* = Required field"
         post_url = reverse('edit-vendor', kwargs={'id': id})
         # If the list already has items, we're coming back to it from above
         # And have already filled the list with the product preparations POSTed
@@ -110,15 +109,18 @@ def vendor(request, id=None):
         if request.GET.get('success') == 'true':
             message = "Vendor saved successfully!"
     elif request.method != 'POST':
-        title = "New Vendor"
+        title = "Add a Vendor"
         post_url = reverse('new-vendor')
+        message = "* = Required field"
         vendor_form = VendorForm()
     else:
-        title = "New Vendor"
+        title = "Add aVendor"
+        message = "* = Required field"
         post_url = reverse('new-vendor')
 
     data = {}
     product_list = []
+
 
     for product in Product.objects.all():
         product_list.append(product.name)
@@ -132,10 +134,11 @@ def vendor(request, id=None):
     json_preparations = json.dumps(data)
 
     return render(request, 'vendor.html', {
-        'parent_url': reverse('list-vendors-edit'),
-        'parent_text': 'Vendor List',
-        'message': message,
+        'parent_url': [
+            {'url': reverse('home'), 'name': 'Home'},
+            {'url': reverse('list-vendors-edit'), 'name': 'Vendors'}],
         'title': title,
+        'message': message,
         'post_url': post_url,
         'existing_product_preparations': existing_product_preparations,
         'errors': errors,
@@ -162,6 +165,8 @@ def vendor_list(request):
         vendors_list.append(vendor_data)
 
     return render(request, 'list.html', {
+        'parent_url': reverse('home'),
+        'parent_text': 'Home',
         'new_url': reverse('new-vendor'),
         'new_text': "New Vendor",
         'title': "All Vendors",
