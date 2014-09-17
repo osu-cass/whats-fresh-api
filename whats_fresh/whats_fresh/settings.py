@@ -98,6 +98,6 @@ DEFAULT_PROXIMITY = 20
 
 sys.path.append('/opt/whats_fresh/')
 try:
-    import local_settings
+    from local_settings import *
 except:
     pass
