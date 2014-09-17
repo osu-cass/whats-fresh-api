@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+import sys
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -95,3 +95,9 @@ MEDIA_URL = '/media/'
 # Proximity used for location queries if
 # proximity parameter is not also passed
 DEFAULT_PROXIMITY = 20
+
+sys.path.append('/opt/whats_fresh/')
+try:
+    import local_settings
+except:
+    pass
