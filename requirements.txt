@@ -1,7 +1,6 @@
 Django==1.6.5
 Jinja2==2.7.3
 MarkupSafe==0.23
-Pillow==2.5.1
 Pygments==1.6
 Sphinx==1.2.2
 django-phonenumber-field==0.6
@@ -11,4 +10,4 @@ phonenumbers==6.2.0
 psycopg2==2.5.3
 requests==2.3.0
 wsgiref==0.1.2
-pyyaml==3.1.1
+PyYAML==3.1.0
