@@ -1,7 +1,6 @@
 DEPENDENCIES
   whats-fresh
     git: git://github.com/osuosl-cookbooks/whats-fresh.git
-    revision: 33a035f1c37322a68a5ed03189391e6c7739f456
 
 GRAPH
   apt (2.4.0)
