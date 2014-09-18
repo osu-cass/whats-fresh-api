@@ -95,3 +95,5 @@ MEDIA_URL = '/media/'
 # Proximity used for location queries if
 # proximity parameter is not also passed
 DEFAULT_PROXIMITY = 20
+
+LOGIN_URL = '/login'
