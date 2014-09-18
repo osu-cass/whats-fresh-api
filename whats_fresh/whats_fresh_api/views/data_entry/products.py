@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
@@ -13,6 +14,9 @@ from django.forms.models import save_instance
 import json
 
 
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count()
+        == 1, login_url='/login')
 def product(request, id=None):
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -108,6 +112,9 @@ def product(request, id=None):
     })
 
 
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count()
+        == 1, login_url='/login')
 def product_list(request):
     products = Product.objects.all()
     products_list = []
