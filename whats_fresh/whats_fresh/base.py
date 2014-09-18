@@ -95,9 +95,3 @@ MEDIA_URL = '/media/'
 # Proximity used for location queries if
 # proximity parameter is not also passed
 DEFAULT_PROXIMITY = 20
-
-sys.path.append('/opt/whats_fresh/')
-try:
-    from local_settings import *
-except:
-    pass
