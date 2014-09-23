@@ -1,0 +1,41 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  encrypted_data_bag_secret_key_path: chef/encrypted_data_bag_secret
+  data_bags_path: chef/data_bags
+  attributes:
+    postgresql:
+      version: "9.3"
+      password:
+        postgres: postgres
+      server:
+        service_name: postgresql-9.3
+      config:
+        port: 5432
+
+platforms:
+- name: centos-6.5
+  driver_config:
+    username: vagrant
+    image_ref: "CentOS 6.5"
+    network:
+    - ["private_network", {ip: "172.16.16.2", adapter: 2}]
+
+
+suites:
+  - name: develop
+    run_list:
+      - recipe[postgresql::server]
+      - recipe[whats-fresh::default]
+    attributes:
+      whats_fresh:
+        make_db: true
+        debug: true
+    driver_config:
+      username: vagrant
+      synced_folders: [
+        [".", "/home/vagrant/whats_fresh"]
+      ]

@@ -1,0 +1,33 @@
+{
+  "id": "pgsql",
+  "host": {
+    "encrypted_data": "SuNJZJuRe1v8QymmUofRSxAoGXfByE1xcBA3mQ1Sy54=\n",
+    "iv": "0Uwt9/wJdptwoZ/RC8113A==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "user": {
+    "encrypted_data": "7PJ8QxvVkNSByeXJ4H/aFB27H8Qi9Z+8nYVrcKBZLMI=\n",
+    "iv": "dYF2AWgsrmeZPKr5Evi/0w==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "port": {
+    "encrypted_data": "n9lJBdBY+Aej+zCLhWMUyQ0O9gS7BPh3CUQUl4RFCXU=\n",
+    "iv": "MVCyfxU6AwT4rbEZNlNg5w==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "pass": {
+    "encrypted_data": "2Ulru22esBoJOW5OCn7QyeKUv2XCTW+41chRgL+x6SY=\n",
+    "iv": "wg07ybJcsDy/xd1BKWJMUg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "secret_key": {
+    "encrypted_data": "X1uOeCR1LBWvj8FtX6IR+g0M16dmDj/b7ngoQ3WpOy6WdUXeVc4sXlcLiKf2\nRreNgP9sbGYUUQgiGRmOjnGDyONGUHPtXaFyH8xKii8ig0Y5p74nwHclt8te\n+t3CC4433/65vvQ8zzOAnbxykcv/UrWG08OBVmzcb52tGkeULamgFkfhzHGQ\nztSklCI4Ys/CvWOeru60aanXmMm0f1Gf8M7x+F2+V+SXNyqDTS1gvTYFVgJc\n9Yy2TwkJf+SfeHl+dGisqD/GxN+f9DnILPeWWp3HSxTp2Yt6j693RgnXrw4S\nJ33A5JgfFCUXMBUKsepFMqC3WqcQULcAnsJ6kjagoWFRQs1TPijpL/ET4vMh\nQq8nJ43FuTOBstMrLgIH8NcPUQPFkHooNczKWVKsgEG5ABmgg4Tigd/CcdUb\n/V//4I0hMxPn4lplU3w2nQV5wRPzyIPIk0+Pm138G9GT4MqU9iVJ2SUZGrEb\nk7Ea/8/uEwAX+4bfDnMcYfPjOk2oUnJzkYfxRj1Ek17JjarwWYmJbrZc9pVA\n6VRHYQL6DO4SF3r1OcjL6Oq7NiUIKXKIeTH4EsH4ZOVJmULu3vhmDEIChNcn\nfRc0+llBuYN2vJSre8aOXrNEmTurLoRB9PwV87TaJXUvym6cN42wCixiHhrS\nftM8acVsCKy6swa7y4Vw8klsxlo0aALhapToxkia4++dnfY3vlvKqQ/VMDlp\nP43NNdS6GR3cn3ZMG4bSQSMbKrrQnjq7+7gI5OeSaaF1HDqywD49u36+H+vn\nL/X9k+kG3N7lgnfffb899ev/UJN/uWT9w8zQiM0i17E0bUzf6PiHlWXF+77M\nd/dEMxuiu27FSAbDEjdGxBRT6HOkuQywkwOlaOtYIrU46zjylyXr3WtfYxzD\n6+FWZQZZKOCT+3a5xz09pbRPINKMPnaKPPO956s=\n",
+    "iv": "ZBFQvhVpxJlPpk5CtgN8pg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
