@@ -108,7 +108,7 @@ class VendorsTestCase(TestCase):
 
     def test_url_endpoint(self):
         url = reverse('vendors-list')
-        self.assertEqual(url, '/vendors')
+        self.assertEqual(url, '/1/vendors')
 
     def test_no_parameters(self):
         c = Client()

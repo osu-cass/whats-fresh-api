@@ -59,7 +59,7 @@ class ProductVendorTestCase(TestCase):
 
     def test_url_endpoint(self):
         url = reverse('product-vendor', kwargs={'id': '1'})
-        self.assertEqual(url, '/products/vendors/1')
+        self.assertEqual(url, '/1/products/vendors/1')
 
     def test_known_product_vendors(self):
         response = self.client.get(

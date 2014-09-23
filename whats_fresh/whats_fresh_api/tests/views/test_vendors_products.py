@@ -76,7 +76,7 @@ class VendorsProductsTestCase(TestCase):
 
     def test_url_endpoint(self):
         url = reverse('vendors-products', kwargs={'id': '10'})
-        self.assertEqual(url, '/vendors/products/10')
+        self.assertEqual(url, '/1/vendors/products/10')
 
     def test_no_location_parameter(self):
         c = Client()

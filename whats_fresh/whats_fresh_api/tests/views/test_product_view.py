@@ -75,7 +75,7 @@ class ProductViewTestCase(TestCase):
 
     def test_url_endpoint(self):
         url = reverse('products-list')
-        self.assertEqual(url, '/products')
+        self.assertEqual(url, '/1/products')
 
     def test_products_list(self):
         response = self.client.get(reverse('products-list')).content
