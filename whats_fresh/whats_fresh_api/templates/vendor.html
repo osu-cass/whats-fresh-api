@@ -104,17 +104,17 @@
 {% block footer %}
    <script>
       var preparation_options = {{ json_preparations|safe }};
-      
+
       number_of_products = 0;
 
       function deleteProduct(element)
       {
           $( element ).parent().parent().css("display", "none");
           if ($( ".preparation:visible" ).length === 0) {
-              $( ".no_products" ).show();    
+              $( ".no_products" ).show();
           };
       }
-      
+
       function showPreparations(prep_number)
       {
           var preparation_select = document.getElementById("preparation" + prep_number);
@@ -129,7 +129,7 @@
           }
           preparation_select.disabled=false;
       }
-      
+
       function appendProduct()
       {
           $( ".no_products" ).hide();
@@ -138,14 +138,17 @@
           $( ".container" ).append( new_product_html );
           number_of_products++;
       }
-      
+
       function setPreparationField()
       {
-          var preparation_ids = []
+          var preparation_ids = [];
           $( ".preparation:visible" ).each( function( index, element ){
-              preparation_ids.push(this.options[this.selectedIndex].value);
+              prep_id = this.options[this.selectedIndex].value;
+              if (prep_id) {
+                preparation_ids.push(prep_id);
+              };
           });
-      
+
           $('input[name="preparation_ids"]').val(preparation_ids);
       }
    </script>

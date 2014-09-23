@@ -63,7 +63,7 @@
                </div>
                </div>
             </div>
-            
+
 
             <input id="preparation" name="preparation_ids" type="hidden" />
             <div class="save"><button type="submit" onclick="setPreparationField();"/>Save</button></div>
@@ -90,17 +90,17 @@
 {% block footer %}
    <script>
       var preparation_options = {{ json_preparations|safe }};
-      
+
       number_of_preparations = 0;
 
       function deletePreparation(element)
       {
           $( element ).parent().parent().css("display", "none");
           if ($( ".preparation:visible" ).length === 0) {
-              $( ".no_products" ).show();    
+              $( ".no_products" ).show();
           };
       }
-      
+
       function appendPreparation()
       {
           $( ".no_preparations" ).hide();
@@ -109,14 +109,17 @@
           $( ".container" ).append( new_html );
           number_of_preparations++;
       }
-      
+
       function setPreparationField()
       {
-          var preparation_ids = []
+          var preparation_ids = [];
           $( ".preparation:visible" ).each( function( index, element ){
-              preparation_ids.push(this.options[this.selectedIndex].value);
+              prep_id = this.options[this.selectedIndex].value;
+              if (prep_id) {
+                preparation_ids.push(prep_id);
+              };
           });
-      
+
           $('input[name="preparation_ids"]').val(preparation_ids);
       }
    </script>
