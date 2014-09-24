@@ -1641,7 +1641,7 @@ class VendorsLocationTestCase(TestCase):
         Test that a bad location returns an error with good proximity.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=not_a_latitude&long=not_a_longitude&' \
+            '%s?lat=not_a_latitude&lng=not_a_longitude&' \
                 'proximity=50' % reverse('vendors-list')
             ).content)
 

@@ -1095,7 +1095,7 @@ class VendorsProductsLocationTestCase(TestCase):
         """
         # Good proximity, bad location
         broken_data = json.loads(self.client.get(
-            '%s?lat=not_a_latitude&long=not_a_longitude&proximity=50' % reverse(
+            '%s?lat=not_a_latitude&lng=not_a_longitude&proximity=50' % reverse(
                 'vendors-products', kwargs={'id': '1'})
             ).content)
 
