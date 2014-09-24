@@ -23,7 +23,7 @@ class VendorTestCase(TestCase):
   "status": true,
   "description": "This is a vendor shop.",
   "lat": 37.833688,
-  "long": -122.478002,
+  "lng": -122.478002,
   "street": "1633 Sommerville Rd",
   "city": "Sausalito",
   "state": "CA",
