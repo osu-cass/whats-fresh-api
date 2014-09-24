@@ -59,4 +59,5 @@ docs/_build/
 # Gedit backups
 *.*~
 
+# NFS write temps
 .nfs*

@@ -102,7 +102,7 @@ def vendor(request, id=None):
         if not existing_product_preparations:
             for vendor_product in vendor.vendorproduct_set.all():
                 existing_product_preparations.append({
-                    'id': vendor_product.product_preparation.preparation.id,
+                    'id': vendor_product.product_preparation.id,
                     'preparation_text': vendor_product.product_preparation.preparation.name,
                     'product': vendor_product.product_preparation.product.name
                 })
@@ -127,7 +127,7 @@ def vendor(request, id=None):
                 "value": preparation.id,
                 "name": preparation.preparation.name
             })
-    
+
     json_preparations = json.dumps(data)
 
     return render(request, 'vendor.html', {
