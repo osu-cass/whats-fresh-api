@@ -13,7 +13,7 @@ def vendor_list(request):
     data = {}
 
     lat = request.GET.get('lat', None)
-    lng = request.GET.get('long', None)
+    lng = request.GET.get('lng', None)
     proximity = request.GET.get('proximity', None)
     limit = request.GET.get('limit', None)
 
@@ -101,7 +101,7 @@ def vendor_list(request):
             except:
                 data['vendors'][-1]['story_id'] = None
             data['vendors'][-1]['lat'] = vendor.location.y
-            data['vendors'][-1]['long'] = vendor.location.x
+            data['vendors'][-1]['lng'] = vendor.location.x
 
             vendor_products = vendor.vendorproduct_set.all()
             data['vendors'][-1]['products'] = []
@@ -144,7 +144,7 @@ def vendors_products(request, id=None):
     data = {}
 
     lat = request.GET.get('lat', None)
-    lng = request.GET.get('long', None)
+    lng = request.GET.get('lng', None)
     proximity = request.GET.get('proximity', None)
     limit = request.GET.get('limit', None)
 
@@ -249,7 +249,7 @@ def vendors_products(request, id=None):
                 data['story_id'] = None
 
             data['vendors'][-1]['lat'] = vendor.location.y
-            data['vendors'][-1]['long'] = vendor.location.x
+            data['vendors'][-1]['lng'] = vendor.location.x
 
             vendor_products = vendor.vendorproduct_set.all()
             data['vendors'][-1]['products'] = []
@@ -324,7 +324,7 @@ def vendor_details(request, id=None):
             data['phone'] = None
 
         data['lat'] = vendor.location.y
-        data['long'] = vendor.location.x
+        data['lng'] = vendor.location.x
 
         data['created'] = str(vendor.created)
         data['updated'] = str(vendor.modified)
