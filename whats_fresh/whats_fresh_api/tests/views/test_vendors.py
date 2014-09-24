@@ -1617,7 +1617,7 @@ class VendorsLocationTestCase(TestCase):
         There will also be a default limit of 20 miles.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.609079&long=-124.052538' % reverse('vendors-list')
+            '%s?lat=44.609079&lng=-124.052538' % reverse('vendors-list')
             ).content)
 
         expected_answer = json.loads(self.expected_nearby_all_vendors)
@@ -1629,7 +1629,7 @@ class VendorsLocationTestCase(TestCase):
         Extending the proximity to 50 miles adds two stores.
         """
         extended_proximity = json.loads(self.client.get(
-            '%s?lat=44.609079&long=-124.052538&' \
+            '%s?lat=44.609079&lng=-124.052538&' \
                 'proximity=50' % reverse('vendors-list')
             ).content)
 
@@ -1662,7 +1662,7 @@ class VendorsLocationTestCase(TestCase):
 
         # Coordinates are not numbers
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=not_a_latitude&long=not_a_longitude' % reverse(
+            '%s?lat=not_a_latitude&lng=not_a_longitude' % reverse(
                 'vendors-list')
             ).content)
 
@@ -1691,7 +1691,7 @@ class VendorsLocationTestCase(TestCase):
         expected_answer = json.loads(self.expected_error_missing_lat)
 
         all_vendors_data = json.loads(self.client.get(
-            '%s?long=-45.232' % reverse('vendors-list')
+            '%s?lng=-45.232' % reverse('vendors-list')
             ).content)
 
         all_vendors_data['vendors'] = sorted(
@@ -1739,7 +1739,7 @@ class VendorsLocationTestCase(TestCase):
         Test that, when there are no vendors, we get an empty list back.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.015225&long=-123.016873' % reverse('vendors-list')
+            '%s?lat=44.015225&lng=-123.016873' % reverse('vendors-list')
             ).content)
 
         expected_answer = json.loads(self.expected_no_vendors)
@@ -1752,7 +1752,7 @@ class VendorsLocationTestCase(TestCase):
         20 miles.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.609079&long=-124.052538&limit=3' % reverse('vendors-list')
+            '%s?lat=44.609079&lng=-124.052538&limit=3' % reverse('vendors-list')
             ).content)
 
         expected_answer = json.loads(self.expected_nearby_limit_3)
@@ -1764,7 +1764,7 @@ class VendorsLocationTestCase(TestCase):
         There will also be a default proximity of 20 miles.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.609079&long=-124.052538&limit=cat' % reverse(
+            '%s?lat=44.609079&lng=-124.052538&limit=cat' % reverse(
                 'vendors-list')
             ).content)
 
@@ -1777,7 +1777,7 @@ class VendorsLocationTestCase(TestCase):
         affect the list.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.609079&long=-124.052538&'\
+            '%s?lat=44.609079&lng=-124.052538&'\
                 'limit=200' % reverse('vendors-list')
             ).content)
 
