@@ -2,6 +2,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.contrib.auth.models import User, Group, Permission
 
 from whats_fresh_api.models import *
 from django.contrib.gis.db import models
@@ -17,6 +18,12 @@ class ProductViewTestCase(TestCase):
     fixtures = ['test_fixtures']
 
     def setUp(self):
+        user = User.objects.create_user(username='test', password='pass')
+        admin_group = Group(name='Administration Users')
+        admin_group.save()
+        user.groups.add(admin_group)
+        self.client.post(reverse('login'), {'username':'test', 'password':'pass'})
+
         self.expected_list = """
 {
   "error": {
@@ -104,6 +111,13 @@ class ProductViewTestCase(TestCase):
 
 class NoProductViewTestCase(TestCase):
     def setUp(self):
+        user = User.objects.create_user(username='test', password='pass')
+        admin_group = Group(name='Administration Users')
+        admin_group.save()
+        user.groups.add(admin_group)
+        self.client.post(reverse('login'), {'username':'test', 'password':'pass'})
+
+
         self.expected_no_products = """
 {
   "error": {
