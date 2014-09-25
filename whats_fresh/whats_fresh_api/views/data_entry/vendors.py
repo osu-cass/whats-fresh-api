@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.gis.geos import fromstr
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 from whats_fresh_api.models import *
 from whats_fresh_api.forms import *
@@ -14,6 +15,9 @@ from whats_fresh_api.functions import *
 import json
 
 
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count()
+        == 1, login_url='/login')
 def vendor(request, id=None):
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -143,7 +147,9 @@ def vendor(request, id=None):
         'product_list': product_list,
     })
 
-
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count()
+        == 1, login_url='/login')
 def vendor_list(request):
     vendors = Vendor.objects.all()
     vendors_list = []
