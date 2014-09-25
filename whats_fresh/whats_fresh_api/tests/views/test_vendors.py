@@ -1653,9 +1653,8 @@ class VendorsLocationTestCase(TestCase):
         Extending the proximity to 50 miles adds two stores.
         """
         extended_proximity = json.loads(self.client.get(
-            '%s?lat=44.609079&lng=-124.052538&' \
-                'proximity=50' % reverse('vendors-list')
-            ).content)
+            '%s?lat=44.609079&long=-124.052538&' \
+                'proximity=50' % reverse('vendors-list')).content)
 
         expected_answer = json.loads(self.expected_nearby_extended)
         self.assertEqual(extended_proximity, expected_answer)
@@ -1665,9 +1664,8 @@ class VendorsLocationTestCase(TestCase):
         Test that a bad location returns an error with good proximity.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=not_a_latitude&lng=not_a_longitude&' \
-                'proximity=50' % reverse('vendors-list')
-            ).content)
+            '%s?lat=not_a_latitude&long=not_a_longitude&' \
+                'proximity=50' % reverse('vendors-list')).content)
 
         expected_answer = json.loads(self.expected_error_result)
 
@@ -1686,9 +1684,8 @@ class VendorsLocationTestCase(TestCase):
 
         # Coordinates are not numbers
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=not_a_latitude&lng=not_a_longitude' % reverse(
-                'vendors-list')
-            ).content)
+            '%s?lat=not_a_latitude&long=not_a_longitude' % reverse(
+                'vendors-list')).content)
 
         expected_answer = json.loads(self.expected_error_result)
 
@@ -1715,8 +1712,7 @@ class VendorsLocationTestCase(TestCase):
         expected_answer = json.loads(self.expected_error_missing_lat)
 
         all_vendors_data = json.loads(self.client.get(
-            '%s?lng=-45.232' % reverse('vendors-list')
-            ).content)
+            '%s?long=-45.232' % reverse('vendors-list')).content)
 
         all_vendors_data['vendors'] = sorted(
             all_vendors_data['vendors'], key=lambda k: k['id'])
@@ -1775,8 +1771,7 @@ class VendorsLocationTestCase(TestCase):
         20 miles.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.609079&lng=-124.052538&limit=3' % reverse('vendors-list')
-            ).content)
+            '%s?lat=44.609079&long=-124.052538&limit=3' % reverse('vendors-list')).content)
 
         expected_answer = json.loads(self.expected_nearby_limit_3)
         self.assertEqual(all_vendors_data, expected_answer)
@@ -1787,9 +1782,8 @@ class VendorsLocationTestCase(TestCase):
         There will also be a default proximity of 20 miles.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.609079&lng=-124.052538&limit=cat' % reverse(
-                'vendors-list')
-            ).content)
+            '%s?lat=44.609079&long=-124.052538&limit=cat' % reverse(
+                'vendors-list')).content)
 
         expected_answer = json.loads(self.expected_nearby_bad_limit)
         self.assertEqual(all_vendors_data, expected_answer)
@@ -1800,9 +1794,8 @@ class VendorsLocationTestCase(TestCase):
         affect the list.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.609079&lng=-124.052538&'\
-                'limit=200' % reverse('vendors-list')
-            ).content)
+            '%s?lat=44.609079&long=-124.052538&'\
+                'limit=200' % reverse('vendors-list')).content)
 
         expected_answer = json.loads(self.expected_nearby_all_vendors)
         self.assertEqual(all_vendors_data, expected_answer)
