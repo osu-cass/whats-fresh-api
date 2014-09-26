@@ -187,3 +187,6 @@ def vendor_list(request):
         'item_classification': "vendor",
         'item_list': vendors_list,
     })
+
+def delete_vendor(request, id=None):
+    return HttpResponse()
