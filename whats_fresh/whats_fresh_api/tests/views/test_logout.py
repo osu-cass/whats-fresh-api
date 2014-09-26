@@ -44,8 +44,8 @@ class LogoutViewTestCase(TestCase):
         redirecting.
         """
         logged_in = self.client.login(**self.user_credentials)
-        self.assertTrue(logged_in) # verify we logged in successfully
 
-        response = self.client.get('/login')
-        self.assertContains(
-            response, "Please log in below...")
+        self.assertEqual(self.client.session['_auth_user_id'], self.user.pk)
+
+        self.client.get('/logout')
+        self.assertEqual('_auth_user_id' not in self.client.session)
