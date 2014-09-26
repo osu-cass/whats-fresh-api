@@ -61,7 +61,7 @@ class LoginViewTestCase(TestCase):
 
         bad_username = {
             'username': 'bad_dataentry',
-            'password': self.user_credentials['username']
+            'password': self.user_credentials['password']
         }
 
         response = self.client.post(

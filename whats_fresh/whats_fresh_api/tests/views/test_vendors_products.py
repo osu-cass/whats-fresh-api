@@ -996,7 +996,7 @@ class VendorsProductsLocationTestCase(TestCase):
         """
         no_vendor_data = json.loads(
         self.client.get(
-            '%s?lat=44.015225&long=-123.016873' % reverse(
+            '%s?lat=44.015225&lng=-123.016873' % reverse(
                 'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_no_vendors)
@@ -1021,7 +1021,7 @@ class VendorsProductsLocationTestCase(TestCase):
         location. There will also be a default limit of 20 miles.
         """
         halibut_near_newport_limit = json.loads(self.client.get(
-            '%s?lat=44.609079&long=-124.052538&limit=1' % reverse(
+            '%s?lat=44.609079&lng=-124.052538&limit=1' % reverse(
                 'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_halibut_limit_1)
@@ -1033,7 +1033,7 @@ class VendorsProductsLocationTestCase(TestCase):
         affect the list.
         """
         halibut_near_newport = json.loads(self.client.get(
-            '%s?lat=44.609079&long=-124.052538&limit=10' % reverse(
+            '%s?lat=44.609079&lng=-124.052538&limit=10' % reverse(
                 'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_halibut)
@@ -1045,7 +1045,7 @@ class VendorsProductsLocationTestCase(TestCase):
         location. There will also be a default limit of 20 miles.
         """
         halibut_near_newport_limit = json.loads(self.client.get(
-            '%s?lat=44.609079&long=-124.052538&limit=cat' % reverse(
+            '%s?lat=44.609079&lng=-124.052538&limit=cat' % reverse(
                 'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_halibut_bad_limit)
@@ -1060,7 +1060,7 @@ class VendorsProductsLocationTestCase(TestCase):
 
         # Coordinates are not numbers
         broken_data = json.loads(self.client.get(
-            '%s?lat=not_a_latitude&long=not_a_longitude' % reverse(
+            '%s?lat=not_a_latitude&lng=not_a_longitude' % reverse(
                 'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_all_vendors_products)
@@ -1068,7 +1068,7 @@ class VendorsProductsLocationTestCase(TestCase):
 
         # lat is missing
         broken_data = json.loads(self.client.get(
-            '%s?long=-45.232' % reverse(
+            '%s?lng=-45.232' % reverse(
                 'vendors-products', kwargs={'id': '1'})).content)
         expected_answer = json.loads(self.expected_all_missing_lat)
 
@@ -1102,7 +1102,7 @@ class VendorsProductsLocationTestCase(TestCase):
         """
         # Good proximity, bad location
         broken_data = json.loads(self.client.get(
-            '%s?lat=not_a_latitude&long=not_a_longitude&proximity=50' % reverse(
+            '%s?lat=not_a_latitude&lng=not_a_longitude&proximity=50' % reverse(
                 'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_all_vendors_products)
@@ -1113,7 +1113,7 @@ class VendorsProductsLocationTestCase(TestCase):
         Test that bad proximity returns a Warning.
         """
         broken_data = json.loads(self.client.get(
-            '%s?lat=44.609079&long=-124.052538&proximity=cat' % reverse(
+            '%s?lat=44.609079&lng=-124.052538&proximity=cat' % reverse(
                 'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_vp_bad_prox)

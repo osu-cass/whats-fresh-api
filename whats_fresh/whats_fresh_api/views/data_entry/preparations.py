@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import User, Group
 
 from whats_fresh_api.models import *
 from whats_fresh_api.forms import *
@@ -14,9 +15,15 @@ from whats_fresh_api.functions import *
 import json
 
 
+def user_group(user):
+    if (user.groups.filter(name='Administration Users').count() == 1 or 
+        user.groups.filter(name='Data Entry Users').count() == 1):
+        return True
+    else:
+        return False
+
 @login_required
-@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count()
-        == 1, login_url='/login')
+@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
 def preparation_list(request):
     preparations = Preparation.objects.all()
     preparations_list = []
@@ -41,8 +48,7 @@ def preparation_list(request):
     })
 
 @login_required
-@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count()
-        == 1, login_url='/login')
+@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
 def preparation(request, id=None):
     if request.method == 'POST':
         post_data = request.POST.copy()

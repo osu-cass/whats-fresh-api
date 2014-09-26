@@ -14,9 +14,15 @@ from django.forms.models import save_instance
 import json
 
 
+def user_group(user):
+    if (user.groups.filter(name='Administration Users').count() == 1 or
+            user.groups.filter(name='Data Entry Users').count() == 1):
+        return True
+    else:
+        return False
+
 @login_required
-@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count()
-        == 1, login_url='/login')
+@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
 def product(request, id=None):
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -113,8 +119,7 @@ def product(request, id=None):
 
 
 @login_required
-@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count()
-        == 1, login_url='/login')
+@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
 def product_list(request):
     products = Product.objects.all()
     products_list = []
