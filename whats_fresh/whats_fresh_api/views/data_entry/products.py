@@ -152,3 +152,6 @@ def product_list(request):
         'item_classification': "product",
         'item_list': products_list,
     })
+
+def delete_product(request, id=None):
+    return HttpResponse()

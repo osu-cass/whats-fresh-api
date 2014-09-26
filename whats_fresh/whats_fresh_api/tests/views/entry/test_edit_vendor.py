@@ -107,3 +107,19 @@ class EditVendorTestCase(TestCase):
 
         for field in fields:
             self.assertEqual(fields[field], form[field].value())
+
+    def test_delete_vendor(self):
+        """
+        Tests that POSTing entry/vendors/<id>/delete deletes the item, and
+        brings you back to the list with a Deleted message
+        """
+        response = self.client.post(
+            reverse('delete-vendor', kwargs={'id': '2'}), follow=True)
+
+        self.assertRaises(Exception, Vendor.objects.get(id=2))
+        self.assertRedirects(response,
+            reverse('list-vendors-edit'),
+            status_code=302,
+            target_status_code=200)
+
+        self.assertIn("vendor has been deleted!", response.content)
