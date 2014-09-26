@@ -25,8 +25,8 @@ class ListVendorTestCase(TestCase):
     def test_not_logged_in(self):
         self.client.logout()
         response = self.client.get(
-            reverse('edit-preparation', kwargs={'id': '1'}))
-        self.assertRedirects(response, '/login?next=/entry/preparations/1')
+            reverse('edit-vendor', kwargs={'id': '1'}))
+        self.assertRedirects(response, '/login?next=/entry/vendors/1')
 
     def test_url_endpoint(self):
         url = reverse('new-vendor')

@@ -26,8 +26,8 @@ class ListProductTestCase(TestCase):
         self.client.logout()
 
         response = self.client.get(
-            reverse('edit-preparation', kwargs={'id': '1'}))
-        self.assertRedirects(response, '/login?next=/entry/preparations/1')
+            reverse('edit-product', kwargs={'id': '1'}))
+        self.assertRedirects(response, '/login?next=/entry/products/1')
 
     def test_url_endpoint(self):
         url = reverse('entry-list-products')
