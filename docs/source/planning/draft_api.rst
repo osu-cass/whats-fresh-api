@@ -209,7 +209,24 @@ Returns a story record identified by <id>.
 .. code-block:: json
 
 	{
-		story: "text"
+        name: text
+        history: text
+        facts: text
+        buying: text
+        preparing: text
+        products: text
+        season: text
+        images: [
+            {caption: text, link: text}
+            {caption: text, link: text}
+            ...
+        ]
+        videos: [
+            {caption: text, link: url}
+            {caption: text, link: url}
+            ...
+        ]
+
 	}
 
 

@@ -53,7 +53,6 @@ stories
 .. code-block:: python
 
 	id          int (pk)
-	story       txt
     name        varchar
     history     text
     facts       text
