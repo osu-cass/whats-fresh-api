@@ -14,6 +14,13 @@ import json
 
 
 def product(request, id=None):
+    """
+    */entry/products/<id>*, */entry/products/new*
+
+    The entry interface's edit/add product view. This view creates the edit
+    page for a given product, or the "new product" page if it is not passed
+    an ID. It also accepts POST requests to create or edit products.
+    """
     if request.method == 'POST':
         post_data = request.POST.copy()
         errors = []
@@ -109,6 +116,13 @@ def product(request, id=None):
 
 
 def product_list(request):
+    """
+    */entry/products*
+
+    The entry interface's products list. This view lists all products,
+    their description, and allows you to click on them to view/edit the
+    product.
+    """
     products = Product.objects.all()
     products_list = []
 
