@@ -116,6 +116,7 @@ vendors_products
 	preparation_id       int (preparation foreign key)
 	vendor_price         varchar (optional)
 	available            bool (optional, has this product right now?)
+<<<<<<< HEAD
 
 
 stories_images
@@ -134,3 +135,24 @@ stories_videos
     story_id      int (foreign key to story)
 	video_id      int (foreign key to video)
 
+||||||| merged common ancestors
+=======
+
+
+stories_images
+--------------
+
+.. code-block:: python
+
+    story_id      int (foreign key to stories)
+    image_id      int (foreign key to images)
+
+stories_videos
+--------------
+
+.. code-block:: python
+
+    story_id      int (foreign key to story)
+	video_id      int (foreign key to video)
+
+>>>>>>> Add details to story model, associated tables
