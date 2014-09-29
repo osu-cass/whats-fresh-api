@@ -292,7 +292,7 @@ Vendors selling a product
 If a user wants to know which vendors are selling a given product, the
 ``/vendors/products/<id>`` endpoint should be used. This endpoint returns
 a list of all vendors selling the product given by the ID in the same format
-as the ``/vendors/`` endpoint. 
+as the ``/vendors/`` endpoint.
 
 Optional Fields
 ^^^^^^^^^^^^^^^
@@ -513,7 +513,7 @@ The ``/preparations/<id>`` endpoint returns the preparation details for
 a given preparation ID.
 
 Example: GET /preparations/1
-^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: javascript
 
