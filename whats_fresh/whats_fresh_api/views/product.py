@@ -154,6 +154,13 @@ def product_details(request, id=None):
 
 
 def product_vendor(request, id=None):
+    """
+    */products/vendors/<id>*
+
+    List all products sold by vendor <id>. This information includes the details
+    of the products, rather than only the product name/id and preparation name/id
+    returned by */vendors/<id>*.
+    """
     data = {}
 
     try:

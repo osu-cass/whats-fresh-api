@@ -10,6 +10,13 @@ from django.conf import settings
 
 
 def vendor_list(request):
+    """
+    */vendors/*
+
+    List all vendors in the database. There is no order to this list,
+    only whatever is returned by the database.
+    """
+
     data = {}
 
     lat = request.GET.get('lat', None)
@@ -141,6 +148,12 @@ def vendor_list(request):
 
 
 def vendors_products(request, id=None):
+    """
+    */vendors/products/<id>*
+
+    List all vendors in the database that sell product <id>.
+    There is no order to this list, only whatever is returned by the database.
+    """
     data = {}
 
     lat = request.GET.get('lat', None)
@@ -292,6 +305,11 @@ def vendors_products(request, id=None):
 
 
 def vendor_details(request, id=None):
+    """
+    */vendors/<id>*
+
+    Vendor details for vendor <id>.
+    """
     data = {}
 
     try:
