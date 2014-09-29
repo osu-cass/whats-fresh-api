@@ -20,9 +20,6 @@ contain slightly more detail, including the ID of the object not found.
 The API will only return HTTP 200 status codes, including for errors, except
 in the case of server-side errors, which will return a 500.
 
-  .. note:: In the future, it will be possible to get a short description of each endpoint by adding /describe to the end.
-  .. note:: As of yet, none of the parameters have been added.
-
 If future additions are made to the API, they will be made in the ``ext``
 extension dictionary so as to provide backward compatibility.
 
@@ -57,47 +54,49 @@ Example: GET /products/
 
     {
       "error": {
-        "error_status": false,
-        "error_name": null,
-        "error_text": null,
-        "error_level": null
+        "status": false,
+        "text": null,
+        "name": null,
+        "debug": null,
+        "level": null
       },
       "products": [
         {
+          "origin": "Pacific Ocean",
+          "available": null,
+          "description": "A classic fish",
+          "variety": "Salmon",
+          "season": "July - October",
+          "image": null,
+          "created": "2014-09-18 18:33:22.140000+00:00",
+          "modified": "2014-09-24 19:42:52.720000+00:00",
+          "market_price": "$100 per fluid ounce",
+          "link": "",
+          "alt_name": "Oncorynchus kisutch",
+          "story_id": null,
           "id": 1,
-          "name": "Salmon",
-          "variety": "Chinook",
-          "alt_name": "Chinook Salmon",
-          "description": "Oregon's state fish, the chinook salmon is the largest in the Pacific salmon genus",
-          "origin": "",
-          "season": "Late March to October",
-          "available": true,
-          "market_price": "$24.99",
-          "link": "http://en.wikipedia.org/wiki/Chinook_salmon",
-          "image": "/media/salmon.jpg",
-          "story_id": 2,
-          "created": "2014-08-08 23:27:05.568395+00:00",
-          "modified": "2014-08-08 23:27:05.568395+00:00"
+          "name": "Coho Salmon"
         },
         {
-          "id": 2,
-          "name": "Tuna",
-          "variety": "Albacore",
-          "alt_name": "Tuna fish",
-          "description": "Albacore tuna is an Oregon classic, and delicious too!",
-          "origin": "",
-          "season": "June through October",
+          "origin": "Pacific Ocean",
           "available": null,
-          "market_price": "$2.75 per pound",
-          "link": "https://www.youtube.com/watch?v=2lspr6Uh_Dk",
-          "image": "/media/tuna.jpg",
-          "story_id": 1,
-          "created": "2014-08-08 23:27:05.568395+00:00",
-          "modified": "2014-08-08 23:27:05.568395+00:00"
+          "description": "A popular seafood prized for its sweet and tender flesh. ",
+          "variety": "Dungeness",
+          "season": "December to January",
+          "image": null,
+          "created": "2014-09-18 18:36:14.240000+00:00",
+          "modified": "2014-09-24 19:43:08.960000+00:00",
+          "market_price": "$0.10 per dozen",
+          "link": "",
+          "alt_name": "Metacarcinus magister",
+          "story_id": null,
+          "id": 2,
+          "name": "Dungeness Crab"
         },
-      ...
-      ]
+        ...
+        ]
     }
+
 
 Product details
 ---------------
@@ -125,25 +124,26 @@ Example: GET /products/2
 
     {
       "error": {
-        "error_status": false,
-        "error_name": null,
-        "error_text": null,
-        "error_level": null
+        "status": false,
+        "debug": null,
+        "text": null,
+        "name": null,
+        "level": null
       },
-      "id": 2,
-      "name": "Tuna",
-      "variety": "Albacore",
-      "alt_name": "Tuna fish",
-      "description": "Albacore tuna is an Oregon classic, and delicious too!",
-      "origin": "",
-      "season": "June through October",
+      "origin": "Pacific Ocean",
       "available": null,
-      "market_price": "$2.75 per pound",
-      "link": "https://www.youtube.com/watch?v=2lspr6Uh_Dk",
-      "image": "/media/tuna.jpg",
-      "story_id": 1,
-      "created": "2014-08-08 23:27:05.568395+00:00",
-      "modified": "2014-08-08 23:27:05.568395+00:00"
+      "updated": "2014-09-24 19:43:08.960000+00:00",
+      "description": "A popular seafood prized for its sweet and tender flesh. ",
+      "variety": "Dungeness",
+      "season": "December to ???",
+      "image": null,
+      "created": "2014-09-18 18:36:14.240000+00:00",
+      "market_price": "$0.10 per dozen",
+      "link": "",
+      "alt_name": "Metacarcinus magister",
+      "story_id": null,
+      "id": 2,
+      "name": "Dungeness Crab"
     }
 
 Vendors listing
@@ -211,76 +211,68 @@ Example: GET /vendors/
       },
       "vendors": [
         {
-          "id": 1,
-          "name": "Fish Shack",
-          "status": true,
-          "description": "We sell fish.",
-          "lat": 44.622746,
-          "long": -124.056278,
-          "street": "1900 SW Coast Hwy",
+          "status": null,
           "city": "Newport",
-          "state": "OR",
+          "website": "",
+          "updated": "2014-09-24 19:55:16.085000+00:00",
+          "description": "A local tuna provider.",
           "zip": "97365",
-          "hours": "Weekdays 5pm to 7pm, Saturday 10am to 1pm, closed Sunday",
-          "location_description": "On top of the bridge",
-          "contact_name": "Joe Fisherman",
-          "phone": 5551234567,
-          "website": "http://example.com",
-          "email": "joefisherman@example.com",
-          "story": 1,
-         "ext": {},
-          "created": "2014-08-08 23:27:05.568395+00:00",
-          "updated": "2014-08-08 23:27:05.568395+00:00",
+          "created": "2014-09-23 23:52:51.484000+00:00",
+          "story_id": 1,
+          "ext": {
+            
+          },
+          "location_description": "",
+          "email": "",
+          "hours": "",
+          "phone": null,
+          "state": "Oregon",
+          "street": "1398 SW Bay St",
           "products": [
             {
-              "product_id": 1,
-              "preparation_id": 1,
-              "name": "Salmon",
-              "preparation": "Frozen"
-            },
-            {
-              "product_id": 2,
-              "preparation_id": 1,
-              "name": "Tuna",
-              "preparation": "Frozen"
-            },
-            {
+              "preparation": "Filet",
+              "preparation_id": 3,
               "product_id": 3,
-              "preparation_id": 1,
-              "name": "Clams",
-              "preparation": "Frozen"
+              "name": "Albacore Tuna"
             }
-          ]
+          ],
+          "lng": 44.6266099,
+          "lat": -124.0565731,
+          "contact_name": "Todd Sherman",
+          "id": 2,
+          "name": "Todd's Tuna Farm"
         },
         {
-          "id": 2,
-          "name": "Nullfield Fishery",
-          "status": null,
-          "description": "All optional fields are blank",
-          "lat": 43.423949,
-          "long": -124.222432,
-          "street": "18632 Oregon Coast Hwy",
-          "city": "North Bend",
-          "state": "OR",
-          "zip": "97459",
-          "location_description": "",
-          "hours": "",
-          "contact_name": "Hex Fisher",
-          "phone": null,
+          "status": true,
+          "city": "Gold Beach",
           "website": "",
+          "updated": "2014-09-24 20:49:33.156000+00:00",
+          "description": "Best shark meat in the west.",
+          "zip": "97444",
+          "created": "2014-09-23 23:59:20.016000+00:00",
+          "story_id": 1,
+          "ext": {
+            
+          },
+          "location_description": "",
           "email": "",
-          "story": null,
-          "ext": {},
-          "created": "2014-08-08 23:27:05.568395+00:00",
-          "updated": "2014-08-08 23:27:05.568395+00:00",
+          "hours": "",
+          "phone": null,
+          "state": "Oregon",
+          "street": "29985 Harbor Way",
           "products": [
             {
-              "product_id": 1,
-              "preparation_id": 2,
-              "name": "Salmon",
-              "preparation": "Live"
+              "preparation": "Live",
+              "preparation_id": 1,
+              "product_id": 5,
+              "name": "Leopard Shark"
             }
-          ]
+          ],
+          "lng": 42.4210811,
+          "lat": -124.4179554,
+          "contact_name": "James Renolds",
+          "id": 3,
+          "name": "The Shark Shop"
         },
         ...
       ]
@@ -350,80 +342,79 @@ Example: GET /vendors/products/3
         "error_text": null,
         "error_level": null
       },
+    {
       "vendors": [
         {
-          "id": 1,
-          "name": "Fish Shack",
-          "status": true,
-          "description": "We sell fish.",
-          "lat": 44.622746,
-          "long": -124.056278,
-          "street": "1900 SW Coast Hwy",
+          "status": null,
           "city": "Newport",
-          "state": "OR",
+          "website": "",
+          "updated": "2014-09-24 19:55:16.085000+00:00",
+          "description": "A local tuna provider.",
           "zip": "97365",
-          "location_description": "On top of the bridge",
-          "hours": "Weekdays 5pm to 7pm, Saturday 10am to 1pm, closed Sunday",
-          "contact_name": "Joe Fisherman",
-          "phone": 5551234567,
-          "website": "http://example.com",
-          "email": "joefisherman@example.com",
-          "story": 1,
-          "ext": {},
-          "created": "2014-08-08 23:27:05.568395+00:00",
-          "updated": "2014-08-08 23:27:05.568395+00:00",
+          "created": "2014-09-23 23:52:51.484000+00:00",
+          "story_id": 1,
+          "ext": {
+            
+          },
+          "location_description": "",
+          "email": "",
+          "hours": "",
+          "phone": null,
+          "state": "Oregon",
+          "street": "1398 SW Bay St",
           "products": [
             {
-              "product_id": 1,
-              "preparation_id": 1,
-              "name": "Salmon",
-              "preparation": "Frozen"
-            },
-            {
-              "product_id": 2,
-              "preparation_id": 1,
-            "name": "Tuna",
-            "preparation": "Frozen"
-            },
-            {
+              "preparation": "Filet",
+              "preparation_id": 3,
               "product_id": 3,
-              "preparation_id": 1,
-              "name": "Clams",
-              "preparation": "Frozen"
+              "name": "Albacore Tuna"
             }
-          ]
+          ],
+          "lng": 44.6266099,
+          "lat": -124.0565731,
+          "contact_name": "Todd Sherman",
+          "id": 2,
+          "name": "Todd's Tuna Farm"
         },
         {
-          "id": 3,
-          "name": "Vendor the Third",
           "status": null,
-          "description": "Coming in 3rd since 1998",
-          "lat": 44.432156,
-          "long": -124.070720,
-          "street": "1330 NW Pacific Coast Hwy",
           "city": "Waldport",
-          "state": "OR",
-          "zip": "97394",
-          "location_description": "",
-          "hours": "",
-          "contact_name": "Ana Ther",
-          "phone": null,
           "website": "",
+          "updated": "2014-09-24 20:50:37.652000+00:00",
+          "description": "The freshest seafood in Waldport.",
+          "zip": "97394",
+          "created": "2014-09-24 00:06:43.426000+00:00",
+          "story_id": 1,
+          "ext": {
+            
+          },
+          "location_description": "",
           "email": "",
-          "story": null,
-          "ext": {},
-          "created": "2014-08-08 23:27:05.568395+00:00",
-          "updated": "2014-08-08 23:27:05.568395+00:00",
+          "hours": "",
+          "phone": null,
+          "state": "Oregon",
+          "street": "98 NW Alsea Bay Dr",
           "products": [
             {
+              "preparation": "Live",
+              "preparation_id": 1,
+              "product_id": 7,
+              "name": "Savory Clam"
+            },
+            {
+              "preparation": "Filet",
+              "preparation_id": 3,
               "product_id": 3,
-              "preparation_id": 2,
-              "name": "Clams",
-              "preparation": "Live"
+              "name": "Albacore Tuna"
             }
-          ]
+          ],
+          "lng": 44.4269468,
+          "lat": -124.0792542,
+          "contact_name": "Carlos Molena",
+          "id": 4,
+          "name": "Waterfront Seafood Shop"
         }
-      ]
+        ]
     }
 
 Vendor details
@@ -452,36 +443,40 @@ Example: GET /vendors/2
 
     {
       "error": {
-        "error_status": false,
-        "error_name": null,
-        "error_text": null,
-        "error_level": null
+        "debug": null,
+        "status": false,
+        "text": null,
+        "name": null,
+        "level": null
       },
-      "id": 2,
-      "name": "Nullfield Fishery",
-      "status": null,
-      "description": "All optional fields are blank",
-      "lat": 43.423949,
-      "long": -124.222432,
-      "street": "18632 Oregon Coast Hwy",
-      "city": "North Bend",
-      "state": "OR",
-      "zip": "97459",
-      "location_description": "",
-      "hours": "",
-      "contact_name": "Hex Fisher",
-      "phone": null,
       "website": "",
+      "street": "1398 SW Bay St",
+      "lng": 44.6266099,
+      "contact_name": "Todd Sherman",
+      "city": "Newport",
+      "zip": "97365",
+      "story_id": 1,
+      "location_description": "",
+      "id": 2,
+      "state": "Oregon",
       "email": "",
-      "story": null,
-      "ext": {},
-      "created": "2014-08-08 23:27:05.568395+00:00",
-      "updated": "2014-08-08 23:27:05.568395+00:00",
+      "status": null,
+      "updated": "2014-09-24 19:55:16.085000+00:00",
+      "description": "A local tuna provider.",
+      "hours": "",
+      "phone": null,
+      "lat": -124.0565731,
+      "name": "Todd's Tuna Farm",
+      "created": "2014-09-23 23:52:51.484000+00:00",
+      "ext": {
+        
+      },
       "products": [
-         {
-          "product_id": 1,
-          "name": "Salmon",
-          "preparation": "Live"
+        {
+          "preparation": "Filet",
+          "preparation_id": 3,
+          "product_id": 3,
+          "name": "Albacore Tuna"
         }
       ]
     }
@@ -512,20 +507,21 @@ Preparation details
 The ``/preparations/<id>`` endpoint returns the preparation details for
 a given preparation ID.
 
-Example: GET /preparations/1
+Example: GET /preparations/4
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: javascript
 
     {
       "error": {
-        "error_status": false,
-        "error_name": null,
-        "error_text": null,
-        "error_level": null
+        "status": false,
+        "debug": null,
+        "text": null,
+        "name": null,
+        "level": null
       },
-      "id": 1,
-      "name": "Frozen",
-      "description": "Fish is generally cooled and frozen as quickly as possible after catching to preserve the meat.",
-      "additional_info": "Be sure to ask the fisherman how quickly the fish was cooled after being caught. It is important to get the fish on ice as soon as possible."
+      "name": "Smoked",
+      "description": "Thats dense stuff, tastes like forest fire.",
+      "additional_info": "",
+      "id": 4
     }
