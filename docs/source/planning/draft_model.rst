@@ -13,7 +13,7 @@ products
 	description     text
 	origin          varchar? (optional)
 	season          varchar (string describing season?)
-	available       bool (optional, is or isn't available now?)
+	available       bool (optional, is or is not available now?)
 	market_price    varchar
 	link            url (optional, link to industry info site)
 	image_id        int (optional, image foreign key)
@@ -54,6 +54,13 @@ stories
 
 	id          int (pk)
 	story       txt
+    name        varchar
+    history     text
+    facts       text
+    buying      text
+    preparing   text
+    products    text
+    season      text
 	created     datetime
 	updated     datetime (auto-update on modification)
 
@@ -69,6 +76,17 @@ images
 	created     datetime
 	updated     datetime (auto-update on modification)
 
+
+videos
+------
+
+.. code-block:: python
+
+	id          int (pk)
+	video       url
+	caption     text (optional)
+	created     datetime
+	updated     datetime (auto-update on modification)
 
 preparations
 ------------
@@ -99,3 +117,21 @@ vendors_products
 	preparation_id       int (preparation foreign key)
 	vendor_price         varchar (optional)
 	available            bool (optional, has this product right now?)
+
+
+stories_images
+--------------
+
+.. code-block:: python
+
+    story_id      int (foreign key to stories)
+    image_id      int (foreign key to images)
+
+stories_videos
+--------------
+
+.. code-block:: python
+	
+    story_id      int (foreign key to story)
+	video_id      int (foreign key to video)
+
