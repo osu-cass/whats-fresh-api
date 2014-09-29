@@ -14,6 +14,13 @@ import json
 
 
 def preparation_list(request):
+    """
+    */entry/preparations*
+
+    The entry interface's preparations list. This view lists all preparations,
+    their description, and allows you to click on them to view/edit the
+    preparation.
+    """
     preparations = Preparation.objects.all()
     preparations_list = []
 
@@ -38,6 +45,13 @@ def preparation_list(request):
 
 
 def preparation(request, id=None):
+    """
+    */entry/preparations/<id>*, */entry/preparations/new*
+
+    The entry interface's edit/add preparation view. This view creates the edit
+    page for a given preparation, or the "new preparation" page if it is not
+    passed an ID. It also accepts POST requests to create or edit preparations.
+    """
     if request.method == 'POST':
         post_data = request.POST.copy()
         errors = []

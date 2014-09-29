@@ -69,67 +69,85 @@ Developing
 Requirements
 ------------
 
-This project uses a Vagrant virtual machine to create a homogeneous development
-environment and allow developers to destroy and recreate their environment in
-the case that something goes horribly, horribly wrong.
+This project uses Test Kitchen and Vagrant to manage and create a
+homogeneous development environment and allow developers to destroy and
+recreate their environment in the case that something goes horribly, horribly
+wrong.
 
 To set up this environment on your own machine, you'll need a few things:
+
+**Chef DK**
+
+The first step of this process is to install the Chef Development Kit. It can
+be obtained from `getchef.com <http://downloads.getchef.com/chef-dk/>`_.
+
+    $ sudo dpkg -i chefdk_0.2.2-1_amd64.deb
+
+**Ruby Gems**
+
+In order to install the required gems, you'll need to install the ruby
+
+Kitchen is a Ruby gem. To install it, just use ``gem install``::
+
+    $ sudo gem install kitchen kitchen-vagrant berkshelf
 
 **Vagrant**
 
 To install Vagrant, just use your package manager::
 
-    sudo yum install vagrant # Debian or Ubuntu
-    sudo apt-get install vagrant # Centos
+    $ sudo yum install vagrant # Debian or Ubuntu
+    $ sudo apt-get install vagrant # Centos
 
 **vagrant-berkshelf and vagrant-omnibus**
 
 These plugins are used to configure the Vagrant machine. To install these
 plugins, you'll need to use Vagrant's plugin manager::
 
-    vagrant plugin install vagrant-berkshelf
-    vagrant plugin install vagrant-omnibus
+    $ vagrant plugin install vagrant-berkshelf
+
+**Berks**
+
+Now, you'll need to update your Berkshelf. This allows your virtual machine to
+configure itself::
+
+    $ berks update
+
 
 Running the Django project
 --------------------------
 
-You're ready to go! To get the environment started, type ``vagrant up`` in the
-root of the Git repository.
+You're ready to go! To get the environment started, type ``kitchen converge dev``
+in the root of the Git repository.
 
 After a while (this process may take a quite few minutes), your machine will be
-ready to use. To log in, type ``vagrant ssh``.
+ready to use. To log in, type ``kitchen login dev``.
 
 Now you should be on the Vagrant machine::
 
-[vagrant@project-fish ~]$
+[vagrant@develop-centos-65 ~]$
 
 To get developing, you'll need to prepare your virtual environment. To do so,
 first activate the Python virtualenv::
 
-(venv)[vagrant@project-fish ~]$ source venv/bin/activate
+[vagrant@develop-centos-65 ~]$ source /opt/whats_fresh/shared/env/bin/activate
 
 Your prompt should look like this now::
 
-(venv)[vagrant@project-fish ~]$
+(env)[vagrant@develop-centos-65 ~]$
 
 It's a good idea to navigate to the project directory now, so that ``manage.py``
 functions as expected.
 
 ::
-(venv)[vagrant@project-fish ~]$ cd whats-fresh/whats_fresh
-
-To install the Python packages needed to run the Django project, run pip with
-the ``requirements.txt`` file provided in the root of the repository::
-
-    (venv)[vagrant@project-fish ~]$ pip install -r ~/whats-fresh/requirements.txt
+    (env)[vagrant@develop-centos-65 ~]$ cd cd whats_fresh/whats_fresh/
 
 Now, create the database tables using ``manage.py``::
 
-(venv)[vagrant@project-fish ~]$ python manage.py syncdb
+    (env)[vagrant@develop-centos-65 ~]$ python manage.py syncdb
 
 You should now be ready to run the Django app!
 ::
-    (venv)[vagrant@project-fish ~]$ python manage.py runserver 0.0.0.0:8000
+    (env)[vagrant@develop-centos-65 ~]$ python manage.py runserver 0.0.0.0:8000
 
 To access the server in your web browser, navigate to ``http://172.16.16.2:8000``.
 
@@ -151,7 +169,7 @@ Let's say you've just modified the code -- say, you edited the Vendor model
 due to a bug you found. Instead of running the entire testing suite, you can
 run just one set of tests at a time::
 
-(venv)[vagrant@project-fish ~]$ python manage.py test whats_fresh_api.tests.models.test_vendor_model.VendorTestCase
+    (env)[vagrant@develop-centos-65 whats_fresh]$ python manage.py test whats_fresh_api.tests.models.test_vendor_model.VendorTestCase
 
 .. note::
 
@@ -162,13 +180,13 @@ run just one set of tests at a time::
     For a test called ImageTestCase inside of ``tests/views/test_image_view.py``,
     you would need to run the following command::
 
-        (venv)[vagrant@project-fish ~]$ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
+        (env)[vagrant@develop-centos-65 whats_fresh]$ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
 
 To make sure that you didn't break anything unexpected, it can be a good idea
 to periodically run the entire testing suite, especially before committing any
 particularly hairy commits::
 
-(venv)[vagrant@project-fish ~]$ python manage.py test
+    (env)[vagrant@develop-centos-65 whats_fresh]$ python manage.py test
 
 **Fixtures**
 
@@ -180,7 +198,7 @@ generated (for when we simply want to have data in our database).
 
 To install a fixture, use the ``manage.py`` command's loaddata option::
 
-(venv)[vagrant@project-fish ~]$ manage.py loaddata fixtures
+    (env)[vagrant@develop-centos-65 whats_fresh]$ manage.py loaddata fixtures
 
 The hand-written fixtures are stored in ``fixtures``, and the automatically
 generated ones in ``random``.

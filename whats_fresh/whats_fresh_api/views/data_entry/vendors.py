@@ -15,6 +15,13 @@ import json
 
 
 def vendor(request, id=None):
+    """
+    */entry/vendors/<id>*, */entry/vendors/new*
+
+    The entry interface's edit/add vendor view. This view creates the edit
+    page for a given vendor, or the "new vendor" page if it is not passed
+    an ID. It also accepts POST requests to create or edit vendors.
+    """
     if request.method == 'POST':
         post_data = request.POST.copy()
         errors = []
@@ -145,6 +152,13 @@ def vendor(request, id=None):
 
 
 def vendor_list(request):
+    """
+    */entry/vendors*
+
+    The entry interface's vendors list. This view lists all vendors,
+    their description, and allows you to click on them to view/edit the
+    vendor.
+    """
     vendors = Vendor.objects.all()
     vendors_list = []
 
