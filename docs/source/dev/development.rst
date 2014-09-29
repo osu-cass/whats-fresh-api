@@ -79,9 +79,7 @@ To set up this environment on your own machine, you'll need a few things:
 **Chef DK**
 
 The first step of this process is to install the Chef Development Kit. It can
-be obtained from `getchef.com <http://downloads.getchef.com/chef-dk/>`_::
-
-    $ sudo dpkg -i chefdk_0.2.2-1_amd64.deb
+be obtained from `getchef.com <http://downloads.getchef.com/chef-dk/>`_
 
 **Ruby Gems**
 
@@ -89,7 +87,8 @@ In order to install the required gems, you'll need to install the ruby
 
 Kitchen is a Ruby gem. To install it, just use ``gem install``::
 
-    $ sudo gem install kitchen kitchen-vagrant berkshelf
+    $ chef gem install knife-spork knife-flip knife-solve knife-backup knife-cleanup \
+      knife-env-diff foodcritic berkshelf test-kitchen kitchen-vagrant kitchen-openstack
 
 **Vagrant**
 
