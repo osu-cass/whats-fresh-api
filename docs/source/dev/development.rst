@@ -79,7 +79,7 @@ To set up this environment on your own machine, you'll need a few things:
 **Chef DK**
 
 The first step of this process is to install the Chef Development Kit. It can
-be obtained from `getchef.com <http://downloads.getchef.com/chef-dk/>`_.
+be obtained from `getchef.com <http://downloads.getchef.com/chef-dk/>`_::
 
     $ sudo dpkg -i chefdk_0.2.2-1_amd64.deb
 
