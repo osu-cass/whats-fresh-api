@@ -139,7 +139,8 @@ It's a good idea to navigate to the project directory now, so that ``manage.py``
 functions as expected.
 
 ::
-    (env)[vagrant@develop-centos-65 ~]$ cd cd whats_fresh/whats_fresh/
+
+    (env)[vagrant@develop-centos-65 ~]$ cd cd whats_fresh/
 
 Now, create the database tables using ``manage.py``::
 
@@ -147,6 +148,7 @@ Now, create the database tables using ``manage.py``::
 
 You should now be ready to run the Django app!
 ::
+
     (env)[vagrant@develop-centos-65 ~]$ python manage.py runserver 0.0.0.0:8000
 
 To access the server in your web browser, navigate to ``http://172.16.16.2:8000``.
@@ -180,7 +182,11 @@ run just one set of tests at a time::
     For a test called ImageTestCase inside of ``tests/views/test_image_view.py``,
     you would need to run the following command::
 
+<<<<<<< HEAD
         (env)[vagrant@develop-centos-65 whats_fresh]$ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
+=======
+        (venv)[vagrant@project-fish ~]$ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
+>>>>>>> Fix autodoc; update docs
 
 To make sure that you didn't break anything unexpected, it can be a good idea
 to periodically run the entire testing suite, especially before committing any

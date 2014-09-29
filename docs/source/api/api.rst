@@ -220,7 +220,7 @@ Example: GET /vendors/
           "created": "2014-09-23 23:52:51.484000+00:00",
           "story_id": 1,
           "ext": {
-            
+
           },
           "location_description": "",
           "email": "",
@@ -252,7 +252,7 @@ Example: GET /vendors/
           "created": "2014-09-23 23:59:20.016000+00:00",
           "story_id": 1,
           "ext": {
-            
+
           },
           "location_description": "",
           "email": "",
@@ -354,7 +354,7 @@ Example: GET /vendors/products/3
           "created": "2014-09-23 23:52:51.484000+00:00",
           "story_id": 1,
           "ext": {
-            
+
           },
           "location_description": "",
           "email": "",
@@ -386,7 +386,7 @@ Example: GET /vendors/products/3
           "created": "2014-09-24 00:06:43.426000+00:00",
           "story_id": 1,
           "ext": {
-            
+
           },
           "location_description": "",
           "email": "",
@@ -469,7 +469,7 @@ Example: GET /vendors/2
       "name": "Todd's Tuna Farm",
       "created": "2014-09-23 23:52:51.484000+00:00",
       "ext": {
-        
+
       },
       "products": [
         {
@@ -508,7 +508,6 @@ The ``/preparations/<id>`` endpoint returns the preparation details for
 a given preparation ID.
 
 Example: GET /preparations/4
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: javascript
 
