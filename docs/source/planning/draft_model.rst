@@ -130,7 +130,7 @@ stories_videos
 --------------
 
 .. code-block:: python
-	
+
     story_id      int (foreign key to story)
 	video_id      int (foreign key to video)
 
