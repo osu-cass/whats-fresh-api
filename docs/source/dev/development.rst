@@ -121,7 +121,7 @@ functions as expected.
 To install the Python packages needed to run the Django project, run pip with
 the ``requirements.txt`` file provided in the root of the repository::
 
-(venv)[vagrant@project-fish ~]$ pip install -r ~/whats-fresh/requirements.txt
+    (venv)[vagrant@project-fish ~]$ pip install -r ~/whats-fresh/requirements.txt
 
 Now, create the database tables using ``manage.py``::
 
@@ -129,7 +129,7 @@ Now, create the database tables using ``manage.py``::
 
 You should now be ready to run the Django app!
 ::
-(venv)[vagrant@project-fish ~]$ python manage.py runserver 0.0.0.0:8000
+    (venv)[vagrant@project-fish ~]$ python manage.py runserver 0.0.0.0:8000
 
 To access the server in your web browser, navigate to ``http://172.16.16.2:8000``.
 
@@ -145,7 +145,7 @@ a subdirectory based on what kind of test it is. For instance, all model tests
 live inside the ``models`` subdirectory, while views would live inside the
 ``view`` directory.
 
-For information on how to write tests, see ``Django's guide on writing tests``<https://docs.djangoproject.com/en/1.6/topics/testing/overview/>.
+For information on how to write tests, see ``Django's guide on writing tests``<https://docs.djangoproject.com/en/1.6/topics/testing/overview/>``.
 
 Let's say you've just modified the code -- say, you edited the Vendor model
 due to a bug you found. Instead of running the entire testing suite, you can
@@ -157,12 +157,12 @@ run just one set of tests at a time::
 
     Running tests is based on the directory name, using the following syntax::
 
-    ``whats_fresh_api.tests.<test subdirectory>.<test file>.<test class name>``
+        whats_fresh_api.tests.<test subdirectory>.<test file>.<test class name>
 
     For a test called ImageTestCase inside of ``tests/views/test_image_view.py``,
     you would need to run the following command::
 
-(venv)[vagrant@project-fish ~]$ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
+        (venv)[vagrant@project-fish ~]$ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
 
 To make sure that you didn't break anything unexpected, it can be a good idea
 to periodically run the entire testing suite, especially before committing any
