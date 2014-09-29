@@ -41,6 +41,7 @@ def vendor(request, id=None):
                 product_preparations = []
             else:
                 product_preparations = list(set(post_data['preparation_ids'].split(',')))
+                # TODO: Find better way to do form validation
                 post_data['products_preparations'] = product_preparations[0] # Needed for form validation to pass
         except MultiValueDictKeyError:
             errors.append("You must choose at least one product.")
