@@ -3,7 +3,8 @@
 API Endpoints
 =============
 
-The What's Fresh API is a REST-style JSON API for Oregon Coast fish vendors.
+The What's Fresh API is a REST-style JSON API for discovering fresh
+local food products.
 
 The data can be accessed through a handful of endpoints:
 
@@ -465,6 +466,10 @@ Example: GET /vendors/2
       "name": "Todd's Tuna Farm",
       "created": "2014-09-23 23:52:51.484000+00:00",
       "ext": {
+<<<<<<< HEAD
+=======
+
+>>>>>>> Fix minor sphinx errors
       },
       "products": [
         {

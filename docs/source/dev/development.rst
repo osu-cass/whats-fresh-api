@@ -76,7 +76,7 @@ wrong. It's not necessary to use this environment, but using it will make sure
 that your environment is as close to the production environment, and to other
 developer's environments, as possible.
 
-To set up a development environment yourself, see :ref:`manual_setup`.
+To set up a development environment yourself, see :ref:`manualSetup`.
 
 To set up this environment on your own machine, you'll need a few things:
 
@@ -141,7 +141,8 @@ functions as expected.
 
     (env)[vagrant@develop-centos-65 ~]$ cd whats_fresh/
 
-.. _manual_setup:
+.. _manualSetup:
+
 Manually setting up the What's Fresh environment
 ------------------------------------------------
 
@@ -160,7 +161,7 @@ using the ``psql`` tool::
     $ psql whats_fresh
     whats_fresh-# CREATE EXTENSION postgis;
 
-You can exist the PSQL prompt by pressing Ctrl+D on your keyboard.
+You can exit the PSQL prompt by pressing Ctrl+D on your keyboard.
 
 **Getting What's Fresh source code**
 
