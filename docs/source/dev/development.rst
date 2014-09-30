@@ -69,10 +69,14 @@ Developing
 Requirements
 ------------
 
-This project uses Test Kitchen and Vagrant to manage and create a
-homogeneous development environment and allow developers to destroy and
+This project comes with a Test Kitchen configuration set up to manage and create
+a homogeneous development environment and allow developers to destroy and
 recreate their environment in the case that something goes horribly, horribly
-wrong.
+wrong. It's not necessary to use this environment, but using it will make sure
+that your environment is as close to the production environment, and to other
+developer's environments, as possible.
+
+To set up a development environment yourself, see :ref:`manual_setup`.
 
 To set up this environment on your own machine, you'll need a few things:
 
@@ -111,10 +115,6 @@ configure itself::
 
     $ berks update
 
-
-Running the Django project
---------------------------
-
 You're ready to go! To get the environment started, type ``kitchen converge dev``
 in the root of the Git repository.
 
@@ -138,7 +138,58 @@ It's a good idea to navigate to the project directory now, so that ``manage.py``
 functions as expected.
 
 ::
-    (env)[vagrant@develop-centos-65 ~]$ cd cd whats_fresh/whats_fresh/
+    (env)[vagrant@develop-centos-65 ~]$ cd whats_fresh/whats_fresh/
+
+.. _manual_setup:
+Manually setting up the What's Fresh environment
+------------------------------------------------
+
+The What's Fresh API has been developed and tested on Python 2.7, Postgres 9.3.5,
+and PostGIS 2.1.3, with GDAL 1.9.2.
+
+**Installing PostGIS and requirements**
+
+To install PostGIS, PostgreSQL, and its requirements, follow the installation
+instructions on `PostGIS\'s website <http://postgis.net/install/>`_.
+
+After installing PostGIS and Postgres, you'll need to prepare the database
+using the ``psql`` tool::
+
+    $ sudo -u postgres psql
+    postgres=# CREATE DATABASE whats_fresh
+    postgres-# CREATE EXTENSION postgis
+
+You can exist the PSQL prompt by pressing Ctrl+D on your keyboard.
+
+**Getting What's Fresh source code**
+
+After PostGIS is installed, you'll need to use ``git`` to clone the What's
+Fresh repository. If you don't have ``git``, install it using your system's
+package manager.
+
+Now, clone the API repository::
+
+    $ git clone https://github.com/osu-cass/whats-fresh-api.git
+
+This will place the source code in the subdirectory ``whats-fresh-api``. You'll
+want to use a Python virtual environment and the ``pip`` package manager to
+set up the Python requirements::
+
+    $ cd whats-fresh-api
+    $ virtualenv ~/.virtualenvs/whats-fresh
+    $ source ~/.virtualenvs/whats-fresh/bin/activate
+    (whats-fresh)$ pip install -r requirements.txt
+    $ cd whats_fresh
+
+You're now ready to run and develop the project!
+
+Running the Django project
+--------------------------
+
+At this point, you should have a working database and copy of the source code.
+You may be developing on your physical machine, or using a virtual machine as
+described above. After setting up the virtual environment, change to the
+directory with ``manage.py`` inside.
 
 Now, create the database tables using ``manage.py``::
 
@@ -155,7 +206,10 @@ Testing
 
 The What's Fresh API uses `test-driven development<http://en.wikipedia.org/wiki/Test-driven_development>`.
 What this means is that, before writing a feature -- be it a new API endpoint,
-a model, or a bug fix -- you should write a test.
+a model, or a bug fix -- you should write a test. After writing the feature,
+run the test to verify that it works, and when you're satisfied with your
+implementation, re-run the entire test suite to make sure there were no
+regressions.
 
 Each test lives inside the ``whats_fresh_api/tests/`` directory, organized into
 a subdirectory based on what kind of test it is. For instance, all model tests
@@ -182,8 +236,7 @@ run just one set of tests at a time::
         (env)[vagrant@develop-centos-65 whats_fresh]$ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
 
 To make sure that you didn't break anything unexpected, it can be a good idea
-to periodically run the entire testing suite, especially before committing any
-particularly hairy commits::
+to periodically run the entire testing suite::
 
     (env)[vagrant@develop-centos-65 whats_fresh]$ python manage.py test
 
