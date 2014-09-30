@@ -60,12 +60,13 @@ class EditVendorTestCase(TestCase):
         new_vendor['status'] = None
         new_vendor['phone'] = None
         new_vendor['story_id'] = Story.objects.get(id=new_vendor['story_id'])
-        new_vendor['lat'] = 44.6752643
-        new_vendor['long'] = -124.072162
 
         vend = Vendor.objects.get(id=1)
         for field in new_vendor:
             self.assertEqual(getattr(vend, field), new_vendor[field])
+
+        self.assertEqual(vend.location.y, 44.6752643) # latitude
+        self.assertEqual(vend.location.x, -124.072162) # longitude
 
         # We told it which product preparation ID to use by saving ProdPreps to
         # IDs 1 and 2, and then posting '1,2' as the list of product
