@@ -156,9 +156,9 @@ instructions on `PostGIS\'s website <http://postgis.net/install/>`_.
 After installing PostGIS and Postgres, you'll need to prepare the database
 using the ``psql`` tool::
 
-    $ sudo -u postgres psql
-    postgres=# CREATE DATABASE whats_fresh
-    postgres-# CREATE EXTENSION postgis
+    $ createdb whats_fresh
+    $ psql whats_fresh
+    whats_fresh-# CREATE EXTENSION postgis
 
 You can exist the PSQL prompt by pressing Ctrl+D on your keyboard.
 

@@ -1,7 +1,5 @@
 What's Fresh API
 ================
 
-The API component of the What's Fresh project.
-
-To create a local instance to of the server to run, please see the Developer
-Documentation available in ``docs/source/dev/development.rst``.
+The What’s Fresh API is a REST-style JSON API for Oregon Coast fish vendors.
+For development and API documentation, please see the `What\'s Fresh Read the Docs` <http://whats-fresh.readthedocs.org/en/latest/index.html>.
