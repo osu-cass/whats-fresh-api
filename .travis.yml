@@ -9,6 +9,6 @@ script: python manage.py test
 addons:
   postgresql: "9.3"
 before_script:
-  - psql -c 'create database test_whats_fresh;' -U postgres
-  - psql -U postgres -c "create extension postgis;" test_whats_fresh
+  - psql -c 'create database whats_fresh;' -U postgres
+  - psql -U postgres -c "create extension postgis;" whats_fresh
 
