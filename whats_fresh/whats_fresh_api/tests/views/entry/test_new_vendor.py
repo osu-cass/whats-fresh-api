@@ -100,6 +100,8 @@ class NewVendorTestCase(TestCase):
         new_vendor['status'] = None
         new_vendor['phone'] = None
         new_vendor['story_id'] = Story.objects.get(id=new_vendor['story_id'])
+        new_vendor['lat'] = 44.6752643
+        new_vendor['long'] = -124.072162
 
         vend = Vendor.objects.all()[0]
         for field in new_vendor:
