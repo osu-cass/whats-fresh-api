@@ -466,10 +466,6 @@ Example: GET /vendors/2
       "name": "Todd's Tuna Farm",
       "created": "2014-09-23 23:52:51.484000+00:00",
       "ext": {
-<<<<<<< HEAD
-=======
-
->>>>>>> Fix minor sphinx errors
       },
       "products": [
         {
