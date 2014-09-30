@@ -3,7 +3,13 @@
     "model": "whats_fresh_api.Story",
     "pk": "1",
     "fields": {
-      "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations...",
+      "name": "Star Wars",
+      "history": "A long time ago, in a galaxy far, far away...",
+      "facts": "Star Wars is awesome",
+      "buying": "I have no idea what this field is for.",
+      "preparing": "Fried",
+      "products": "Fish",
+      "season": "Spring",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
