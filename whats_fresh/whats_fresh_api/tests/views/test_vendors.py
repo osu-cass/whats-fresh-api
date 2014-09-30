@@ -3,7 +3,7 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
-from whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import *
 from django.contrib.gis.db import models
 import json
 

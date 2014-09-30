@@ -6,8 +6,8 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 
-from whats_fresh_api.models import *
-from whats_fresh_api.forms import *
+from whats_fresh.whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.forms import *
 from django.forms.models import save_instance
 
 import json

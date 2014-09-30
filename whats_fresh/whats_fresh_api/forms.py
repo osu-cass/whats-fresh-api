@@ -1,5 +1,5 @@
 import django.forms as forms
-from whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import *
 
 
 class VendorForm(forms.ModelForm):

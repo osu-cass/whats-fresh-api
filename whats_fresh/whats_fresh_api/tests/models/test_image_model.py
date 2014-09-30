@@ -3,7 +3,7 @@ from django.conf import settings
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.files import File
 
-from whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import *
 from django.contrib.gis.db import models
 
 import os

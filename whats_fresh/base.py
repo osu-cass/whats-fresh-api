@@ -27,7 +27,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 FIXTURE_DIRS = (
-    'whats_fresh_api/tests/testdata',
+    'whats_fresh/whats_fresh_api/tests/testdata',
 )
 
 # Application definition
@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'whats_fresh_api',
+    'whats_fresh.whats_fresh_api',
 )
 
 MIDDLEWARE_CLASSES = (

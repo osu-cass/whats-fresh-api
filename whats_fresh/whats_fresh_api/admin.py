@@ -1,5 +1,5 @@
 from django.contrib.gis import admin
-from whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import *
 
 
 class VendorProductInline(admin.TabularInline):
