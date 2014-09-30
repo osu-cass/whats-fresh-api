@@ -158,7 +158,7 @@ using the ``psql`` tool::
 
     $ createdb whats_fresh
     $ psql whats_fresh
-    whats_fresh-# CREATE EXTENSION postgis
+    whats_fresh-# CREATE EXTENSION postgis;
 
 You can exist the PSQL prompt by pressing Ctrl+D on your keyboard.
 
