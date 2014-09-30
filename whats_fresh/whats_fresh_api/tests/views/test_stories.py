@@ -18,7 +18,6 @@ class StoriesTestCase(TestCase):
                                             'password': 'pass'})
 
         self.maxDiff = None
-
         self.expected_json = """
 {
     "error": {
