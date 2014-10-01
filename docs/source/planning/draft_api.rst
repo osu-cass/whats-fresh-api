@@ -4,7 +4,7 @@ Draft API
 Format
 ------
 
-Responses will be returned in standard JSON format. An attempt will be made to keep the structure simple. Https will be used for all endpoints. 
+Responses will be returned in standard JSON format. An attempt will be made to keep the structure simple. Https will be used for all endpoints.
 
 Null values (optional fields that do not have data), will be empty strings: "".
 
@@ -35,6 +35,20 @@ To allow for future expandability, a dictionary call 'ext' will be included with
 Endpoints
 ---------
 
+*/locations*
+
+Return a list of city names, such as Newport, Florence, Waldport, etc.
+
+.. code-block:: json
+
+	{
+		locations: [
+		    'Newport',
+		    'Florence',
+		    'Astoria'
+		]
+	}
+
 */products*
 
 Return a dictionary containing a record for every product in the database.The product id is the record key. This data is unlikely to change frequently, it should be in long-term storage on the device and refreshed periodically.
@@ -43,7 +57,7 @@ Return a dictionary containing a record for every product in the database.The pr
 
 	{
 		error: {error_status: bool, error_name: text, error_text: text, error_level},
-	    <product_id>: { 
+	    <product_id>: {
 			name: text
 			variety: text or null
 			alt_name: text or null
@@ -58,7 +72,7 @@ Return a dictionary containing a record for every product in the database.The pr
 			story: int or null
 			created: datetime
 			modified: datetime
-			ext: {attribute: value, attribute: value...} or {}	
+			ext: {attribute: value, attribute: value...} or {}
 		},
 		<product_id>: {...},
 		...
@@ -89,9 +103,9 @@ Returns a single product record identified by <id>. This may be useful for selec
 		story: int or null
 		created: datetime
 		modified: datetime
-		ext: {attribute: value, attribute: value...}			
+		ext: {attribute: value, attribute: value...}
 	}
-	
+
 
 */products/describe*
 
@@ -168,7 +182,7 @@ Returns a single vendor record identified by <id>. This should be used to fetch 
 		story: int or null
 		ext: {attribute: value, attribute: value...}
 		created: datetime
-		updated: datetime			
+		updated: datetime
 		products: {
 			<product_id>: {name: text, preparation: text},
 			<product_id>: {name: text, preparation: text},...
@@ -229,7 +243,7 @@ These parameters can be added to any endpoint request
 
 *?location=<lat>,<long>*
 
-or 
+or
 
 *?lat=<float>&long=<float>*
 
