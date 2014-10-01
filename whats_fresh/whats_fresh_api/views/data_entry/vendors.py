@@ -23,7 +23,7 @@ def user_group(user):
         return False
 
 @login_required
-@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
+@group_required('Administration Users', 'Data Entry Users')
 def vendor(request, id=None):
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -155,7 +155,7 @@ def vendor(request, id=None):
     })
 
 @login_required
-@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
+@group_required('Administration Users', 'Data Entry Users')
 def vendor_list(request):
     vendors = Vendor.objects.all()
     vendors_list = []

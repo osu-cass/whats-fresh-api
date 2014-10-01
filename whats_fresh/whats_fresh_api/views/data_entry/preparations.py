@@ -23,7 +23,7 @@ def user_group(user):
         return False
 
 @login_required
-@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
+@group_required('Administration Users', 'Data Entry Users')
 def preparation_list(request):
     preparations = Preparation.objects.all()
     preparations_list = []
@@ -48,7 +48,7 @@ def preparation_list(request):
     })
 
 @login_required
-@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
+@group_required('Administration Users', 'Data Entry Users')
 def preparation(request, id=None):
     if request.method == 'POST':
         post_data = request.POST.copy()

@@ -1,6 +1,8 @@
 import requests
 import json
 
+from django.contrib.auth.decorators import user_passes_test
+
 
 class BadAddressException(Exception):
     pass
@@ -25,3 +27,11 @@ def get_coordinates_from_address(street, city, state, zip):
         return [lat, long]
     except:
         raise BadAddressException("Address %s not found" % full_address)
+
+def group_required(*group_names)
+    def in_groups(u):
+        if u.is_authenticated():
+            if u.is_superuser | bool(u.groups.filter(name__in=group_names)):
+                return True
+        return false
+    return user_passes_test(in_groups, login_url='/login')

@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
 from django.forms.models import save_instance
+from whats_fresh.whats_fresh_api.functions import * 
 
 import json
 
@@ -22,7 +23,7 @@ def user_group(user):
         return False
 
 @login_required
-@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
+@group_required('Administration Users', 'Data Entry Users')
 def product(request, id=None):
     if request.method == 'POST':
         post_data = request.POST.copy()
@@ -119,7 +120,7 @@ def product(request, id=None):
 
 
 @login_required
-@user_passes_test(lambda u: user_group(u) == True, login_url='/login')
+@group_required('Administration Users', 'Data Entry Users')
 def product_list(request):
     products = Product.objects.all()
     products_list = []
