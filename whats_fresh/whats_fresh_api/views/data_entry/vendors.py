@@ -25,7 +25,7 @@ def vendor(request, id=None):
                 post_data['zip'])
 
             post_data['location'] = fromstr(
-                'POINT(%s %s)' % (coordinates[0], coordinates[1]),
+                'POINT(%s %s)' % (coordinates[1], coordinates[0]),
                 srid=4326)
         # Bad Address will be thrown if Google does not return coordinates for
         # the address, and MultiValueDictKeyError will be thrown if the POST
