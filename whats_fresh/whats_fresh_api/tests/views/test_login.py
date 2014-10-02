@@ -85,3 +85,11 @@ class LoginViewTestCase(TestCase):
         response = self.client.post(
             reverse('login'), post_data)
         self.assertRedirects(response, '/entry/vendors/')
+
+    def test_root_redirect(self):
+        """
+        GET the root of the site ('/'), and verify that it correctly
+        redirects to the login page ('/login').
+        """
+        response = self.client.get('/')
+        self.assertRedirects(response, '/login')
