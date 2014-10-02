@@ -73,6 +73,10 @@ urlpatterns = patterns('',
         'whats_fresh.whats_fresh_api.views.data_entry.login.login_user',
         name='login'),
 
+    url(r'^/?$',
+        'whats_fresh.whats_fresh_api.views.data_entry.login.root',
+        name='root'),
+
     url(r'^entry/?$',
         'whats_fresh.whats_fresh_api.views.data_entry.home.home',
         name='home'),
