@@ -41,7 +41,7 @@ urlpatterns = patterns('',
         'whats_fresh.whats_fresh_api.views.data_entry.vendors.vendor',
         name='edit-vendor'),
 
-    url(r'^entry/vendors/(?P<id>\d+)/delete?$',
+    url(r'^entry/vendors/(?P<id>\d+)/delete/?$',
         'whats_fresh_api.views.data_entry.vendors.delete_vendor',
         name='delete-vendor'),
 
@@ -53,7 +53,7 @@ urlpatterns = patterns('',
         'whats_fresh.whats_fresh_api.views.data_entry.products.product',
         name='edit-product'),
 
-    url(r'^entry/products/(?P<id>\d+)/delete?$',
+    url(r'^entry/products/(?P<id>\d+)/delete/?$',
         'whats_fresh_api.views.data_entry.products.delete_product',
         name='delete-product'),
 
@@ -73,7 +73,7 @@ urlpatterns = patterns('',
         'whats_fresh.whats_fresh_api.views.data_entry.preparations.preparation',
         name='edit-preparation'),
 
-    url(r'^entry/preparations/(?P<id>\d+)/delete?$',
+    url(r'^entry/preparations/(?P<id>\d+)/delete/?$',
         'whats_fresh_api.views.data_entry.preparations.delete_preparation',
         name='delete-preparation'),
 

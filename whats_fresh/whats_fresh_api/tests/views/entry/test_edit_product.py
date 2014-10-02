@@ -92,7 +92,7 @@ class EditProductTestCase(TestCase):
 
     def test_delete_product(self):
         """
-        Tests that POSTing entry/products/<id>/delete deletes the item, and
+        Tests that DELETing entry/products/<id>/delete deletes the item, and
         brings you back to the list with a Deleted message
         """
         response = self.client.delete(

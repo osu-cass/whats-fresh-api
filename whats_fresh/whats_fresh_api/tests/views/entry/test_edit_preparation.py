@@ -69,7 +69,7 @@ class EditPreparationTestCase(TestCase):
 
     def test_delete_preparation(self):
         """
-        Tests that POSTing entry/preparations/<id>/delete deletes the item, and
+        Tests that DELETing entry/preparations/<id>/delete deletes the item, and
         brings you back to the list with a Deleted message
         """
         response = self.client.delete(
