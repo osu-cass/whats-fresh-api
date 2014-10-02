@@ -72,13 +72,13 @@ class EditPreparationTestCase(TestCase):
         Tests that POSTing entry/preparations/<id>/delete deletes the item, and
         brings you back to the list with a Deleted message
         """
-        response = self.client.post(
-            reverse('delete-preparation', kwargs={'id': '2'}), follow=True)
+        response = self.client.delete(
+            reverse('delete-preparation', kwargs={'id': '2'}))
+        self.assertEqual(response.status_code, 200)
 
-        self.assertRaises(Exception, Preparation.objects.get(id=2))
-        self.assertRedirects(response,
-            reverse('entry-list-products'),
-            status_code=302,
-            target_status_code=200)
+        with self.assertRaises(Preparation.DoesNotExist):
+            Preparation.objects.get(id=2)
 
-        self.assertIn("Preparation has been deleted!", response.content)
+        response = self.client.delete(
+            reverse('delete-preparation', kwargs={'id': '2'}))
+        self.assertEqual(response.status_code, 404)

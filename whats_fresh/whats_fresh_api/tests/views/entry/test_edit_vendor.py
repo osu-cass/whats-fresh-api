@@ -113,13 +113,13 @@ class EditVendorTestCase(TestCase):
         Tests that POSTing entry/vendors/<id>/delete deletes the item, and
         brings you back to the list with a Deleted message
         """
-        response = self.client.post(
-            reverse('delete-vendor', kwargs={'id': '2'}), follow=True)
+        response = self.client.delete(
+            reverse('delete-vendor', kwargs={'id': '2'}))
+        self.assertEqual(response.status_code, 200)
 
-        self.assertRaises(Exception, Vendor.objects.get(id=2))
-        self.assertRedirects(response,
-            reverse('list-vendors-edit'),
-            status_code=302,
-            target_status_code=200)
+        with self.assertRaises(Vendor.DoesNotExist):
+            Vendor.objects.get(id=2)
 
-        self.assertIn("vendor has been deleted!", response.content)
+        response = self.client.delete(
+            reverse('delete-vendor', kwargs={'id': '2'}))
+        self.assertEqual(response.status_code, 404)
