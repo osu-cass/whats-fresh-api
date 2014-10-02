@@ -70,16 +70,10 @@
         {% else %}
         <span class="no_prep">No Preparations Yet!</span>
         {% endif %}
-        >>>>>>> Centering preparation form, deleting old.css, and enlarging description.  Also adding sass file
     </div>
-    {% endfor %}
-    {% else %}
-    <span class="no_prep">No Preparations Yet!</span>
-    {% endif %}
-</div>
 
-<input class='preparation' name="preparation_ids" type="hidden" />
-<button type="submit" onclick="setPreparationField();"/>Save</button>
+    <input class='preparation' name="preparation_ids" type="hidden" />
+    <button type="submit" onclick="setPreparationField();"/>Save</button>
 </form>
 <!-- The template div used by appendPreparation() -->
 <div id='new_preparation'>

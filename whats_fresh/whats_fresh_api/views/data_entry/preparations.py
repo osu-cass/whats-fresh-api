@@ -41,6 +41,7 @@ def preparation_list(request):
 
 def preparation(request, id=None):
     if request.method == 'POST':
+        message = ''
         post_data = request.POST.copy()
         errors = []
 
@@ -58,6 +59,7 @@ def preparation(request, id=None):
             pass
     else:
         errors = []
+        message = ''
 
     if id:
         preparation = Preparation.objects.get(id=id)

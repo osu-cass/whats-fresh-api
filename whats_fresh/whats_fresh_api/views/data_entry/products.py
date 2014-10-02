@@ -15,6 +15,7 @@ import json
 
 def product(request, id=None):
     if request.method == 'POST':
+        message = ''
         post_data = request.POST.copy()
         errors = []
 
@@ -59,8 +60,7 @@ def product(request, id=None):
             return HttpResponseRedirect("%s?success=true" % reverse('edit-product', kwargs={'id': product.id}))
     else:
         errors = []
-
-    message = "Fields marked with bold are required."
+        message = ''
 
     if id:
         product = Product.objects.get(id=id)
@@ -104,7 +104,6 @@ def product(request, id=None):
         'parent_text': 'Product List',
         'message': message,
         'title': title,
-        'message': message,
         'post_url': post_url,
         'errors': errors,
         'product_form': product_form,

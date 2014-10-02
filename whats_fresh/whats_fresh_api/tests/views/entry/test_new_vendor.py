@@ -38,7 +38,7 @@ class NewVendorTestCase(TestCase):
             {'username': 'temporary', 'password': 'temporary'})
         response = self.client.get(reverse('new-vendor'))
 
-        fields = {'name': 'input', 'description': 'input', 'hours': 'input',
+        fields = {'name': 'input', 'description': 'textarea', 'hours': 'input',
                   'story_id': 'select', 'status': 'select', 'street': 'input',
                   'city': 'input', 'state': 'input', 'zip': 'input',
                   'location_description': 'textarea', 'contact_name': 'input',

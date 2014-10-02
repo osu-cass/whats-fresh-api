@@ -27,7 +27,7 @@ class NewPreparationTestCase(TestCase):
         """
         response = self.client.get(reverse('new-preparation'))
 
-        fields = {'name': 'input', 'description': 'input',
+        fields = {'name': 'input', 'description': 'textarea',
                   'additional_info': 'input'}
         form = response.context['preparation_form']
 

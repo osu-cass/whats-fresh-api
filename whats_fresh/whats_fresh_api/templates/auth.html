@@ -2,6 +2,7 @@
 {{ state }}
 {% block content %}
 <form class='form' id='login' action='/login/' method='post'>
+    <h4 class='light warning'>{{ state }}</h4>
     {% csrf_token %}
     {% if next %}
     <input type='hidden' name='next' value='{{ next }}' />

@@ -44,7 +44,8 @@ a {
   color: #D54133; }
 
 .error {
-  max-width: 550px; }
+  max-width: 550px;
+  margin: 0px auto; }
 
 .header {
   background: #FFF;
@@ -139,6 +140,8 @@ a {
     color: #517285; }
   .form p, .entry_box p {
     margin-left: 5%; }
+  .form .delete, .entry_box .delete {
+    vertical-align: middle; }
 
 .preparations {
   display: inline-block;
