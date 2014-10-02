@@ -68,3 +68,6 @@ docs/_build/
 *.map
 *.swp
 *.swo
+
+# Berksfile lock
+Berksfile.lock
