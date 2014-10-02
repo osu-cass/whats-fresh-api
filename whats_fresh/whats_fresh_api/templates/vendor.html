@@ -106,57 +106,6 @@
 </div>
 {% endblock content %}
 {% block footer %}
-  <!--<script>
-      var preparation_options = {{ json_preparations|safe }};
-
-      number_of_products = 0;
-
-      function deleteProduct(element)
-      {
-          $( element ).parent().parent().css("display", "none");
-          if ($( ".preparation:visible" ).length === 0) {
-              $( ".no_products" ).show();
-          };
-      }
-
-      function showPreparations(prep_number)
-      {
-          var preparation_select = document.getElementById("preparation" + prep_number);
-          var product_select = document.getElementById("product" + prep_number);
-          var current_product = product_select.options[product_select.selectedIndex].value
-          preparation_select.options.length = 0;
-          for (preparation in preparation_options[current_product]) {
-              var option = document.createElement("option");
-              option.value = preparation_options[current_product][preparation].value;
-              option.text = preparation_options[current_product][preparation].name;
-              preparation_select.add(option);
-          }
-          preparation_select.disabled=false;
-      }
-
-      function appendProduct()
-      {
-          $( ".no_products" ).hide();
-          var new_product_html = $('#new_product').html();
-          var new_product_html = new_product_html.split("$iteration").join(number_of_products);
-          $( ".container" ).append( new_product_html );
-          number_of_products++;
-      }
-
-      function setPreparationField()
-      {
-          var preparation_ids = [];
-          $( ".preparation:visible" ).each( function( index, element ){
-              prep_id = this.options[this.selectedIndex].value;
-              if (prep_id) {
-                preparation_ids.push(prep_id);
-              };
-          });
-
-          $('input[name="preparation_ids"]').val(preparation_ids);
-      }
-  </script>-->
-  {#{% endblock %}#}
 <script>
     var preparation_options = {{ json_preparations|safe }};
 

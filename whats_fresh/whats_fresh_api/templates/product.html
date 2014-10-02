@@ -89,29 +89,6 @@
 </div>
 
 {% endblock content %}
-
-<!--<div id="preparations_box">
-    <div class="entry_box">
-        <div class="title_text product_title">Preparations<div class="add"><button type="button" onclick="appendPreparation()">Add Preparation</button></div></div><br>
-        <div class="container">
-            {% if existing_preparations %}
-            {% for prep in existing_preparations %}
-            <div class="preparations_outer">
-                <div class="preparations_inner">
-                    <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /><div class="delete">Delete</div></a>
-                    <select disabled id="existing{{ prep.id }}" class="preparation">
-                        <option value="{{ prep.id }}">{{ prep.name }}</option>
-                    </select>
-                </div>
-            </div>
-            {% endfor %}
-            {% else %}
-            <span class="no_preparations">No Preparations Yet!</span>
-            {% endif %}
-        </div>
-    </div>
-</div>-->
-
 {% block footer %}
 <script>
     var preparation_options = {{ json_preparations|safe }};
@@ -134,43 +111,6 @@
         $( ".container" ).append( new_html );
         number_of_preparations++;
     }
-</script>
-<!--<script>
-    var preparation_options = {{ json_preparations|safe }};
-
-    number_of_preparations = 0;
-
-    function deletePreparation(element)
-    {
-    $( element ).parent().parent().css("display", "none");
-    if ($( ".preparation:visible" ).length === 0) {
-    $( ".no_products" ).show();
-    };
-    }
-
-    function appendPreparation()
-    {
-    $( ".no_preparations" ).hide();
-    var new_html = $('#new_preparation').html();
-    var new_html = new_html.split("$iteration").join(number_of_preparations);
-    $( ".container" ).append( new_html );
-    number_of_preparations++;
-    }
-
-    function setPreparationField()
-    {
-    var preparation_ids = [];
-    $( ".preparation:visible" ).each( function( index, element ){
-    prep_id = this.options[this.selectedIndex].value;
-    if (prep_id) {
-    preparation_ids.push(prep_id);
-    };
-    });
-
-    $('input[name="preparation_ids"]').val(preparation_ids);
-    }
-</script>-->
-<script>
     function setPreparationField()
     {
         var preparation_ids = []
