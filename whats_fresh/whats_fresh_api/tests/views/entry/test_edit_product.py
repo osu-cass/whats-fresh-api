@@ -92,8 +92,7 @@ class EditProductTestCase(TestCase):
 
     def test_delete_product(self):
         """
-        Tests that DELETing entry/products/<id>/delete deletes the item, and
-        brings you back to the list with a Deleted message
+        Tests that DELETing entry/products/<id> deletes the item
         """
         response = self.client.delete(
             reverse('edit-product', kwargs={'id': '2'}))

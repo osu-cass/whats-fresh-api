@@ -110,8 +110,7 @@ class EditVendorTestCase(TestCase):
 
     def test_delete_vendor(self):
         """
-        Tests that POSTing entry/vendors/<id>/delete deletes the item, and
-        brings you back to the list with a Deleted message
+        Tests that DELETing entry/vendors/<id> deletes the item
         """
         response = self.client.delete(
             reverse('edit-vendor', kwargs={'id': '2'}))
