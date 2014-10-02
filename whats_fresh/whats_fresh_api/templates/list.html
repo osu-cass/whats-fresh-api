@@ -1,22 +1,32 @@
-{% extends "generic.html" %}
-{% load staticfiles %}
-{% block title_expansion %}<div id="new"><a href="{{ new_url }}">{{ new_text }}</a></div><div id="new_mobile"><a href="{{ new_url }}">New</a></div>{% endblock %}
+{% extends 'base.html' %}
 
-{% block body %}
-         <div id="message">{{ message }}</div>
-         {% for item in item_list %}
-         <a class="full_div_link" href="{{ item.link }}">
-         <div class="{{ item_classification }} list_container">
-             <div class="inline_items">
-                <div class="item_name">{{ item.name }}</div>
-                {% if item.modified %}
-                <div class="item_modified">{{ item.modified }}</div>
-                {% endif %}
-             </div>
-             <div class="item_description">{{ item.description }}</div>
-             {% block extra_information %}{% endblock %}
-         </div>
-         </a>
-         {% endfor %}
-      </div>
-{% endblock %}
+{% block header %}
+<div class='back'>
+    <a href='{{ parent_url }}'>
+        &lt; <span class='parent_text'>{{ parent_text }}</span>
+    </a>
+</div>
+{% endblock header %}
+
+{% block title %}
+<h2 class='light'>{{ title }}</h2>
+<p class='light accent'>Click on the product to edit it or add a</p>
+{% endblock title %}
+
+{% block content %}
+<div class='new'>
+    <a href='{{ new_url }}'><p>{{ new_text }}</p></a>
+</div>
+<div class='message'>{{ message }}</div>
+{% for item in item_list %}
+<a href='{{ item.link }}'>
+    <div class='{{ item_classification }} list'>
+        <p class='item'>{{ item.name }}</p>
+        <div class='description'>
+            <p>Description: {{ item.description }}</p>
+        </div>
+        {% block extra_information %}{% endblock %}
+    </div>
+</a>
+{% endfor %}
+{% endblock content %}
