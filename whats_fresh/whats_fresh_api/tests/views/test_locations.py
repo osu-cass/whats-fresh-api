@@ -22,10 +22,10 @@ class LocationsTestCase(TestCase):
 
     def test_url_endpoint(self):
         url = reverse("locations")
-        self.assertEqual(url, '/locations')
+        self.assertEqual(url, '/1/locations')
 
     def test_location_list(self):
-        response = self.client.get('/locations').content
+        response = self.client.get('/1/locations').content
         try:
             parsed_answer = json.loads(response)
         except ValueError:

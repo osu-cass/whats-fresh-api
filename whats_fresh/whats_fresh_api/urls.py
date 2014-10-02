@@ -29,6 +29,10 @@ urlpatterns = patterns('',
         'whats_fresh.whats_fresh_api.views.preparation.preparation_details',
         name='preparation-details'),
 
+    url(r'^1/locations/?$',
+        'whats_fresh.whats_fresh_api.views.location.locations',
+        name='locations'),
+
     url(r'^entry/vendors/new/?$',
         'whats_fresh.whats_fresh_api.views.data_entry.vendors.vendor',
         name='new-vendor'),
@@ -72,4 +76,5 @@ urlpatterns = patterns('',
     url(r'^entry/?$',
         'whats_fresh.whats_fresh_api.views.data_entry.home.home',
         name='home'),
+
 )
