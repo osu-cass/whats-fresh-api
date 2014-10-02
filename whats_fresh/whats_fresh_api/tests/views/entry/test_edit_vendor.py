@@ -114,12 +114,12 @@ class EditVendorTestCase(TestCase):
         brings you back to the list with a Deleted message
         """
         response = self.client.delete(
-            reverse('delete-vendor', kwargs={'id': '2'}))
+            reverse('edit-vendor', kwargs={'id': '2'}))
         self.assertEqual(response.status_code, 200)
 
         with self.assertRaises(Vendor.DoesNotExist):
             Vendor.objects.get(id=2)
 
         response = self.client.delete(
-            reverse('delete-vendor', kwargs={'id': '2'}))
+            reverse('edit-vendor', kwargs={'id': '2'}))
         self.assertEqual(response.status_code, 404)

@@ -96,12 +96,12 @@ class EditProductTestCase(TestCase):
         brings you back to the list with a Deleted message
         """
         response = self.client.delete(
-            reverse('delete-product', kwargs={'id': '2'}))
+            reverse('edit-product', kwargs={'id': '2'}))
         self.assertEqual(response.status_code, 200)
 
         with self.assertRaises(Product.DoesNotExist):
             Product.objects.get(id=2)
 
         response = self.client.delete(
-            reverse('delete-product', kwargs={'id': '2'}))
+            reverse('edit-product', kwargs={'id': '2'}))
         self.assertEqual(response.status_code, 404)
