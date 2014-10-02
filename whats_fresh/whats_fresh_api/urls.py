@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
-    url(r'^stories/(?P<id>\d+)/?$',
+    url(r'^1/stories/(?P<id>\d+)/?$',
         'whats_fresh.whats_fresh_api.views.story.story_details',
         name='story-details'),
 
