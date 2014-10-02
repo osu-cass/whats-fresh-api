@@ -103,6 +103,3 @@ def preparation(request, id=None):
         'errors': errors,
         'preparation_form': preparation_form,
     })
-
-def delete_preparation(request, id=None):
-    return HttpResponse()
