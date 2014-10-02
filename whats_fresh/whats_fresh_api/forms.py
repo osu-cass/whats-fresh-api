@@ -7,7 +7,7 @@ class VendorForm(forms.ModelForm):
         model = Vendor
         widgets = {
             'name': forms.TextInput(attrs={'required':'true'}),
-            'description': forms.TextInput(attrs={'required':'true'}),
+            'description': forms.Textarea(attrs={'required':'true'}),
             'hours': forms.TextInput,
             'street': forms.TextInput(attrs={'required':'true'}),
             'city': forms.TextInput(attrs={'required':'true'}),
@@ -27,7 +27,7 @@ class ProductForm(forms.ModelForm):
             'season': forms.TextInput(attrs={'required':'true'}),
             'origin': forms.TextInput,
             'alt_name': forms.TextInput,
-            'description': forms.TextInput(attrs={'required':'true'}),
+            'description': forms.Textarea(attrs={'required':'true'}),
             'market_price': forms.TextInput(attrs={'required':'true'})
         }
         exclude = ('preparations',)
@@ -39,5 +39,5 @@ class PreparationForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'required':'true'}),
             'additional_info': forms.TextInput,
-            'description': forms.TextInput
+            'description': forms.Textarea
         }

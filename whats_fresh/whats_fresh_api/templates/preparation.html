@@ -17,16 +17,16 @@
 
 {% block content %}
 <form action="{{ post_url }}" method="post">
-<div class="error">
-{% if preparation_form.errors or errors %}
+    <div class="error">
+        {% if preparation_form.errors or errors %}
         {% for error in preparation_form.errors %}
         <p class='warning'>Invalid {{ error|escape }}!</p>
         {% endfor %}
         {% for error in errors %}
         <p class='warning'>{{ error|escape }}</p>
         {% endfor %}
-</div>
-{% endif %}
+    {% endif %}
+    </div>
     {% csrf_token %}
     <div class="entry_box">
         <h3>Basic Info</h3>
