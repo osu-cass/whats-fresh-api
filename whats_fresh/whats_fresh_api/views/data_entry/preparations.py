@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
+from django.shortcuts import get_object_or_404
 
 from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
@@ -54,6 +55,11 @@ def preparation(request, id=None):
     page for a given preparation, or the "new preparation" page if it is not
     passed an ID. It also accepts POST requests to create or edit preparations.
     """
+    if request.method == 'DELETE':
+        preparation = get_object_or_404(Preparation, pk=id)
+        preparation.delete()
+        return HttpResponse()
+
     if request.method == 'POST':
         message = ''
         post_data = request.POST.copy()

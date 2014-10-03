@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.gis.geos import fromstr
+from django.shortcuts import get_object_or_404
 
 from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
@@ -22,6 +23,11 @@ def vendor(request, id=None):
     page for a given vendor, or the "new vendor" page if it is not passed
     an ID. It also accepts POST requests to create or edit vendors.
     """
+    if request.method == 'DELETE':
+        vendor = get_object_or_404(Vendor, pk=id)
+        vendor.delete()
+        return HttpResponse()
+
     if request.method == 'POST':
         post_data = request.POST.copy()
         errors = []

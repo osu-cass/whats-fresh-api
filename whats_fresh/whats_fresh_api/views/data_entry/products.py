@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
+from django.shortcuts import get_object_or_404
 
 from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
@@ -21,6 +22,11 @@ def product(request, id=None):
     page for a given product, or the "new product" page if it is not passed
     an ID. It also accepts POST requests to create or edit products.
     """
+    if request.method == 'DELETE':
+        product = get_object_or_404(Product, pk=id)
+        product.delete()
+        return HttpResponse()
+
     if request.method == 'POST':
         message = ''
         post_data = request.POST.copy()
