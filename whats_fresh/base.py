@@ -27,7 +27,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 FIXTURE_DIRS = (
-    'whats_fresh/whats_fresh_api/tests/testdata',
+    os.path.join(BASE_DIR, 'whats_fresh/whats_fresh_api/tests/testdata'),
 )
 
 # Application definition
@@ -65,7 +65,7 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'whats_fresh',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': '',
         'HOST': 'localhost',
     }
 }

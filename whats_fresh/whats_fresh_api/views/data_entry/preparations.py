@@ -36,6 +36,8 @@ def preparation_list(request):
         preparations_list.append(preparation_data)
 
     return render(request, 'list.html', {
+        'parent_url': reverse('home'),
+        'parent_text': 'Home',
         'new_url': reverse('new-preparation'),
         'new_text': "New preparation",
         'title': "All preparations",
@@ -53,6 +55,7 @@ def preparation(request, id=None):
     passed an ID. It also accepts POST requests to create or edit preparations.
     """
     if request.method == 'POST':
+        message = ''
         post_data = request.POST.copy()
         errors = []
 
@@ -70,8 +73,7 @@ def preparation(request, id=None):
             pass
     else:
         errors = []
-
-    message = "Fields marked with bold are required."
+        message = ''
 
     if id:
         preparation = Preparation.objects.get(id=id)
@@ -92,10 +94,11 @@ def preparation(request, id=None):
         title = "New Preparation"
 
     return render(request, 'preparation.html', {
-        'parent_url': reverse('entry-list-preparations'),
-        'parent_text': 'Preparation List',
-        'message': message,
+        'parent_url': [
+            {'url': reverse('home'), 'name': 'Home'},
+            {'url': reverse('entry-list-preparations'), 'name': 'Preparations'}],
         'title': title,
+        'message': message,
         'post_url': post_url,
         'errors': errors,
         'preparation_form': preparation_form,

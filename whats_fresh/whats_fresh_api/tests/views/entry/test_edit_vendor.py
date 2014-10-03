@@ -65,6 +65,9 @@ class EditVendorTestCase(TestCase):
         for field in new_vendor:
             self.assertEqual(getattr(vend, field), new_vendor[field])
 
+        self.assertEqual(vend.location.y, 44.6752643) # latitude
+        self.assertEqual(vend.location.x, -124.072162) # longitude
+
         # We told it which product preparation ID to use by saving ProdPreps to
         # IDs 1 and 2, and then posting '1,2' as the list of product
         # preparations.

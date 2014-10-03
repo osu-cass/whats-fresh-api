@@ -62,4 +62,9 @@ docs/_build/
 # NFS write temps
 .nfs*
 
+# Kitchen logs, config, etc
 .kitchen/
+.sass-cache
+*.map
+*.swp
+*.swo

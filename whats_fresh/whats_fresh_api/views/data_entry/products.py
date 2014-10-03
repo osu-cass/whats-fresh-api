@@ -22,6 +22,7 @@ def product(request, id=None):
     an ID. It also accepts POST requests to create or edit products.
     """
     if request.method == 'POST':
+        message = ''
         post_data = request.POST.copy()
         errors = []
 
@@ -66,8 +67,7 @@ def product(request, id=None):
             return HttpResponseRedirect("%s?success=true" % reverse('edit-product', kwargs={'id': product.id}))
     else:
         errors = []
-
-    message = "Fields marked with bold are required."
+        message = ''
 
     if id:
         product = Product.objects.get(id=id)
@@ -102,7 +102,9 @@ def product(request, id=None):
     json_preparations = json.dumps(data)
 
     return render(request, 'product.html', {
-        'parent_url': reverse('entry-list-products'),
+        'parent_url': [
+            {'url': reverse('home'), 'name': 'Home'},
+            {'url': reverse('entry-list-products'), 'name': 'Products'}],
         'json_preparations': json_preparations,
         'preparation_dict': data,
         'existing_preparations': existing_preparations,
@@ -142,6 +144,8 @@ def product_list(request):
         products_list.append(product_data)
 
     return render(request, 'products_list.html', {
+        'parent_url': reverse('home'),
+        'parent_text': 'Home',
         'new_url': reverse('new-product'),
         'new_text': "New product",
         'title': "All products",

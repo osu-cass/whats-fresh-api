@@ -35,7 +35,7 @@ class StoriesTestCase(TestCase):
 
     def test_url_endpoint(self):
         url = reverse('story-details', kwargs={'id': '1'})
-        self.assertEqual(url, '/stories/1')
+        self.assertEqual(url, '/1/stories/1')
 
     def test_known_story(self):
         response = self.client.get(

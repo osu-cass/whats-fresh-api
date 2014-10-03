@@ -28,7 +28,7 @@ class NewProductTestCase(TestCase):
         response = self.client.get(reverse('new-product'))
 
         fields = {'name': 'input', 'variety': 'input', 'story_id': 'select',
-                  'alt_name': 'input', 'description': 'input',
+                  'alt_name': 'input', 'description': 'textarea',
                   'origin': 'input', 'season': 'input', 'available': 'select',
                   'market_price': 'input', 'link': 'input',
                   'image_id': 'select'}

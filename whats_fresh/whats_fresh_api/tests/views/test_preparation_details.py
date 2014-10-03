@@ -28,7 +28,7 @@ class PreparationsTestCase(TestCase):
 
     def test_url_endpoint(self):
         url = reverse('preparation-details', kwargs={'id': '1'})
-        self.assertEqual(url, '/preparations/1')
+        self.assertEqual(url, '/1/preparations/1')
 
     def test_preparation_endpoint(self):
         response = self.client.get(
