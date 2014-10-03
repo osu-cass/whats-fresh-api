@@ -62,7 +62,7 @@
         {% for prep in existing_preparations %}
         <div class="preparation">
             <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" />Delete</a>
-            <select disabled id="existing{{ prep.id }}">
+            <select disabled id="existing{{ prep.id }}" class="preparation_select">
                 <option value="{{ prep.id }}">{{ prep.name }}</option>
             </select>
         </div>
@@ -78,7 +78,7 @@
 <!-- The template div used by appendPreparation() -->
 <div id='new_preparation'>
     <div class="preparation">
-        <select>
+        <select class="preparation_select">
             <option selected disabled></option>
             {% for preparation in preparation_dict.preparations %}
             <option value="{{ preparation.id }}">{{ preparation.name }}</option>
@@ -99,7 +99,7 @@
     {
         $( element ).parent().parent().css("display", "none");
         if ($( ".preparation:visible" ).length === 0) {
-            $( ".no_products" ).show();    
+            $( ".no_products" ).show();
         };
     }
 
@@ -114,7 +114,7 @@
     function setPreparationField()
     {
         var preparation_ids = []
-        $( ".preparation:visible" ).each( function( index, element ){
+        $( ".preparation_select:visible" ).each( function( index, element ){
             preparation_ids.push(this.options[this.selectedIndex].value);
         });
 
