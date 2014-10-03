@@ -12,7 +12,10 @@ def locations(request):
     """
     vendor_list = Vendor.objects.all()
     cities = [vendor.city for vendor in vendor_list]
-    unique_cities = list(set(cities))
+    unique_cities = [
+        {'location': city[0], 'name': city[1]}
+            for city in enumerate(set(cities))]
+
     data = {
         'locations': unique_cities,
         'error': {

@@ -6,6 +6,7 @@ class LocationsTestCase(TestCase):
     fixtures = ["real_data"]
 
     def setUp(self):
+        self.maxDiff = None
         self.expected_json = """
 {
   "error": {
@@ -17,20 +18,24 @@ class LocationsTestCase(TestCase):
   },
   "locations": [
     {
-      "location": 1,
+      "location": 0,
       "name": "Gold Beach"
     },
     {
-      "location": 2,
+      "location": 1,
       "name": "Corvallis"
     },
     {
-      "location": 3,
+      "location": 2,
       "name": "Florence"
     },
     {
-      "location": 4,
+      "location": 3,
       "name": "Newport"
+    },
+    {
+      "location": 4,
+      "name": "Waldport"
     }
   ]
 }"""
