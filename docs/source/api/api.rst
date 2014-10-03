@@ -521,3 +521,43 @@ Example: GET /preparations/4
       "additional_info": "",
       "id": 4
     }
+
+Locations list
+--------------
+
+The ``/locations/`` endpoint returns a list of all the cities this vendors
+are in. Each city is given an location index, and a name. The index is not
+guaranteed to stay the same.
+
+Example: GET /locations/
+^^^^^
+
+.. code-block:: javascript
+
+    {
+      "error": {
+        "status": false,
+        "name": null,
+        "text": null,
+        "debug": null,
+        "level": null
+      },
+      "locations": [
+        {
+          "location": 1,
+          "name": "Gold Beach"
+        },
+        {
+          "location": 2,
+          "name": "Corvallis"
+        },
+        {
+          "location": 3,
+          "name": "Florence"
+        },
+        {
+          "location": 4,
+          "name": "Newport"
+        }
+      ]
+    }
