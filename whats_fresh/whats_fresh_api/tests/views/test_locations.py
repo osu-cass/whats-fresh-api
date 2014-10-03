@@ -8,16 +8,31 @@ class LocationsTestCase(TestCase):
     def setUp(self):
         self.expected_json = """
 {
-    "error": {
-        "status": false,
-        "name": null,
-        "text": null,
-        "debug": null,
-        "level": null
+  "error": {
+    "status": false,
+    "name": null,
+    "text": null,
+    "debug": null,
+    "level": null
+  },
+  "locations": [
+    {
+      "location": 1,
+      "name": "Gold Beach"
     },
-    "locations": [
-        "Gold Beach", "Corvallis", "Florence", "Newport", "Waldport"
-    ]
+    {
+      "location": 2,
+      "name": "Corvallis"
+    },
+    {
+      "location": 3,
+      "name": "Florence"
+    },
+    {
+      "location": 4,
+      "name": "Newport"
+    }
+  ]
 }"""
 
     def test_url_endpoint(self):
