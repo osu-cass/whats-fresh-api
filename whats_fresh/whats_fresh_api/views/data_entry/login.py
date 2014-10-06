@@ -26,6 +26,10 @@ def login_user(request):
             state = "Invalid username or password."
     else:
         next = request.GET.get('next')
+
+    if request.user.is_authenticated():
+        return HttpResponseRedirect(reverse('home')
+
     return render(request, 'auth.html', {
         'state':state, 'username': username, 'next': next, 'title': 'Log In'})
 
