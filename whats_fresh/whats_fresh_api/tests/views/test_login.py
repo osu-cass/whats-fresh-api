@@ -93,3 +93,12 @@ class LoginViewTestCase(TestCase):
         """
         response = self.client.get('/')
         self.assertRedirects(response, '/login')
+
+    def test_logged_in_redirect(self):
+        """
+        Log into the site ('/login'), and then GET '/login' again to
+        verify that it redirects.
+        """
+        self.client.post(reverse('login'), self.user_credentials)
+        response = self.client.get(reverse('login'))
+        self.assertRedirects(response, '/entry')
