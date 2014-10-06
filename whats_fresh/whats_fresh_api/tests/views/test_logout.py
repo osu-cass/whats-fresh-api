@@ -3,11 +3,7 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-<<<<<<< HEAD
 from whats_fresh.whats_fresh_api.models import *
-=======
-from whats_fresh_api.models import *
->>>>>>> Begin work on logout tests
 from django.contrib.gis.db import models
 from django.contrib.auth.models import User
 
