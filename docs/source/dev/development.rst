@@ -192,11 +192,15 @@ At this point, you should have a working database and copy of the source code.
 You may be developing on your physical machine, or using a virtual machine as
 described above. After setting up the virtual environment, change to the
 directory with ``manage.py`` inside.
->>>>>>> Update docs with manual install, more explicit testing instructions
 
 Now, create the database tables using ``manage.py``::
 
     (env)[vagrant@develop-centos-65 ~]$ python manage.py syncdb
+
+If you plan on loggin into the web interface, you'll need to create a user
+account. You can use ``manage.py`` to create a superuser account::
+
+    (env)[vagrant@develop-centos-65 ~]$ python manage.py createsuperuser
 
 You should now be ready to run the Django app!
 ::
