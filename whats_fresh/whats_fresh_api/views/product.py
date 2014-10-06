@@ -8,9 +8,6 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 import json
 
 
-@login_required
-@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count() == 1,
-    login_url='/whats_fresh_api/denied/')
 def product_list(request):
     """
     */products/*
@@ -93,9 +90,6 @@ def product_list(request):
         )
 
 
-@login_required
-@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count() == 1,
-    login_url='/whats_fresh_api/denied/')
 def product_details(request, id=None):
     """
     */products/<id>*
@@ -160,9 +154,6 @@ def product_details(request, id=None):
             content_type="application/json"
         )
 
-@login_required
-@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count() == 1,
-    login_url='/whats_fresh_api/denied/')
 def product_vendor(request, id=None):
     """
     */products/vendors/<id>*
