@@ -31,6 +31,7 @@
         {% endfor %}
     </div>
     {% endif %}
+    <h4 id='error_tag' class='light warning'></h4>
     {% csrf_token %}
     <h3>Basic Info</h3>
     <p class="field_text">Name*:</p>
@@ -85,6 +86,7 @@
         {% endif %}
         <input id="preparation_ids" name="preparation_ids" type="hidden" />
     </div>
+    <button type"input" onclick="deleteVendor();return false;" />Delete</button>
     <button type="submit" onclick="setPreparationField();" />Save</button>
 </form>
 <!-- The template div used by appendProduct() -->
@@ -115,8 +117,25 @@
     {
         $( element ).parent().css("display", "none");
         if ($( ".preparation:visible" ).length === 0) {
-            $( ".no_products" ).show();    
+            $( ".no_products" ).show();
         };
+    }
+
+    function deleteVendor()
+    {
+        $.ajax({
+          type: 'DELETE',
+          headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+          statusCode: {
+            404: function() {
+              $("#error_tag").text('Unable to delete vendor!');
+              $("html, body").animate({ scrollTop: 0 }, "slow");
+            },
+            200: function() {
+              window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+            }
+          }
+        });
     }
 
     function showPreparations(prep_number)

@@ -134,6 +134,10 @@ def product_list(request):
     products = Product.objects.all()
     products_list = []
 
+    message = ""
+    if request.GET.get('success') == 'true':
+        message = "Product deleted successfully!"
+
     for product in products:
         product_data = {}
         product_data['name'] = product.name
@@ -150,6 +154,7 @@ def product_list(request):
         products_list.append(product_data)
 
     return render(request, 'products_list.html', {
+        'message': message,
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-product'),

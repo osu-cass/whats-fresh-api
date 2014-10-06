@@ -172,6 +172,10 @@ def vendor_list(request):
     vendors = Vendor.objects.all()
     vendors_list = []
 
+    message = ""
+    if request.GET.get('success') == 'true':
+        message = "Vendor deleted successfully!"
+
     for vendor in vendors:
         vendor_data = {}
         vendor_data['name'] = vendor.name
@@ -187,6 +191,7 @@ def vendor_list(request):
     return render(request, 'list.html', {
         'parent_url': reverse('home'),
         'parent_text': 'Home',
+        'message': message,
         'new_url': reverse('new-vendor'),
         'new_text': "New Vendor",
         'title': "All Vendors",

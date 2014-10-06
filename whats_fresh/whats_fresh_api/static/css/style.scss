@@ -14,14 +14,14 @@ $sans: 'Montserrat', sans-serif;
     color: $dark;
     border: 2px solid $dark;
     font-size: 16pt;
-    font-family: $sans; 
+    font-family: $sans;
     height: auto;
     padding: 2px;
     display: block;
     margin: 20px auto;
 }
 
-@mixin hover {   
+@mixin hover {
     cursor: pointer;
     background: $secondary;
     border: 2px solid $primary;
@@ -162,8 +162,10 @@ a{
 }
 
 .message {
+    font-size: 24pt;
     width: 100%;
     text-align: center;
+    color: $accent;
 }
 
 .error {
@@ -189,7 +191,7 @@ a{
         font-size: 16pt;
         font-family: $sans;
         width: 90%;
-    }    
+    }
 
     .sumit, button {
         @include buttons;
@@ -248,7 +250,7 @@ a{
         line-height: 50px;
         vertical-align: middle;
     }
-} 
+}
 
 .new:hover{
     @include hover;

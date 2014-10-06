@@ -17,6 +17,7 @@
 
 {% block content %}
 <form action="{{ post_url }}" method="post">
+
     <div class="error">
         {% if preparation_form.errors or errors %}
         {% for error in preparation_form.errors %}
@@ -26,7 +27,9 @@
         <p class='warning'>{{ error|escape }}</p>
         {% endfor %}
     {% endif %}
+    <h4 id='error_tag' class='light warning'></h4>
     </div>
+
     {% csrf_token %}
     <div class="entry_box">
         <h3>Basic Info</h3>
@@ -36,7 +39,29 @@
         {{ preparation_form.description }}
         <p class="field_text">Additional Information:</p>
         {{ preparation_form.additional_info }}
+        <button type"input" onclick="deletePreparation();return false;" />Delete</button>
         <button>Save</button>
     </div>
 </form>
 {% endblock content %}
+
+{% block footer %}
+<script>
+    function deletePreparation()
+    {
+        $.ajax({
+          type: 'DELETE',
+          headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+          statusCode: {
+            404: function() {
+              $("#error_tag").text('Unable to delete preparation!');
+              $("html, body").animate({ scrollTop: 0 }, "slow");
+            },
+            200: function() {
+              window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+            }
+          }
+        });
+    }
+</script>
+{% endblock footer %}

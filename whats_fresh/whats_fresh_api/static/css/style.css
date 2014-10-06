@@ -104,8 +104,10 @@ a {
     color: #517285; }
 
 .message {
+  font-size: 24pt;
   width: 100%;
-  text-align: center; }
+  text-align: center;
+  color: #FFCA5D; }
 
 .form, .entry_box {
   display: inline-block;

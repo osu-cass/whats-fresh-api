@@ -25,6 +25,10 @@ def preparation_list(request):
     preparations = Preparation.objects.all()
     preparations_list = []
 
+    message = ""
+    if request.GET.get('success') == 'true':
+        message = "Preparation deleted successfully!"
+
     for preparation in preparations:
         preparation_data = {}
         preparation_data['name'] = preparation.name
@@ -37,6 +41,7 @@ def preparation_list(request):
         preparations_list.append(preparation_data)
 
     return render(request, 'list.html', {
+        'message': message,
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-preparation'),
