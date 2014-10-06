@@ -3,7 +3,7 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
-from whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import *
 from django.contrib.gis.db import models
 from django.contrib.auth.models import User
 
@@ -39,8 +39,13 @@ class LogoutViewTestCase(TestCase):
 
     def test_logout(self):
         """
-        Log in, and then log out
+        Log in, log out using the /logout page, and make sure that
+        we're logged out by accessing the /login page without it
+        redirecting.
         """
-        response = self.client.post(
-            reverse('login'), self.user_credentials, follow=True)
-        print response.content
+        logged_in = self.client.login(**self.user_credentials)
+        self.assertTrue(logged_in) # verify we logged in successfully
+
+        response = self.client.get('/login')
+        self.assertContains(
+            response, "Please log in below...")
