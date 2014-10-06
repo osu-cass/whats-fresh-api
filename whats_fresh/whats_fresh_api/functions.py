@@ -28,7 +28,7 @@ def get_coordinates_from_address(street, city, state, zip):
     except:
         raise BadAddressException("Address %s not found" % full_address)
 
-def group_required(*group_names)
+def group_required(*group_names):
     def in_groups(u):
         if u.is_authenticated():
             if u.is_superuser | bool(u.groups.filter(name__in=group_names)):

@@ -15,13 +15,6 @@ from whats_fresh.whats_fresh_api.functions import *
 import json
 
 
-def user_group(user):
-    if (user.groups.filter(name='Administration Users').count() == 1 or
-            user.groups.filter(name='Data Entry Users').count() == 1):
-        return True
-    else:
-        return False
-
 @login_required
 @group_required('Administration Users', 'Data Entry Users')
 def product(request, id=None):

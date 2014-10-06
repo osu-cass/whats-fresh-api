@@ -13,7 +13,6 @@ from .yaml_config import *
 """
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
-"""
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -103,4 +102,5 @@ MEDIA_URL = '/media/'
 # proximity parameter is not also passed
 DEFAULT_PROXIMITY = 20
 
+"""
 LOGIN_URL = '/login'
