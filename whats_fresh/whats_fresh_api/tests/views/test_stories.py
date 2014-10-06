@@ -33,10 +33,17 @@ class StoriesTestCase(TestCase):
     "name": "Star Wars",
     "history": "A long time ago, in a galaxy far, far away...",
     "facts": "Star Wars is awesome",
-    "buying": "I have no idea what this field is for.",
+    "buying": "Always buy all related products",
     "preparing": "Fried",
     "products": "Fish",
     "season": "Spring",
+    "images": [
+        {"caption": "An image", "link": "/media/cat.jpg"}
+    ],
+    "videos": [
+        {"caption": "A video", "link":
+        "http://www.youtube.com/watch?v=C5twOVjxKqg"}
+    ],
     "created": "2014-08-08 23:27:05.568395+00:00",
     "modified": "2014-08-08 23:27:05.568395+00:00"
 }"""

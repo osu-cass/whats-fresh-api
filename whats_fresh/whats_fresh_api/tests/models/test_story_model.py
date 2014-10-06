@@ -8,11 +8,17 @@ class StoryTestCase(TestCase):
 
     def setUp(self):
         self.expected_fields = {
-            'story': models.TextField,
+            'name': models.TextField,
+            'history': models.TextField,
+            'facts': models.TextField,
+            'buying': models.TextField,
+            'preparing': models.TextField,
+            'products': models.TextField,
+            'season': models.TextField,
+            'images': models.ImageField,
+            'videos': models.VideoField,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
-            'product': models.related.RelatedObject,
-            'vendor': models.related.RelatedObject,
             'id': models.AutoField
         }
 
