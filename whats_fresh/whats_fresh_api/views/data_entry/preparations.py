@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
@@ -14,6 +15,8 @@ from whats_fresh.whats_fresh_api.functions import *
 import json
 
 
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
 def preparation_list(request):
     """
     */entry/preparations*
@@ -51,7 +54,8 @@ def preparation_list(request):
         'item_list': preparations_list,
     })
 
-
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
 def preparation(request, id=None):
     """
     */entry/preparations/<id>*, */entry/preparations/new*

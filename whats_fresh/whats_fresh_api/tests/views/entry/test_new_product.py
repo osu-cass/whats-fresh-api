@@ -17,6 +17,25 @@ class NewProductTestCase(TestCase):
         POSTing data with all fields missing (hitting "save" without entering
             data) returns the same field with notations of missing fields
     """
+    def setUp(self):
+        user = User.objects.create_user(
+            'temporary', 'temporary@gmail.com', 'temporary')
+        user.save()
+
+        admin_group = Group(name='Administration Users')
+        admin_group.save()
+        user.groups.add(admin_group)
+
+        response = self.client.login(username='temporary', password='temporary')
+        self.assertEqual(response, True)
+    
+    def test_not_logged_in(self):
+        self.client.logout()
+
+        response = self.client.get(
+            reverse('edit-product', kwargs={'id': '1'}))
+        self.assertRedirects(response, '/login?next=/entry/products/1')
+        
     def test_url_endpoint(self):
         url = reverse('new-product')
         self.assertEqual(url, '/entry/products/new')

@@ -14,6 +14,8 @@ from django.forms.models import save_instance
 import json
 
 
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
 def product(request, id=None):
     """
     */entry/products/<id>*, */entry/products/new*
@@ -123,6 +125,8 @@ def product(request, id=None):
     })
 
 
+@login_required
+@group_required('Administration Users', 'Data Entry Users'
 def product_list(request):
     """
     */entry/products*

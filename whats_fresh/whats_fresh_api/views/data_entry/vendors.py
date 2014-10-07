@@ -15,6 +15,8 @@ from whats_fresh.whats_fresh_api.functions import *
 import json
 
 
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
 def vendor(request, id=None):
     """
     */entry/vendors/<id>*, */entry/vendors/new*
@@ -160,7 +162,8 @@ def vendor(request, id=None):
         'product_list': product_list,
     })
 
-
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
 def vendor_list(request):
     """
     */entry/vendors*
