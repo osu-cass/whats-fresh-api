@@ -3,6 +3,8 @@ from django.test.client import Client
 from django.core.urlresolvers import reverse
 from whats_fresh.whats_fresh_api.models import *
 from django.contrib.gis.db import models
+from django.contrib.auth.models import User, Group, Permission
+
 import json
 
 
@@ -10,6 +12,13 @@ class StoriesTestCase(TestCase):
     fixtures = ['test_fixtures']
 
     def setUp(self):
+        user = User.objects.create_user(username='test', password='pass')
+        admin_group = Group(name='Administration Users')
+        admin_group.save()
+        user.groups.add(admin_group)
+        self.client.post(reverse('login'), {'username':'test',
+            'password':'pass'})
+
         self.expected_json = """
 {
     "error": {

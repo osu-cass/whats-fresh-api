@@ -5,10 +5,14 @@ from django.contrib.gis.measure import D
 from django.contrib.gis.geos import fromstr
 from whats_fresh.whats_fresh_api.models import Vendor, Product, VendorProduct
 from django.forms.models import model_to_dict
-import json
 from django.conf import settings
+from django.contrib.auth.decorators import login_required, user_passes_test
 
+import json
 
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count() == 1,
+    login_url='/whats_fresh_api/denied/')
 def vendor_list(request):
     """
     */vendors/*
@@ -146,7 +150,9 @@ def vendor_list(request):
             content_type="application/json"
         )
 
-
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count() == 1,
+    login_url='/whats_fresh_api/denied/')
 def vendors_products(request, id=None):
     """
     */vendors/products/<id>*
@@ -303,7 +309,9 @@ def vendors_products(request, id=None):
             content_type="application/json"
         )
 
-
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Administration Users').count() == 1,
+    login_url='/whats_fresh_api/denied/')
 def vendor_details(request, id=None):
     """
     */vendors/<id>*
