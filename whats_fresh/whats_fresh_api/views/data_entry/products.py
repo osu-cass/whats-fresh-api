@@ -6,9 +6,11 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
+from whats_fresh.whats_fresh_api.functions import *
 from django.forms.models import save_instance
 
 import json
@@ -126,7 +128,7 @@ def product(request, id=None):
 
 
 @login_required
-@group_required('Administration Users', 'Data Entry Users'
+@group_required('Administration Users', 'Data Entry Users')
 def product_list(request):
     """
     */entry/products*

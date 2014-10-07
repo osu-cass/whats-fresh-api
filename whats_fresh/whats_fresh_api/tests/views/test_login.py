@@ -5,7 +5,7 @@ from django.conf import settings
 
 from whats_fresh.whats_fresh_api.models import *
 from django.contrib.gis.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 import os
 import time
@@ -33,6 +33,11 @@ class LoginViewTestCase(TestCase):
             'data@example.com',
             self.user_credentials['password'])
         self.user.save()
+
+        group = Group(name='Administration Users')
+        group.save()
+
+        self.user.groups.add(group)
 
     def test_url_endpoint(self):
         url = reverse('login')

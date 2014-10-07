@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from whats_fresh.whats_fresh_api.models import *
 from django.contrib.gis.db import models
+from django.contrib.auth.models import User, Group
+
 import json
 
 
