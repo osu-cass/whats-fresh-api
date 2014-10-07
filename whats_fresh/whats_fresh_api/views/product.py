@@ -50,9 +50,7 @@ def product_list(request):
     try:
         for product in product_list:
             data['products'].append(
-                model_to_dict(product, fields=[], exclude=[]))
-            del data['products'][-1]['preparations']
-            del data['products'][-1]['image_id']
+                model_to_dict(product, exclude=['preparations', 'image_id']))
 
             try:
                 data['products'][-1]['image'] = product.image_id.image.url
