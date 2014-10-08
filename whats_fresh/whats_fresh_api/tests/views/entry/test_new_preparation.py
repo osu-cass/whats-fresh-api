@@ -21,7 +21,7 @@ class NewPreparationTestCase(TestCase):
     """
     def setUp(self):
         user = User.objects.create_user(
-        'temporary', 'temporary@gmail.com', 'temporary')
+            'temporary', 'temporary@gmail.com', 'temporary')
         user.save()
 
         admin_group = Group(name='Administration Users')
@@ -108,8 +108,8 @@ class NewPreparationTestCase(TestCase):
         response = self.client.post(reverse('new-preparation'))
         required_fields = ['name']
         for field_name in required_fields:
-            self.assertIn(field_name,
-                          response.context['preparation_form'].errors)
+            self.assertIn(field_name, 
+                    response.context['preparation_form'].errors)
 
         # Test that we didn't add any new objects
         self.assertEqual(

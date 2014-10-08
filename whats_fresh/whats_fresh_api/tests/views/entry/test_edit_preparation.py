@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from whats_fresh.whats_fresh_api.models import *
 from django.contrib.gis.db import models
 from django.contrib.auth.models import User, Group
+
 import json
 
 
@@ -22,13 +23,14 @@ class EditPreparationTestCase(TestCase):
         user = User.objects.create_user(
             'temporary', 'temporary@gmail.com', 'temporary')
         user.save()
-
+        
         admin_group = Group(name='Administration Users')
         admin_group.save()
         user.groups.add(admin_group)
 
         response = self.client.login(username='temporary', password='temporary')
         self.assertEqual(response, True)
+
 
     def test_not_logged_in(self):
         self.client.logout()

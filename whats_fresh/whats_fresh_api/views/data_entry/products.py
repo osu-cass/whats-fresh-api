@@ -12,6 +12,7 @@ from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
 from whats_fresh.whats_fresh_api.functions import *
 from django.forms.models import save_instance
+from whats_fresh.whats_fresh_api.functions import * 
 
 import json
 
