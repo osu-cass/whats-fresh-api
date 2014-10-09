@@ -3,6 +3,8 @@ from django.http import (HttpResponse,
                          HttpResponseServerError)
 from whats_fresh.whats_fresh_api.models import Vendor, Product, VendorProduct
 from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 import json
 
 
@@ -151,7 +153,6 @@ def product_details(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
-
 
 def product_vendor(request, id=None):
     """

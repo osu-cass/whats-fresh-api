@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from whats_fresh.whats_fresh_api.models import *
 from django.contrib.gis.db import models
 from django.test.utils import override_settings
+from django.contrib.auth.models import User, Group, Permission
+
 import json
 
 
@@ -11,6 +13,13 @@ class VendorsProductsTestCase(TestCase):
     fixtures = ['overlapping_fixtures']
 
     def setUp(self):
+        user = User.objects.create_user(username='test', password='pass')
+        admin_group = Group(name='Administration Users')
+        admin_group.save()
+        user.groups.add(admin_group)
+        self.client.post(reverse('login'), {'username':'test',
+            'password':'pass'})
+
         self.maxDiff = None
         self.expected_json = """
 {
@@ -79,8 +88,7 @@ class VendorsProductsTestCase(TestCase):
         self.assertEqual(url, '/1/vendors/products/10')
 
     def test_no_location_parameter(self):
-        c = Client()
-        response = c.get(
+        response = self.client.get(
             reverse('vendors-products', kwargs={'id': '10'})).content
         parsed_answer = json.loads(response)
 
@@ -142,6 +150,13 @@ class VendorsProductsLocationTestCase(TestCase):
     # is changed, then the tests would break without overriding it.
     @override_settings(DEFAULT_PROXIMITY='20')
     def setUp(self):
+        user = User.objects.create_user(username='test', password='pass')
+        admin_group = Group(name='Administration Users')
+        admin_group.save()
+        user.groups.add(admin_group)
+        self.client.post(reverse('login'), {'username':'test', 'password':'pass'})
+
+
         self.maxDiff = None
 
         # No vendors. This is the return for location queries from
@@ -982,8 +997,7 @@ class VendorsProductsLocationTestCase(TestCase):
         no_vendor_data = json.loads(
         self.client.get(
             '%s?lat=44.015225&lng=-123.016873' % reverse(
-                'vendors-products', kwargs={'id': '1'})
-        ).content)
+                'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_no_vendors)
         self.assertEqual(no_vendor_data, expected_answer)
@@ -1008,8 +1022,7 @@ class VendorsProductsLocationTestCase(TestCase):
         """
         halibut_near_newport_limit = json.loads(self.client.get(
             '%s?lat=44.609079&lng=-124.052538&limit=1' % reverse(
-                'vendors-products', kwargs={'id': '1'})
-            ).content)
+                'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_halibut_limit_1)
         self.assertEqual(halibut_near_newport_limit, expected_answer)
@@ -1021,8 +1034,7 @@ class VendorsProductsLocationTestCase(TestCase):
         """
         halibut_near_newport = json.loads(self.client.get(
             '%s?lat=44.609079&lng=-124.052538&limit=10' % reverse(
-                'vendors-products', kwargs={'id': '1'})
-            ).content)
+                'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_halibut)
         self.assertEqual(expected_answer, expected_answer)
@@ -1034,8 +1046,7 @@ class VendorsProductsLocationTestCase(TestCase):
         """
         halibut_near_newport_limit = json.loads(self.client.get(
             '%s?lat=44.609079&lng=-124.052538&limit=cat' % reverse(
-                'vendors-products', kwargs={'id': '1'})
-            ).content)
+                'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_halibut_bad_limit)
         self.assertEqual(halibut_near_newport_limit, expected_answer)
@@ -1050,8 +1061,7 @@ class VendorsProductsLocationTestCase(TestCase):
         # Coordinates are not numbers
         broken_data = json.loads(self.client.get(
             '%s?lat=not_a_latitude&lng=not_a_longitude' % reverse(
-                'vendors-products', kwargs={'id': '1'})
-            ).content)
+                'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_all_vendors_products)
         self.assertEqual(broken_data, expected_answer)
@@ -1059,8 +1069,7 @@ class VendorsProductsLocationTestCase(TestCase):
         # lat is missing
         broken_data = json.loads(self.client.get(
             '%s?lng=-45.232' % reverse(
-                'vendors-products', kwargs={'id': '1'})
-            ).content)
+                'vendors-products', kwargs={'id': '1'})).content)
         expected_answer = json.loads(self.expected_all_missing_lat)
 
         self.assertEqual(broken_data, expected_answer)
@@ -1068,8 +1077,7 @@ class VendorsProductsLocationTestCase(TestCase):
         # long is missing
         broken_data = json.loads(self.client.get(
             '%s?lat=-45.232' % reverse(
-                'vendors-products', kwargs={'id': '1'})
-            ).content)
+                'vendors-products', kwargs={'id': '1'})).content)
         expected_answer = json.loads(self.expected_all_missing_long)
 
         self.assertEqual(broken_data, expected_answer)
@@ -1083,8 +1091,7 @@ class VendorsProductsLocationTestCase(TestCase):
         halibut_near_newport_extended = json.loads(self.client.get(
             '%s?lat=44.609079&lng=-124.052538' \
                 '&proximity=50' % reverse(
-                    'vendors-products', kwargs={'id': '1'})
-            ).content)
+                    'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_halibut_extended)
         self.assertEqual(halibut_near_newport_extended, expected_answer)
@@ -1096,8 +1103,7 @@ class VendorsProductsLocationTestCase(TestCase):
         # Good proximity, bad location
         broken_data = json.loads(self.client.get(
             '%s?lat=not_a_latitude&lng=not_a_longitude&proximity=50' % reverse(
-                'vendors-products', kwargs={'id': '1'})
-            ).content)
+                'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_all_vendors_products)
         self.assertEqual(broken_data, expected_answer)
@@ -1108,8 +1114,7 @@ class VendorsProductsLocationTestCase(TestCase):
         """
         broken_data = json.loads(self.client.get(
             '%s?lat=44.609079&lng=-124.052538&proximity=cat' % reverse(
-                'vendors-products', kwargs={'id': '1'})
-            ).content)
+                'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_vp_bad_prox)
         self.assertEqual(broken_data, expected_answer)

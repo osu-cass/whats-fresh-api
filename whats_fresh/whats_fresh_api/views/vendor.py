@@ -5,9 +5,10 @@ from django.contrib.gis.measure import D
 from django.contrib.gis.geos import fromstr
 from whats_fresh.whats_fresh_api.models import Vendor, Product, VendorProduct
 from django.forms.models import model_to_dict
-import json
 from django.conf import settings
+from django.contrib.auth.decorators import login_required, user_passes_test
 
+import json
 
 def vendor_list(request):
     """
@@ -145,7 +146,6 @@ def vendor_list(request):
             json.dumps(data),
             content_type="application/json"
         )
-
 
 def vendors_products(request, id=None):
     """
@@ -302,7 +302,6 @@ def vendors_products(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
-
 
 def vendor_details(request, id=None):
     """

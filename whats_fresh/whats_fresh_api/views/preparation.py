@@ -3,6 +3,8 @@ from django.http import (HttpResponse,
                          HttpResponseServerError)
 from whats_fresh.whats_fresh_api.models import Preparation
 from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 import json
 
 

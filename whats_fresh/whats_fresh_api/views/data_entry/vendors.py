@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.gis.geos import fromstr
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
@@ -15,6 +16,8 @@ from whats_fresh.whats_fresh_api.functions import *
 import json
 
 
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
 def vendor(request, id=None):
     """
     */entry/vendors/<id>*, */entry/vendors/new*
@@ -160,7 +163,8 @@ def vendor(request, id=None):
         'product_list': product_list,
     })
 
-
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
 def vendor_list(request):
     """
     */entry/vendors*
