@@ -126,7 +126,6 @@ def product_details(request, id=None):
             content_type="application/json"
         )
 
-
 def product_vendor(request, id=None):
     """
     */products/vendors/<id>*
