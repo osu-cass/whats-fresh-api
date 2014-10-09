@@ -53,7 +53,7 @@ class EditVendorTestCase(TestCase):
         # Data that we'll post to the server to get the new vendor created
         new_vendor = {
             'zip': '97365', 'website': '', 'hours': '',
-            'street': '750 NW Lighthouse Dr', 'story_id': 1,
+            'street': '750 NW Lighthouse Dr', 'story': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
             'location_description': 'Optional Description',
@@ -70,7 +70,7 @@ class EditVendorTestCase(TestCase):
         del new_vendor['preparation_ids']
         new_vendor['status'] = None
         new_vendor['phone'] = None
-        new_vendor['story_id'] = Story.objects.get(id=new_vendor['story_id'])
+        new_vendor['story'] = Story.objects.get(id=new_vendor['story'])
 
         vend = Vendor.objects.get(id=1)
         for field in new_vendor:
@@ -106,7 +106,7 @@ class EditVendorTestCase(TestCase):
             "zip": "94965",
             "location_description": "Location description",
             "contact_name": "A. Persson",
-            "story_id": 1,
+            "story": 1,
             "website": "http://example.com",
             "email": "a@perr.com"
         }

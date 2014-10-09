@@ -29,8 +29,8 @@ class VendorTestCase(TestCase):
             'email': models.EmailField,
             'phone': PhoneNumberField,
             'location': models.PointField,
+            'story': models.ForeignKey,
             'story_id': models.ForeignKey,
-            'story_id_id': models.ForeignKey,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
             'products_preparations': models.ManyToManyField,
@@ -46,7 +46,7 @@ class VendorTestCase(TestCase):
             'phone'
         }
 
-        self.null_fields = {'story_id'}
+        self.null_fields = {'story'}
 
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'Vendor')

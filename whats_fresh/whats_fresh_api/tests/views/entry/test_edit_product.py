@@ -50,10 +50,10 @@ class EditProductTestCase(TestCase):
         update appears in the database
         """
         # Data that we'll post to the server to get the product updated
-        new_product = {'name': 'Salmon', 'variety': 'Pacific', 'story_id': 1,
+        new_product = {'name': 'Salmon', 'variety': 'Pacific', 'story': 1,
                   'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',
                   'description': 'It\'s salmon -- from the Pacific!',
-                  'season': 'Always', 'available': '', 'image_id': 1,
+                  'season': 'Always', 'available': '', 'image': 1,
                   'market_price': '$3 a pack', 'preparation_ids': '1,2',
                   'link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
@@ -63,8 +63,8 @@ class EditProductTestCase(TestCase):
         # These values are changed by the server after being received from
         # the client/web page.
         new_product['available'] = None
-        new_product['story_id'] = Story.objects.get(id=new_product['story_id'])
-        new_product['image_id'] = Image.objects.get(id=new_product['image_id'])
+        new_product['story'] = Story.objects.get(id=new_product['story'])
+        new_product['image'] = Image.objects.get(id=new_product['image'])
 
         del new_product['preparation_ids']
 
@@ -93,8 +93,8 @@ class EditProductTestCase(TestCase):
             "available": True,
             "market_price": "$32.64 per season",
             "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
-            "image_id": 2,
-            "story_id": 2
+            "image": 2,
+            "story": 2
         }
         form = response.context['product_form']
 
