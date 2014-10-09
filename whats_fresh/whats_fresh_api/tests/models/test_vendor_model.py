@@ -30,9 +30,9 @@ class VendorTestCase(TestCase):
             'phone': PhoneNumberField,
             'location': models.PointField,
             'story_id': models.ForeignKey,
+            'story_id_id': models.ForeignKey,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
-            'story_id': models.ForeignKey,
             'products_preparations': models.ManyToManyField,
             'vendorproduct': models.related.RelatedObject,
             'id': models.AutoField

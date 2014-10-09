@@ -10,7 +10,9 @@ class VendorProductJoinTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
             'vendor': models.ForeignKey,
+            'vendor_id': models.ForeignKey,
             'product_preparation': models.ForeignKey,
+            'product_preparation_id': models.ForeignKey,
             'vendor_price': models.TextField,
             'available': models.NullBooleanField,
             'id': models.AutoField

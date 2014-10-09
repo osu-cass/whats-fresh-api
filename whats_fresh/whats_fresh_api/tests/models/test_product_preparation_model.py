@@ -15,7 +15,9 @@ class ProductPreparationTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
             'product': models.ForeignKey,
+            'product_id': models.ForeignKey,
             'preparation': models.ForeignKey,
+            'preparation_id': models.ForeignKey,
             'vendorproduct': models.related.RelatedObject,
             'vendors': models.related.RelatedObject,
             'id': models.AutoField

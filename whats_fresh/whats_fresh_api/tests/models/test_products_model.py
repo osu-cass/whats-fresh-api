@@ -25,6 +25,8 @@ class ProductTestCase(TestCase):
             'link': models.URLField,
             'image_id': models.ForeignKey,
             'story_id': models.ForeignKey,
+            'image_id_id': models.ForeignKey,
+            'story_id_id': models.ForeignKey,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
             'preparations': models.ManyToManyField,

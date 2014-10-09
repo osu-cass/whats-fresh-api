@@ -5,6 +5,7 @@ from whats_fresh.whats_fresh_api.models import *
 class VendorForm(forms.ModelForm):
     class Meta:
         model = Vendor
+        exclude = []
         widgets = {
             'name': forms.TextInput(attrs={'required':'true'}),
             'description': forms.Textarea(attrs={'required':'true'}),
@@ -21,6 +22,7 @@ class VendorForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
+        exclude = []
         widgets = {
                 'name': forms.TextInput(attrs={'required':'true'}),
             'variety': forms.TextInput,
@@ -36,6 +38,7 @@ class ProductForm(forms.ModelForm):
 class PreparationForm(forms.ModelForm):
     class Meta:
         model = Preparation
+        exclude = []
         widgets = {
             'name': forms.TextInput(attrs={'required':'true'}),
             'additional_info': forms.TextInput,
