@@ -49,7 +49,7 @@ class ProductTestCase(TestCase):
 
     def test_no_additional_fields(self):
         fields = Product._meta.get_all_field_names()
-        self.assertTrue(sorted(fields) == sorted(self.expected_fields.keys()))
+        self.assertEqual(sorted(fields), sorted(self.expected_fields.keys()))
 
     def test_created_modified_fields(self):
         self.assertTrue(Product._meta.get_field('modified').auto_now)

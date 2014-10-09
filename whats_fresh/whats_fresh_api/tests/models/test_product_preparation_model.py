@@ -29,7 +29,7 @@ class ProductPreparationTestCase(TestCase):
 
     def test_no_additional_fields(self):
         fields = ProductPreparation._meta.get_all_field_names()
-        self.assertTrue(sorted(fields) == sorted(self.expected_fields.keys()))
+        self.assertEqual(sorted(fields), sorted(self.expected_fields.keys()))
 
     def test___unicode___method(self):
         try:
