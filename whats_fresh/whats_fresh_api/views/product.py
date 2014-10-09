@@ -6,6 +6,7 @@ from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 import json
+from .serializer_two import CleanSerializer
 
 
 def product_list(request):
@@ -16,76 +17,28 @@ def product_list(request):
     will support the ?limit=<int> parameter to limit the number of products
     returned.
     """
-    data = {}
     limit = request.GET.get('limit', None)
-
-    try:
+    if limit:
         limit = int(limit)
-    except Exception as e:
-        data['error'] = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
-            'status': True,
-            'level': 'Warning',
-            'text': 'Invalid limit. Returning all results.',
-            'name': 'Bad Limit'
-        }
-        limit = None
 
-    product_list = Product.objects.all()[:limit]
+    error = {
+        'status': False,
+        'level': None,
+        'debug': None,
+        'text': None,
+        'name': None
+    }
 
-    if len(product_list) == 0:
-        data['error'] = {
-            'status': True,
-            'level': 'Error',
-            'debug': '',
-            'text': 'No Products found',
-            'name': 'No Products'
-        }
-        return HttpResponseNotFound(
-            json.dumps(data),
-            content_type="application/json"
-        )
+    serializer = CleanSerializer()
+    serializer.use_natural_keys()
 
-    data['products'] = []
-    try:
-        for product in product_list:
-            data['products'].append(
-                model_to_dict(product, exclude=['preparations', 'image_id']))
+    data = {
+        "products": json.loads(
+            serializer.serialize(Product.objects.all()[:limit])),
+        "error": error
+    }
 
-            try:
-                data['products'][-1]['image'] = product.image_id.image.url
-            except AttributeError:
-                data['products'][-1]['image'] = None
-            try:
-                data['products'][-1]['story_id'] = product.story_id.id
-            except AttributeError:
-                data['products'][-1]['story_id'] = None
-
-            data['products'][-1]['created'] = str(product.created)
-            data['products'][-1]['modified'] = str(product.modified)
-            data['products'][-1]['id'] = product.id
-
-        data['error'] = {
-            'status': False,
-            'level': None,
-            'text': None,
-            'debug': None,
-            'name': None
-        }
-        return HttpResponse(json.dumps(data), content_type="application/json")
-
-    except Exception as e:
-        data['error'] = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
-            'status': True,
-            'level': 'Severe',
-            'text': str(e),
-            'name': 'Unknown'
-        }
-        return HttpResponseServerError(
-            json.dumps(data),
-            content_type="application/json"
-        )
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 def product_details(request, id=None):
@@ -114,16 +67,16 @@ def product_details(request, id=None):
     try:
         data = model_to_dict(product, fields=[], exclude=[])
         del data['preparations']
-        del data['image_id']
+        del data['image']
 
         try:
-            data['image'] = product.image_id.image.url
+            data['image'] = product.image.image.url
         except AttributeError:
             data['image'] = None
         try:
-            data['story_id'] = product.story_id.id
+            data['story'] = product.story.id
         except AttributeError:
-            data['story_id'] = None
+            data['story'] = None
 
         data['created'] = str(product.created)
         data['updated'] = str(product.modified)
@@ -185,14 +138,14 @@ def product_vendor(request, id=None):
             data['products'].append(
                 model_to_dict(product, fields=[], exclude=[]))
             del data['products'][-1]['preparations']
-            del data['products'][-1]['image_id']
+            del data['products'][-1]['image']
 
             try:
-                data['products'][-1]['story_id'] = product.story_id.id
+                data['products'][-1]['story'] = product.story.id
             except AttributeError:
-                data['products'][-1]['story_id'] = None
+                data['products'][-1]['story'] = None
             try:
-                data['products'][-1]['image'] = product.image_id.image.url
+                data['products'][-1]['image'] = product.image.image.url
             except AttributeError:
                 data['products'][-1]['image'] = None
             data['products'][-1]['created'] = str(product.created)

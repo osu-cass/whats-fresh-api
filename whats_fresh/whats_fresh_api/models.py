@@ -28,6 +28,9 @@ class Image(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    def natural_key(self):
+        return self.image.url
+
 
 class Vendor(models.Model):
     """
@@ -61,7 +64,7 @@ class Vendor(models.Model):
     location = models.PointField()
     objects = models.GeoManager()
 
-    story_id = models.ForeignKey('Story', null=True)
+    story = models.ForeignKey('Story', null=True)
     products_preparations = models.ManyToManyField(
         'ProductPreparation',
         related_name='vendors',
@@ -94,8 +97,8 @@ class Product(models.Model):
     market_price = models.TextField()
     link = models.URLField(blank=True)
 
-    image_id = models.ForeignKey('Image', null=True, blank=True)
-    story_id = models.ForeignKey('Story', null=True, blank=True)
+    image = models.ForeignKey('Image', null=True, blank=True)
+    story = models.ForeignKey('Story', null=True, blank=True)
 
     preparations = models.ManyToManyField(
         'Preparation', related_name='products', through='ProductPreparation')

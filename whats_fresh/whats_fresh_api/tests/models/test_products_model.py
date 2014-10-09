@@ -25,8 +25,8 @@ class ProductTestCase(TestCase):
             'link': models.URLField,
             'image_id': models.ForeignKey,
             'story_id': models.ForeignKey,
-            'image_id_id': models.ForeignKey,
-            'story_id_id': models.ForeignKey,
+            'image': models.ForeignKey,
+            'story': models.ForeignKey,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
             'preparations': models.ManyToManyField,
@@ -41,7 +41,7 @@ class ProductTestCase(TestCase):
             'link'
         }
 
-        self.null_fields = {'story_id', 'image_id'}
+        self.null_fields = {'story', 'image'}
 
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'Product')

@@ -48,11 +48,11 @@ class NewProductTestCase(TestCase):
         """
         response = self.client.get(reverse('new-product'))
 
-        fields = {'name': 'input', 'variety': 'input', 'story_id': 'select',
+        fields = {'name': 'input', 'variety': 'input', 'story': 'select',
                   'alt_name': 'input', 'description': 'textarea',
                   'origin': 'input', 'season': 'input', 'available': 'select',
                   'market_price': 'input', 'link': 'input',
-                  'image_id': 'select'}
+                  'image': 'select'}
         form = response.context['product_form']
 
         for field in fields:
@@ -82,10 +82,10 @@ class NewProductTestCase(TestCase):
         Image.objects.create(id=1)
 
         # Data that we'll post to the server to get the new vendor created
-        new_product = {'name': 'Salmon', 'variety': 'Pacific', 'story_id': 1,
+        new_product = {'name': 'Salmon', 'variety': 'Pacific', 'story': 1,
                   'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',
                   'description': 'It\'s salmon -- from the Pacific!',
-                  'season': 'Always', 'available': '', 'image_id': 1,
+                  'season': 'Always', 'available': '', 'image': 1,
                   'market_price': '$3 a pack', 'preparation_ids': '1,2',
                   'link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
@@ -94,8 +94,8 @@ class NewProductTestCase(TestCase):
         # These values are changed by the server after being received from
         # the client/web page.
         new_product['available'] = None
-        new_product['story_id'] = Story.objects.get(id=new_product['story_id'])
-        new_product['image_id'] = Image.objects.get(id=new_product['image_id'])
+        new_product['story'] = Story.objects.get(id=new_product['story'])
+        new_product['image'] = Image.objects.get(id=new_product['image'])
 
         del new_product['preparation_ids']
 

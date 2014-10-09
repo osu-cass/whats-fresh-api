@@ -43,7 +43,7 @@ class VendorTestCase(TestCase):
   "phone": 5417377627,
   "website": "http://example.com",
   "email": "a@perr.com",
-  "story_id": 1,
+  "story": 1,
   "ext": {},
   "id": 1,
   "created": "2014-08-08 23:27:05.568395+00:00",

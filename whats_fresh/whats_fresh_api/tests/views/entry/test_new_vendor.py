@@ -54,7 +54,7 @@ class NewVendorTestCase(TestCase):
         response = self.client.get(reverse('new-vendor'))
 
         fields = {'name': 'input', 'description': 'textarea', 'hours': 'input',
-                  'story_id': 'select', 'status': 'select', 'street': 'input',
+                  'story': 'select', 'status': 'select', 'street': 'input',
                   'city': 'input', 'state': 'input', 'zip': 'input',
                   'location_description': 'textarea', 'contact_name': 'input',
                   'website': 'input', 'email': 'input', 'phone': 'input'}
@@ -96,7 +96,7 @@ class NewVendorTestCase(TestCase):
         # Data that we'll post to the server to get the new vendor created
         new_vendor = {
             'zip': '97365', 'website': '', 'hours': 'optional hours',
-            'street': '750 NW Lighthouse Dr', 'story_id': 1,
+            'street': '750 NW Lighthouse Dr', 'story': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
             'location_description': 'Optional Description',
@@ -114,7 +114,7 @@ class NewVendorTestCase(TestCase):
         del new_vendor['preparation_ids']
         new_vendor['status'] = None
         new_vendor['phone'] = None
-        new_vendor['story_id'] = Story.objects.get(id=new_vendor['story_id'])
+        new_vendor['story'] = Story.objects.get(id=new_vendor['story'])
 
         vend = Vendor.objects.all()[0]
         for field in new_vendor:
@@ -143,7 +143,7 @@ class NewVendorTestCase(TestCase):
         all_vendors = Vendor.objects.all()
 
         new_vendor = {
-            'zip': '', 'website': '', 'street': '', 'story_id': '',
+            'zip': '', 'website': '', 'street': '', 'story': '',
             'status': '', 'state': '', 'preparation_ids': None,
             'phone': '', 'name': '', 'location_description': '',
             'email': '', 'description': '', 'contact_name': '',
@@ -158,7 +158,7 @@ class NewVendorTestCase(TestCase):
         self.assertIn('Full address is required.', response.context['errors'])
 
         required_fields = [
-            'city', 'name', 'zip', 'story_id', 'location', 'state',
+            'city', 'name', 'zip', 'story', 'location', 'state',
             'street', 'contact_name', 'description']
         for field_name in required_fields:
             self.assertIn(field_name, response.context['vendor_form'].errors)
@@ -198,7 +198,7 @@ class NewVendorTestCase(TestCase):
         # Data that we'll post to the server to get the new vendor created
         new_vendor = {
             'zip': '97477', 'website': '', 'hours': '',
-            'street': '123 Fake Street', 'story_id': 1,
+            'street': '123 Fake Street', 'story': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
             'location_description': 'Optional Description',

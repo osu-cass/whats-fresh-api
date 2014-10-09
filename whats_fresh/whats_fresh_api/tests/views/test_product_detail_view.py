@@ -44,7 +44,7 @@ class ProductViewTestCase(TestCase):
   "market_price": "$32.64 per season",
   "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
   "image": "/media/cat.jpg",
-  "story_id": 2,
+  "story": 2,
   "created": "2014-08-08 23:27:05.568395+00:00",
   "updated": "2014-08-08 23:27:05.568395+00:00"
 }"""

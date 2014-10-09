@@ -105,9 +105,9 @@ def vendor_list(request):
 
             data['vendors'][-1]['id'] = vendor.id
             try:
-                data['vendors'][-1]['story_id'] = vendor.story_id.id
+                data['vendors'][-1]['story'] = vendor.story.id
             except:
-                data['vendors'][-1]['story_id'] = None
+                data['vendors'][-1]['story'] = None
             data['vendors'][-1]['lat'] = vendor.location.y
             data['vendors'][-1]['lng'] = vendor.location.x
 
@@ -257,9 +257,9 @@ def vendors_products(request, id=None):
             data['vendors'][-1]['id'] = vendor.id
 
             try:
-                data['vendors'][-1]['story_id'] = vendor.story_id.id
+                data['vendors'][-1]['story'] = vendor.story.id
             except AttributeError:
-                data['story_id'] = None
+                data['story'] = None
 
             data['vendors'][-1]['lat'] = vendor.location.y
             data['vendors'][-1]['lng'] = vendor.location.x
@@ -332,9 +332,9 @@ def vendor_details(request, id=None):
                 'location', 'phone', 'products_preparations'])
 
         try:
-            data['story_id'] = vendor.story_id.id
+            data['story'] = vendor.story.id
         except AttributeError:
-            data['story_id'] = None
+            data['story'] = None
         try:
             data['phone'] = vendor.phone.national_number
         except AttributeError:
