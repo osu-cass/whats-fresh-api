@@ -6,21 +6,16 @@ from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 import json
-from .serializer_two import CleanSerializer
+from .serializer import FreshSerializer
 
 
 def product_list(request):
     """
     */products/*
 
-    Returns a list of all products in the database. In the future this function
-    will support the ?limit=<int> parameter to limit the number of products
-    returned.
+    Returns a list of all products in the database. The ?limit=<int> parameter
+    limits the number of products returned.
     """
-    limit = request.GET.get('limit', None)
-    if limit:
-        limit = int(limit)
-
     error = {
         'status': False,
         'level': None,
@@ -29,12 +24,38 @@ def product_list(request):
         'name': None
     }
 
-    serializer = CleanSerializer()
-    serializer.use_natural_keys()
+    limit = request.GET.get('limit', None)
+    if limit:
+        try:
+            limit = int(limit)
+        except ValueError as e:
+            error = {
+                'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+                'status': True,
+                'level': 'Warning',
+                'text': 'Invalid limit. Returning all results.',
+                'name': 'Bad Limit'
+            }
+
+    serializer = FreshSerializer()
+    queryset = Product.objects.all()[:limit]
+
+    if not queryset:
+        error = {
+            "status": True,
+            "text": "No Products found",
+            "name": "No Products",
+            "debug": "",
+            "level": "Error"
+        }
 
     data = {
         "products": json.loads(
-            serializer.serialize(Product.objects.all()[:limit])),
+            serializer.serialize(
+                queryset,
+                use_natural_foreign_keys=True
+            )
+        ),
         "error": error
     }
 

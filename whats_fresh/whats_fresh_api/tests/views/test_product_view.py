@@ -47,8 +47,8 @@ class ProductViewTestCase(TestCase):
       "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
       "image": "/media/dog.jpg",
       "story": 1,
-      "created": "2014-08-08 23:27:05.568395+00:00",
-      "modified": "2014-08-08 23:27:05.568395+00:00"
+      "created": "2014-08-08T23:27:05.568Z",
+      "modified": "2014-08-08T23:27:05.568Z"
     },
     {
       "id": 1,
@@ -63,8 +63,8 @@ class ProductViewTestCase(TestCase):
       "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
       "image": "/media/cat.jpg",
       "story": 2,
-      "created": "2014-08-08 23:27:05.568395+00:00",
-      "modified": "2014-08-08 23:27:05.568395+00:00"
+      "created": "2014-08-08T23:27:05.568Z",
+      "modified": "2014-08-08T23:27:05.568Z"
     }
   ]
 }"""
@@ -126,14 +126,15 @@ class NoProductViewTestCase(TestCase):
     "name": "No Products",
     "debug": "",
     "level": "Error"
-  }
+  },
+  "products": []
 }"""
 
     def test_no_products(self):
         response = self.client.get(reverse('products-list'))
         parsed_answer = json.loads(response.content)
         expected_answer = json.loads(self.expected_no_products)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
 
         self.maxDiff = None
 
