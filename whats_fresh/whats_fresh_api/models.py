@@ -123,7 +123,15 @@ class Story(models.Model):
         else:
             return u'Story %d' % self.id
 
-    story = models.TextField()
+    name = models.TextField()
+    history = models.TextField()
+    facts = models.TextField()
+    buying = models.TextField()
+    preparing = models.TextField()
+    products = models.TextField()
+    season = models.TextField()
+    images = models.ImageField(upload_to="images")
+    videos = models.URLField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

@@ -3,7 +3,19 @@
     "model": "whats_fresh_api.Story",
     "pk": "10",
     "fields": {
-      "story": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations...",
+      "name": "Starfish Enterblub",
+      "history": "These are the voyages of the Starfish Enterblub; her five year mission -- to seek out new fish and new fishilizations...",
+      "facts": "The Starfish Enterblub is a spaceship",
+      "buying": "Buying a spaceship is an expensive proposition.",
+      "preparing": "Spaceships are usually well prepared for you",
+      "products": "This is a product",
+      "season": "All of them",
+      "images": [
+            {"caption": "A spaceship", "link": "/media/starship.jpg"} 
+      ],
+      "videos": [
+            {"caption": "Video of the starship", "link": "http://www.youtube.com/watch?v=efgDdSWDg0g"}
+      ],
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -12,7 +24,18 @@
     "model": "whats_fresh_api.Story",
     "pk": "20",
     "fields": {
-      "story": "This is the story, all about how my life got flip turned upside down!",
+      "name": "Fresh Prince",
+      "history": "This is the story, all about how my life got flip turned upside down!",
+      "facts": "I have never watch this",
+      "buying": "Buying people is illegal",
+      "preparing": "Being a prince is hard work, make sure you prepare for it",
+      "products": "Still illegal",
+      "images": [
+            {"caption": "The prince himself", "link": "/media/prince.jpg"}
+      ],
+      "videos": [
+            {"caption": "Princely", "link": "http://www.youtube.com/watch?v=M-nlAuCW7WY"}
+      ],
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
