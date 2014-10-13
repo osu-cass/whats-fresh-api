@@ -1,8 +1,9 @@
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group
 
 
-class EditVendorTestCase(TestCase):
+class EntryPageTestCase(TestCase):
     """
     Test that the Entry page requires login.
     """
