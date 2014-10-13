@@ -60,9 +60,14 @@ def preparation(request, id=None):
     """
     */entry/preparations/<id>*, */entry/preparations/new*
 
-    The entry interface's edit/add preparation view. This view creates the edit
-    page for a given preparation, or the "new preparation" page if it is not
-    passed an ID. It also accepts POST requests to create or edit preparations.
+    The entry interface's edit/add/delete preparation view. This view creates
+    the edit page for a given preparation, or the "new preparation" page if it
+    is not passed an ID. It also accepts POST requests to create or edit
+    preparations.
+
+    If called with DELETE, it will return a 200 upon success or a 404 upon
+    failure. This is to be used as part of an AJAX call, or some other API
+    call.
     """
     if request.method == 'DELETE':
         preparation = get_object_or_404(Preparation, pk=id)

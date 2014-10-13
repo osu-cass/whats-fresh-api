@@ -22,9 +22,14 @@ def vendor(request, id=None):
     """
     */entry/vendors/<id>*, */entry/vendors/new*
 
-    The entry interface's edit/add vendor view. This view creates the edit
-    page for a given vendor, or the "new vendor" page if it is not passed
-    an ID. It also accepts POST requests to create or edit vendors.
+    The entry interface's edit/add/delete vendor view. This view creates the
+    edit page for a given vendor, or the "new vendor" page if it is not passed
+    an ID. It also accepts POST requests to create or edit vendors, and DELETE
+    requests to delete the vendor.
+
+    If called with DELETE, it will return a 200 upon success or a 404 upon
+    failure. This is to be used as part of an AJAX call, or some other API
+    call.
     """
     if request.method == 'DELETE':
         vendor = get_object_or_404(Vendor, pk=id)

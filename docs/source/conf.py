@@ -21,7 +21,7 @@ import mock
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
-sys.path.insert(0, os.path.abspath('../../whats_fresh'))
+sys.path.insert(0, os.path.abspath('../../'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "whats_fresh.settings")
 
 MOCK_MODULES = ['django.contrib.gis.db', 'django', 'django.http',
@@ -30,7 +30,8 @@ MOCK_MODULES = ['django.contrib.gis.db', 'django', 'django.http',
                 'django.forms.models', 'django.contrib', 'django.contrib.gis',
                 'django.contrib.gis.measure', 'django.contrib.auth',
                 'django.contrib.gis.geos', 'django.conf', 'django.forms',
-                'phonenumber_field.modelfields']
+                'phonenumber_field.modelfields',
+                'django.contrib.auth.decorators']
 
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()

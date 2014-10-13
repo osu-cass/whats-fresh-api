@@ -23,9 +23,14 @@ def product(request, id=None):
     """
     */entry/products/<id>*, */entry/products/new*
 
-    The entry interface's edit/add product view. This view creates the edit
-    page for a given product, or the "new product" page if it is not passed
-    an ID. It also accepts POST requests to create or edit products.
+    The entry interface's edit/add/delete product view. This view creates the
+    edit page for a given product, or the "new product" page if it is not
+    passed an ID. It also accepts POST requests to create or edit products, and
+    DELETE requests to delete them.
+
+    If called with DELETE, it will return a 200 upon success or a 404 upon
+    failure. This is to be used as part of an AJAX call, or some other API
+    call.
     """
     if request.method == 'DELETE':
         product = get_object_or_404(Product, pk=id)
