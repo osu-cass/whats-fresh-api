@@ -27,6 +27,9 @@ def login_user(request):
     else:
         next = request.GET.get('next')
 
+    if request.GET.get('logout', False):
+        state = "Logged out successfully!"
+
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('home'))
 
@@ -36,7 +39,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect(reverse('login'))
+    return HttpResponseRedirect('{}?logout=true'.format(reverse('login')))
 
 
 def root(request):
