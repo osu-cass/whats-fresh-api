@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -32,6 +32,11 @@ def login_user(request):
 
     return render(request, 'auth.html', {
         'state':state, 'username': username, 'next': next, 'title': 'Log In'})
+
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))
 
 
 def root(request):
