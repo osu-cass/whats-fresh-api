@@ -7,3 +7,4 @@ Planning
 
    draft_api
    draft_model
+   draft_errors
