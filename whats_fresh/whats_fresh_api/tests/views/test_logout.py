@@ -48,4 +48,4 @@ class LogoutViewTestCase(TestCase):
         self.assertEqual(self.client.session['_auth_user_id'], self.user.pk)
 
         self.client.get('/logout')
-        self.assertEqual('_auth_user_id' not in self.client.session)
+        self.assertTrue('_auth_user_id' not in self.client.session)

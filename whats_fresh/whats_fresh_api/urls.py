@@ -73,6 +73,10 @@ urlpatterns = patterns('',
         'whats_fresh.whats_fresh_api.views.data_entry.login.login_user',
         name='login'),
 
+    url(r'^logout/?$',
+        'whats_fresh.whats_fresh_api.views.data_entry.login.logout_user',
+        name='logout'),
+
     url(r'^/?$',
         'whats_fresh.whats_fresh_api.views.data_entry.login.root',
         name='root'),
