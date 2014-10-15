@@ -10,12 +10,8 @@
       "preparing": "Fried",
       "products": "Fish",
       "season": "Spring",
-      "images": [
-        {"caption": "A picture", "link": "/media/cat.jpg"}
-      ],
-      "videos": [
-        {"caption": "A video", "link": "http://www.youtube.com/watch?v=C5twOVjxKqg"}
-      ],
+      "images": "1",
+      "videos": "1",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -24,7 +20,14 @@
     "model": "whats_fresh_api.Story",
     "pk": "2",
     "fields": {
-      "story": "This is the story, all about how my life got flip turned upside down!",
+      "name": "Fresh Prince",
+      "history": "This is the story, all about how my life got flip turned upside down!",
+      "facts": "I have never watch this",
+      "buying": "Buying people is illegal",
+      "preparing": "Being a prince is hard work, make sure you prepare for it",
+      "products": "Still illegal",
+      "images": "2",
+      "videos": "2",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -183,6 +186,26 @@
     "fields": {
       "image": "/media/cat.jpg",
       "caption": "Meow!",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Video",
+    "pk": "1",
+    "fields": {
+      "video": "http://www.youtube.com/watch?v=efgDdSWDg0g",
+      "caption": "A Starship",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Video",
+    "pk": "2",
+    "fields": {
+      "video": "http://www.youtube.com/watch?v=M-nlAuCW7WY",
+      "caption": "Princely",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }

@@ -15,10 +15,12 @@ class StoryTestCase(TestCase):
             'preparing': models.TextField,
             'products': models.TextField,
             'season': models.TextField,
-            'images': models.ImageField,
-            'videos': models.VideoField,
+            'images': models.ManyToManyField,
+            'videos': models.ManyToManyField,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
+            'product': models.related.RelatedObject,
+            'vendor': models.related.RelatedObject,
             'id': models.AutoField
         }
 

@@ -3,16 +3,31 @@
     "model": "whats_fresh_api.Story",
     "pk": "2",
     "fields": {
-      "story": "Tuna Story",
+      "name": "Fresh Prince",
+      "history": "This is the story, all about how my life got flip turned upside down!",
+      "facts": "I have never watch this",
+      "buying": "Buying people is illegal",
+      "preparing": "Being a prince is hard work, make sure you prepare for it",
+      "products": "Still illegal",
+      "images": "1",
+      "videos": "1",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
-    }
-  },
-  {
+      }
+    },
+    {
     "model": "whats_fresh_api.Story",
     "pk": "1",
     "fields": {
-      "story": "Halibut Story",
+      "name": "Star Wars",
+      "history": "A long time ago, in a galaxy far, far away...",
+      "facts": "Star Wars is awesome",
+      "buying": "Always buy all related products",
+      "preparing": "Fried",
+      "products": "Fish",
+      "season": "Spring",
+      "images": "2",
+      "videos": "2",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -343,6 +358,26 @@
     "fields": {
       "image": "/media/tuna.jpg",
       "caption": "Meow!",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Video",
+    "pk": "1",
+    "fields": {
+      "video": "http://www.youtube.com/watch?v=efgDdSWDg0g",
+      "caption": "A starship",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Video",
+    "pk": "2",
+    "fields": {
+      "video": "http://www.youtube.com/watch?v=M-nlAuCW7WY",
+      "caption": "Princely!",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }

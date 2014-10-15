@@ -10,12 +10,8 @@
       "preparing": "Spaceships are usually well prepared for you",
       "products": "This is a product",
       "season": "All of them",
-      "images": [
-            {"caption": "A spaceship", "link": "/media/starship.jpg"} 
-      ],
-      "videos": [
-            {"caption": "Video of the starship", "link": "http://www.youtube.com/watch?v=efgDdSWDg0g"}
-      ],
+      "images": "10",
+      "videos": "10",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -30,12 +26,8 @@
       "buying": "Buying people is illegal",
       "preparing": "Being a prince is hard work, make sure you prepare for it",
       "products": "Still illegal",
-      "images": [
-            {"caption": "The prince himself", "link": "/media/prince.jpg"}
-      ],
-      "videos": [
-            {"caption": "Princely", "link": "http://www.youtube.com/watch?v=M-nlAuCW7WY"}
-      ],
+      "images": "20",
+      "videos": "20",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -186,6 +178,26 @@
     "fields": {
       "image": "/media/cat.jpg",
       "caption": "Meow!",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Video",
+    "pk": "10",
+    "fields": {
+      "video": "http://www.youtube.com/watch?v=efgDdSWDg0g",
+      "caption": "A starship",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Video",
+    "pk": "20",
+    "fields": {
+      "video": "http://www.youtube.com/watch?v=M-nlAuCW7WY",
+      "caption": "Princely",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }

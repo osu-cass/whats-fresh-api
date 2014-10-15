@@ -42,7 +42,7 @@ def story_details(request, id=None):
         }
         return HttpResponse(json.dumps(data), content_type="application/json")
 
-    except:
+    except Exception as e:
         data['error'] = {
             'status': True,
             'level': 'Error',
