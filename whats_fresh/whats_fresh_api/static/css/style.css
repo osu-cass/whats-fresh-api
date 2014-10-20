@@ -74,7 +74,7 @@ a {
   width: 70%;
   height: auto;
   display: block;
-  margin: 50px auto;
+  margin: 30px auto;
   padding: 10px; }
 
 .entry {
@@ -178,9 +178,8 @@ a {
   display: block;
   margin: 20px auto;
   display: inline-block; }
-  .new p {
+  .new a {
     padding: 5px;
-    line-height: 50px;
     vertical-align: middle; }
 
 .new:hover {

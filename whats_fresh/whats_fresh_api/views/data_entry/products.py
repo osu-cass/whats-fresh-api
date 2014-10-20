@@ -165,5 +165,5 @@ def product_list(request):
         'new_text': "New product",
         'title': "All products",
         'item_classification': "product",
-        'item_list': product_list,
+        'item_list': products_list,
     })
