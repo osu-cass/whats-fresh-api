@@ -74,8 +74,10 @@
     </div>
 
     <input class='preparation' name="preparation_ids" type="hidden" />
-    <button type"input" onclick="deleteProduct();return false;" />Delete</button>
-    <button type="submit" onclick="setPreparationField();"/>Save</button>
+    <div class="buttons">
+    <button class="action" type="input" onclick="deleteProduct();return false;" />Delete</button>
+    <button class="action" type="submit" onclick="setPreparationField();"/>Save</button>
+    </div>
 </form>
 <!-- The template div used by appendPreparation() -->
 <div id='new_preparation'>

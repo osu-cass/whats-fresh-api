@@ -193,7 +193,7 @@ a{
         width: 90%;
     }
 
-    .sumit, button {
+    .submit, button {
         @include buttons;
     }
 
@@ -205,9 +205,19 @@ a{
         margin-left: 5%;
     }
 
-    .delete{
+    .delete {
         vertical-align: middle;
     }
+
+    .action {
+        display: inline-block;
+    }
+}
+
+.buttons {
+    margin-left: auto;
+    margin-right: 0px;
+    text-align: right;
 }
 
 

@@ -125,7 +125,7 @@ a {
     font-size: 16pt;
     font-family: "Montserrat", sans-serif;
     width: 90%; }
-  .form .sumit, .form button, .entry_box .sumit, .entry_box button {
+  .form .submit, .form button, .entry_box .submit, .entry_box button {
     background: #FFCA5D;
     color: #333;
     border: 2px solid #333;
@@ -144,6 +144,13 @@ a {
     margin-left: 5%; }
   .form .delete, .entry_box .delete {
     vertical-align: middle; }
+  .form .action, .entry_box .action {
+    display: inline-block; }
+
+.buttons {
+  margin-left: auto;
+  margin-right: 0px;
+  text-align: right; }
 
 .preparations {
   display: inline-block;
