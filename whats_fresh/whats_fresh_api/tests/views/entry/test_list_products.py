@@ -21,7 +21,7 @@ class ListProductTestCase(TestCase):
 
         response = self.client.login(username='temporary', password='temporary')
         self.assertEqual(response, True)
-    
+
     def test_not_logged_in(self):
         self.client.logout()
 
@@ -60,6 +60,3 @@ class ListProductTestCase(TestCase):
             self.assertEqual(
                 list_product['modified'],
                 db_product.modified.strftime("%I:%M %P, %d %b %Y"))
-            self.assertEqual(
-                sorted(list_product['preparations']),
-                sorted([prep.name for prep in db_product.preparations.all()]))

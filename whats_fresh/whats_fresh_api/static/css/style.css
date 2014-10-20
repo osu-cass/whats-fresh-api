@@ -180,7 +180,6 @@ a {
   display: inline-block; }
   .new a {
     padding: 5px;
-    line-height: 50px;
     vertical-align: middle; }
 
 .new:hover {
