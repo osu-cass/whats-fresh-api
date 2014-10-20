@@ -180,6 +180,7 @@ a {
   display: inline-block; }
   .new a {
     padding: 5px;
+    line-height: 50px;
     vertical-align: middle; }
 
 .new:hover {
@@ -194,8 +195,7 @@ a {
   width: 40%; }
 
 .product, .preparation {
-  display: block;
- }
+  display: block; }
 
 .no_products {
   font-size: 18pt;
@@ -213,5 +213,3 @@ a {
     padding: 0px; }
   .product_list ul li {
     padding-left: 30px; }
-
-/*# sourceMappingURL=style.css.map */
