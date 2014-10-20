@@ -12,7 +12,7 @@ from whats_fresh.whats_fresh_api.models import *
 from whats_fresh.whats_fresh_api.forms import *
 from whats_fresh.whats_fresh_api.functions import *
 from django.forms.models import save_instance
-from whats_fresh.whats_fresh_api.functions import * 
+from whats_fresh.whats_fresh_api.functions import *
 
 import json
 
@@ -152,15 +152,12 @@ def product_list(request):
         product_data['description'] = product.description
         product_data['link'] = reverse('edit-product', kwargs={'id': product.id})
 
-        product_data['preparations'] = [
-            preparation.name for preparation in product.preparations.all()]
-
         if len(product_data['description']) > 100:
             product_data['description'] = product_data['description'][:100] + "..."
 
         products_list.append(product_data)
 
-    return render(request, 'products_list.html', {
+    return render(request, 'list.html', {
         'message': message,
         'parent_url': reverse('home'),
         'parent_text': 'Home',
@@ -168,5 +165,5 @@ def product_list(request):
         'new_text': "New product",
         'title': "All products",
         'item_classification': "product",
-        'item_list': products_list,
+        'item_list': product_list,
     })

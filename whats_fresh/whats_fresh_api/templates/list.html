@@ -18,15 +18,19 @@
     <a href='{{ new_url }}'><p>{{ new_text }}</p></a>
 </div>
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>
+    <div class='list'>
 {% for item in item_list %}
 <a href='{{ item.link }}'>
-    <div class='{{ item_classification }} list'>
+        <div class='{{ item_classification }} '>
         <p class='item'>{{ item.name }}</p>
         <div class='description'>
             <p>Description: {{ item.description }}</p>
         </div>
-        {% block extra_information %}{% endblock %}
     </div>
 </a>
+{% if not forloop.last %}
+<hr>
+{% endif %}
 {% endfor %}
+    </div>
 {% endblock content %}

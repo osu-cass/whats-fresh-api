@@ -157,12 +157,12 @@ a {
   border: 2px solid #333;
   width: 80%; }
 
-.list:hover {
+.preparation:hover, .product:hover, .vendor:hover {
   background-color: #FFF; }
 
 .item {
   display: block;
-  font-size: 24pt; }
+  font-size: 20pt; }
 
 .description {
   width: 100%; }
@@ -196,7 +196,7 @@ a {
 
 .product, .preparation {
   display: block;
-  margin: 15px; }
+ }
 
 .no_products {
   font-size: 18pt;
