@@ -99,7 +99,7 @@
 
     function deletePreparation(element)
     {
-        $( element ).parent().parent().css("display", "none");
+        $( element ).parent().css("display", "none");
         if ($( ".preparation:visible" ).length === 0) {
             $( ".no_products" ).show();
         };
