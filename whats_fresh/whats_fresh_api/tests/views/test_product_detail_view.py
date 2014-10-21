@@ -46,7 +46,7 @@ class ProductViewTestCase(TestCase):
   "image": "/media/cat.jpg",
   "story": 2,
   "created": "2014-08-08 23:27:05.568395+00:00",
-  "updated": "2014-08-08 23:27:05.568395+00:00"
+  "modified": "2014-08-08 23:27:05.568395+00:00"
 }"""
 
         self.expected_not_found = """

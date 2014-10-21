@@ -47,7 +47,7 @@ class VendorTestCase(TestCase):
   "ext": {},
   "id": 1,
   "created": "2014-08-08 23:27:05.568395+00:00",
-  "updated": "2014-08-08 23:27:05.568395+00:00",
+  "modified": "2014-08-08 23:27:05.568395+00:00",
   "products": [
     {
       "product_id": 2,
