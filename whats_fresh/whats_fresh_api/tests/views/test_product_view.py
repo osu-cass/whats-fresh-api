@@ -48,7 +48,8 @@ class ProductViewTestCase(TestCase):
       "image": "/media/dog.jpg",
       "story": 1,
       "created": "2014-08-08T23:27:05.568Z",
-      "modified": "2014-08-08T23:27:05.568Z"
+      "modified": "2014-08-08T23:27:05.568Z",
+      "ext": {}
     },
     {
       "id": 1,
@@ -64,7 +65,8 @@ class ProductViewTestCase(TestCase):
       "image": "/media/cat.jpg",
       "story": 2,
       "created": "2014-08-08T23:27:05.568Z",
-      "modified": "2014-08-08T23:27:05.568Z"
+      "modified": "2014-08-08T23:27:05.568Z",
+      "ext": {}
     }
   ]
 }"""
