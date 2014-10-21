@@ -100,7 +100,7 @@ def vendor_list(request):
                 data['vendors'][-1]['phone'] = None
 
             data['vendors'][-1]['created'] = str(vendor.created)
-            data['vendors'][-1]['updated'] = str(vendor.modified)
+            data['vendors'][-1]['modified'] = str(vendor.modified)
             data['vendors'][-1]['ext'] = {}
 
             data['vendors'][-1]['id'] = vendor.id
@@ -252,7 +252,7 @@ def vendors_products(request, id=None):
                 data['vendors'][-1]['phone'] = None
 
             data['vendors'][-1]['created'] = str(vendor.created)
-            data['vendors'][-1]['updated'] = str(vendor.modified)
+            data['vendors'][-1]['modified'] = str(vendor.modified)
             data['vendors'][-1]['ext'] = {}
             data['vendors'][-1]['id'] = vendor.id
 
@@ -344,7 +344,7 @@ def vendor_details(request, id=None):
         data['lng'] = vendor.location.x
 
         data['created'] = str(vendor.created)
-        data['updated'] = str(vendor.modified)
+        data['modified'] = str(vendor.modified)
         data['ext'] = {}
         data['id'] = vendor.id
 

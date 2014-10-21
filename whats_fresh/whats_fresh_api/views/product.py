@@ -100,7 +100,7 @@ def product_details(request, id=None):
             data['story'] = None
 
         data['created'] = str(product.created)
-        data['updated'] = str(product.modified)
+        data['modified'] = str(product.modified)
         data['id'] = product.id
 
         data['error'] = {
