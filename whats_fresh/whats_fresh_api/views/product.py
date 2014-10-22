@@ -129,50 +129,39 @@ def product_vendor(request, id=None):
             'text': 'Vendor with id %s not found!' % id,
             'name': 'Vendor Not Found'
         }
+        data['products'] = []
         return HttpResponse(
             json.dumps(data),
             content_type="application/json"
         )
 
-    data['products'] = []
-    try:
-        for product in product_list:
-            data['products'].append(
-                model_to_dict(product, fields=[], exclude=[]))
-            del data['products'][-1]['preparations']
-            del data['products'][-1]['image']
+    error = {
+        'status': False,
+        'level': None,
+        'debug': None,
+        'text': None,
+        'name': None
+    }
 
-            try:
-                data['products'][-1]['story'] = product.story.id
-            except AttributeError:
-                data['products'][-1]['story'] = None
-            try:
-                data['products'][-1]['image'] = product.image.image.url
-            except AttributeError:
-                data['products'][-1]['image'] = None
-            data['products'][-1]['created'] = str(product.created)
-            data['products'][-1]['modified'] = str(product.modified)
-            data['products'][-1]['id'] = product.id
+    serializer = FreshSerializer()
 
-        data['error'] = {
-            'status': False,
-            'level': None,
-            'debug': None,
-            'text': None,
-            'name': None
+    if not product_list:
+        error = {
+            "status": True,
+            "text": "No Products found",
+            "name": "No Products",
+            "debug": "",
+            "level": "Error"
         }
-        return HttpResponse(json.dumps(data), content_type="application/json")
 
-    except Exception as e:
-        text = 'An unknown error occurred processing product %s' % id
-        data['error'] = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
-            'status': True,
-            'level': 'Severe',
-            'text': text,
-            'name': str(e)
-        }
-        return HttpResponseServerError(
-            json.dumps(data),
-            content_type="application/json"
-        )
+    data = {
+        "products": json.loads(
+            serializer.serialize(
+                product_list,
+                use_natural_foreign_keys=True
+            )
+        ),
+        "error": error
+    }
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
