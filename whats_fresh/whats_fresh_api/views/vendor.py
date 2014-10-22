@@ -85,7 +85,7 @@ def vendor_list(request):
             "text": "No Vendors found",
             "name": "No Vendors",
             "debug": "",
-            "level": "Error"
+            "level": "Information"
         }
 
     serializer = FreshSerializer()

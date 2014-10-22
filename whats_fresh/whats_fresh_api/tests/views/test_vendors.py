@@ -157,7 +157,7 @@ class NoVendorViewTestCase(TestCase):
     "text": "No Vendors found",
     "name": "No Vendors",
     "debug": "",
-    "level": "Error"
+    "level": "Information"
   },
   "vendors": []
 }"""
