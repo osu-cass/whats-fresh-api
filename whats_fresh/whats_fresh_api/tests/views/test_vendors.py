@@ -46,15 +46,15 @@ class VendorsTestCase(TestCase):
       "hours": "Open Tuesday, 10am to 5pm",
       "location_description": "Location description",
       "contact_name": "A. Persson",
-      "phone": 5417377627,
+      "phone": "+15417377627",
       "website": "http://example.com",
       "email": "a@perr.com",
       "story":  1,
       "ext": {
 
       },
-      "created": "2014-08-08 23:27:05.568395+00:00",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
+      "modified": "2014-08-08T23:27:05.568Z",
       "products": [
         {
           "product_id": 2,
@@ -89,8 +89,8 @@ class VendorsTestCase(TestCase):
         "email": "",
         "story":  null,
         "ext": {},
-        "created": "2014-08-08 23:27:05.568395+00:00",
-        "modified": "2014-08-08 23:27:05.568395+00:00",
+        "created": "2014-08-08T23:27:05.568Z",
+        "modified": "2014-08-08T23:27:05.568Z",
         "products": [
             {
                 "product_id": 1,
@@ -157,7 +157,7 @@ class NoVendorViewTestCase(TestCase):
     "text": "No Vendors found",
     "name": "No Vendors",
     "debug": "",
-    "level": "Error"
+    "level": "Information"
   },
   "vendors": []
 }"""
@@ -167,7 +167,7 @@ class NoVendorViewTestCase(TestCase):
 
         parsed_answer = json.loads(response.content)
         expected_answer = json.loads(self.expected_no_vendors)
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
 
         expected_answer = json.loads(self.expected_no_vendors)
 
@@ -212,7 +212,7 @@ class VendorsLocationTestCase(TestCase):
   "error": {
             "debug": "",
             "status": true,
-            "level": "Error",
+            "level": "Information",
             "text": "No Vendors found",
             "name": "No Vendors"
   },
@@ -245,12 +245,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Tuna",
     "phone": null,
     "lat": 44.631592,
     "name": "Newport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -277,12 +277,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -309,12 +309,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Tuna",
     "phone": null,
     "lat": 44.427761,
     "name": "Waldport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -341,12 +341,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -378,10 +378,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Newport",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Newport Tuna",
       "zip": "97365",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 2,
       "ext": {
 
@@ -410,10 +410,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Newport",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Newport Halibut",
       "zip": "97365",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -442,10 +442,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Waldport",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Waldport Tuna",
       "zip": "97394",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 2,
       "ext": {
 
@@ -474,10 +474,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Waldport",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Waldport Halibut",
       "zip": "97364",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -506,10 +506,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Tuna",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 2,
       "ext": {
 
@@ -538,10 +538,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Halibut",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -596,12 +596,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Portland Tuna",
     "phone": null,
     "lat": 45.518962,
     "name": "Portland Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -628,12 +628,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Tuna",
     "phone": null,
     "lat": 44.631592,
     "name": "Newport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -660,12 +660,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Portland Halibut",
     "phone": null,
     "lat": 45.520988,
     "name": "Portland Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -692,12 +692,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Tuna",
     "phone": null,
     "lat": 44.427761,
     "name": "Waldport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -724,12 +724,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -756,12 +756,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -778,10 +778,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Tuna",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 2,
       "ext": {
 
@@ -810,10 +810,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Halibut",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -868,12 +868,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Portland Tuna",
     "phone": null,
     "lat": 45.518962,
     "name": "Portland Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -900,12 +900,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Tuna",
     "phone": null,
     "lat": 44.631592,
     "name": "Newport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -932,12 +932,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Portland Halibut",
     "phone": null,
     "lat": 45.520988,
     "name": "Portland Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -964,12 +964,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Tuna",
     "phone": null,
     "lat": 44.427761,
     "name": "Waldport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -996,12 +996,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1028,12 +1028,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1050,10 +1050,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Tuna",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 2,
       "ext": {
 
@@ -1082,10 +1082,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Halibut",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -1140,12 +1140,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Portland Tuna",
     "phone": null,
     "lat": 45.518962,
     "name": "Portland Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1172,12 +1172,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Tuna",
     "phone": null,
     "lat": 44.631592,
     "name": "Newport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1204,12 +1204,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Portland Halibut",
     "phone": null,
     "lat": 45.520988,
     "name": "Portland Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1236,12 +1236,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Tuna",
     "phone": null,
     "lat": 44.427761,
     "name": "Waldport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1268,12 +1268,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1300,12 +1300,12 @@ class VendorsLocationTestCase(TestCase):
     "hours": "",
     "email": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1322,10 +1322,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Tuna",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 2,
       "ext": {
 
@@ -1354,10 +1354,10 @@ class VendorsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Halibut",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -1409,12 +1409,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Tuna",
     "phone": null,
     "lat": 44.631592,
     "name": "Newport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1441,12 +1441,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1473,12 +1473,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Tuna",
     "phone": null,
     "lat": 44.427761,
     "name": "Waldport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1519,12 +1519,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Tuna",
     "phone": null,
     "lat": 44.631592,
     "name": "Newport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1551,12 +1551,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1583,12 +1583,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Tuna",
     "phone": null,
     "lat": 44.427761,
     "name": "Waldport Tuna",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -1615,12 +1615,12 @@ class VendorsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
