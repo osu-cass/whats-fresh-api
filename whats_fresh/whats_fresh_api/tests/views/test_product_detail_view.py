@@ -40,6 +40,7 @@ class ProductViewTestCase(TestCase):
   "description": "That's not actually an eel, it's a symbiote.",
   "origin": "Trill",
   "season": "Season 7",
+  "ext": {},
   "available": true,
   "market_price": "$32.64 per season",
   "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
