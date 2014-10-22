@@ -85,46 +85,28 @@ def product_details(request, id=None):
             content_type="application/json"
         )
 
-    try:
-        data = model_to_dict(product, fields=[], exclude=[])
-        del data['preparations']
-        del data['image']
+    error = {
+        'status': False,
+        'level': None,
+        'debug': None,
+        'text': None,
+        'name': None
+    }
 
-        try:
-            data['image'] = product.image.image.url
-        except AttributeError:
-            data['image'] = None
-        try:
-            data['story'] = product.story.id
-        except AttributeError:
-            data['story'] = None
+    serializer = FreshSerializer()
 
-        data['created'] = str(product.created)
-        data['modified'] = str(product.modified)
-        data['id'] = product.id
-
-        data['error'] = {
-            'status': False,
-            'level': None,
-            'debug': None,
-            'text': None,
-            'name': None
-        }
-        return HttpResponse(json.dumps(data), content_type="application/json")
-
-    except:
-        text = 'An unknown error occurred processing product %s' % id
-        data['error'] = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
-            'status': True,
-            'level': 'Severe',
-            'text': text,
-            'name': 'Unknown'
-        }
-        return HttpResponseServerError(
-            json.dumps(data),
-            content_type="application/json"
+    data = json.loads(
+            serializer.serialize(
+                [product],
+                use_natural_foreign_keys=True
+            )[1:-1]
         )
+
+    data['error'] = error
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
 
 def product_vendor(request, id=None):
     """
