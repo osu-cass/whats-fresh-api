@@ -9,6 +9,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 import json
+from .serializer import FreshSerializer
 
 def vendor_list(request):
     """
@@ -146,6 +147,7 @@ def vendor_list(request):
             json.dumps(data),
             content_type="application/json"
         )
+
 
 def vendors_products(request, id=None):
     """
@@ -303,21 +305,30 @@ def vendors_products(request, id=None):
             content_type="application/json"
         )
 
+
 def vendor_details(request, id=None):
     """
     */vendors/<id>*
 
-    Vendor details for vendor <id>.
+    Returns the vendor data for vendor <id>.
     """
     data = {}
+
+    error = {
+        'status': False,
+        'level': None,
+        'debug': None,
+        'text': None,
+        'name': None
+    }
 
     try:
         vendor = Vendor.objects.get(id=id)
     except Exception as e:
         data['error'] = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
             'status': True,
             'level': 'Error',
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
             'text': 'Vendor id %s was not found.' % id,
             'name': 'Vendor Not Found'
         }
@@ -326,60 +337,18 @@ def vendor_details(request, id=None):
             content_type="application/json"
         )
 
-    try:
-        data = model_to_dict(
-            vendor, fields=[], exclude=[
-                'location', 'phone', 'products_preparations'])
+    serializer = FreshSerializer()
 
-        try:
-            data['story'] = vendor.story.id
-        except AttributeError:
-            data['story'] = None
-        try:
-            data['phone'] = vendor.phone.national_number
-        except AttributeError:
-            data['phone'] = None
-
-        data['lat'] = vendor.location.y
-        data['lng'] = vendor.location.x
-
-        data['created'] = str(vendor.created)
-        data['modified'] = str(vendor.modified)
-        data['ext'] = {}
-        data['id'] = vendor.id
-
-        vendor_products = vendor.vendorproduct_set.all()
-        data['products'] = []
-        for vendor_product in vendor_products:
-            product_data = {
-                'product_id': vendor_product.product_preparation.product.id,
-                'preparation_id':
-                    vendor_product.product_preparation.preparation.id,
-                'preparation':
-                    vendor_product.product_preparation.preparation.name,
-                'name': vendor_product.product_preparation.product.name
-            }
-            data['products'].append(product_data)
-
-        data['error'] = {
-            'debug': None,
-            'status': False,
-            'level': None,
-            'text': None,
-            'name': None
-        }
-        return HttpResponse(json.dumps(data), content_type="application/json")
-
-    except Exception as e:
-        data['error'] = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
-            'status': True,
-            'level': 'Error',
-            'text': 'An unknown error occurred processing vendor %s' % id,
-            'name': str(e)
-        }
-
-        return HttpResponseServerError(
-            json.dumps(data),
-            content_type="application/json"
+    data = json.loads(
+            serializer.serialize(
+                [vendor],
+                use_natural_foreign_keys=True
+            )[1:-1] # Serializer can only serialize lists,
+                    # so we have to chop off the list brackets
+                    # to get the serialized string without the list
         )
+
+    data['error'] = error
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+

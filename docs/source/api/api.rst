@@ -162,7 +162,7 @@ The following fields in a vendor can be either a value, or null:
 
 * status: boolean or null
 * location_description: text or empty string
-* phone: valid 10-digit US phone number or null
+* phone: valid phone number (with international prefix) as string or null
 * website: valid URL or empty string
 * email: valid email or empty string
 
@@ -292,7 +292,7 @@ The following fields in a vendor can be either a value, or null:
 
 * status: boolean or null
 * location_description: text or empty string
-* phone: valid 10-digit US phone number or null
+* phone: valid phone number (with international prefix) as string or null
 * website: valid URL or empty string
 * email: valid email or empty string
 
@@ -429,7 +429,7 @@ The following fields in a vendor can be either a value, or null:
 
 * status: boolean or null
 * location_description: text or empty string
-* phone: valid 10-digit US phone number or null
+* phone: valid phone number (with international prefix) as string or null
 * website: valid URL or empty string
 * email: valid email or empty string
 
@@ -458,13 +458,13 @@ Example: GET /vendors/2
       "state": "Oregon",
       "email": "",
       "status": null,
-      "modified": "2014-09-24 19:55:16.085000+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "A local tuna provider.",
       "hours": "",
       "phone": null,
       "lat": -124.0565731,
       "name": "Todd's Tuna Farm",
-      "created": "2014-09-23 23:52:51.484000+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "ext": {
       },
       "products": [

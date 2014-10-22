@@ -40,14 +40,14 @@ class VendorTestCase(TestCase):
   "hours": "Open Tuesday, 10am to 5pm",
   "location_description": "Location description",
   "contact_name": "A. Persson",
-  "phone": 5417377627,
+  "phone": "+15417377627",
   "website": "http://example.com",
   "email": "a@perr.com",
   "story": 1,
   "ext": {},
   "id": 1,
-  "created": "2014-08-08 23:27:05.568395+00:00",
-  "modified": "2014-08-08 23:27:05.568395+00:00",
+  "created": "2014-08-08T23:27:05.568Z",
+  "modified": "2014-08-08T23:27:05.568Z",
   "products": [
     {
       "product_id": 2,
