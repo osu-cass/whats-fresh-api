@@ -17,9 +17,9 @@ The Git repository contains the Django project as a subdirectory, with related
 files -- the Vagrant setup file, the pip requirements file, etc in the root of
 the repository as well.
 
-Inside the project folder, ``whats_fresh``, there are another two folders and
-a ``manage.py`` file. The ``manage.py`` file is a Django script used to control
-the project. To read more about it and its functions, see the `Django documentation`_.
+Inside the project folder, ``whats_fresh``, there is a ``setup.py`` file that
+can be used to install the project. To manage the server, use ``django-admin``.
+To read more about it and its functions, see the `Django documentation`_.
 
 .. _`Django documentation`: https://docs.djangoproject.com/en/1.6/ref/django-admin/
 
@@ -134,13 +134,6 @@ Your prompt should look like this now::
 
 (env)[vagrant@develop-centos-65 ~]$
 
-It's a good idea to navigate to the project directory now, so that ``manage.py``
-functions as expected.
-
-::
-
-    (env)[vagrant@develop-centos-65 ~]$ cd whats_fresh/
-
 .. _manualSetup:
 
 Manually setting up the What's Fresh environment
@@ -190,29 +183,40 @@ Running the Django project
 
 At this point, you should have a working database and copy of the source code.
 You may be developing on your physical machine, or using a virtual machine as
-described above. After setting up the virtual environment, change to the
-directory with ``manage.py`` inside.
+described above. After setting up the virtual environment, navigate to the
+project directory, and install the server using ``setup.py develop``:
 
-Now, create the database tables using ``manage.py``::
+::
 
-    (env)[vagrant@develop-centos-65 ~]$ python manage.py syncdb
+    (env)[vagrant@develop-centos-65 ~]$ cd whats_fresh/
+    (env)[vagrant@develop-centos-65 whats_fresh]$ python setup.py develop
 
-If you plan on loggin into the web interface, you'll need to create a user
-account. You can use ``manage.py`` to create a superuser account::
+Now, you can run the ``django-admin`` tool from anywhere in your environment.
+However, you'll need to tell it what ``django-settings`` to use by exporting the
+proper environment variable::
 
-    (env)[vagrant@develop-centos-65 ~]$ python manage.py createsuperuser
+    (env)[vagrant@develop-centos-65 whats_fresh]$ export DJANGO_SETTINGS_MODULE="whats_fresh.settings"
+
+Create the database tables using ``django-admin``::
+
+    (env)[vagrant@develop-centos-65 ~]$ django-admin migrate
+
+If you plan on logging into the web interface, you'll need to create a user
+account. You can use ``django-admin`` to create a superuser account::
+
+    (env)[vagrant@develop-centos-65 ~]$ django-admin createsuperuser
 
 You should now be ready to run the Django app!
 ::
 
-    (env)[vagrant@develop-centos-65 ~]$ python manage.py runserver 0.0.0.0:8000
+    (env)[vagrant@develop-centos-65 ~]$ django-admin runserver 0.0.0.0:8000
 
 To access the server in your web browser, navigate to ``http://172.16.16.2:8000``.
 
 Testing
 -------
 
-The What's Fresh API uses `test-driven development<http://en.wikipedia.org/wiki/Test-driven_development>`.
+The What's Fresh API uses `test-driven development <http://en.wikipedia.org/wiki/Test-driven_development>`_.
 What this means is that, before writing a feature -- be it a new API endpoint,
 a model, or a bug fix -- you should write a test. After writing the feature,
 run the test to verify that it works, and when you're satisfied with your
@@ -224,29 +228,29 @@ a subdirectory based on what kind of test it is. For instance, all model tests
 live inside the ``models`` subdirectory, while views would live inside the
 ``view`` directory.
 
-For information on how to write tests, see ``Django's guide on writing tests``<https://docs.djangoproject.com/en/1.6/topics/testing/overview/>``.
+For information on how to write tests, see `Django's guide on writing tests <https://docs.djangoproject.com/en/1.6/topics/testing/overview/>`_.
 
 Let's say you've just modified the code -- say, you edited the Vendor model
 due to a bug you found. Instead of running the entire testing suite, you can
 run just one set of tests at a time::
 
-    (env)[vagrant@develop-centos-65 whats_fresh]$ python manage.py test whats_fresh_api.tests.models.test_vendor_model.VendorTestCase
+    (env)[vagrant@develop-centos-65 whats_fresh]$ django-admin test whats_fresh.whats_fresh_api.tests.models.test_vendor_model.VendorTestCase
 
 .. note::
 
     Running tests is based on the directory name, using the following syntax::
 
-        whats_fresh_api.tests.<test subdirectory>.<test file>.<test class name>
+        whats_fresh.whats_fresh_api.tests.<test subdirectory>.<test file>.<test class name>
 
     For a test called ImageTestCase inside of ``tests/views/test_image_view.py``,
     you would need to run the following command::
 
-        (env)[vagrant@develop-centos-65 whats_fresh]$ python manage.py test whats_fresh_api.tests.views.test_image_view.ImageTestCase
+        (env)[vagrant@develop-centos-65 whats_fresh]$ django-admin test whats_fresh.whats_fresh_api.tests.views.test_image_view.ImageTestCase
 
 To make sure that you didn't break anything unexpected, it can be a good idea
 to periodically run the entire testing suite::
 
-    (env)[vagrant@develop-centos-65 whats_fresh]$ python manage.py test
+    (env)[vagrant@develop-centos-65 whats_fresh]$ django-admin test whats_fresh
 
 **Fixtures**
 
@@ -256,9 +260,10 @@ purposes, the What's Fresh API comes with a few hand-written (for running
 tests where we need to know the input data) and a large number of automatically
 generated (for when we simply want to have data in our database).
 
-To install a fixture, use the ``manage.py`` command's loaddata option::
+To install a fixture, use the ``django-admin`` command's loaddata option::
 
-    (env)[vagrant@develop-centos-65 whats_fresh]$ manage.py loaddata fixtures
+    (env)[vagrant@develop-centos-65 whats_fresh]$ django-admin loaddata fixtures
 
-The hand-written fixtures are stored in ``fixtures``, and the automatically
-generated ones in ``random``.
+There are many sets of fixtures available. ``test_fixtures`` is the original
+set of fixtures, but the ``real_data`` fixtures are more comprehensive and
+should be used in new tests.

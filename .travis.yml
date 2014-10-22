@@ -3,14 +3,13 @@ python:
   - "2.7"
 # command to install dependencies
 install:
-  - "pip install -r requirements.txt"
+  - "python setup.py develop"
   - "pip install flake8"
 # command to run tests
-script: python manage.py test
+script: django-admin test whats_fresh --settings="whats_fresh.settings"
 addons:
   postgresql: "9.3"
 before_script:
   - flake8 whats_fresh/
   - psql -c 'create database whats_fresh;' -U postgres
   - psql -U postgres -c "create extension postgis;" whats_fresh
-
