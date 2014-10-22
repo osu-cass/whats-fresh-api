@@ -192,7 +192,7 @@ def vendors_products(request, id=None):
             "text": "No Vendors found for product {}".format(id),
             "name": "No Vendors",
             "debug": "",
-            "level": "Error"
+            "level": "Information"
         }
 
     serializer = FreshSerializer()
