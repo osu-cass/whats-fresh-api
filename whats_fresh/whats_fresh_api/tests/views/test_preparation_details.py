@@ -29,6 +29,7 @@ class PreparationsTestCase(TestCase):
         "level": null
     },
     "id": 1,
+    "ext": {},
     "name": "Live",
     "description": "The food goes straight from sea to you with live food, sitting in saltwater tanks!",
     "additional_info": "Live octopus requires a locking container"
