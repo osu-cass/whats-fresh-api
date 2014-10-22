@@ -212,7 +212,7 @@ class VendorsLocationTestCase(TestCase):
   "error": {
             "debug": "",
             "status": true,
-            "level": "Error",
+            "level": "Information",
             "text": "No Vendors found",
             "name": "No Vendors"
   },
