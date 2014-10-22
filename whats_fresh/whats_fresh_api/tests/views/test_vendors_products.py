@@ -45,15 +45,15 @@ class VendorsProductsTestCase(TestCase):
       "hours": "Open Tuesday, 10am to 5pm",
       "location_description": "Location description",
       "contact_name": "A. Persson",
-      "phone": 5417377627,
+      "phone": "+15417377627",
       "website": "http://example.com",
       "email": "a@perr.com",
       "story":  10,
       "ext": {
 
       },
-      "created": "2014-08-08 23:27:05.568395+00:00",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
+      "modified": "2014-08-08T23:27:05.568Z",
       "products": [
         {
           "product_id": 10,
@@ -199,12 +199,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -230,12 +230,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -268,10 +268,10 @@ class VendorsProductsLocationTestCase(TestCase):
       "status": true,
       "city": "Newport",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Newport Halibut",
       "zip": "97365",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -300,10 +300,10 @@ class VendorsProductsLocationTestCase(TestCase):
       "status": true,
       "city": "Waldport",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Waldport Halibut",
       "zip": "97364",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -332,10 +332,10 @@ class VendorsProductsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Halibut",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -389,12 +389,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -421,12 +421,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -467,12 +467,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -517,8 +517,8 @@ class VendorsProductsLocationTestCase(TestCase):
     "hours": "",
     "website": "",
     "email": "",
-    "created": "2014-08-08 23:27:05.568395+00:00",
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
+    "modified": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -544,12 +544,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -576,12 +576,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -598,10 +598,10 @@ class VendorsProductsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Halibut",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -655,12 +655,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -687,12 +687,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -737,8 +737,8 @@ class VendorsProductsLocationTestCase(TestCase):
     "hours": "",
     "website": "",
     "email": "",
-    "created": "2014-08-08 23:27:05.568395+00:00",
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
+    "modified": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -764,12 +764,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -796,12 +796,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -818,10 +818,10 @@ class VendorsProductsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Halibut",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 
@@ -878,8 +878,8 @@ class VendorsProductsLocationTestCase(TestCase):
     "hours": "",
     "website": "",
     "email": "",
-    "created": "2014-08-08 23:27:05.568395+00:00",
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
+    "modified": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -905,12 +905,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Newport Halibut",
     "phone": null,
     "lat": 44.646006,
     "name": "Newport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -937,12 +937,12 @@ class VendorsProductsLocationTestCase(TestCase):
     "email": "",
     "hours": "",
     "status": true,
-    "modified": "2014-08-08 23:27:05.568395+00:00",
+    "modified": "2014-08-08T23:27:05.568Z",
     "description": "Fake Waldport Halibut",
     "phone": null,
     "lat": 44.425188,
     "name": "Waldport Halibut",
-    "created": "2014-08-08 23:27:05.568395+00:00",
+    "created": "2014-08-08T23:27:05.568Z",
     "ext": {
 
     },
@@ -959,10 +959,10 @@ class VendorsProductsLocationTestCase(TestCase):
       "status": true,
       "city": "Cloverdale",
       "website": "",
-      "modified": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08T23:27:05.568Z",
       "description": "Fake Pacific City Halibut",
       "zip": "97112",
-      "created": "2014-08-08 23:27:05.568395+00:00",
+      "created": "2014-08-08T23:27:05.568Z",
       "story": 1,
       "ext": {
 

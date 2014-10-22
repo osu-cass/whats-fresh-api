@@ -110,6 +110,13 @@ def vendors_products(request, id=None):
     List all vendors in the database that sell product <id>.
     There is no order to this list, only whatever is returned by the database.
     """
+    error = {
+        'status': False,
+        'level': None,
+        'debug': None,
+        'text': None,
+        'name': None
+    }
     data = {}
 
     lat = request.GET.get('lat', None)
@@ -121,7 +128,7 @@ def vendors_products(request, id=None):
         try:
             limit = int(limit)
         except Exception as e:
-            data['error'] = {
+            error = {
                 'debug': "{0}: {1}".format(type(e).__name__, str(e)),
                 'status': True,
                 'level': 'Warning',
@@ -135,7 +142,7 @@ def vendors_products(request, id=None):
             try:
                 proximity = int(proximity)
             except Exception as e:
-                data['error'] = {
+                error = {
                     "level": "Warning",
                     "status": True,
                     "name": "Bad proximity",
@@ -152,7 +159,7 @@ def vendors_products(request, id=None):
                 vendorproduct__product_preparation__product__id__exact=id,
                 location__distance_lte=(point, D(mi=proximity)))[:limit]
         except Exception as e:
-            data['error'] = {
+            error = {
                 "level": "Warning",
                 "status": True,
                 "name": "Bad location",
@@ -167,7 +174,7 @@ def vendors_products(request, id=None):
             vendor_list = Vendor.objects.filter(
                 vendorproduct__product_preparation__product__id__exact=id)[:limit]
         except Exception as e:
-            data['error'] = {
+            error = {
                 'debug': "{0}: {1}".format(type(e).__name__, str(e)),
                 'status': True,
                 'level': 'Error',
@@ -179,85 +186,28 @@ def vendors_products(request, id=None):
                 content_type="application/json"
             )
 
-    if len(vendor_list) == 0:
-        data['error'] = {
-            'debug': '',
-            'status': True,
-            'level': 'Error',
-            'text': 'No Vendors found for product {0}'.format(id),
-            'name': 'No Vendors'
+    if not vendor_list:
+        error = {
+            "status": True,
+            "text": "No Vendors found for product {}".format(id),
+            "name": "No Vendors",
+            "debug": "",
+            "level": "Error"
         }
-        data['vendors'] = []
-        return HttpResponse(
-            json.dumps(data),
-            content_type="application/json"
-        )
 
-    try:
-        data['vendors'] = []
-        for vendor in vendor_list:
-            data['vendors'].append(
-                model_to_dict(
-                    vendor,
-                    fields=[],
-                    exclude=['location', 'phone', 'products_preparations']))
+    serializer = FreshSerializer()
 
-            try:
-                data['vendors'][-1]['phone'] = vendor.phone.national_number
-            except AttributeError:
-                data['vendors'][-1]['phone'] = None
+    data = {
+        "vendors": json.loads(
+            serializer.serialize(
+                vendor_list,
+                use_natural_foreign_keys=True
+            )
+        ),
+        "error": error
+    }
 
-            data['vendors'][-1]['created'] = str(vendor.created)
-            data['vendors'][-1]['modified'] = str(vendor.modified)
-            data['vendors'][-1]['ext'] = {}
-            data['vendors'][-1]['id'] = vendor.id
-
-            try:
-                data['vendors'][-1]['story'] = vendor.story.id
-            except AttributeError:
-                data['story'] = None
-
-            data['vendors'][-1]['lat'] = vendor.location.y
-            data['vendors'][-1]['lng'] = vendor.location.x
-
-            vendor_products = vendor.vendorproduct_set.all()
-            data['vendors'][-1]['products'] = []
-            for vendor_product in vendor_products:
-                product_data = {
-                    'product_id':
-                        vendor_product.product_preparation.product.id,
-                    'preparation_id':
-                        vendor_product.product_preparation.preparation.id,
-                    'preparation':
-                        vendor_product.product_preparation.preparation.name,
-                    'name': vendor_product.product_preparation.product.name
-                }
-                data['vendors'][-1]['products'].append(product_data)
-
-        if not 'error' in data:
-            data['error'] = {
-                'debug': None,
-                'status': False,
-                'level': None,
-                'text': None,
-                'name': None
-            }
-        return HttpResponse(json.dumps(data), content_type="application/json")
-
-    except Exception as e:
-        data['error'] = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
-            'status': True,
-            'level': 'Error',
-            'text': 'Error {0} occurred processing the '
-                'vendors for product {1}'.format(e, id),
-            'name': 'Unknown'
-        }
-        raise
-        return HttpResponseServerError(
-            json.dumps(data),
-            content_type="application/json"
-        )
+    return HttpResponse(json.dumps(data), content_type="application/json")
 
 
 def vendor_details(request, id=None):
