@@ -343,7 +343,9 @@ def vendor_details(request, id=None):
             serializer.serialize(
                 [vendor],
                 use_natural_foreign_keys=True
-            )[1:-1]
+            )[1:-1] # Serializer can only serialize lists,
+                    # so we have to chop off the list brackets
+                    # to get the serialized string without the list
         )
 
     data['error'] = error
