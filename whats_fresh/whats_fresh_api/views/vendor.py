@@ -4,7 +4,6 @@ from django.http import (HttpResponse,
 from django.contrib.gis.measure import D
 from django.contrib.gis.geos import fromstr
 from whats_fresh.whats_fresh_api.models import Vendor, Product, VendorProduct
-from django.forms.models import model_to_dict
 from django.conf import settings
 from django.contrib.auth.decorators import login_required, user_passes_test
 
