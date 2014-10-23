@@ -14,7 +14,7 @@ def locations(request):
     cities = [vendor.city for vendor in vendor_list]
     unique_cities = [
         {'location': city[0], 'name': city[1]}
-            for city in enumerate(set(cities))]
+        for city in enumerate(set(cities))]
 
     data = {
         'locations': unique_cities,

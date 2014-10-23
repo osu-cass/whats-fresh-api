@@ -2,10 +2,9 @@ from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 
-import datetime
-
 
 class Image(models.Model):
+
     """
     The Image model holds an image and related data.
 
@@ -16,6 +15,7 @@ class Image(models.Model):
     data in the database, as well as for keeping created and modified
     timestamps.
     """
+
     def filename(self):
         return os.path.basename(self.image.name)
 
@@ -33,12 +33,14 @@ class Image(models.Model):
 
 
 class Vendor(models.Model):
+
     """
     The Vendor model holds the information for a vendor, including the
     geographic location as a pair of latitudinal/logitudinal coordinates,
     a street address, and an optional text description of their location
     (in case the address/coordinates are of, say, a dock instead of a shop).
     """
+
     def __unicode__(self):
         return self.name
 
@@ -76,6 +78,7 @@ class Vendor(models.Model):
 
 
 class Product(models.Model):
+
     """
     The Product model holds the information for a product, including the
     origin, season, market price, and availability.
@@ -83,6 +86,7 @@ class Product(models.Model):
     In addition, it holds a foreign key to the image and story related to the
     product.
     """
+
     def __unicode__(self):
         return self.name
 
@@ -108,9 +112,11 @@ class Product(models.Model):
 
 
 class Story(models.Model):
+
     """
     The story model holds the stories for products and vendors
     """
+
     def __unicode__(self):
         if not self.id:
             return u'Unsaved story'
@@ -123,6 +129,7 @@ class Story(models.Model):
 
 
 class Preparation(models.Model):
+
     """
     The Preparation model contains possible preparations of product, to be
     associated many-to-many with product (a product can have one or more
@@ -130,6 +137,7 @@ class Preparation(models.Model):
     things like 'frozen', 'dried', 'fresh', 'live', etc, to be defined by
     Sea Grant data input.
     """
+
     def __unicode__(self):
         return self.name
 
@@ -139,10 +147,12 @@ class Preparation(models.Model):
 
 
 class ProductPreparation(models.Model):
+
     """
     The Product Preparation model contains the relationship of products and
     preparations.
     """
+
     def __unicode__(self):
         if not self.product:
             return "Unsaved product/preparation join"
@@ -154,6 +164,7 @@ class ProductPreparation(models.Model):
 
 
 class VendorProduct(models.Model):
+
     """
     Keep track of the products each vendor has.
 
@@ -162,6 +173,7 @@ class VendorProduct(models.Model):
     vendor. In the same way, each VendorProduct can only have one product and
     one preparation.
     """
+
     def __unicode__(self):
         if not self.vendor:
             return "Unsaved product/vendor join"

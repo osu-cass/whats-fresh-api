@@ -1,18 +1,11 @@
 from django.test import TestCase
-from django.conf import settings
-from phonenumber_field.modelfields import PhoneNumberField
-from django.core.files import File
 
-from whats_fresh.whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import Image
 from django.contrib.gis.db import models
-
-import os
-import time
-import sys
-import datetime
 
 
 class ImageTestCase(TestCase):
+
     def setUp(self):
         self.expected_fields = {
             'image': models.ImageField,
@@ -49,18 +42,18 @@ class ImageTestCase(TestCase):
 
     def test___unicode___method(self):
         try:
-            result = Image.__unicode__(Image())
-        except AttributeError as e:
+            Image.__unicode__(Image())
+        except AttributeError:
             self.fail("No __unicode__ method found")
 
     def test_filename_method(self):
         try:
-            result = Image.filename(Image(image="cat.jpg"))
-        except AttributeError as e:
+            Image.filename(Image(image="cat.jpg"))
+        except AttributeError:
             self.fail("No __unicode__ method found")
 
     def test_optional_fields(self):
-        model = models.get_model('whats_fresh_api', 'Image')
+        models.get_model('whats_fresh_api', 'Image')
         for field in self.optional_fields:
             self.assertEqual(
                 Image._meta.get_field_by_name(field)[0].blank, True)

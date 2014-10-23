@@ -1,17 +1,11 @@
 from django.test import TestCase
-from django.conf import settings
-from phonenumber_field.modelfields import PhoneNumberField
 
-from whats_fresh.whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import Story
 from django.contrib.gis.db import models
-
-import os
-import time
-import sys
-import datetime
 
 
 class StoryTestCase(TestCase):
+
     def setUp(self):
         self.expected_fields = {
             'story': models.TextField,
@@ -38,6 +32,6 @@ class StoryTestCase(TestCase):
 
     def test___unicode___method(self):
         try:
-            result = Story.__unicode__(Story())
-        except AttributeError as e:
+            Story.__unicode__(Story())
+        except AttributeError:
             self.fail("No __unicode__ method found")

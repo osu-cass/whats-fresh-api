@@ -1,12 +1,13 @@
 from django.test import TestCase
-from django.conf import settings
-from phonenumber_field.modelfields import PhoneNumberField
 
-from whats_fresh.whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import (VendorProduct,
+                                                ProductPreparation, Product,
+                                                Preparation, Vendor)
 from django.contrib.gis.db import models
 
 
 class VendorProductJoinTestCase(TestCase):
+
     def setUp(self):
         self.expected_fields = {
             'vendor': models.ForeignKey,
@@ -35,7 +36,7 @@ class VendorProductJoinTestCase(TestCase):
 
     def test___unicode___method(self):
         try:
-            result = VendorProduct.__unicode__(
+            VendorProduct.__unicode__(
                 VendorProduct(
                     vendor=Vendor(name='test'),
                     product_preparation=ProductPreparation(
@@ -43,11 +44,11 @@ class VendorProductJoinTestCase(TestCase):
                         preparation=Preparation(name='test')
                     )
                 ))
-        except AttributeError as e:
+        except AttributeError:
             self.fail("No __unicode__ method found")
 
     def test_optional_fields(self):
-        model = models.get_model('whats_fresh_api', 'VendorProduct')
+        models.get_model('whats_fresh_api', 'VendorProduct')
         for field in self.optional_fields:
             self.assertEqual(
                 VendorProduct._meta.get_field_by_name(field)[0].blank, True)

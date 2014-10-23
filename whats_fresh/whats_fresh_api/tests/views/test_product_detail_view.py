@@ -1,16 +1,8 @@
 from django.test import TestCase
-from django.test.client import Client
 from django.core.urlresolvers import reverse
-from django.conf import settings
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
-
-import os
-import time
-import sys
-import datetime
 import json
 
 
@@ -22,7 +14,8 @@ class ProductViewTestCase(TestCase):
         admin_group = Group(name='Administration Users')
         admin_group.save()
         user.groups.add(admin_group)
-        self.client.post(reverse('login'), {'username':'test', 'password':'pass'})
+        self.client.post(
+            reverse('login'), {'username': 'test', 'password': 'pass'})
 
         self.expected_product = """
 {

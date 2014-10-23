@@ -1,10 +1,7 @@
 from django.test import TestCase
-from django.test.client import Client
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User, Group, Permission
-
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
+from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 
 import json
 
@@ -17,7 +14,8 @@ class ProductVendorTestCase(TestCase):
         admin_group = Group(name='Administration Users')
         admin_group.save()
         user.groups.add(admin_group)
-        self.client.post(reverse('login'), {'username':'test', 'password':'pass'})
+        self.client.post(
+            reverse('login'), {'username': 'test', 'password': 'pass'})
 
         self.maxDiff = None
         self.expected_products = """
@@ -41,7 +39,8 @@ class ProductVendorTestCase(TestCase):
       "season": "Season 1",
       "available": true,
       "market_price": "$33.31",
-      "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
+      "link": "\
+http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
       "image": "/media/dog.jpg",
       "story": 1,
       "created": "2014-08-08T23:27:05.568Z",

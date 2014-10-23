@@ -1,14 +1,13 @@
 from django.http import (HttpResponse,
-                         HttpResponseNotFound,
-                         HttpResponseServerError)
+                         HttpResponseNotFound)
 from django.contrib.gis.measure import D
 from django.contrib.gis.geos import fromstr
-from whats_fresh.whats_fresh_api.models import Vendor, Product, VendorProduct
+from whats_fresh.whats_fresh_api.models import Vendor
 from django.conf import settings
-from django.contrib.auth.decorators import login_required, user_passes_test
 
 import json
 from .serializer import FreshSerializer
+
 
 def vendor_list(request):
     """
@@ -53,8 +52,8 @@ def vendor_list(request):
                     "level": "Warning",
                     "status": True,
                     "name": "Bad proximity",
-                    "text": "There was an error finding vendors " \
-                        "within {0} miles".format(proximity),
+                    "text": "There was an error finding vendors "
+                    "within {0} miles".format(proximity),
                     'debug': "{0}: {1}".format(type(e).__name__, str(e))
                 }
                 proximity = settings.DEFAULT_PROXIMITY
@@ -71,7 +70,7 @@ def vendor_list(request):
                 "status": True,
                 "name": "Bad location",
                 "text": "There was an error with the given "
-                    "coordinates {0}, {1}".format(lat, lng),
+                "coordinates {0}, {1}".format(lat, lng),
                 'debug': "{0}: {1}".format(type(e).__name__, str(e))
             }
             vendor_list = Vendor.objects.all()[:limit]
@@ -145,8 +144,8 @@ def vendors_products(request, id=None):
                     "level": "Warning",
                     "status": True,
                     "name": "Bad proximity",
-                    "text": "There was an error finding vendors " \
-                        "within {0} miles".format(proximity),
+                    "text": "There was an error finding vendors "
+                    "within {0} miles".format(proximity),
                     'debug': "{0}: {1}".format(type(e).__name__, str(e))
                 }
                 proximity = settings.DEFAULT_PROXIMITY
@@ -163,15 +162,17 @@ def vendors_products(request, id=None):
                 "status": True,
                 "name": "Bad location",
                 "text": "There was an error with the "
-                    "given coordinates {0}, {1}".format(lat, lng),
+                "given coordinates {0}, {1}".format(lat, lng),
                 'debug': "{0}: {1}".format(type(e).__name__, str(e))
             }
             vendor_list = Vendor.objects.filter(
-                vendorproduct__product_preparation__product__id__exact=id)[:limit]
+                vendorproduct__product_preparation__product__id__exact=id
+            )[:limit]
     else:
         try:
             vendor_list = Vendor.objects.filter(
-                vendorproduct__product_preparation__product__id__exact=id)[:limit]
+                vendorproduct__product_preparation__product__id__exact=id
+            )[:limit]
         except Exception as e:
             error = {
                 'debug': "{0}: {1}".format(type(e).__name__, str(e)),
@@ -243,15 +244,14 @@ def vendor_details(request, id=None):
     serializer = FreshSerializer()
 
     data = json.loads(
-            serializer.serialize(
-                [vendor],
-                use_natural_foreign_keys=True
-            )[1:-1] # Serializer can only serialize lists,
-                    # so we have to chop off the list brackets
-                    # to get the serialized string without the list
-        )
+        serializer.serialize(
+            [vendor],
+            use_natural_foreign_keys=True
+        )[1:-1]  # Serializer can only serialize lists,
+        # so we have to chop off the list brackets
+        # to get the serialized string without the list
+    )
 
     data['error'] = error
 
     return HttpResponse(json.dumps(data), content_type="application/json")
-

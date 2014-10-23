@@ -1,7 +1,4 @@
-from django.http import (HttpResponse,
-                         HttpResponseNotFound,
-                         HttpResponseServerError)
-from django.http import HttpResponseRedirect
+from django.http import (HttpResponse, HttpResponseRedirect)
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
@@ -9,9 +6,13 @@ from django.contrib.gis.geos import fromstr
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from whats_fresh.whats_fresh_api.models import *
-from whats_fresh.whats_fresh_api.forms import *
-from whats_fresh.whats_fresh_api.functions import *
+from whats_fresh.whats_fresh_api.models import (Vendor, Product,
+                                                ProductPreparation,
+                                                VendorProduct)
+from whats_fresh.whats_fresh_api.forms import VendorForm
+from whats_fresh.whats_fresh_api.functions import (group_required,
+                                                   coordinates_from_address,
+                                                   BadAddressException)
 
 import json
 
@@ -41,7 +42,7 @@ def vendor(request, id=None):
         errors = []
 
         try:
-            coordinates = get_coordinates_from_address(
+            coordinates = coordinates_from_address(
                 post_data['street'], post_data['city'], post_data['state'],
                 post_data['zip'])
 
@@ -51,22 +52,22 @@ def vendor(request, id=None):
         # Bad Address will be thrown if Google does not return coordinates for
         # the address, and MultiValueDictKeyError will be thrown if the POST
         # data being passed in is empty.
-        except BadAddressException:
-            errors.append("Bad address!")
-        except MultiValueDictKeyError:
+        except (MultiValueDictKeyError, BadAddressException):
             errors.append("Full address is required.")
 
         try:
-            if len(post_data['preparation_ids']) == 0:
+            if not post_data['preparation_ids']:
                 errors.append("You must choose at least one product.")
-                product_preparations = []
+                prod_preps = []
             else:
-                product_preparations = list(set(post_data['preparation_ids'].split(',')))
+                prod_preps = list(
+                    set(post_data['preparation_ids'].split(',')))
                 # TODO: Find better way to do form validation
-                post_data['products_preparations'] = product_preparations[0] # Needed for form validation to pass
+                # Needed for form validation to pass
+                post_data['products_preparations'] = prod_preps[0]
         except MultiValueDictKeyError:
             errors.append("You must choose at least one product.")
-            product_preparations = []
+            prod_preps = []
 
         vendor_form = VendorForm(post_data)
         if vendor_form.is_valid() and not errors:
@@ -77,13 +78,15 @@ def vendor(request, id=None):
                 # For all of the current vendor products,
                 for vendor_product in vendor.vendorproduct_set.all():
                     # Delete any that aren't in the returned list
-                    if vendor_product.product_preparation.id not in product_preparations:
+                    if vendor_product.product_preparation.id not in prod_preps:
                         vendor_product.delete()
-                    # And ignore any that are in both the existing and the returned list
-                    elif vendor_product.product_preparation.id in product_preparations:
-                        product_preparations.remove(vendor_product.product_preparation.id)
+                    # And ignore any that are in both the existing and the
+                    # returned list
+                    elif vendor_product.product_preparation.id in prod_preps:
+                        prod_preps.remove(
+                            vendor_product.product_preparation.id)
                 # Then, create all of the new ones
-                for product_preparation in product_preparations:
+                for product_preparation in prod_preps:
                     vendor_product = VendorProduct.objects.create(
                         vendor=vendor,
                         product_preparation=ProductPreparation.objects.get(
@@ -92,24 +95,28 @@ def vendor(request, id=None):
                 vendor.save()
             else:
                 vendor = Vendor.objects.create(**vendor_form.cleaned_data)
-                for product_preparation in product_preparations:
+                for product_preparation in prod_preps:
                     vendor_product = VendorProduct.objects.create(
                         vendor=vendor,
                         product_preparation=ProductPreparation.objects.get(
                             id=product_preparation))
                 vendor.save()
-            return HttpResponseRedirect("%s?success=true" % reverse('edit-vendor', kwargs={'id': vendor.id}))
+            return HttpResponseRedirect(
+                "%s?success=true" % reverse(
+                    'edit-vendor', kwargs={'id': vendor.id}))
 
-        existing_product_preparations = []
-        for preparation_id in product_preparations:
-            product_preparation_object = ProductPreparation.objects.get(id=preparation_id)
-            existing_product_preparations.append({
+        existing_prod_preps = []
+        for preparation_id in prod_preps:
+            product_preparation_object = ProductPreparation.objects.get(
+                id=preparation_id)
+            existing_prod_preps.append({
                 'id': preparation_id,
-                'preparation_text': product_preparation_object.preparation.name,
+                'preparation_text':
+                    product_preparation_object.preparation.name,
                 'product': product_preparation_object.product.name
             })
     else:
-        existing_product_preparations = []
+        existing_prod_preps = []
         errors = []
 
     if id:
@@ -120,11 +127,12 @@ def vendor(request, id=None):
         post_url = reverse('edit-vendor', kwargs={'id': id})
         # If the list already has items, we're coming back to it from above
         # And have already filled the list with the product preparations POSTed
-        if not existing_product_preparations:
+        if not existing_prod_preps:
             for vendor_product in vendor.vendorproduct_set.all():
-                existing_product_preparations.append({
+                existing_prod_preps.append({
                     'id': vendor_product.product_preparation.id,
-                    'preparation_text': vendor_product.product_preparation.preparation.name,
+                    'preparation_text':
+                        vendor_product.product_preparation.preparation.name,
                     'product': vendor_product.product_preparation.product.name
                 })
         if request.GET.get('success') == 'true':
@@ -141,7 +149,6 @@ def vendor(request, id=None):
 
     data = {}
     product_list = []
-
 
     for product in Product.objects.all():
         product_list.append(product.name)
@@ -161,12 +168,13 @@ def vendor(request, id=None):
         'title': title,
         'message': message,
         'post_url': post_url,
-        'existing_product_preparations': existing_product_preparations,
+        'existing_product_preparations': existing_prod_preps,
         'errors': errors,
         'vendor_form': vendor_form,
         'json_preparations': json_preparations,
         'product_list': product_list,
     })
+
 
 @login_required
 @group_required('Administration Users', 'Data Entry Users')
@@ -188,12 +196,14 @@ def vendor_list(request):
     for vendor in vendors:
         vendor_data = {}
         vendor_data['name'] = vendor.name
-        vendor_data['modified'] = vendor.modified.strftime("%I:%M %P, %d %b %Y")
+        vendor_data['modified'] = vendor.modified.strftime(
+            "%I:%M %P, %d %b %Y")
         vendor_data['description'] = vendor.description
         vendor_data['link'] = reverse('edit-vendor', kwargs={'id': vendor.id})
 
         if len(vendor_data['description']) > 100:
-            vendor_data['description'] = vendor_data['description'][:100] + "..."
+            vendor_data['description'] = vendor_data[
+                'description'][:100] + "..."
 
         vendors_list.append(vendor_data)
 

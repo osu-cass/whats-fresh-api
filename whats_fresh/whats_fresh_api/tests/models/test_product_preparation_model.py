@@ -1,17 +1,12 @@
 from django.test import TestCase
-from django.conf import settings
-from phonenumber_field.modelfields import PhoneNumberField
 
-from whats_fresh.whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import (ProductPreparation, Product,
+                                                Preparation)
 from django.contrib.gis.db import models
-
-import os
-import time
-import sys
-import datetime
 
 
 class ProductPreparationTestCase(TestCase):
+
     def setUp(self):
         self.expected_fields = {
             'product': models.ForeignKey,
@@ -35,10 +30,10 @@ class ProductPreparationTestCase(TestCase):
 
     def test___unicode___method(self):
         try:
-            result = ProductPreparation.__unicode__(
+            ProductPreparation.__unicode__(
                 ProductPreparation(
                     product=Product(name='test'),
                     preparation=Preparation(name='test')
                 ))
-        except AttributeError as e:
+        except AttributeError:
             self.fail("No __unicode__ method found")

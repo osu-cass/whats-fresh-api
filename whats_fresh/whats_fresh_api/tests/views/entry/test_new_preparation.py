@@ -1,13 +1,11 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
+from whats_fresh.whats_fresh_api.models import Preparation
 from django.contrib.auth.models import User, Group
-
-import json
 
 
 class NewPreparationTestCase(TestCase):
+
     """
     Test that the New Preparation page works as expected.
 
@@ -19,6 +17,7 @@ class NewPreparationTestCase(TestCase):
         POSTing data with all fields missing (hitting "save" without entering
             data) returns the same field with notations of missing fields
     """
+
     def setUp(self):
         user = User.objects.create_user(
             'temporary', 'temporary@gmail.com', 'temporary')
@@ -28,7 +27,8 @@ class NewPreparationTestCase(TestCase):
         admin_group.save()
         user.groups.add(admin_group)
 
-        response = self.client.login(username='temporary', password='temporary')
+        response = self.client.login(
+            username='temporary', password='temporary')
         self.assertEqual(response, True)
 
     def test_not_logged_in(self):
@@ -68,8 +68,7 @@ class NewPreparationTestCase(TestCase):
         new_preparation = {
             'name': 'Fried', 'description': '', 'additional_info': ''}
 
-        response = self.client.post(reverse('new-preparation'),
-                                    new_preparation)
+        self.client.post(reverse('new-preparation'), new_preparation)
 
         preparation = Preparation.objects.all()[0]
         for field in new_preparation:
@@ -89,8 +88,7 @@ class NewPreparationTestCase(TestCase):
             'description': 'Test Description',
             'additional_info': 'Fried food is good'}
 
-        response = self.client.post(reverse('new-preparation'),
-                                    new_preparation)
+        self.client.post(reverse('new-preparation'), new_preparation)
 
         preparation = Preparation.objects.all()[0]
         for field in new_preparation:
@@ -108,8 +106,8 @@ class NewPreparationTestCase(TestCase):
         response = self.client.post(reverse('new-preparation'))
         required_fields = ['name']
         for field_name in required_fields:
-            self.assertIn(field_name, 
-                    response.context['preparation_form'].errors)
+            self.assertIn(field_name,
+                          response.context['preparation_form'].errors)
 
         # Test that we didn't add any new objects
         self.assertEqual(

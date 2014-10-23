@@ -1,13 +1,12 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
+from whats_fresh.whats_fresh_api.models import (Vendor, ProductPreparation,
+                                                Product, Preparation, Story)
 from django.contrib.auth.models import User, Group
-
-import json
 
 
 class NewVendorTestCase(TestCase):
+
     """
     Test that the New Vendor page works as expected.
 
@@ -21,6 +20,7 @@ class NewVendorTestCase(TestCase):
         POSTing a valid object with a bad address returns an error saying
             bad adddress. This behaviour may be changed in the future.
     """
+
     def setUp(self):
         user = User.objects.create_user(
             'temporary', 'temporary@gmail.com', 'temporary')
@@ -30,9 +30,10 @@ class NewVendorTestCase(TestCase):
         admin_group.save()
         user.groups.add(admin_group)
 
-        response = self.client.login(username='temporary', password='temporary')
+        response = self.client.login(
+            username='temporary', password='temporary')
         self.assertEqual(response, True)
-    
+
     def test_not_logged_in(self):
         self.client.logout()
 
@@ -70,9 +71,8 @@ class NewVendorTestCase(TestCase):
         POST a proper "new vendor" command to the server, and see if the
         new vendor appears in the database
         """
-        response = self.client.post(
-            reverse('login'),
-            {'username': 'temporary', 'password': 'temporary'})
+        self.client.post(reverse('login'),
+                         {'username': 'temporary', 'password': 'temporary'})
         # Create objects that we'll be setting as the foreign objects for
         # our test vendor
 
@@ -103,7 +103,7 @@ class NewVendorTestCase(TestCase):
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Newport'}
 
-        response = self.client.post(reverse('new-vendor'), new_vendor)
+        self.client.post(reverse('new-vendor'), new_vendor)
 
         self.assertGreater(len(Vendor.objects.all()), 0)
 
@@ -120,8 +120,8 @@ class NewVendorTestCase(TestCase):
         for field in new_vendor:
             self.assertEqual(getattr(vend, field), new_vendor[field])
 
-        self.assertEqual(vend.location.y, 44.6752643) # latitude
-        self.assertEqual(vend.location.x, -124.072162) # longitude
+        self.assertEqual(vend.location.y, 44.6752643)  # latitude
+        self.assertEqual(vend.location.x, -124.072162)  # longitude
 
         # We told it which product preparation ID to use by saving ProdPreps to
         # IDs 1 and 2, and then posting '1,2' as the list of product
@@ -144,12 +144,12 @@ class NewVendorTestCase(TestCase):
 
         new_vendor = {
             'zip': '', 'website': '', 'street': '', 'story': '',
-            'status': '', 'state': '', 'preparation_ids': None,
+            'status': '', 'state': '', 'preparation_ids': '',
             'phone': '', 'name': '', 'location_description': '',
             'email': '', 'description': '', 'contact_name': '',
             'city': '', 'hours': ''}
 
-        response = self.client.post(reverse('new-vendor'))
+        response = self.client.post(reverse('new-vendor'), new_vendor)
 
         # Test non-automatically generated errors written into the view
         self.assertIn(
@@ -208,7 +208,7 @@ class NewVendorTestCase(TestCase):
         response = self.client.post(reverse('new-vendor'), new_vendor)
 
         # Test that the bad address returns a bad address
-        self.assertIn('Bad address!', response.context['errors'])
+        self.assertIn("Full address is required.", response.context['errors'])
 
         # Test that we didn't add any new objects
         self.assertTrue(list(Vendor.objects.all()) == list(all_vendors))

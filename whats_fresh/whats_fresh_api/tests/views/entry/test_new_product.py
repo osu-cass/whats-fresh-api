@@ -1,13 +1,12 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
+from whats_fresh.whats_fresh_api.models import (Product, Image, Story,
+                                                Preparation)
 from django.contrib.auth.models import User, Group
-
-import json
 
 
 class NewProductTestCase(TestCase):
+
     """
     Test that the New Product page works as expected.
 
@@ -19,6 +18,7 @@ class NewProductTestCase(TestCase):
         POSTing data with all fields missing (hitting "save" without entering
             data) returns the same field with notations of missing fields
     """
+
     def setUp(self):
         user = User.objects.create_user(
             'temporary', 'temporary@gmail.com', 'temporary')
@@ -28,16 +28,17 @@ class NewProductTestCase(TestCase):
         admin_group.save()
         user.groups.add(admin_group)
 
-        response = self.client.login(username='temporary', password='temporary')
+        response = self.client.login(
+            username='temporary', password='temporary')
         self.assertEqual(response, True)
-    
+
     def test_not_logged_in(self):
         self.client.logout()
 
         response = self.client.get(
             reverse('edit-product', kwargs={'id': '1'}))
         self.assertRedirects(response, '/login?next=/entry/products/1')
-        
+
     def test_url_endpoint(self):
         url = reverse('new-product')
         self.assertEqual(url, '/entry/products/new')
@@ -83,13 +84,13 @@ class NewProductTestCase(TestCase):
 
         # Data that we'll post to the server to get the new vendor created
         new_product = {'name': 'Salmon', 'variety': 'Pacific', 'story': 1,
-                  'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',
-                  'description': 'It\'s salmon -- from the Pacific!',
-                  'season': 'Always', 'available': '', 'image': 1,
-                  'market_price': '$3 a pack', 'preparation_ids': '1,2',
-                  'link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
+                       'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',
+                       'description': 'It\'s salmon -- from the Pacific!',
+                       'season': 'Always', 'available': '', 'image': 1,
+                       'market_price': '$3 a pack', 'preparation_ids': '1,2',
+                       'link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
-        response = self.client.post(reverse('new-product'), new_product)
+        self.client.post(reverse('new-product'), new_product)
 
         # These values are changed by the server after being received from
         # the client/web page.

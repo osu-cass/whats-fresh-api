@@ -1,18 +1,15 @@
-from django.http import (HttpResponse,
-                         HttpResponseNotFound,
-                         HttpResponseServerError)
-from django.http import HttpResponseRedirect
+from django.http import (HttpResponse, HttpResponseRedirect)
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from whats_fresh.whats_fresh_api.models import *
-from whats_fresh.whats_fresh_api.forms import *
-from whats_fresh.whats_fresh_api.functions import *
+from whats_fresh.whats_fresh_api.models import (Product, Preparation,
+                                                ProductPreparation)
+from whats_fresh.whats_fresh_api.forms import ProductForm
+from whats_fresh.whats_fresh_api.functions import group_required
 from django.forms.models import save_instance
-from whats_fresh.whats_fresh_api.functions import *
 
 import json
 
@@ -47,7 +44,8 @@ def product(request, id=None):
                 errors.append("You must choose at least one preparation.")
                 preparations = []
             else:
-                preparations = list(set(post_data['preparation_ids'].split(',')))
+                preparations = list(
+                    set(post_data['preparation_ids'].split(',')))
         except MultiValueDictKeyError:
             errors.append("You must choose at least one preparation.")
             preparations = []
@@ -62,7 +60,8 @@ def product(request, id=None):
                         product_preparation = ProductPreparation.objects.get(
                             product=product, preparation=preparation)
                         product_preparation.delete()
-                    # And ignore any that are in both the existing and the returned list
+                    # And ignore any that are in both the existing and the
+                    # returned list
                     elif preparation.id in preparations:
                         preparations.remove(preparation.id)
                 # Then, create all of the new ones
@@ -80,7 +79,9 @@ def product(request, id=None):
                         preparation=Preparation.objects.get(
                             id=preparation))
                 product.save()
-            return HttpResponseRedirect("%s?success=true" % reverse('edit-product', kwargs={'id': product.id}))
+            return HttpResponseRedirect(
+                "%s?success=true" % reverse(
+                    'edit-product', kwargs={'id': product.id}))
     else:
         errors = []
         message = ''
@@ -153,12 +154,15 @@ def product_list(request):
     for product in products:
         product_data = {}
         product_data['name'] = product.name
-        product_data['modified'] = product.modified.strftime("%I:%M %P, %d %b %Y")
+        product_data['modified'] = product.modified.strftime(
+            "%I:%M %P, %d %b %Y")
         product_data['description'] = product.description
-        product_data['link'] = reverse('edit-product', kwargs={'id': product.id})
+        product_data['link'] = reverse(
+            'edit-product', kwargs={'id': product.id})
 
         if len(product_data['description']) > 100:
-            product_data['description'] = product_data['description'][:100] + "..."
+            product_data['description'] = product_data[
+                'description'][:100] + "..."
 
         products_list.append(product_data)
 

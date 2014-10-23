@@ -1,23 +1,18 @@
-from django.http import (HttpResponse,
-                         HttpResponseNotFound,
-                         HttpResponseServerError)
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
-from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 
-from whats_fresh.whats_fresh_api.models import *
-from whats_fresh.whats_fresh_api.forms import *
-from whats_fresh.whats_fresh_api.functions import *
-
-import json
+from whats_fresh.whats_fresh_api.models import Preparation
+from whats_fresh.whats_fresh_api.forms import PreparationForm
+from whats_fresh.whats_fresh_api.functions import group_required
 
 
 @login_required
 @group_required('Administration Users', 'Data Entry Users')
-def preparation_list(request):
+def prep_list(request):
     """
     */entry/preparations*
 
@@ -36,10 +31,12 @@ def preparation_list(request):
         preparation_data = {}
         preparation_data['name'] = preparation.name
         preparation_data['description'] = preparation.description
-        preparation_data['link'] = reverse('edit-preparation', kwargs={'id': preparation.id})
+        preparation_data['link'] = reverse(
+            'edit-preparation', kwargs={'id': preparation.id})
 
         if len(preparation_data['description']) > 100:
-            preparation_data['description'] = preparation_data['description'][:100] + "..."
+            preparation_data['description'] = preparation_data[
+                'description'][:100] + "..."
 
         preparations_list.append(preparation_data)
 
@@ -53,6 +50,7 @@ def preparation_list(request):
         'item_classification': "preparation",
         'item_list': preparations_list,
     })
+
 
 @login_required
 @group_required('Administration Users', 'Data Entry Users')
@@ -86,9 +84,12 @@ def preparation(request, id=None):
                 preparation.__dict__.update(**preparation_form.cleaned_data)
                 preparation.save()
             else:
-                preparation = Preparation.objects.create(**preparation_form.cleaned_data)
+                preparation = Preparation.objects.create(
+                    **preparation_form.cleaned_data)
                 preparation.save()
-            return HttpResponseRedirect("%s?success=true" % reverse('edit-preparation', kwargs={'id': preparation.id}))
+            return HttpResponseRedirect(
+                "%s?success=true" % reverse(
+                    'edit-preparation', kwargs={'id': preparation.id}))
         else:
             pass
     else:
@@ -116,7 +117,8 @@ def preparation(request, id=None):
     return render(request, 'preparation.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-preparations'), 'name': 'Preparations'}],
+            {'url': reverse('entry-list-preparations'), 'name': 'Preparations'}
+        ],
         'title': title,
         'message': message,
         'post_url': post_url,

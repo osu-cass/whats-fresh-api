@@ -1,7 +1,9 @@
 from django.core.serializers import json
 from whats_fresh.whats_fresh_api.models import Vendor
 
+
 class FreshSerializer(json.Serializer):
+
     def get_dump_object(self, obj):
         self._current['id'] = obj.id
 

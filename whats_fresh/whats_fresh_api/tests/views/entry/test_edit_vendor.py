@@ -1,13 +1,11 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
+from whats_fresh.whats_fresh_api.models import Vendor, Story
 from django.contrib.auth.models import User, Group
-
-import json
 
 
 class EditVendorTestCase(TestCase):
+
     """
     Test that the Edit Vendor page works as expected.
 
@@ -30,9 +28,10 @@ class EditVendorTestCase(TestCase):
         admin_group.save()
         user.groups.add(admin_group)
 
-        response = self.client.login(username='temporary', password='temporary')
+        response = self.client.login(
+            username='temporary', password='temporary')
         self.assertEqual(response, True)
-    
+
     def test_not_logged_in(self):
         self.client.logout()
 
@@ -60,7 +59,7 @@ class EditVendorTestCase(TestCase):
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Newport'}
 
-        response = self.client.post(
+        self.client.post(
             reverse('edit-vendor', kwargs={'id': '1'}), new_vendor)
 
         # These values are changed by the server after being received from
@@ -76,8 +75,8 @@ class EditVendorTestCase(TestCase):
         for field in new_vendor:
             self.assertEqual(getattr(vend, field), new_vendor[field])
 
-        self.assertEqual(vend.location.y, 44.6752643) # latitude
-        self.assertEqual(vend.location.x, -124.072162) # longitude
+        self.assertEqual(vend.location.y, 44.6752643)  # latitude
+        self.assertEqual(vend.location.x, -124.072162)  # longitude
 
         # We told it which product preparation ID to use by saving ProdPreps to
         # IDs 1 and 2, and then posting '1,2' as the list of product

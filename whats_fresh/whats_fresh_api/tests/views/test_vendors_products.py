@@ -1,10 +1,8 @@
 from django.test import TestCase
-from django.test.client import Client
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
 from django.test.utils import override_settings
-from django.contrib.auth.models import User, Group, Permission
+from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 
 import json
 
@@ -17,8 +15,8 @@ class VendorsProductsTestCase(TestCase):
         admin_group = Group(name='Administration Users')
         admin_group.save()
         user.groups.add(admin_group)
-        self.client.post(reverse('login'), {'username':'test',
-            'password':'pass'})
+        self.client.post(reverse('login'), {'username': 'test',
+                                            'password': 'pass'})
 
         self.maxDiff = None
         self.expected_json = """
@@ -119,7 +117,7 @@ class VendorsProductsTestCase(TestCase):
         response = self.client.get(
             "%s?limit=1" % reverse(
                 'vendors-products', kwargs={'id': '100'})
-            ).content
+        ).content
 
         parsed_answer = json.loads(response)
         expected_error = json.loads(self.limited_vendors_error)
@@ -129,6 +127,7 @@ class VendorsProductsTestCase(TestCase):
 
 
 class VendorsProductsLocationTestCase(TestCase):
+
     """
     Test whether the /vendors/products/<id> view returns the correct results
     when given a coordinate to center on.
@@ -145,7 +144,6 @@ class VendorsProductsLocationTestCase(TestCase):
     """
     fixtures = ['location_fixtures']
 
-
     # These tests are made assuming a proximity of 20. If this default value
     # is changed, then the tests would break without overriding it.
     @override_settings(DEFAULT_PROXIMITY='20')
@@ -154,8 +152,8 @@ class VendorsProductsLocationTestCase(TestCase):
         admin_group = Group(name='Administration Users')
         admin_group.save()
         user.groups.add(admin_group)
-        self.client.post(reverse('login'), {'username':'test', 'password':'pass'})
-
+        self.client.post(
+            reverse('login'), {'username': 'test', 'password': 'pass'})
 
         self.maxDiff = None
 
@@ -212,6 +210,7 @@ class VendorsProductsLocationTestCase(TestCase):
       {
         "product_id": 1,
         "preparation": "Frozen",
+        "preparation_id": 1,
         "name": "Halibut"
       }
     ]
@@ -495,9 +494,11 @@ class VendorsProductsLocationTestCase(TestCase):
   "error": {
     "level": "Warning",
     "status": true,
-    "text": "There was an error with the given coordinates not_a_latitude, not_a_longitude",
+    "text": "There was an error with the given coordinates \
+not_a_latitude, not_a_longitude",
     "name": "Bad location",
-    "debug": "ValueError: String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
+    "debug": "ValueError: String or unicode input unrecognized \
+as WKT EWKT, and HEXEWKB."
   },
   "vendors": [{
     "id": 2,
@@ -717,7 +718,8 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates -45.232, None",
-    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking Geometry returned \
+from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [{
     "id": 2,
@@ -858,7 +860,8 @@ class VendorsProductsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates None, -45.232",
-    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking Geometry \
+returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [{
     "id": 2,
@@ -995,9 +998,9 @@ class VendorsProductsLocationTestCase(TestCase):
         vendors/products endpoint.
         """
         no_vendor_data = json.loads(
-        self.client.get(
-            '%s?lat=44.015225&lng=-123.016873' % reverse(
-                'vendors-products', kwargs={'id': '1'})).content)
+            self.client.get(
+                '%s?lat=44.015225&lng=-123.016873' % reverse(
+                    'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_no_vendors)
         self.assertEqual(no_vendor_data, expected_answer)
@@ -1009,11 +1012,11 @@ class VendorsProductsLocationTestCase(TestCase):
         """
         halibut_near_newport = json.loads(self.client.get(
             '%s?lat=44.609079&lng=-124.052538' % reverse('vendors-products',
-                                                     kwargs={'id': '1'})
-            ).content)
+                                                         kwargs={'id': '1'})
+        ).content)
 
         expected_answer = json.loads(self.expected_halibut)
-        self.assertEqual(expected_answer, expected_answer)
+        self.assertEqual(halibut_near_newport, expected_answer)
 
     def test_good_limit_by_vendor_product(self):
         """
@@ -1037,7 +1040,7 @@ class VendorsProductsLocationTestCase(TestCase):
                 'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_halibut)
-        self.assertEqual(expected_answer, expected_answer)
+        self.assertEqual(halibut_near_newport, expected_answer)
 
     def test_bad_limit_by_vendor_product(self):
         """
@@ -1089,9 +1092,9 @@ class VendorsProductsLocationTestCase(TestCase):
         the Pacific City location.
         """
         halibut_near_newport_extended = json.loads(self.client.get(
-            '%s?lat=44.609079&lng=-124.052538' \
-                '&proximity=50' % reverse(
-                    'vendors-products', kwargs={'id': '1'})).content)
+            '%s?lat=44.609079&lng=-124.052538'
+            '&proximity=50' % reverse(
+                'vendors-products', kwargs={'id': '1'})).content)
 
         expected_answer = json.loads(self.expected_halibut_extended)
         self.assertEqual(halibut_near_newport_extended, expected_answer)

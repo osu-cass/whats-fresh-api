@@ -1,8 +1,6 @@
 from django.http import (HttpResponse,
-                         HttpResponseNotFound,
-                         HttpResponseServerError)
-from whats_fresh.whats_fresh_api.models import Vendor, Product, VendorProduct
-from django.contrib.auth.decorators import login_required, user_passes_test
+                         HttpResponseNotFound)
+from whats_fresh.whats_fresh_api.models import Product
 
 import json
 from .serializer import FreshSerializer
@@ -95,25 +93,24 @@ def product_details(request, id=None):
     serializer = FreshSerializer()
 
     data = json.loads(
-            serializer.serialize(
-                [product],
-                use_natural_foreign_keys=True
-            )[1:-1]
-        )
+        serializer.serialize(
+            [product],
+            use_natural_foreign_keys=True
+        )[1:-1]
+    )
 
     data['error'] = error
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 
-
 def product_vendor(request, id=None):
     """
     */products/vendors/<id>*
 
-    List all products sold by vendor <id>. This information includes the details
-    of the products, rather than only the product name/id and preparation name/id
-    returned by */vendors/<id>*.
+    List all products sold by vendor <id>. This information includes the
+    details of the products, rather than only the product name/id and
+    preparation name/id returned by */vendors/<id>*.
     """
     data = {}
 

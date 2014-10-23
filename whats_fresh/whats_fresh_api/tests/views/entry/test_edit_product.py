@@ -1,13 +1,11 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
+from whats_fresh.whats_fresh_api.models import Product, Image, Story
 from django.contrib.auth.models import User, Group
-
-import json
 
 
 class EditProductTestCase(TestCase):
+
     """
     Test that the Edit Product page works as expected.
 
@@ -30,9 +28,10 @@ class EditProductTestCase(TestCase):
         admin_group.save()
         user.groups.add(admin_group)
 
-        response = self.client.login(username='temporary', password='temporary')
+        response = self.client.login(
+            username='temporary', password='temporary')
         self.assertEqual(response, True)
-    
+
     def test_not_logged_in(self):
         self.client.logout()
 
@@ -51,13 +50,13 @@ class EditProductTestCase(TestCase):
         """
         # Data that we'll post to the server to get the product updated
         new_product = {'name': 'Salmon', 'variety': 'Pacific', 'story': 1,
-                  'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',
-                  'description': 'It\'s salmon -- from the Pacific!',
-                  'season': 'Always', 'available': '', 'image': 1,
-                  'market_price': '$3 a pack', 'preparation_ids': '1,2',
-                  'link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
+                       'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',
+                       'description': 'It\'s salmon -- from the Pacific!',
+                       'season': 'Always', 'available': '', 'image': 1,
+                       'market_price': '$3 a pack', 'preparation_ids': '1,2',
+                       'link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
-        response = self.client.post(
+        self.client.post(
             reverse('edit-product', kwargs={'id': '1'}), new_product)
 
         # These values are changed by the server after being received from
@@ -92,7 +91,8 @@ class EditProductTestCase(TestCase):
             "season": "Season 7",
             "available": True,
             "market_price": "$32.64 per season",
-            "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
+            "link": "http://www.amazon.com/\
+Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
             "image": 2,
             "story": 2
         }

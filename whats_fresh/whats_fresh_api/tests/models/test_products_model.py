@@ -1,17 +1,11 @@
 from django.test import TestCase
-from django.conf import settings
-from phonenumber_field.modelfields import PhoneNumberField
 
-from whats_fresh.whats_fresh_api.models import *
+from whats_fresh.whats_fresh_api.models import Product
 from django.contrib.gis.db import models
-
-import os
-import time
-import sys
-import datetime
 
 
 class ProductTestCase(TestCase):
+
     def setUp(self):
         self.expected_fields = {
             'name': models.TextField,
@@ -59,12 +53,12 @@ class ProductTestCase(TestCase):
 
     def test___unicode___method(self):
         try:
-            result = Product.__unicode__(Product())
-        except AttributeError as e:
+            Product.__unicode__(Product())
+        except AttributeError:
             self.fail("No __unicode__ method found")
 
     def test_optional_fields(self):
-        model = models.get_model('whats_fresh_api', 'Product')
+        models.get_model('whats_fresh_api', 'Product')
         for field in self.optional_fields:
             self.assertEqual(
                 Product._meta.get_field_by_name(field)[0].blank, True)

@@ -1,20 +1,11 @@
 from django.test import TestCase
-from django.test.client import Client
 from django.core.urlresolvers import reverse
-from django.conf import settings
 
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
 from django.contrib.auth.models import User, Group
-
-import os
-import time
-import sys
-import datetime
-import json
 
 
 class LoginViewTestCase(TestCase):
+
     """
     Test the login view:
         1. the url resolves properly
@@ -24,6 +15,7 @@ class LoginViewTestCase(TestCase):
         4. test that a good login with a 'next' tag forwards to the 'next'
             destination
     """
+
     def setUp(self):
         self.user_credentials = {
             'username': 'dataentry',

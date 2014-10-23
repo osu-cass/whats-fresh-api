@@ -26,9 +26,9 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 if request.POST.get('next'):
-                     return HttpResponseRedirect(request.POST.get('next'))
+                    return HttpResponseRedirect(request.POST.get('next'))
                 else:
-                     return HttpResponseRedirect('/entry')
+                    return HttpResponseRedirect('/entry')
             else:
                 state = "Your account is not active."
         else:
@@ -44,7 +44,7 @@ def login_user(request):
         return HttpResponseRedirect(reverse('home'))
 
     return render(request, 'auth.html', {
-        'state':state, 'username': username, 'next': next, 'title': 'Log In'})
+        'state': state, 'username': username, 'next': next, 'title': 'Log In'})
 
 
 def logout_user(request):

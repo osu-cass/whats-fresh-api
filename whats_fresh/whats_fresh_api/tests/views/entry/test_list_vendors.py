@@ -1,10 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
+from whats_fresh.whats_fresh_api.models import Vendor
 from django.contrib.auth.models import User, Group
-
-import json
 
 
 class ListVendorTestCase(TestCase):
@@ -19,9 +16,10 @@ class ListVendorTestCase(TestCase):
         admin_group.save()
         user.groups.add(admin_group)
 
-        response = self.client.login(username='temporary', password='temporary')
+        response = self.client.login(
+            username='temporary', password='temporary')
         self.assertEqual(response, True)
-    
+
     def test_not_logged_in(self):
         self.client.logout()
         response = self.client.get(

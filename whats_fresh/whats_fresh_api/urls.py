@@ -1,6 +1,8 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns
+from django.conf.urls import url
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url(r'^1/stories/(?P<id>\d+)/?$',
         'whats_fresh.whats_fresh_api.views.story.story_details',
         name='story-details'),
@@ -34,55 +36,55 @@ urlpatterns = patterns('',
         name='locations'),
 
     url(r'^entry/vendors/new/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.vendors.vendor',
+        'whats_fresh.whats_fresh_api.views.entry.vendors.vendor',
         name='new-vendor'),
 
     url(r'^entry/vendors/(?P<id>\d+)/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.vendors.vendor',
+        'whats_fresh.whats_fresh_api.views.entry.vendors.vendor',
         name='edit-vendor'),
 
     url(r'^entry/vendors/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.vendors.vendor_list',
+        'whats_fresh.whats_fresh_api.views.entry.vendors.vendor_list',
         name='list-vendors-edit'),
 
     url(r'^entry/products/(?P<id>\d+)/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.products.product',
+        'whats_fresh.whats_fresh_api.views.entry.products.product',
         name='edit-product'),
 
     url(r'^entry/products/new/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.products.product',
+        'whats_fresh.whats_fresh_api.views.entry.products.product',
         name='new-product'),
 
     url(r'^entry/products/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.products.product_list',
+        'whats_fresh.whats_fresh_api.views.entry.products.product_list',
         name='entry-list-products'),
 
     url(r'^entry/preparations/new/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.preparations.preparation',
+        'whats_fresh.whats_fresh_api.views.entry.preparations.preparation',
         name='new-preparation'),
 
     url(r'^entry/preparations/(?P<id>\d+)/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.preparations.preparation',
+        'whats_fresh.whats_fresh_api.views.entry.preparations.preparation',
         name='edit-preparation'),
 
     url(r'^entry/preparations/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.preparations.preparation_list',
+        'whats_fresh.whats_fresh_api.views.entry.preparations.prep_list',
         name='entry-list-preparations'),
 
     url(r'^login/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.login.login_user',
+        'whats_fresh.whats_fresh_api.views.entry.login.login_user',
         name='login'),
 
     url(r'^logout/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.login.logout_user',
+        'whats_fresh.whats_fresh_api.views.entry.login.logout_user',
         name='logout'),
 
     url(r'^/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.login.root',
+        'whats_fresh.whats_fresh_api.views.entry.login.root',
         name='root'),
 
     url(r'^entry/?$',
-        'whats_fresh.whats_fresh_api.views.data_entry.home.home',
+        'whats_fresh.whats_fresh_api.views.entry.home.home',
         name='home'),
 
 )

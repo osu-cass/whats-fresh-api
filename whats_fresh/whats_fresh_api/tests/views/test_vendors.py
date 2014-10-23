@@ -2,10 +2,8 @@ from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
-from django.contrib.auth.models import User, Group, Permission
-
-from whats_fresh.whats_fresh_api.models import *
-from django.contrib.gis.db import models
+from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
 
 import json
 
@@ -19,7 +17,8 @@ class VendorsTestCase(TestCase):
         admin_group = Group(name='Administration Users')
         admin_group.save()
         user.groups.add(admin_group)
-        self.client.post(reverse('login'), {'username':'test', 'password':'pass'})
+        self.client.post(
+            reverse('login'), {'username': 'test', 'password': 'pass'})
 
         self.maxDiff = None
         self.expected_list = """
@@ -121,7 +120,7 @@ class VendorsTestCase(TestCase):
         self.assertEqual(url, '/1/vendors')
 
     def test_no_parameters(self):
-        c = Client()
+        Client()
         response = self.client.get(reverse('vendors-list')).content
         parsed_answer = json.loads(response)
 
@@ -142,13 +141,14 @@ class VendorsTestCase(TestCase):
 
 
 class NoVendorViewTestCase(TestCase):
+
     def setUp(self):
         user = User.objects.create_user(username='test', password='pass')
         admin_group = Group(name='Administration Users')
         admin_group.save()
         user.groups.add(admin_group)
-        self.client.post(reverse('login'), {'username':'test', 'password':'pass'})
-
+        self.client.post(
+            reverse('login'), {'username': 'test', 'password': 'pass'})
 
         self.expected_no_vendors = """
 {
@@ -177,6 +177,7 @@ class NoVendorViewTestCase(TestCase):
 
 
 class VendorsLocationTestCase(TestCase):
+
     """
     Test whether the /vendors/ view returns the correct results when given a
     coordinate to center on.
@@ -191,7 +192,6 @@ class VendorsLocationTestCase(TestCase):
     """
     fixtures = ['location_fixtures']
 
-
     # These tests are made assuming a proximity of 20. If this default value
     # is changed, then the tests would break without overriding it.
     @override_settings(DEFAULT_PROXIMITY='20')
@@ -200,8 +200,8 @@ class VendorsLocationTestCase(TestCase):
         admin_group = Group(name='Administration Users')
         admin_group.save()
         user.groups.add(admin_group)
-        self.client.post(reverse('login'), {'username':'test', 'password':'pass'})
-
+        self.client.post(
+            reverse('login'), {'username': 'test', 'password': 'pass'})
 
         self.maxDiff = None
 
@@ -577,9 +577,11 @@ class VendorsLocationTestCase(TestCase):
   "error": {
     "level": "Warning",
     "status": true,
-    "text": "There was an error with the given coordinates not_a_latitude, not_a_longitude",
+    "text": "There was an error with the given coordinates \
+not_a_latitude, not_a_longitude",
     "name": "Bad location",
-    "debug": "ValueError: String or unicode input unrecognized as WKT EWKT, and HEXEWKB."
+    "debug": "ValueError: String or unicode input unrecognized as \
+WKT EWKT, and HEXEWKB."
   },
   "vendors": [
   {
@@ -851,7 +853,8 @@ class VendorsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates -45.232, None",
-    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking \
+Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [
   {
@@ -1123,7 +1126,8 @@ class VendorsLocationTestCase(TestCase):
     "status": true,
     "name": "Bad location",
     "text": "There was an error with the given coordinates None, -45.232",
-    "debug": "GEOSException: Error encountered checking Geometry returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
+    "debug": "GEOSException: Error encountered checking Geometry \
+returned from GEOS C function \\"GEOSWKTReader_read_r\\"."
   },
   "vendors": [
   {
@@ -1642,7 +1646,7 @@ class VendorsLocationTestCase(TestCase):
         """
         all_vendors_data = json.loads(self.client.get(
             '%s?lat=44.609079&lng=-124.052538' % reverse('vendors-list')
-            ).content)
+        ).content)
 
         expected_answer = json.loads(self.expected_nearby_all_vendors)
         self.assertEqual(all_vendors_data, expected_answer)
@@ -1653,8 +1657,8 @@ class VendorsLocationTestCase(TestCase):
         Extending the proximity to 50 miles adds two stores.
         """
         extended_proximity = json.loads(self.client.get(
-            '%s?lat=44.609079&lng=-124.052538&' \
-                'proximity=50' % reverse('vendors-list')).content)
+            '%s?lat=44.609079&lng=-124.052538&'
+            'proximity=50' % reverse('vendors-list')).content)
 
         expected_answer = json.loads(self.expected_nearby_extended)
         self.assertEqual(extended_proximity, expected_answer)
@@ -1664,8 +1668,8 @@ class VendorsLocationTestCase(TestCase):
         Test that a bad location returns an error with good proximity.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=not_a_latitude&lng=not_a_longitude&' \
-                'proximity=50' % reverse('vendors-list')).content)
+            '%s?lat=not_a_latitude&lng=not_a_longitude&'
+            'proximity=50' % reverse('vendors-list')).content)
 
         expected_answer = json.loads(self.expected_error_result)
 
@@ -1759,7 +1763,7 @@ class VendorsLocationTestCase(TestCase):
         """
         all_vendors_data = json.loads(self.client.get(
             '%s?lat=44.015225&lng=-123.016873' % reverse('vendors-list')
-            ).content)
+        ).content)
 
         expected_answer = json.loads(self.expected_no_vendors)
         self.assertEqual(all_vendors_data, expected_answer)
@@ -1771,7 +1775,9 @@ class VendorsLocationTestCase(TestCase):
         20 miles.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.609079&lng=-124.052538&limit=3' % reverse('vendors-list')).content)
+            '%s?lat=44.609079&lng=-124.052538&limit=3' % reverse(
+                'vendors-list')
+            ).content)
 
         expected_answer = json.loads(self.expected_nearby_limit_3)
         self.assertEqual(all_vendors_data, expected_answer)
@@ -1794,8 +1800,8 @@ class VendorsLocationTestCase(TestCase):
         affect the list.
         """
         all_vendors_data = json.loads(self.client.get(
-            '%s?lat=44.609079&lng=-124.052538&'\
-                'limit=200' % reverse('vendors-list')).content)
+            '%s?lat=44.609079&lng=-124.052538&'
+            'limit=200' % reverse('vendors-list')).content)
 
         expected_answer = json.loads(self.expected_nearby_all_vendors)
         self.assertEqual(all_vendors_data, expected_answer)

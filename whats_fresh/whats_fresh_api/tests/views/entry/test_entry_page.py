@@ -4,9 +4,11 @@ from django.contrib.auth.models import User, Group
 
 
 class EntryPageTestCase(TestCase):
+
     """
     Test that the Entry page requires login.
     """
+
     def setUp(self):
         user = User.objects.create_user(
             'temporary', 'temporary@gmail.com', 'temporary')
@@ -16,7 +18,8 @@ class EntryPageTestCase(TestCase):
         admin_group.save()
         user.groups.add(admin_group)
 
-        response = self.client.login(username='temporary', password='temporary')
+        response = self.client.login(
+            username='temporary', password='temporary')
         self.assertEqual(response, True)
 
     def test_not_logged_in(self):
