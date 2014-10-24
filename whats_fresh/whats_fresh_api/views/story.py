@@ -2,9 +2,10 @@ from django.http import (HttpResponse,
                          HttpResponseNotFound,
                          HttpResponseServerError)
 from whats_fresh.whats_fresh_api.models import Story
-from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 import json
+from .serializer import FreshSerializer
 
 
 def story_details(request, id=None):
@@ -14,6 +15,14 @@ def story_details(request, id=None):
     Returns the story data for story <id>.
     """
     data = {}
+
+    error = {
+        'status': False,
+        'level': None,
+        'debug': None,
+        'text': None,
+        'name': None
+    }
 
     try:
         story = Story.objects.get(id=id)
@@ -30,27 +39,18 @@ def story_details(request, id=None):
             content_type="application/json"
         )
 
-    try:
-        data = model_to_dict(story, fields=[], exclude=[])
-        del data['id']
-        data['error'] = {
-            'status': False,
-            'level': None,
-            'debug': None,
-            'text': None,
-            'name': None
-        }
-        return HttpResponse(json.dumps(data), content_type="application/json")
+    serializer = FreshSerializer()
 
-    except Exception as e:
-        data['error'] = {
-            'status': True,
-            'level': 'Error',
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
-            'text': 'An unknown error occurred processing story %s' % id,
-            'name': 'Unknown'
-        }
-        return HttpResponseServerError(
-            json.dumps(data),
-            content_type="application/json"
+    data = json.loads(
+            serializer.serialize(
+                [story],
+                use_natural_foreign_keys=True
+            )[1:-1] # Serializer can only serialize lists,
+                    # so we have to chop off the list brackets
+                    # to get the serialized string without the list
         )
+
+    data['error'] = error
+
+    return HttpResponse(json.dumps(data), content_type="application/json")
+

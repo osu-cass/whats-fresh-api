@@ -1,5 +1,5 @@
 from django.core.serializers import json
-from whats_fresh.whats_fresh_api.models import Vendor
+from whats_fresh.whats_fresh_api.models import Vendor, Story
 
 
 class FreshSerializer(json.Serializer):

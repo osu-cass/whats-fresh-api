@@ -37,15 +37,16 @@ class StoriesTestCase(TestCase):
     "preparing": "Fried",
     "products": "Fish",
     "season": "Spring",
+    "ext": {},
     "images": [
         {"caption": "An image", "link": "/media/cat.jpg"}
     ],
     "videos": [
-        {"caption": "A video", "link":
-        "http://www.youtube.com/watch?v=C5twOVjxKqg"}
+        {"caption": "A Starship", "link":
+        "http://www.youtube.com/watch?v=efgDdSWDg0g"}
     ],
-    "created": "2014-08-08 23:27:05.568395+00:00",
-    "modified": "2014-08-08 23:27:05.568395+00:00"
+    "created": "2014-08-08T23:27:05.568Z",
+    "modified": "2014-08-08T23:27:05.568Z"
 }"""
 
         self.expected_not_found = """

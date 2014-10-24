@@ -219,3 +219,10 @@ class Video(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    def natural_key(self):
+        return {
+            'caption': self.caption,
+            'link': self.video
+        }
+
