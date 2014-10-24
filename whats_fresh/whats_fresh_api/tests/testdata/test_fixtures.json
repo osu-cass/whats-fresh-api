@@ -1,5 +1,25 @@
 [
   {
+    "model": "whats_fresh_api.Image",
+    "pk": "1",
+    "fields": {
+      "image": "/media/dog.jpg",
+      "caption": "Woof!",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Image",
+    "pk": "2",
+    "fields": {
+      "image": "/media/cat.jpg",
+      "caption": "Meow!",
+      "created": "2014-08-08 23:27:05.568395+00:00",
+      "modified": "2014-08-08 23:27:05.568395+00:00"
+    }
+  },
+  {
     "model": "whats_fresh_api.Story",
     "pk": "1",
     "fields": {
@@ -10,8 +30,8 @@
       "preparing": "Fried",
       "products": "Fish",
       "season": "Spring",
-      "images": "1",
-      "videos": "1",
+      "images": [1],
+      "videos": [1],
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -168,26 +188,6 @@
        "product_preparation": "3",
        "vendor_price": "Free!",
        "available": "False"
-    }
-  },
-  {
-    "model": "whats_fresh_api.Image",
-    "pk": "1",
-    "fields": {
-      "image": "/media/dog.jpg",
-      "caption": "Woof!",
-      "created": "2014-08-08 23:27:05.568395+00:00",
-      "modified": "2014-08-08 23:27:05.568395+00:00"
-    }
-  },
-  {
-    "model": "whats_fresh_api.Image",
-    "pk": "2",
-    "fields": {
-      "image": "/media/cat.jpg",
-      "caption": "Meow!",
-      "created": "2014-08-08 23:27:05.568395+00:00",
-      "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
   {
