@@ -1,3 +1,4 @@
+# flake8: noqa
 # This module is how we import settings, and override settings with various
 # precedences.
 
