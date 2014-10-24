@@ -29,7 +29,10 @@ class Image(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def natural_key(self):
-        return self.image.url
+        return {
+            'caption': self.caption,
+            'link': self.image.url
+        }
 
 
 class Vendor(models.Model):
