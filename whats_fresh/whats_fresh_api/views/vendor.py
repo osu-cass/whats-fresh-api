@@ -4,6 +4,8 @@ from django.contrib.gis.measure import D
 from django.contrib.gis.geos import fromstr
 from whats_fresh.whats_fresh_api.models import Vendor
 from django.conf import settings
+from django.contrib.auth.decorators import login_required, user_passes_test
+from whats_fresh.whats_fresh_api.functions import get_limit, get_lat_long_prox
 
 import json
 from .serializer import FreshSerializer
@@ -28,54 +30,9 @@ def vendor_list(request):
     lat = request.GET.get('lat', None)
     lng = request.GET.get('lng', None)
     proximity = request.GET.get('proximity', None)
-    limit = request.GET.get('limit', None)
 
-    if limit:
-        try:
-            limit = int(limit)
-        except Exception as e:
-            error = {
-                'debug': "{0}: {1}".format(type(e).__name__, str(e)),
-                'status': True,
-                'level': 'Warning',
-                'text': 'Invalid limit. Returning all results.',
-                'name': 'Bad Limit'
-            }
-            limit = None
 
-    if lat or lng:
-        if proximity:
-            try:
-                proximity = int(proximity)
-            except Exception as e:
-                error = {
-                    "level": "Warning",
-                    "status": True,
-                    "name": "Bad proximity",
-                    "text": "There was an error finding vendors "
-                    "within {0} miles".format(proximity),
-                    'debug': "{0}: {1}".format(type(e).__name__, str(e))
-                }
-                proximity = settings.DEFAULT_PROXIMITY
-        else:
-            proximity = settings.DEFAULT_PROXIMITY
-
-        try:
-            point = fromstr('POINT(%s %s)' % (lng, lat), srid=4326)
-            vendor_list = Vendor.objects.filter(
-                location__distance_lte=(point, D(mi=proximity)))[:limit]
-        except Exception as e:
-            error = {
-                "level": "Warning",
-                "status": True,
-                "name": "Bad location",
-                "text": "There was an error with the given "
-                "coordinates {0}, {1}".format(lat, lng),
-                'debug': "{0}: {1}".format(type(e).__name__, str(e))
-            }
-            vendor_list = Vendor.objects.all()[:limit]
-    else:
-        vendor_list = Vendor.objects.all()[:limit]
+    vendor_list, error = get_lat_long_prox(request, error)
 
     if not vendor_list:
         error = {
