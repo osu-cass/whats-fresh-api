@@ -4,6 +4,7 @@ $primary: #517285;
 $secondary: #FFF;
 $ternary: #483c3e;
 $accent: #FFCA5D;
+$warning: #D54133;
 $light: #FFF;
 $dark: #333;
 $navheight: 70px;
@@ -72,7 +73,7 @@ a{
 }
 
 .warning{
-    color: #D54133;
+    color: $warning;
 }
 
 .error{
@@ -209,9 +210,10 @@ a{
         vertical-align: middle;
     }
 
-    .action {
-        display: inline-block;
-    }
+    .dbutton{
+        background: $warning;
+        float: right;
+    } 
 }
 
 .buttons {

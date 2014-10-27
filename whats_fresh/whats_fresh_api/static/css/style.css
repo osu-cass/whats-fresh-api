@@ -144,8 +144,9 @@ a {
     margin-left: 5%; }
   .form .delete, .entry_box .delete {
     vertical-align: middle; }
-  .form .action, .entry_box .action {
-    display: inline-block; }
+  .form .dbutton, .entry_box .dbutton {
+    background: #D54133;
+    float: right; }
 
 .buttons {
   margin-left: auto;
@@ -219,3 +220,5 @@ a {
     padding: 0px; }
   .product_list ul li {
     padding-left: 30px; }
+
+/*# sourceMappingURL=style.css.map */

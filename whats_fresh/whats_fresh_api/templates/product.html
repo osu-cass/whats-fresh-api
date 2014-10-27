@@ -31,9 +31,12 @@
     </div>
     {% endif %}
     <h4 id='error_tag' class='light warning'></h4>
+     {% if existing_preparations %}
+    <button class='dbutton' type="input" onclick="deleteProduct();return false;" />Delete</button>
+    {% endif %}
     {% csrf_token %}
     <h3>Basic Info</h3>
-    <p class="field_text">Name*:</p>
+   <p class="field_text">Name*:</p>
     {{ product_form.name }}
     <p class="field_text" >Variety:</p>
     {{ product_form.variety }}
@@ -75,8 +78,7 @@
 
     <input class='preparation' name="preparation_ids" type="hidden" />
     <div class="buttons">
-    <button class="action" type="input" onclick="deleteProduct();return false;" />Delete</button>
-    <button class="action" type="submit" onclick="setPreparationField();"/>Save</button>
+        <button type="submit" onclick="setPreparationField();"/>Save</button>
     </div>
 </form>
 <!-- The template div used by appendPreparation() -->
@@ -110,17 +112,17 @@
     function deleteProduct()
     {
         $.ajax({
-          type: 'DELETE',
-          headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-          statusCode: {
-            404: function() {
-              $("#error_tag").text('Unable to delete product!');
-              $("html, body").animate({ scrollTop: 0 }, "slow");
-            },
-            200: function() {
-              window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+            type: 'DELETE',
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            statusCode: {
+                404: function() {
+                    $("#error_tag").text('Unable to delete product!');
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                },
+                200: function() {
+                    window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+                }
             }
-          }
         });
     }
 

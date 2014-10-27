@@ -123,7 +123,7 @@ def vendor(request, id=None):
         vendor = Vendor.objects.get(id=id)
         vendor_form = VendorForm(instance=vendor)
         title = "Edit %s" % vendor.name
-        message = "* = Required field"
+        message = ""
         post_url = reverse('edit-vendor', kwargs={'id': id})
         # If the list already has items, we're coming back to it from above
         # And have already filled the list with the product preparations POSTed

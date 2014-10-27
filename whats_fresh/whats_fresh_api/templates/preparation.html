@@ -26,12 +26,16 @@
         {% for error in errors %}
         <p class='warning'>{{ error|escape }}</p>
         {% endfor %}
-    {% endif %}
-    <h4 id='error_tag' class='light warning'></h4>
+        {% endif %}
+        <h4 id='error_tag' class='light warning'></h4>
     </div>
 
     {% csrf_token %}
     <div class="entry_box">
+        <!--Kind of sketchy, but it works-->
+        {% if title != 'New Preparation' %}
+        <button class='dbutton' type"input" onclick="deletePreparation();return false;" />Delete</button>
+        {% endif %}
         <h3>Basic Info</h3>
         <p class="field_text">Name*:</p>
         {{ preparation_form.name }}
@@ -39,7 +43,6 @@
         {{ preparation_form.description }}
         <p class="field_text">Additional Information:</p>
         {{ preparation_form.additional_info }}
-        <button type"input" onclick="deletePreparation();return false;" />Delete</button>
         <button>Save</button>
     </div>
 </form>
@@ -50,17 +53,17 @@
     function deletePreparation()
     {
         $.ajax({
-          type: 'DELETE',
-          headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-          statusCode: {
-            404: function() {
-              $("#error_tag").text('Unable to delete preparation!');
-              $("html, body").animate({ scrollTop: 0 }, "slow");
-            },
-            200: function() {
-              window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+            type: 'DELETE',
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            statusCode: {
+                404: function() {
+                    $("#error_tag").text('Unable to delete preparation!');
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                },
+                200: function() {
+                    window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+                }
             }
-          }
         });
     }
 </script>
