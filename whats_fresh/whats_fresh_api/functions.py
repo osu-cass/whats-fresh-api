@@ -60,11 +60,13 @@ def group_required(*group_names):
 
 
 def get_lat_long_prox(request, error=None):
+    limit, error = get_limit(request, error)
+
     lat = request.GET.get('lat', None)
     lng = request.GET.get('lng', None)
-
-    limit, error = get_limit(request, error)
     proximity = request.GET.get('proximity', None)
+
+    point = None
 
     if lat or lng:
         if proximity:
@@ -85,8 +87,6 @@ def get_lat_long_prox(request, error=None):
 
         try:
             point = fromstr('POINT(%s %s)' % (lng, lat), srid=4326)
-            vendor_list = Vendor.objects.filter(
-                location__distance_lte=(point, D(mi=proximity)))[:limit]
         except Exception as e:
             error = {
                 "level": "Warning",
@@ -96,11 +96,8 @@ def get_lat_long_prox(request, error=None):
                     "coordinates {0}, {1}".format(lat, lng),
                 'debug': "{0}: {1}".format(type(e).__name__, str(e))
             }
-            vendor_list = Vendor.objects.all()[:limit]
-    else:
-        vendor_list = Vendor.objects.all()[:limit]
 
-    return [vendor_list, error]
+    return [point, proximity, limit, error]
 
 
 def get_limit(request, error=None):
