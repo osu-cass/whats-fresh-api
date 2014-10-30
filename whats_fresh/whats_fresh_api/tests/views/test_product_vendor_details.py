@@ -39,7 +39,8 @@ class ProductVendorTestCase(TestCase):
       "season": "Season 1",
       "available": true,
       "market_price": "$33.31",
-      "link": "http://www.amazon.com/Star-Trek-Voyager-Complete-Seventh/dp/B00062IDCO/",
+      "link": "http://www.amazon.com/Star-Trek-\
+Voyager-Complete-Seventh/dp/B00062IDCO/",
       "image": {"caption": "Woof!", "link": "/media/dog.jpg"},
       "story": 1,
       "created": "2014-08-08T23:27:05.568Z",

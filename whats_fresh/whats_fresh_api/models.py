@@ -197,6 +197,7 @@ class VendorProduct(models.Model):
     vendor_price = models.TextField(blank=True)
     available = models.NullBooleanField()
 
+
 class Video(models.Model):
     """
     The video model holds an image and related data.
@@ -207,11 +208,6 @@ class Video(models.Model):
     This model uses Django's built-ins for holding the video location and
     data in the database, as well as for keeping created and modified
     timestamps.
-    """
-
-    """
-    def filename(self):
-        return os.path.basename(self.image.name)
     """
 
     def __unicode__(self):
@@ -228,4 +224,3 @@ class Video(models.Model):
             'caption': self.caption,
             'link': self.video
         }
-

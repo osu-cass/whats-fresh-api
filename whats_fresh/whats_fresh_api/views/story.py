@@ -1,8 +1,6 @@
 from django.http import (HttpResponse,
-                         HttpResponseNotFound,
-                         HttpResponseServerError)
+                         HttpResponseNotFound)
 from whats_fresh.whats_fresh_api.models import Story
-from django.contrib.auth.decorators import login_required, user_passes_test
 
 import json
 from .serializer import FreshSerializer
@@ -42,15 +40,14 @@ def story_details(request, id=None):
     serializer = FreshSerializer()
 
     data = json.loads(
-            serializer.serialize(
-                [story],
-                use_natural_foreign_keys=True
-            )[1:-1] # Serializer can only serialize lists,
-                    # so we have to chop off the list brackets
-                    # to get the serialized string without the list
+        serializer.serialize(
+            [story],
+            use_natural_foreign_keys=True
+        )[1:-1]  # Serializer can only serialize lists,
+                 # so we have to chop off the list brackets
+                 # to get the serialized string without the list
         )
 
     data['error'] = error
 
     return HttpResponse(json.dumps(data), content_type="application/json")
-
