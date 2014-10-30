@@ -3,6 +3,7 @@ from whats_fresh.whats_fresh_api.functions import get_lat_long_prox, get_limit
 from mock import Mock, patch
 from django.contrib.gis.geos import fromstr
 
+
 class ParameterTestCase(TestCase):
     """
     Test that the parameter parsing functions get_lat_long_prox and get_limit
@@ -38,7 +39,6 @@ class ParameterTestCase(TestCase):
 
         self.assertEqual(expected_result, actual_result)
 
-
     @patch('django.http.request')
     def test_get_limit_invalid_limit(self, mock_request):
         mock_request = Mock()
@@ -57,7 +57,6 @@ class ParameterTestCase(TestCase):
         actual_result = get_limit(mock_request, self.base_error)
 
         self.assertEqual(expected_result, actual_result)
-
 
     @patch('django.http.request')
     def test_get_limit_invalid_limit_existing_error(self, mock_request):
@@ -86,14 +85,13 @@ class ParameterTestCase(TestCase):
 
         self.assertEqual(expected_result, actual_result)
 
-
     @patch('django.http.request')
     def test_get_lat_long_prox_valid_lat_long_prox(self, mock_request):
         mock_request = Mock()
         mock_request.GET = {'lat': '45.6', 'lng': '-123.4', 'proximity': '25'}
 
         point = fromstr('POINT (-123.4000000000000057 45.6000000000000014)',
-            srid=4326)
+                        srid=4326)
 
         expected_result = [point, 25, None, self.base_error]
         actual_result = get_lat_long_prox(mock_request, self.base_error)
@@ -102,14 +100,13 @@ class ParameterTestCase(TestCase):
         self.assertEqual(expected_result[0].x, actual_result[0].x)
         self.assertEqual(expected_result[0].y, actual_result[0].y)
 
-
     @patch('django.http.request')
     def test_get_lat_long_prox_valid_lat_long_no_prox(self, mock_request):
         mock_request = Mock()
         mock_request.GET = {'lat': '45.6', 'lng': '-123.4'}
 
         point = fromstr('POINT (-123.4000000000000057 45.6000000000000014)',
-            srid=4326)
+                        srid=4326)
 
         expected_result = [point, 20, None, self.base_error]
         actual_result = get_lat_long_prox(mock_request, self.base_error)
@@ -117,7 +114,6 @@ class ParameterTestCase(TestCase):
         self.assertEqual(expected_result[1:], actual_result[1:])
         self.assertEqual(expected_result[0].x, actual_result[0].x)
         self.assertEqual(expected_result[0].y, actual_result[0].y)
-
 
     @patch('django.http.request')
     def test_get_lat_long_prox_valid_lat_bad_long(self, mock_request):
@@ -139,7 +135,6 @@ class ParameterTestCase(TestCase):
 
         self.assertEqual(expected_result, actual_result)
 
-
     @patch('django.http.request')
     def test_get_lat_long_prox_valid_lat_no_long(self, mock_request):
         mock_request = Mock()
@@ -160,7 +155,6 @@ class ParameterTestCase(TestCase):
 
         self.assertEqual(expected_result, actual_result)
 
-
     @patch('django.http.request')
     def test_get_lat_long_prox_valid_lat_long_prox_limit(self, mock_request):
         mock_request = Mock()
@@ -172,7 +166,7 @@ class ParameterTestCase(TestCase):
         }
 
         point = fromstr('POINT (-123.4000000000000057 45.6000000000000014)',
-            srid=4326)
+                        srid=4326)
 
         expected_result = [point, 25, 80, self.base_error]
         actual_result = get_lat_long_prox(mock_request, self.base_error)
