@@ -27,8 +27,6 @@ class StoriesTestCase(TestCase):
         "debug": null,
         "level": null
     },
-    "story": "These are the voyages of the Starfish Enterblub; her five year\
- mission -- to seek out new fish and new fishilizations..."
     "id": 1,
     "name": "Star Wars",
     "history": "A long time ago, in a galaxy far, far away...",
