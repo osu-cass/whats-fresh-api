@@ -1,11 +1,8 @@
 from django.http import (HttpResponse,
                          HttpResponseNotFound)
 from django.contrib.gis.measure import D
-from django.contrib.gis.geos import fromstr
 from whats_fresh.whats_fresh_api.models import Vendor
-from django.conf import settings
-from django.contrib.auth.decorators import login_required, user_passes_test
-from whats_fresh.whats_fresh_api.functions import get_limit, get_lat_long_prox
+from whats_fresh.whats_fresh_api.functions import get_lat_long_prox
 
 import json
 from .serializer import FreshSerializer
@@ -81,6 +78,23 @@ def vendors_products(request, id=None):
             vendor_list = Vendor.objects.filter(
                 vendorproduct__product_preparation__product__id__exact=id,
                 location__distance_lte=(point, D(mi=proximity)))[:limit]
+        else:
+            vendor_list = Vendor.objects.filter(
+                vendorproduct__product_preparation__product__id__exact=id
+            )[:limit]
+
+    except Exception as e:
+        error = {
+            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'status': True,
+            'level': 'Error',
+            'text': 'Product id is invalid',
+            'name': 'Invalid product'
+        }
+        return HttpResponseNotFound(
+            json.dumps(data),
+            content_type="application/json"
+        )
 
     if not vendor_list:
         error = {

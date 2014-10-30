@@ -1,10 +1,7 @@
 import requests
-import json
 from django.conf import settings
 
 from django.contrib.auth.decorators import user_passes_test
-from whats_fresh.whats_fresh_api.models import Vendor
-from django.contrib.gis.measure import D
 from django.contrib.gis.geos import fromstr
 
 
@@ -60,6 +57,13 @@ def group_required(*group_names):
 
 
 def get_lat_long_prox(request, error=None):
+    """
+    Parse the latitude, longitude, proximity, and limit for the Vendor
+    list functions.
+
+    If the parsing results in an error, the error block is updated to reflect
+    that error.
+    """
     limit, error = get_limit(request, error)
 
     lat = request.GET.get('lat', None)
@@ -77,8 +81,8 @@ def get_lat_long_prox(request, error=None):
                     "level": "Warning",
                     "status": True,
                     "name": "Bad proximity",
-                    "text": "There was an error finding vendors " \
-                        "within {0} miles".format(proximity),
+                    "text": "There was an error finding vendors "
+                            "within {0} miles".format(proximity),
                     'debug': "{0}: {1}".format(type(e).__name__, str(e))
                 }
                 proximity = settings.DEFAULT_PROXIMITY
@@ -93,7 +97,7 @@ def get_lat_long_prox(request, error=None):
                 "status": True,
                 "name": "Bad location",
                 "text": "There was an error with the given "
-                    "coordinates {0}, {1}".format(lat, lng),
+                        "coordinates {0}, {1}".format(lat, lng),
                 'debug': "{0}: {1}".format(type(e).__name__, str(e))
             }
 
@@ -101,6 +105,12 @@ def get_lat_long_prox(request, error=None):
 
 
 def get_limit(request, error=None):
+    """
+    Return the limit requested by the user.
+
+    If the limit results in an error, the error block is updated to reflect
+    that error.
+    """
     limit = request.GET.get('limit', None)
     if limit is None:
         return [limit, error]

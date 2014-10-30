@@ -1,10 +1,7 @@
 from django.http import (HttpResponse,
                          HttpResponseNotFound)
 from whats_fresh.whats_fresh_api.models import Product
-||||||| merged common ancestors
-                         HttpResponseNotFound,
-                         HttpResponseServerError)
-from whats_fresh.whats_fresh_api.models import Vendor, Product, VendorProduct
+from whats_fresh.whats_fresh_api.functions import get_limit
 
 import json
 from .serializer import FreshSerializer
@@ -131,7 +128,6 @@ def product_vendor(request, id=None):
             json.dumps(data),
             content_type="application/json"
         )
-
 
     serializer = FreshSerializer()
 
