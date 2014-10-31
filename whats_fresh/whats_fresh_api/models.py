@@ -127,14 +127,14 @@ class Story(models.Model):
             return u'Story %d' % self.id
 
     name = models.TextField()
-    history = models.TextField()
-    facts = models.TextField()
-    buying = models.TextField()
-    preparing = models.TextField()
-    products = models.TextField()
-    season = models.TextField()
-    images = models.ManyToManyField('Image')
-    videos = models.ManyToManyField('Video')
+    history = models.TextField(blank=True)
+    facts = models.TextField(blank=True)
+    buying = models.TextField(blank=True)
+    preparing = models.TextField(blank=True)
+    products = models.TextField(blank=True)
+    season = models.TextField(blank=True)
+    images = models.ManyToManyField('Image', null=True, blank=True)
+    videos = models.ManyToManyField('Video', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
