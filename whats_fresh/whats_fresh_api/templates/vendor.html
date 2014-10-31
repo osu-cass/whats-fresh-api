@@ -34,9 +34,9 @@
     <h4 id='error_tag' class='light warning'></h4>
     {% csrf_token %}
     <div class='entry_box'>
-        {% if existing_product_preparations %}
-        <button  class='dbutton' type="input" onclick="deleteVendor();return false;" />Delete</button>
-        {% endif %}    
+        {% if vendor_form.instance.pk != None %}
+        <button  class='dbutton' type="button" onclick="deleteVendor();return false;" />Delete</button>
+        {% endif %}
         <h3>Basic Info</h3>
         <p class="field_text">Name*:</p>
         {{ vendor_form.name }}
@@ -127,19 +127,21 @@
 
     function deleteVendor()
     {
-        $.ajax({
-            type: 'DELETE',
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-            statusCode: {
-                404: function() {
-                    $("#error_tag").text('Unable to delete vendor!');
-                    $("html, body").animate({ scrollTop: 0 }, "slow");
-                },
-                200: function() {
-                    window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+        if(confirm('Are you sure you want to delete this vendor?')) {
+            $.ajax({
+                type: 'DELETE',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                statusCode: {
+                    404: function() {
+                        $("#error_tag").text('Unable to delete vendor!');
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                    },
+                    200: function() {
+                        window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     function showPreparations(prep_number)
