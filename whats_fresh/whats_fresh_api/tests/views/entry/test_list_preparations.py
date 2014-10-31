@@ -2,7 +2,6 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from whats_fresh.whats_fresh_api.models import Preparation
 from django.contrib.auth.models import User, Group
-from django.conf import settings
 
 
 class ListPreparationTestCase(TestCase):
