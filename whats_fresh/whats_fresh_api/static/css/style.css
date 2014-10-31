@@ -47,6 +47,11 @@ a {
   max-width: 550px;
   margin: 0px auto; }
 
+.step-links {
+    font-family: "Montserrat", sans-serif;
+    font-size: 16pt;
+}
+
 .header {
   background: #FFF;
   height: 70px;

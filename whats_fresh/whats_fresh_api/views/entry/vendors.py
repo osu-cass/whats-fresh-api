@@ -4,7 +4,9 @@ from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.gis.geos import fromstr
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 from whats_fresh.whats_fresh_api.models import (Vendor, Product,
                                                 ProductPreparation,
@@ -186,26 +188,22 @@ def vendor_list(request):
     their description, and allows you to click on them to view/edit the
     vendor.
     """
-    vendors = Vendor.objects.all()
-    vendors_list = []
 
     message = ""
     if request.GET.get('success') == 'true':
         message = "Vendor deleted successfully!"
 
-    for vendor in vendors:
-        vendor_data = {}
-        vendor_data['name'] = vendor.name
-        vendor_data['modified'] = vendor.modified.strftime(
-            "%I:%M %P, %d %b %Y")
-        vendor_data['description'] = vendor.description
-        vendor_data['link'] = reverse('edit-vendor', kwargs={'id': vendor.id})
+    paginator = Paginator(Vendor.objects.all(), settings.PAGE_LENGTH)
+    page = request.GET.get('page')
 
-        if len(vendor_data['description']) > 100:
-            vendor_data['description'] = vendor_data[
-                'description'][:100] + "..."
-
-        vendors_list.append(vendor_data)
+    try:
+        vendors = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        vendors = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        vendors = paginator.page(paginator.num_pages)
 
     return render(request, 'list.html', {
         'parent_url': reverse('home'),
@@ -215,5 +213,6 @@ def vendor_list(request):
         'new_text': "New Vendor",
         'title': "All Vendors",
         'item_classification': "vendor",
-        'item_list': vendors_list,
+        'item_list': vendors,
+        'edit_url': 'edit-vendor'
     })

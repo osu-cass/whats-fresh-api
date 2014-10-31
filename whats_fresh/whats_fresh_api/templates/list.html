@@ -17,7 +17,7 @@
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>
     <div class='list'>
 {% for item in item_list %}
-<a href='{{ item.link }}'>
+<a href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
         <p class='item'>{{ item.name }}</p>
         <div class='description'>
@@ -25,9 +25,22 @@
         </div>
     </div>
 </a>
-{% if not forloop.last %}
 <hr>
-{% endif %}
 {% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if item_list.has_previous %}
+            <a href="?page={{ item_list.previous_page_number }}">&#9664; Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ item_list.number }} of {{ item_list.paginator.num_pages }}.
+        </span>
+
+        {% if item_list.has_next %}
+            <a href="?page={{ item_list.next_page_number }}">Next &#9654;</a>
+        {% endif %}
+    </span>
+</div>
     </div>
 {% endblock content %}

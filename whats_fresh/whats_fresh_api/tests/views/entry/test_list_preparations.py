@@ -2,10 +2,11 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from whats_fresh.whats_fresh_api.models import Preparation
 from django.contrib.auth.models import User, Group
+from django.conf import settings
 
 
 class ListPreparationTestCase(TestCase):
-    fixtures = ['test_fixtures']
+    fixtures = ['thirtythree']
 
     def setUp(self):
         user = User.objects.create_user(
@@ -39,18 +40,8 @@ class ListPreparationTestCase(TestCase):
         response = self.client.get(reverse('entry-list-preparations'))
         items = response.context['item_list']
 
-        preparation_dict = {}
+        self.assertLessEqual(len(items), settings.PAGE_LENGTH)
+        db_preps = Preparation.objects.all()[:settings.PAGE_LENGTH]
 
-        for preparation in items:
-            preparation_id = preparation['link'].split('/')[-1]
-            preparation_dict[str(preparation_id)] = preparation
-
-        for db_preparation in Preparation.objects.all():
-            list_preparation = preparation_dict[str(db_preparation.id)]
-            self.assertEqual(
-                list_preparation['description'], db_preparation.description)
-            self.assertEqual(
-                list_preparation['name'], db_preparation.name)
-            self.assertEqual(
-                list_preparation['link'],
-                reverse('edit-preparation', kwargs={'id': db_preparation.id}))
+        for key, item in enumerate(items):
+            self.assertEqual(item, db_preps[key])

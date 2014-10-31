@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 
 from whats_fresh.whats_fresh_api.models import (Product, Preparation,
                                                 ProductPreparation)
@@ -145,26 +147,22 @@ def product_list(request):
     product.
     """
     products = Product.objects.all()
-    products_list = []
 
     message = ""
     if request.GET.get('success') == 'true':
         message = "Product deleted successfully!"
 
-    for product in products:
-        product_data = {}
-        product_data['name'] = product.name
-        product_data['modified'] = product.modified.strftime(
-            "%I:%M %P, %d %b %Y")
-        product_data['description'] = product.description
-        product_data['link'] = reverse(
-            'edit-product', kwargs={'id': product.id})
+    paginator = Paginator(Product.objects.all(), settings.PAGE_LENGTH)
+    page = request.GET.get('page')
 
-        if len(product_data['description']) > 100:
-            product_data['description'] = product_data[
-                'description'][:100] + "..."
-
-        products_list.append(product_data)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        products = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        products = paginator.page(paginator.num_pages)
 
     return render(request, 'list.html', {
         'message': message,
@@ -174,5 +172,6 @@ def product_list(request):
         'new_text': "New product",
         'title': "All products",
         'item_classification': "product",
-        'item_list': products_list,
+        'item_list': products,
+        'edit_url': 'edit-product'
     })
