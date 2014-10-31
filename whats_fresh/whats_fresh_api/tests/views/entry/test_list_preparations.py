@@ -37,11 +37,39 @@ class ListPreparationTestCase(TestCase):
         Tests to see if the list of preparations contains the proper
         preparations and proper preparation data
         """
-        response = self.client.get(reverse('entry-list-preparations'))
-        items = response.context['item_list']
 
-        self.assertLessEqual(len(items), settings.PAGE_LENGTH)
-        db_preps = Preparation.objects.all()[:settings.PAGE_LENGTH]
+        page_1 = self.client.get(reverse('entry-list-preparations')).context
+        page_2 = self.client.get(
+            '{}?page=2'.format(reverse('entry-list-preparations'))).context
+        page_3 = self.client.get(
+            '{}?page=3'.format(reverse('entry-list-preparations'))).context
+        page_4 = self.client.get(
+            '{}?page=4'.format(reverse('entry-list-preparations'))).context
+        page_nan = self.client.get(
+            '{}?page=NaN'.format(reverse('entry-list-preparations'))).context
 
-        for key, item in enumerate(items):
-            self.assertEqual(item, db_preps[key])
+        self.assertEqual(
+            list(page_1['item_list']),
+            list(Preparation.objects.all()[:15]))
+
+        self.assertEqual(
+            list(page_2['item_list']),
+            list(Preparation.objects.all()[15:30]))
+
+        self.assertEqual(
+            list(page_3['item_list']),
+            list(Preparation.objects.all()[30:33]))
+
+        # Page 4 should be identical to Page 3, as these fixtures
+        # have enough content for three pages (15 items per page, 33 items)
+
+        self.assertEqual(
+            list(page_3['item_list']),
+            list(page_4['item_list']))
+
+        # Page NaN should be identical to Page 1, as Django paginator returns
+        # the first page if the page is not an int
+
+        self.assertEqual(
+            list(page_1['item_list']),
+            list(page_nan['item_list']))
