@@ -35,8 +35,8 @@ class NewStoryTestCase(TestCase):
         self.client.logout()
 
         response = self.client.get(
-            reverse('edit-story', kwargs={'id': '1'}))
-        self.assertRedirects(response, '/login?next=/entry/stories/1')
+            reverse('edit-story'))
+        self.assertRedirects(response, '/login?next=/entry/stories/new')
 
     def test_url_endpoint(self):
         url = reverse('new-story')
