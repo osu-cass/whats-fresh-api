@@ -31,7 +31,7 @@ MOCK_MODULES = ['django.contrib.gis.db', 'django', 'django.http',
                 'django.contrib.gis.measure', 'django.contrib.auth',
                 'django.contrib.gis.geos', 'django.conf', 'django.forms',
                 'phonenumber_field.modelfields',
-                'django.contrib.auth.decorators']
+                'django.contrib.auth.decorators', 'django.core.serializers']
 
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
