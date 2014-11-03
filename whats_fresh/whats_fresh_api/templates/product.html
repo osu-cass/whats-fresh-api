@@ -31,8 +31,8 @@
     </div>
     {% endif %}
     <h4 id='error_tag' class='light warning'></h4>
-     {% if existing_preparations %}
-    <button class='dbutton' type="input" onclick="deleteProduct();return false;" />Delete</button>
+     {% if product_form.instance.pk != None %}
+    <button class='dbutton' type="button" onclick="deleteProduct();return false;" />Delete</button>
     {% endif %}
     {% csrf_token %}
     <h3>Basic Info</h3>
@@ -111,19 +111,21 @@
 
     function deleteProduct()
     {
-        $.ajax({
-            type: 'DELETE',
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-            statusCode: {
-                404: function() {
-                    $("#error_tag").text('Unable to delete product!');
-                    $("html, body").animate({ scrollTop: 0 }, "slow");
-                },
-                200: function() {
-                    window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+        if(confirm('Are you sure you want to delete this product?')) {
+            $.ajax({
+                type: 'DELETE',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                statusCode: {
+                    404: function() {
+                        $("#error_tag").text('Unable to delete product!');
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                    },
+                    200: function() {
+                        window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     function appendPreparation()
