@@ -104,8 +104,7 @@ def vendor(request, id=None):
                             id=product_preparation))
                 vendor.save()
             return HttpResponseRedirect(
-                "%s?success=true" % reverse(
-                    'edit-vendor', kwargs={'id': vendor.id}))
+                "%s?saved=true" % reverse('list-vendors-edit'))
 
         existing_prod_preps = []
         for preparation_id in prod_preps:
@@ -137,8 +136,6 @@ def vendor(request, id=None):
                         vendor_product.product_preparation.preparation.name,
                     'product': vendor_product.product_preparation.product.name
                 })
-        if request.GET.get('success') == 'true':
-            message = "Vendor saved successfully!"
     elif request.method != 'POST':
         title = "Add a Vendor"
         post_url = reverse('new-vendor')
@@ -192,6 +189,8 @@ def vendor_list(request):
     message = ""
     if request.GET.get('success') == 'true':
         message = "Vendor deleted successfully!"
+    elif request.GET.get('saved') == 'true':
+        message = "Vendor saved successfully!"
 
     paginator = Paginator(Vendor.objects.all(), settings.PAGE_LENGTH)
     page = request.GET.get('page')
