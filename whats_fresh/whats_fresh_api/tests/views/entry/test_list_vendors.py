@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, Group
 
 
 class ListVendorTestCase(TestCase):
-    fixtures = ['test_fixtures']
+    fixtures = ['thirtythree']
 
     def setUp(self):
         user = User.objects.create_user(
@@ -32,26 +32,42 @@ class ListVendorTestCase(TestCase):
 
     def test_list_items(self):
         """
-        Tests to see if the list of vendors contains the proper vendors and
-        proper vendor data
+        Tests to see if the list of vendors contains the proper
+        vendors and proper vendor data
         """
-        response = self.client.get(reverse('list-vendors-edit'))
-        items = response.context['item_list']
 
-        vendor_dict = {}
+        page_1 = self.client.get(reverse('list-vendors-edit')).context
+        page_2 = self.client.get(
+            '{}?page=2'.format(reverse('list-vendors-edit'))).context
+        page_3 = self.client.get(
+            '{}?page=3'.format(reverse('list-vendors-edit'))).context
+        page_4 = self.client.get(
+            '{}?page=4'.format(reverse('list-vendors-edit'))).context
+        page_nan = self.client.get(
+            '{}?page=NaN'.format(reverse('list-vendors-edit'))).context
 
-        for vendor in items:
-            vendor_id = vendor['link'].split('/')[-1]
-            vendor_dict[str(vendor_id)] = vendor
+        self.assertEqual(
+            list(page_1['item_list']),
+            list(Vendor.objects.all()[:15]))
 
-        for vendor in Vendor.objects.all():
-            self.assertEqual(
-                vendor_dict[str(vendor.id)]['description'], vendor.description)
-            self.assertEqual(
-                vendor_dict[str(vendor.id)]['name'], vendor.name)
-            self.assertEqual(
-                vendor_dict[str(vendor.id)]['link'],
-                reverse('edit-vendor', kwargs={'id': vendor.id}))
-            self.assertEqual(
-                vendor_dict[str(vendor.id)]['modified'],
-                vendor.modified.strftime("%I:%M %P, %d %b %Y"))
+        self.assertEqual(
+            list(page_2['item_list']),
+            list(Vendor.objects.all()[15:30]))
+
+        self.assertEqual(
+            list(page_3['item_list']),
+            list(Vendor.objects.all()[30:33]))
+
+        # Page 4 should be identical to Page 3, as these fixtures
+        # have enough content for three pages (15 items per page, 33 items)
+
+        self.assertEqual(
+            list(page_3['item_list']),
+            list(page_4['item_list']))
+
+        # Page NaN should be identical to Page 1, as Django paginator returns
+        # the first page if the page is not an int
+
+        self.assertEqual(
+            list(page_1['item_list']),
+            list(page_nan['item_list']))

@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 
 from whats_fresh.whats_fresh_api.models import Preparation
 from whats_fresh.whats_fresh_api.forms import PreparationForm
@@ -20,25 +22,22 @@ def prep_list(request):
     their description, and allows you to click on them to view/edit the
     preparation.
     """
-    preparations = Preparation.objects.all()
-    preparations_list = []
 
     message = ""
     if request.GET.get('success') == 'true':
         message = "Preparation deleted successfully!"
 
-    for preparation in preparations:
-        preparation_data = {}
-        preparation_data['name'] = preparation.name
-        preparation_data['description'] = preparation.description
-        preparation_data['link'] = reverse(
-            'edit-preparation', kwargs={'id': preparation.id})
+    paginator = Paginator(Preparation.objects.all(), settings.PAGE_LENGTH)
+    page = request.GET.get('page')
 
-        if len(preparation_data['description']) > 100:
-            preparation_data['description'] = preparation_data[
-                'description'][:100] + "..."
-
-        preparations_list.append(preparation_data)
+    try:
+        preparations = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        preparations = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        preparations = paginator.page(paginator.num_pages)
 
     return render(request, 'list.html', {
         'message': message,
@@ -48,7 +47,8 @@ def prep_list(request):
         'new_text': "New preparation",
         'title': "All preparations",
         'item_classification': "preparation",
-        'item_list': preparations_list,
+        'item_list': preparations,
+        'edit_url': 'edit-preparation'
     })
 
 
