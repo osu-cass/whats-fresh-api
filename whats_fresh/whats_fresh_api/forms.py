@@ -1,5 +1,6 @@
 import django.forms as forms
-from whats_fresh.whats_fresh_api.models import Vendor, Product, Preparation
+from whats_fresh.whats_fresh_api.models import (Vendor, Product, Preparation,
+                                                Story)
 
 
 class VendorForm(forms.ModelForm):
@@ -33,6 +34,23 @@ class ProductForm(forms.ModelForm):
             'alt_name': forms.TextInput,
             'description': forms.Textarea(attrs={'required': 'true'}),
             'market_price': forms.TextInput(attrs={'required': 'true'})
+        }
+        exclude = ('preparations',)
+
+
+class StoryForm(forms.ModelForm):
+
+    class Meta:
+        model = Story
+        exclude = []
+        widgets = {
+            'name': forms.TextInput(attrs={'required': 'true'}),
+            'history': forms.Textarea,
+            'buying': forms.Textarea,
+            'preparing': forms.Textarea,
+            'products': forms.Textarea,
+            'season': forms.Textarea,
+            'facts': forms.Textarea
         }
         exclude = ('preparations',)
 
