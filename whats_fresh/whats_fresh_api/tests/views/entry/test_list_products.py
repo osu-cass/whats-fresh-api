@@ -5,7 +5,7 @@ from django.contrib.auth.models import User, Group
 
 
 class ListProductTestCase(TestCase):
-    fixtures = ['test_fixtures']
+    fixtures = ['thirtythree']
 
     def setUp(self):
         user = User.objects.create_user(
@@ -33,28 +33,42 @@ class ListProductTestCase(TestCase):
 
     def test_list_items(self):
         """
-        Tests to see if the list of products contains the proper products and
-        proper product data
+        Tests to see if the list of products contains the proper
+        products and proper product data
         """
-        response = self.client.get(reverse('entry-list-products'))
-        items = response.context['item_list']
 
-        product_dict = {}
+        page_1 = self.client.get(reverse('entry-list-products')).context
+        page_2 = self.client.get(
+            '{}?page=2'.format(reverse('entry-list-products'))).context
+        page_3 = self.client.get(
+            '{}?page=3'.format(reverse('entry-list-products'))).context
+        page_4 = self.client.get(
+            '{}?page=4'.format(reverse('entry-list-products'))).context
+        page_nan = self.client.get(
+            '{}?page=NaN'.format(reverse('entry-list-products'))).context
 
-        for product in items:
-            product_id = product['link'].split('/')[-1]
-            product_dict[str(product_id)] = product
+        self.assertEqual(
+            list(page_1['item_list']),
+            list(Product.objects.all()[:15]))
 
-        for db_product in Product.objects.all():
-            list_product = product_dict[str(db_product.id)]
-            self.assertEqual(
-                list_product['description'],
-                db_product.description)
-            self.assertEqual(
-                list_product['name'], db_product.name)
-            self.assertEqual(
-                list_product['link'],
-                reverse('edit-product', kwargs={'id': db_product.id}))
-            self.assertEqual(
-                list_product['modified'],
-                db_product.modified.strftime("%I:%M %P, %d %b %Y"))
+        self.assertEqual(
+            list(page_2['item_list']),
+            list(Product.objects.all()[15:30]))
+
+        self.assertEqual(
+            list(page_3['item_list']),
+            list(Product.objects.all()[30:33]))
+
+        # Page 4 should be identical to Page 3, as these fixtures
+        # have enough content for three pages (15 items per page, 33 items)
+
+        self.assertEqual(
+            list(page_3['item_list']),
+            list(page_4['item_list']))
+
+        # Page NaN should be identical to Page 1, as Django paginator returns
+        # the first page if the page is not an int
+
+        self.assertEqual(
+            list(page_1['item_list']),
+            list(page_nan['item_list']))
