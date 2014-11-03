@@ -20,10 +20,10 @@ def locations(request):
         'locations': unique_cities,
         'error': {
             'status': False,
-            'level': None,
+            'name': None,
             'text': None,
-            'debug': None,
-            'name': None
+            'level': None,
+            'debug': None
         }
     }
     return HttpResponse(json.dumps(data), content_type="application/json")

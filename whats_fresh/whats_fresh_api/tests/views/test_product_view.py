@@ -119,10 +119,10 @@ class NoProductViewTestCase(TestCase):
 {
   "error": {
     "status": true,
-    "text": "No Products found",
     "name": "No Products",
-    "debug": "",
-    "level": "Error"
+    "text": "No Products found",
+    "level": "Information",
+    "debug": ""
   },
   "products": []
 }"""
