@@ -17,10 +17,10 @@ def vendor_list(request):
     """
     error = {
         'status': False,
-        'level': None,
-        'debug': None,
+        'name': None,
         'text': None,
-        'name': None
+        'level': None,
+        'debug': None
     }
     data = {}
 
@@ -35,10 +35,10 @@ def vendor_list(request):
     if not vendor_list:
         error = {
             "status": True,
-            "text": "No Vendors found",
             "name": "No Vendors",
-            "debug": "",
-            "level": "Information"
+            "text": "No Vendors found",
+            "level": "Information",
+            "debug": ""
         }
 
     serializer = FreshSerializer()
@@ -65,10 +65,10 @@ def vendors_products(request, id=None):
     """
     error = {
         'status': False,
-        'level': None,
-        'debug': None,
+        'name': None,
         'text': None,
-        'name': None
+        'level': None,
+        'debug': None
     }
     data = {}
 
@@ -85,11 +85,11 @@ def vendors_products(request, id=None):
 
     except Exception as e:
         error = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
             'status': True,
-            'level': 'Error',
+            'name': 'Invalid product',
             'text': 'Product id is invalid',
-            'name': 'Invalid product'
+            'level': 'Error',
+            'debug': "{0}: {1}".format(type(e).__name__, str(e))
         }
         return HttpResponseNotFound(
             json.dumps(data),
@@ -99,10 +99,10 @@ def vendors_products(request, id=None):
     if not vendor_list:
         error = {
             "status": True,
-            "text": "No Vendors found for product {}".format(id),
             "name": "No Vendors",
-            "debug": "",
-            "level": "Information"
+            "text": "No Vendors found for product %s" % id,
+            "level": "Information",
+            "debug": ""
         }
 
     serializer = FreshSerializer()
@@ -130,10 +130,10 @@ def vendor_details(request, id=None):
 
     error = {
         'status': False,
-        'level': None,
-        'debug': None,
+        'name': None,
         'text': None,
-        'name': None
+        'level': None,
+        'debug': None
     }
 
     try:
@@ -141,10 +141,10 @@ def vendor_details(request, id=None):
     except Exception as e:
         data['error'] = {
             'status': True,
-            'level': 'Error',
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'name': 'Vendor Not Found',
             'text': 'Vendor id %s was not found.' % id,
-            'name': 'Vendor Not Found'
+            'level': 'Error',
+            'debug': "{0}: {1}".format(type(e).__name__, str(e))
         }
         return HttpResponseNotFound(
             json.dumps(data),

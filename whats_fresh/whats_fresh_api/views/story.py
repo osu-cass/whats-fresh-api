@@ -16,10 +16,10 @@ def story_details(request, id=None):
 
     error = {
         'status': False,
-        'level': None,
-        'debug': None,
+        'name': None,
         'text': None,
-        'name': None
+        'level': None,
+        'debug': None
     }
 
     try:
@@ -27,10 +27,10 @@ def story_details(request, id=None):
     except Exception as e:
         data['error'] = {
             'status': True,
-            'level': 'Error',
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'name': 'Story Not Found',
             'text': 'Story id %s was not found.' % id,
-            'name': 'Story Not Found'
+            'level': 'Error',
+            'debug': '{0}: {1}'.format(type(e).__name__, str(e))
         }
         return HttpResponseNotFound(
             json.dumps(data),

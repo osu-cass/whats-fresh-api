@@ -16,10 +16,10 @@ def product_list(request):
     """
     error = {
         'status': False,
-        'level': None,
-        'debug': None,
+        'name': None,
         'text': None,
-        'name': None
+        'level': None,
+        'debug': None
     }
 
     limit, error = get_limit(request, error)
@@ -30,10 +30,10 @@ def product_list(request):
     if not queryset:
         error = {
             "status": True,
-            "text": "No Products found",
             "name": "No Products",
-            "debug": "",
-            "level": "Error"
+            "text": "No Products found",
+            "level": "Information",
+            "debug": ""
         }
 
     data = {
@@ -62,10 +62,10 @@ def product_details(request, id=None):
     except Exception as e:
         data['error'] = {
             'status': True,
-            'level': 'Error',
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
+            'name': 'Product Not Found',
             'text': 'Product id %s was not found.' % id,
-            'name': 'Product Not Found'
+            'level': 'Error',
+            'debug': '{0}: {1}'.format(type(e).__name__, str(e))
         }
         return HttpResponseNotFound(
             json.dumps(data),
@@ -74,10 +74,10 @@ def product_details(request, id=None):
 
     error = {
         'status': False,
-        'level': None,
-        'debug': None,
+        'name': None,
         'text': None,
-        'name': None
+        'level': None,
+        'debug': None
     }
 
     serializer = FreshSerializer()
@@ -105,10 +105,10 @@ def product_vendor(request, id=None):
     data = {}
     error = {
         'status': False,
-        'level': None,
-        'debug': None,
+        'name': None,
         'text': None,
-        'name': None
+        'level': None,
+        'debug': None
     }
     limit, error = get_limit(request, error)
 
@@ -117,11 +117,11 @@ def product_vendor(request, id=None):
             productpreparation__vendorproduct__vendor__id__exact=id)[:limit]
     except Exception as e:
         data['error'] = {
-            'debug': "{0}: {1}".format(type(e).__name__, str(e)),
             'status': True,
-            'level': 'Important',
+            'name': 'Vendor Not Found',
             'text': 'Vendor with id %s not found!' % id,
-            'name': 'Vendor Not Found'
+            'level': 'Error',
+            'debug': "{0}: {1}".format(type(e).__name__, str(e))
         }
         data['products'] = []
         return HttpResponse(
@@ -134,10 +134,10 @@ def product_vendor(request, id=None):
     if not product_list:
         error = {
             "status": True,
-            "text": "No Products found",
             "name": "No Products",
-            "debug": "",
-            "level": "Error"
+            "text": "No Products found",
+            "level": "Information",
+            "debug": ""
         }
 
     data = {
