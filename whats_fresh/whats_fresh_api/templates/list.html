@@ -10,14 +10,14 @@
 
 {% block title %}
 <h2 class='light'>{{ title }}</h2>
-<p class='light accent'>Click to edit | <span class="new"><a href='{{ new_url }}'>New {{ item_classification }}</a></span> | <span class="new"><a onclick="startDelete();">Delete {{ item_classification }}</a></span></p>
+<p class='light accent'>Click to edit | <span class="new"><a href='{{ new_url }}'>New {{ item_classification }}</a></span> | <span class="new"><a id="delete_toggle" onclick="startDelete();">Delete</a></span></p>
 {% endblock title %}
 
 {% block content %}
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>
     <div class='list'>
     <form action="{{ post_url }}" method="post">
-        <button class='delete_button dbutton' type="button" onclick="deleteObjects();return false;" />Delete</button>
+        <button class='delete_button' type="button" onclick="deleteObjects();return false;" />Delete</button>
     {% csrf_token %}
 {% for item in item_list %}
 <a class="list_item" href="{% url edit_url item.id %}">
@@ -52,9 +52,19 @@
 {% block footer %}
 <script>
 function startDelete() {
-    $(".list_item").addClass("disabled");
-    $(".list_check").css("display", "inline");
-    $(".delete_button").css("display", "inline");
+    if( $('.delete_button').is(':visible') ) {
+        $("#delete_toggle").text('Delete');
+        $(".list_item").removeClass("disabled");
+        $(".list_check").css("display", "none");
+        $(".delete_button").css("display", "none");
+    }
+    else {
+        $(".list_item").addClass("disabled");
+        $("#delete_toggle").text('Cancel Delete');
+        $(".list_check").css("display", "inline");
+        $(".delete_button").css("display", "inline");
+    }
+
 }
 
 $('.list_item').click(function (e) {

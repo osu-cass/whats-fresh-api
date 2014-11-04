@@ -39,6 +39,14 @@ a {
   display: none;
 }
 
+.delete_button {
+  position:fixed;
+  right: 50%;
+  left: 50%;
+  bottom: 50px;
+  display: none;
+}
+
 .light {
   color: #FFF; }
 
