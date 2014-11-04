@@ -18,7 +18,6 @@
     <div class='list'>
     <form id="delete_list">
         <h4 id='error_tag' class='light warning'></h4>
-        <button class='delete_button' type="button" onclick="deleteObjects();return false;" />Delete</button>
 {% for item in item_list %}
 <a class="list_item" href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
@@ -31,6 +30,7 @@
 </a>
 <hr>
 {% endfor %}
+        <button class='delete_button' type="button" onclick="deleteObjects();return false;" />Delete</button>
 </form>
 <div class="pagination">
     <span class="step-links">
