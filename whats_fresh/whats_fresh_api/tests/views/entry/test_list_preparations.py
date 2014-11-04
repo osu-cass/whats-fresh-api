@@ -31,6 +31,26 @@ class ListPreparationTestCase(TestCase):
         url = reverse('entry-list-preparations')
         self.assertEqual(url, '/entry/preparations')
 
+    def test_delete_items(self):
+        """
+        Tests that DELETing a list of preparations to the list page deletes
+        the items.
+        """
+        to_delete = [3, 4, 10, 11, 23]
+
+        response = self.client.delete(
+            reverse('entry-list-preparations'), {'delete': [3, 4, 10, 11]})
+        self.assertEqual(response.status_code, 200)
+
+        with self.assertRaises(Preparation.DoesNotExist):
+            for preparation in to_delete:
+                Preparation.objects.get(id=preparation)
+
+        # Test one that doesn't work
+        response = self.client.delete(
+            reverse('entry-list-preparations'), {'delete': [100]})
+        self.assertEqual(response.status_code, 404)
+
     def test_list_items(self):
         """
         Tests to see if the list of preparations contains the proper

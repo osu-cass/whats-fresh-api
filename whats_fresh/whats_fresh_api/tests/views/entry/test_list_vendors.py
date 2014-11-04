@@ -30,6 +30,26 @@ class ListVendorTestCase(TestCase):
         url = reverse('new-vendor')
         self.assertEqual(url, '/entry/vendors/new')
 
+    def test_delete_items(self):
+        """
+        Tests that DELETing a list of vendors to the list page deletes
+        the items.
+        """
+        to_delete = [3, 4, 10, 11, 23]
+
+        response = self.client.delete(
+            reverse('list-vendors-edit'), {'delete': [3, 4, 10, 11]})
+        self.assertEqual(response.status_code, 200)
+
+        with self.assertRaises(Vendor.DoesNotExist):
+            for vendor in to_delete:
+                Vendor.objects.get(id=vendor)
+
+        # Test one that doesn't work
+        response = self.client.delete(
+            reverse('list-vendors-edit'), {'delete': [100]})
+        self.assertEqual(response.status_code, 404)
+
     def test_list_items(self):
         """
         Tests to see if the list of vendors contains the proper

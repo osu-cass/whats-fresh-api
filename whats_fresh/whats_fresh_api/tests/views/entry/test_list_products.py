@@ -31,6 +31,26 @@ class ListProductTestCase(TestCase):
         url = reverse('entry-list-products')
         self.assertEqual(url, '/entry/products')
 
+    def test_delete_items(self):
+        """
+        Tests that DELETing a list of products to the list page deletes
+        the items.
+        """
+        to_delete = [3, 4, 10, 11, 23]
+
+        response = self.client.delete(
+            reverse('entry-list-products'), {'delete': [3, 4, 10, 11]})
+        self.assertEqual(response.status_code, 200)
+
+        with self.assertRaises(Product.DoesNotExist):
+            for product in to_delete:
+                Product.objects.get(id=product)
+
+        # Test one that doesn't work
+        response = self.client.delete(
+            reverse('entry-list-products'), {'delete': [100]})
+        self.assertEqual(response.status_code, 404)
+
     def test_list_items(self):
         """
         Tests to see if the list of products contains the proper
