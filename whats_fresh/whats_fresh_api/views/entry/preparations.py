@@ -26,6 +26,8 @@ def prep_list(request):
     message = ""
     if request.GET.get('success') == 'true':
         message = "Preparation deleted successfully!"
+    elif request.GET.get('saved') == 'true':
+        message = "Preparation saved successfully!"
 
     paginator = Paginator(Preparation.objects.all(), settings.PAGE_LENGTH)
     page = request.GET.get('page')
@@ -88,8 +90,7 @@ def preparation(request, id=None):
                     **preparation_form.cleaned_data)
                 preparation.save()
             return HttpResponseRedirect(
-                "%s?success=true" % reverse(
-                    'edit-preparation', kwargs={'id': preparation.id}))
+                "%s?saved=true" % reverse('entry-list-preparations'))
         else:
             pass
     else:

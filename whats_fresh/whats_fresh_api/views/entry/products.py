@@ -82,8 +82,7 @@ def product(request, id=None):
                             id=preparation))
                 product.save()
             return HttpResponseRedirect(
-                "%s?success=true" % reverse(
-                    'edit-product', kwargs={'id': product.id}))
+                "%s?saved=true" % reverse('entry-list-products'))
     else:
         errors = []
         message = ''
@@ -151,6 +150,8 @@ def product_list(request):
     message = ""
     if request.GET.get('success') == 'true':
         message = "Product deleted successfully!"
+    elif request.GET.get('saved') == 'true':
+        message = "Product saved successfully!"
 
     paginator = Paginator(Product.objects.all(), settings.PAGE_LENGTH)
     page = request.GET.get('page')
