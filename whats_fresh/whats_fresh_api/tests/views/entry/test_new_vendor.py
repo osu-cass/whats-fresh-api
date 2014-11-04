@@ -76,7 +76,7 @@ class NewVendorTestCase(TestCase):
         # Create objects that we'll be setting as the foreign objects for
         # our test vendor
 
-        # It needs a story, and we'll want multiple product_preparations to
+        # We'll want multiple product_preparations to
         # allow us to test the multi-product logic.
 
         # We can't predict what the ID of the new vendor will be, so we can
@@ -96,7 +96,7 @@ class NewVendorTestCase(TestCase):
         # Data that we'll post to the server to get the new vendor created
         new_vendor = {
             'zip': '97365', 'website': '', 'hours': 'optional hours',
-            'street': '750 NW Lighthouse Dr', 'story': 1,
+            'street': '750 NW Lighthouse Dr', 'story': '',
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
             'location_description': 'Optional Description',
@@ -114,7 +114,7 @@ class NewVendorTestCase(TestCase):
         del new_vendor['preparation_ids']
         new_vendor['status'] = None
         new_vendor['phone'] = None
-        new_vendor['story'] = Story.objects.get(id=new_vendor['story'])
+        new_vendor['story'] = None
 
         vend = Vendor.objects.all()[0]
         for field in new_vendor:
@@ -158,7 +158,7 @@ class NewVendorTestCase(TestCase):
         self.assertIn('Full address is required.', response.context['errors'])
 
         required_fields = [
-            'city', 'name', 'zip', 'story', 'location', 'state',
+            'city', 'name', 'zip', 'location', 'state',
             'street', 'contact_name', 'description']
         for field_name in required_fields:
             self.assertIn(field_name, response.context['vendor_form'].errors)
