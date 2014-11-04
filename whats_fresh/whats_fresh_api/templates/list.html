@@ -20,9 +20,11 @@
 <a href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
         <p class='item'>{{ item.name }}</p>
+        {% if item.description %}
         <div class='description'>
             <p>Description: {{ item.description }}</p>
         </div>
+        {% endif %}
     </div>
 </a>
 <hr>

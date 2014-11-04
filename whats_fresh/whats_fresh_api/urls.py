@@ -59,6 +59,18 @@ urlpatterns = patterns(
         'whats_fresh.whats_fresh_api.views.entry.products.product_list',
         name='entry-list-products'),
 
+    url(r'^entry/stories/(?P<id>\d+)/?$',
+        'whats_fresh.whats_fresh_api.views.entry.stories.story',
+        name='edit-story'),
+
+    url(r'^entry/stories/new/?$',
+        'whats_fresh.whats_fresh_api.views.entry.stories.story',
+        name='new-story'),
+
+    url(r'^entry/stories/?$',
+        'whats_fresh.whats_fresh_api.views.entry.stories.story_list',
+        name='entry-list-stories'),
+
     url(r'^entry/preparations/new/?$',
         'whats_fresh.whats_fresh_api.views.entry.preparations.preparation',
         name='new-preparation'),
