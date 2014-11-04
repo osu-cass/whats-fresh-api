@@ -16,9 +16,9 @@
 {% block content %}
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>
     <div class='list'>
-    <form action="{{ post_url }}" method="post">
+    <form id="delete_list">
+        <h4 id='error_tag' class='light warning'></h4>
         <button class='delete_button' type="button" onclick="deleteObjects();return false;" />Delete</button>
-    {% csrf_token %}
 {% for item in item_list %}
 <a class="list_item" href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
@@ -51,27 +51,50 @@
 {% endblock content %}
 {% block footer %}
 <script>
+    function deleteObjects()
+    {
+        if(confirm('Are you sure you want to delete these?')) {
+            $.ajax({
+                url: window.location.href + '/delete',
+                data: $( "#delete_list" ).serialize(),
+                type: 'DELETE',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                statusCode: {
+                    404: function() {
+                        $("#error_tag").text('Error: Could not delete!');
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                    },
+                    200: function() {
+                        window.location.replace(window.location.href + '?success=true');
+                    }
+                }
+            });
+        }
+    }
+
 function startDelete() {
     if( $('.delete_button').is(':visible') ) {
         $("#delete_toggle").text('Delete');
         $(".list_item").removeClass("disabled");
+        $('.{{ item_classification }}').removeClass("selected");
         $(".list_check").css("display", "none");
         $(".delete_button").css("display", "none");
     }
     else {
+        $(':checkbox:checked').prop('checked', false);
         $(".list_item").addClass("disabled");
-        $("#delete_toggle").text('Cancel Delete');
+        $("#delete_toggle").text('Cancel delete');
         $(".list_check").css("display", "inline");
         $(".delete_button").css("display", "inline");
     }
-
 }
 
 $('.list_item').click(function (e) {
   e.preventDefault();
   if ($(this).hasClass('disabled')) {
-    checkbox = $(this).children('.{{ item_classification }}');
-    checkbox = $(checkbox).children('.list_check');
+    checkbox_div = $(this).children('.{{ item_classification }}');
+    $(checkbox_div).toggleClass("selected");
+    checkbox = $(checkbox_div).children('.list_check');
     $(checkbox).prop('checked', !$(checkbox).prop('checked'));
   }
   else {

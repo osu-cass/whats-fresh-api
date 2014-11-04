@@ -15,6 +15,11 @@ h1, h2, h3, h4, p, a {
   line-height: 1.3em;
   color: #333; }
 
+.selected {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+}
+
 h1 {
   font-size: 40pt; }
 
@@ -41,10 +46,15 @@ a {
 
 .delete_button {
   position:fixed;
-  right: 50%;
-  left: 50%;
   bottom: 50px;
   display: none;
+    color: #333;
+    border: 2px solid #333;
+    font-size: 16pt;
+    font-family: "Montserrat", sans-serif;
+    height: auto;
+    background: #D54133;
+  margin: 0 auto;
 }
 
 .light {
@@ -92,7 +102,7 @@ a {
   width: 70%;
   height: auto;
   display: block;
-  margin: 30px auto;
+  margin: auto;
   padding: 10px; }
 
 .entry {
