@@ -285,3 +285,84 @@ This parameter will limit the number of records returned to <int>. In combinatio
 *?proximity=<int>*
 
 This parameter will restrict the returned results to those within <int> miles (or configurable distance unit) of the given location. Ignored if no location is given.
+
+
+Entry interface: /videos/<id>:
+------------------------------
+
+GET
+^^^
+
+Returns the full HTML for the entry page. This is *not* an API endpoint.
+
+POST
+^^^^
+
+Used to save the video to the server with id <id>.
+
+Upon success, returns the following block:
+
+.. code-block:: json
+
+	{
+        id: <id>
+	}
+
+
+If the API call fails, it will return a standard error block from above with
+the following error:
+
+.. code-block:: json
+
+	Status: True
+	Level: Error
+	Name: Could not save video
+	Text: Could not save video
+
+
+DELETE
+^^^^^^
+Deletes the video with id <id>. Upon success, returns a 200 response with no body.
+
+If this request fails, it's because the video does not exist. This will return a 404
+with the standard error body:
+
+.. code-block:: json
+
+    'status': True,
+    'name': 'Video Not Found',
+    'text': 'Video id %s was not found.'
+    'level': 'Error'
+
+
+Entry interface: /videos/new:
+------------------------------
+
+GET
+^^^
+
+Returns the full HTML for the entry page. This is *not* an API endpoint.
+
+POST
+^^^^
+
+Used to save a new video to the server.
+
+Upon success, returns the following block:
+
+.. code-block:: json
+
+	{
+        id: <id>
+	}
+
+
+If the API call fails, it will return a standard error block from above with
+the following error:
+
+.. code-block:: json
+
+	Status: True
+	Level: Error
+	Name: Could not save video
+	Text: Could not save video
