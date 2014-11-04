@@ -35,7 +35,7 @@
     {% csrf_token %}
     <div class='entry_box'>
         {% if vendor_form.instance.pk != None %}
-        <button  class='dbutton' type="button" onclick="deleteVendor();return false;" />Delete</button>
+        <button class='dbutton' type="button" onclick="deleteVendor();return false;" />Delete</button>
         {% endif %}
         <h3>Basic Info</h3>
         <p class="field_text">Name*:</p>

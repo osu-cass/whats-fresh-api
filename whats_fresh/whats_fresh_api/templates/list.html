@@ -10,15 +10,19 @@
 
 {% block title %}
 <h2 class='light'>{{ title }}</h2>
-<p class='light accent'>Click on the {{ item_classification }} to edit it or add a <span class="new"><a href='{{ new_url }}'>{{ new_text }}</a></span></p>
+<p class='light accent'>Click to edit | <span class="new"><a href='{{ new_url }}'>New {{ item_classification }}</a></span> | <span class="new"><a onclick="startDelete();">Delete {{ item_classification }}</a></span></p>
 {% endblock title %}
 
 {% block content %}
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>
     <div class='list'>
+    <form action="{{ post_url }}" method="post">
+        <button class='delete_button dbutton' type="button" onclick="deleteObjects();return false;" />Delete</button>
+    {% csrf_token %}
 {% for item in item_list %}
-<a href="{% url edit_url item.id %}">
+<a class="list_item" href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
+            <input type="checkbox" class="list_check" name="delete" value="{{ item.id }}">
         <p class='item'>{{ item.name }}</p>
         <div class='description'>
             <p>Description: {{ item.description }}</p>
@@ -27,6 +31,7 @@
 </a>
 <hr>
 {% endfor %}
+</form>
 <div class="pagination">
     <span class="step-links">
         {% if item_list.has_previous %}
@@ -44,3 +49,24 @@
 </div>
     </div>
 {% endblock content %}
+{% block footer %}
+<script>
+function startDelete() {
+    $(".list_item").addClass("disabled");
+    $(".list_check").css("display", "inline");
+    $(".delete_button").css("display", "inline");
+}
+
+$('.list_item').click(function (e) {
+  e.preventDefault();
+  if ($(this).hasClass('disabled')) {
+    checkbox = $(this).children('.{{ item_classification }}');
+    checkbox = $(checkbox).children('.list_check');
+    $(checkbox).prop('checked', !$(checkbox).prop('checked'));
+  }
+  else {
+    window.location.href = $(this).attr('href');
+  }
+});
+</script>
+{% endblock %}
