@@ -39,7 +39,7 @@ class ListProductTestCase(TestCase):
         to_delete = [3, 4, 10, 11, 23]
 
         response = self.client.delete(
-            reverse('entry-list-products'), {'delete': [3, 4, 10, 11]})
+            reverse('entry-list-products'), {'delete': to_delete})
         self.assertEqual(response.status_code, 200)
 
         with self.assertRaises(Product.DoesNotExist):

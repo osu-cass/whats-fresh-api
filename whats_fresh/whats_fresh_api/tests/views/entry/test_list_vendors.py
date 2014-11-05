@@ -38,7 +38,7 @@ class ListVendorTestCase(TestCase):
         to_delete = [3, 4, 10, 11, 23]
 
         response = self.client.delete(
-            reverse('list-vendors-edit'), {'delete': [3, 4, 10, 11]})
+            reverse('list-vendors-edit'), {'delete': to_delete})
         self.assertEqual(response.status_code, 200)
 
         with self.assertRaises(Vendor.DoesNotExist):

@@ -39,7 +39,7 @@ class ListPreparationTestCase(TestCase):
         to_delete = [3, 4, 10, 11, 23]
 
         response = self.client.delete(
-            reverse('entry-list-preparations'), {'delete': [3, 4, 10, 11]})
+            reverse('entry-list-preparations'), {'delete': to_delete})
         self.assertEqual(response.status_code, 200)
 
         with self.assertRaises(Preparation.DoesNotExist):
