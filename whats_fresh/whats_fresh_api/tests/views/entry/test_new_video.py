@@ -48,7 +48,7 @@ class NewVideoTestCase(TestCase):
         """
         response = self.client.get(reverse('new-video'))
 
-        fields = {'video': 'input', 'caption': 'textarea'}
+        fields = {'video': 'input', 'caption': 'input'}
         form = response.context['video_form']
 
         for field in fields:
@@ -65,7 +65,8 @@ class NewVideoTestCase(TestCase):
 
         # Data that we'll post to the server to get the new video created
         new_video = {
-            'name': 'Fried', 'description': '', 'additional_info': ''}
+            'caption': "A thrilling display of utmost might",
+            'video': 'http://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
         self.client.post(reverse('new-video'), new_video)
 

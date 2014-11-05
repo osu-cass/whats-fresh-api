@@ -19,7 +19,7 @@
 {% for item in item_list %}
 <a href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
-        <p class='item'>{{ item.name }}</p>
+        <p class='item'>{% if item.name %}{{ item.name }}{% else %}{{ item.caption }}{% endif %}</p>
         {% if item.description %}
         <div class='description'>
             <p>Description: {{ item.description }}</p>

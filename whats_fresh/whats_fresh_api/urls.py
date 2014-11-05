@@ -83,6 +83,18 @@ urlpatterns = patterns(
         'whats_fresh.whats_fresh_api.views.entry.preparations.prep_list',
         name='entry-list-preparations'),
 
+    url(r'^entry/videos/new/?$',
+        'whats_fresh.whats_fresh_api.views.entry.videos.video',
+        name='new-video'),
+
+    url(r'^entry/videos/(?P<id>\d+)/?$',
+        'whats_fresh.whats_fresh_api.views.entry.videos.video',
+        name='edit-video'),
+
+    url(r'^entry/videos/?$',
+        'whats_fresh.whats_fresh_api.views.entry.videos.video_list',
+        name='entry-list-videos'),
+
     url(r'^login/?$',
         'whats_fresh.whats_fresh_api.views.entry.login.login_user',
         name='login'),
