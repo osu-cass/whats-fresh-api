@@ -69,7 +69,7 @@ class Vendor(models.Model):
     location = models.PointField()
     objects = models.GeoManager()
 
-    story = models.ForeignKey('Story', null=True)
+    story = models.ForeignKey('Story', null=True, blank=True)
     products_preparations = models.ManyToManyField(
         'ProductPreparation',
         related_name='vendors',
