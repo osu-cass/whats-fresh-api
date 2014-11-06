@@ -49,6 +49,7 @@ class EditVideoTestCase(TestCase):
         # Data that we'll post to the server to get the new video created
         new_video = {
             'caption': "A thrilling display of utmost might",
+            'name': "You won't believe number 3!",
             'video': 'http://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
         self.client.post(
@@ -68,7 +69,8 @@ class EditVideoTestCase(TestCase):
             reverse('edit-video', kwargs={'id': '1'}))
 
         fields = {
-            'caption': 'A Starship',
+            'name': 'A Starship',
+            'caption': "Traveling at the speed of light!",
             'video': 'http://www.youtube.com/watch?v=efgDdSWDg0g'
         }
 

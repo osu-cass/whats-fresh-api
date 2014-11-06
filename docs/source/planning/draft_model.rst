@@ -83,6 +83,7 @@ videos
 
 	id          int (pk)
 	video       url
+	name       text
 	caption     text (optional)
 	created     datetime
 	updated     datetime (auto-update on modification)

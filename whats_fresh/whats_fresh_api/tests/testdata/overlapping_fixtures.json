@@ -187,7 +187,8 @@
     "pk": "10",
     "fields": {
       "video": "http://www.youtube.com/watch?v=efgDdSWDg0g",
-      "caption": "A starship",
+      "caption": "Traveling at the speed of light!",
+      "name": "A starship",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -198,6 +199,7 @@
     "fields": {
       "video": "http://www.youtube.com/watch?v=M-nlAuCW7WY",
       "caption": "Princely",
+      "name": "Princely",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }

@@ -9,6 +9,7 @@ class VideoTestCase(TestCase):
         self.expected_fields = {
             'video': models.URLField,
             'caption': models.TextField,
+            'name': models.TextField,
             'created': models.DateTimeField,
             'modified': models.DateTimeField,
             'story': models.related.RelatedObject,

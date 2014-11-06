@@ -222,8 +222,8 @@ Returns a story record identified by <id>.
             ...
         ]
         videos: [
-            {caption: text, link: url}
-            {caption: text, link: url}
+            {name: text, caption: text, link: url}
+            {name: text, caption: text, link: url}
             ...
         ]
 
