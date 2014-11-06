@@ -211,7 +211,7 @@ class Video(models.Model):
     """
 
     def __unicode__(self):
-        return self.name
+        return self.caption
 
     video = models.URLField()
     caption = models.TextField(blank=True)
