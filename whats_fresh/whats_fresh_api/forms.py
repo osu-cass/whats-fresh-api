@@ -1,6 +1,6 @@
 import django.forms as forms
 from whats_fresh.whats_fresh_api.models import (Vendor, Product, Preparation,
-                                                Story, Video)
+                                                Story, Video, Image)
 
 
 class VendorForm(forms.ModelForm):
@@ -75,4 +75,13 @@ class VideoForm(forms.ModelForm):
         widgets = {
             'caption': forms.TextInput(attrs={'required': 'true'}),
             'name': forms.TextInput(attrs={'required': 'true'})
+        }
+
+class ImageForm(forms.ModelForm):
+
+    class Meta:
+        model = Image
+        exclude = []
+        widgets = {
+            'caption': forms.TextInput(attrs={'required': 'true'})
         }
