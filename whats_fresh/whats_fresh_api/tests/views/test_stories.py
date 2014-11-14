@@ -40,8 +40,8 @@ class StoriesTestCase(TestCase):
         {"caption": "Woof!", "link": "/media/dog.jpg"}
     ],
     "videos": [
-        {"caption": "A Starship", "link":
-        "http://www.youtube.com/watch?v=efgDdSWDg0g"}
+        {"caption": "Traveling at the speed of light!", "name": "A Starship",
+        "link": "http://www.youtube.com/watch?v=efgDdSWDg0g"}
     ],
     "created": "2014-08-08T23:27:05.568Z",
     "modified": "2014-08-08T23:27:05.568Z"

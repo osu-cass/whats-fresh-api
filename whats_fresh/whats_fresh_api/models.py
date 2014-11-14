@@ -215,6 +215,7 @@ class Video(models.Model):
 
     video = models.URLField()
     caption = models.TextField(blank=True)
+    name = models.TextField()
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
@@ -222,5 +223,6 @@ class Video(models.Model):
     def natural_key(self):
         return {
             'caption': self.caption,
+            'name': self.name,
             'link': self.video
         }

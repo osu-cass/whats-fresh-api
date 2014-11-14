@@ -36,6 +36,8 @@
         <button class='dbutton' type="button" onclick="deleteVideo();return false;"/>Delete</button>
         {% endif %}
         <h3>Basic Info</h3>
+        <p class="field_text">Name*:</p>
+        {{ video_form.name }}
         <p class="field_text">Link*:</p>
         {{ video_form.video }}
         <p class="field_text">Caption*:</p>

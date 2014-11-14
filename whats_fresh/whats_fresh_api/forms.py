@@ -73,5 +73,6 @@ class VideoForm(forms.ModelForm):
         model = Video
         exclude = []
         widgets = {
-            'caption': forms.TextInput(attrs={'required': 'true'})
+            'caption': forms.TextInput(attrs={'required': 'true'}),
+            'name': forms.TextInput(attrs={'required': 'true'})
         }

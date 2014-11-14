@@ -99,7 +99,7 @@ def video(request, id=None):
 
     if id:
         video = Video.objects.get(id=id)
-        title = "Edit {0}".format(video.caption)
+        title = "Edit {0}".format(video.name)
         post_url = reverse('edit-video', kwargs={'id': id})
         video_form = VideoForm(instance=video)
 
