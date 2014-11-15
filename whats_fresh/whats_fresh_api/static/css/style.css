@@ -52,6 +52,11 @@ a {
     font-size: 16pt;
 }
 
+.image_embed {
+  max-width: 90%;
+  max-height: 500px;
+}
+
 .header {
   background: #FFF;
   height: 70px;

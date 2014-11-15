@@ -64,7 +64,7 @@ class EditImageTestCase(TestCase):
 
         image = Image.objects.get(id=1)
         self.assertEqual(getattr(image, 'caption'), new_image['caption'])
-        self.assertContains(getattr(image, 'image'), 'cat.jpg')
+        self.assertIn('/media/images/cat', getattr(image, 'image').url)
 
     def test_form_fields(self):
         """
@@ -81,7 +81,7 @@ class EditImageTestCase(TestCase):
 
         self.assertEqual(fields['caption'], form['caption'].value())
         # check that we're displaying the current file in the output
-        self.assertContains(response.content, '/media/cat.jpg')
+        self.assertIn('/media/cat', response.content)
 
     def test_delete_image(self):
         """

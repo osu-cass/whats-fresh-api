@@ -82,7 +82,7 @@ class NewImageTestCase(TestCase):
 
         image = Image.objects.all()[0]
         self.assertEqual(getattr(image, 'caption'), new_image['caption'])
-        self.assertContains(getattr(image, 'image'), 'cat.jpg')
+        self.assertIn('/media/images/cat', getattr(image, 'image').url)
 
     def test_successful_image_creation_maximal(self):
         """
@@ -100,7 +100,7 @@ class NewImageTestCase(TestCase):
 
         image = Image.objects.all()[0]
         self.assertEqual(getattr(image, 'caption'), new_image['caption'])
-        self.assertContains(getattr(image, 'image'), 'cat.jpg')
+        self.assertIn('/media/images/cat', getattr(image, 'image').url)
 
     def test_no_data_error(self):
         """

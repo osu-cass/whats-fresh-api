@@ -77,6 +77,7 @@ class VideoForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'required': 'true'})
         }
 
+
 class ImageForm(forms.ModelForm):
 
     class Meta:

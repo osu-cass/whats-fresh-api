@@ -76,25 +76,22 @@ def image(request, id=None):
 
     if request.method == 'POST':
         message = ''
-        post_data = request.POST.copy()
-        errors = []
 
-        image_form = ImageForm(post_data)
-        if image_form.is_valid() and not errors:
-            if id:
-                image = Image.objects.get(id=id)
-                image.__dict__.update(**image_form.cleaned_data)
-                image.save()
-            else:
-                image = Image.objects.create(
-                    **image_form.cleaned_data)
-                image.save()
+        if id:
+            instance = get_object_or_404(Image, pk=id)
+        else:
+            instance = None
+        image_form = ImageForm(
+            request.POST,
+            request.FILES,
+            instance=instance)
+        if image_form.is_valid():
+            image_form.save()
             return HttpResponseRedirect(
                 "%s?saved=true" % reverse('entry-list-images'))
         else:
             pass
     else:
-        errors = []
         message = ''
 
     if id:
@@ -123,6 +120,6 @@ def image(request, id=None):
         'title': title,
         'message': message,
         'post_url': post_url,
-        'errors': errors,
+        'errors': [],
         'image_form': image_form,
     })

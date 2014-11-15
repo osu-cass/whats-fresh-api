@@ -29,6 +29,11 @@ $sans: 'Montserrat', sans-serif;
     color: $primary;
 }
 
+.image_embed {
+  max-width: 90%;
+  max-height: 500px;
+}
+
 body{
     margin: 0px;
     padding: 0px;
@@ -218,7 +223,7 @@ a{
     .dbutton{
         background: $warning;
         float: right;
-    } 
+    }
 }
 
 .buttons {
