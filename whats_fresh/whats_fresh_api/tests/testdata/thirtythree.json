@@ -2378,8 +2378,9 @@
     "pk": "0",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "0",
+        "image": "0",
+        "name": "0",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2387,8 +2388,9 @@
     "pk": "1",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "1",
+        "image": "1",
+        "name": "1",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2396,8 +2398,9 @@
     "pk": "2",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "2",
+        "image": "2",
+        "name": "2",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2405,8 +2408,9 @@
     "pk": "3",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "3",
+        "image": "3",
+        "name": "3",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2414,8 +2418,9 @@
     "pk": "4",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "4",
+        "image": "4",
+        "name": "4",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2423,8 +2428,9 @@
     "pk": "5",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "5",
+        "image": "5",
+        "name": "5",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2432,8 +2438,9 @@
     "pk": "6",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "6",
+        "image": "6",
+        "name": "6",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2441,8 +2448,9 @@
     "pk": "7",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "7",
+        "image": "7",
+        "name": "7",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2450,8 +2458,9 @@
     "pk": "8",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "8",
+        "image": "8",
+        "name": "8",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2459,8 +2468,9 @@
     "pk": "9",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "/media/dog.jpg",
         "caption": "9",
+        "image": "9",
+        "name": "9",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2468,8 +2478,9 @@
     "pk": "10",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "10",
         "caption": "10",
+        "image": "10",
+        "name": "10",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2477,8 +2488,9 @@
     "pk": "11",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "11",
         "caption": "11",
+        "image": "11",
+        "name": "11",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2486,8 +2498,9 @@
     "pk": "12",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "12",
         "caption": "12",
+        "image": "12",
+        "name": "12",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2495,8 +2508,9 @@
     "pk": "13",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "13",
         "caption": "13",
+        "image": "13",
+        "name": "13",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2504,8 +2518,9 @@
     "pk": "14",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "14",
         "caption": "14",
+        "image": "14",
+        "name": "14",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2513,8 +2528,9 @@
     "pk": "15",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "15",
         "caption": "15",
+        "image": "15",
+        "name": "15",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2522,8 +2538,9 @@
     "pk": "16",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "16",
         "caption": "16",
+        "image": "16",
+        "name": "16",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2531,8 +2548,9 @@
     "pk": "17",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "17",
         "caption": "17",
+        "image": "17",
+        "name": "17",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2540,8 +2558,9 @@
     "pk": "18",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "18",
         "caption": "18",
+        "image": "18",
+        "name": "18",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2549,8 +2568,9 @@
     "pk": "19",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "19",
         "caption": "19",
+        "image": "19",
+        "name": "19",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2558,8 +2578,9 @@
     "pk": "20",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "20",
         "caption": "20",
+        "image": "20",
+        "name": "20",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2567,8 +2588,9 @@
     "pk": "21",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "21",
         "caption": "21",
+        "image": "21",
+        "name": "21",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2576,8 +2598,9 @@
     "pk": "22",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "22",
         "caption": "22",
+        "image": "22",
+        "name": "22",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2585,8 +2608,9 @@
     "pk": "23",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "23",
         "caption": "23",
+        "image": "23",
+        "name": "23",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2594,8 +2618,9 @@
     "pk": "24",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "24",
         "caption": "24",
+        "image": "24",
+        "name": "24",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2603,8 +2628,9 @@
     "pk": "25",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "25",
         "caption": "25",
+        "image": "25",
+        "name": "25",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2612,8 +2638,9 @@
     "pk": "26",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "26",
         "caption": "26",
+        "image": "26",
+        "name": "26",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2621,8 +2648,9 @@
     "pk": "27",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "27",
         "caption": "27",
+        "image": "27",
+        "name": "27",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2630,8 +2658,9 @@
     "pk": "28",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "28",
         "caption": "28",
+        "image": "28",
+        "name": "28",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2639,8 +2668,9 @@
     "pk": "29",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "29",
         "caption": "29",
+        "image": "29",
+        "name": "29",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2648,8 +2678,9 @@
     "pk": "30",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "30",
         "caption": "30",
+        "image": "30",
+        "name": "30",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2657,8 +2688,9 @@
     "pk": "31",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "31",
         "caption": "31",
+        "image": "31",
+        "name": "31",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -2666,8 +2698,9 @@
     "pk": "32",
     "model": "whats_fresh_api.Image",
     "fields": {
-        "image": "32",
         "caption": "32",
+        "image": "32",
+        "name": "32",
         "modified": "2014-08-08 23:27:05.568395+00:00",
         "created": "2014-08-08 23:27:05.568395+00:00"
     }

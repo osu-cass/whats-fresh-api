@@ -58,7 +58,7 @@ class NewImageTestCase(TestCase):
         """
         response = self.client.get(reverse('new-image'))
 
-        fields = {'image': 'file', 'caption': 'input'}
+        fields = {'image': 'file', 'caption': 'input', 'name': 'input'}
         form = response.context['image_form']
 
         for field in fields:
@@ -75,13 +75,15 @@ class NewImageTestCase(TestCase):
 
         # Data that we'll post to the server to get the new image created
         new_image = {
-            'caption': "A cat",
+            'caption': "Catption",
+            'name': "A cat",
             'image': self.image}
 
         self.client.post(reverse('new-image'), new_image)
 
         image = Image.objects.all()[0]
         self.assertEqual(getattr(image, 'caption'), new_image['caption'])
+        self.assertEqual(getattr(image, 'name'), new_image['name'])
         self.assertIn('/media/images/cat', getattr(image, 'image').url)
 
     def test_successful_image_creation_maximal(self):
@@ -93,13 +95,15 @@ class NewImageTestCase(TestCase):
 
         # Data that we'll post to the server to get the new image created
         new_image = {
-            'caption': "A cat",
+            'name': "A cat",
+            'caption': "Catption",
             'image': self.image}
 
         self.client.post(reverse('new-image'), new_image)
 
         image = Image.objects.all()[0]
         self.assertEqual(getattr(image, 'caption'), new_image['caption'])
+        self.assertEqual(getattr(image, 'name'), new_image['name'])
         self.assertIn('/media/images/cat', getattr(image, 'image').url)
 
     def test_no_data_error(self):
@@ -111,7 +115,7 @@ class NewImageTestCase(TestCase):
         all_images = Image.objects.all()
 
         response = self.client.post(reverse('new-image'))
-        required_fields = ['image']
+        required_fields = ['image', 'name']
         for field_name in required_fields:
             self.assertIn(field_name,
                           response.context['image_form'].errors)

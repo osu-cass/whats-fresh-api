@@ -217,8 +217,8 @@ Returns a story record identified by <id>.
         products: text
         season: text
         images: [
-            {caption: text, link: text}
-            {caption: text, link: text}
+            {name: text, caption: text, link: text}
+            {name: text, caption: text, link: text}
             ...
         ]
         videos: [
@@ -239,6 +239,7 @@ Returns an image record identified by <id>. Alternatively, this could return the
 	{
 		image: "url to image"
 		caption: "text" or null
+		name: text
 	}
 
 

@@ -5,6 +5,7 @@
     "fields": {
       "image": "/media/halibut.jpg",
       "caption": "Woof!",
+      "name": "A dog",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
@@ -15,6 +16,7 @@
     "fields": {
       "image": "/media/tuna.jpg",
       "caption": "Meow!",
+      "name": "A cat",
       "created": "2014-08-08 23:27:05.568395+00:00",
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }

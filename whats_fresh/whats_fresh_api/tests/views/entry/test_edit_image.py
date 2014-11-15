@@ -55,7 +55,8 @@ class EditImageTestCase(TestCase):
         """
         # Data that we'll post to the server to get the new image created
         new_image = {
-            'caption': "A cat",
+            'name': "A new cat",
+            'caption': "Catption",
             'image': self.image}
 
         self.client.post(
@@ -64,6 +65,7 @@ class EditImageTestCase(TestCase):
 
         image = Image.objects.get(id=1)
         self.assertEqual(getattr(image, 'caption'), new_image['caption'])
+        self.assertEqual(getattr(image, 'name'), new_image['name'])
         self.assertIn('/media/images/cat', getattr(image, 'image').url)
 
     def test_form_fields(self):
@@ -74,6 +76,7 @@ class EditImageTestCase(TestCase):
             reverse('edit-image', kwargs={'id': '2'}))
 
         fields = {
+            'name': "A cat",
             'caption': "Meow!",
             'image': self.image}
 

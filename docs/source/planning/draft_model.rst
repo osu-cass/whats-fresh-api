@@ -72,6 +72,7 @@ images
 	id          int (pk)
 	image       image (file)
 	caption     text (optional)
+	name  	    text
 	created     datetime
 	updated     datetime (auto-update on modification)
 
