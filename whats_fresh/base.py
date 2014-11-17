@@ -98,3 +98,5 @@ DEFAULT_PROXIMITY = 20
 PAGE_LENGTH = 15
 
 LOGIN_URL = '/login'
+
+DEFAULT_GROUP_NAME = 'Data Entry Users'
