@@ -23,6 +23,7 @@ class Image(models.Model):
         return self.filename()
 
     image = models.ImageField(upload_to='images')
+    name = models.TextField()
     caption = models.TextField(blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
@@ -30,6 +31,7 @@ class Image(models.Model):
 
     def natural_key(self):
         return {
+            'name': self.name,
             'caption': self.caption,
             'link': self.image.url
         }

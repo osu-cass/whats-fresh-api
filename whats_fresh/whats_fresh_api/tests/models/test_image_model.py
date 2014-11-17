@@ -9,6 +9,7 @@ class ImageTestCase(TestCase):
     def setUp(self):
         self.expected_fields = {
             'image': models.ImageField,
+            'name': models.TextField,
             'caption': models.TextField,
             'product': models.related.RelatedObject,
             'created': models.DateTimeField,

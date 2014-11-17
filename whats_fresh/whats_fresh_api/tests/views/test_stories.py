@@ -37,7 +37,7 @@ class StoriesTestCase(TestCase):
     "season": "Spring",
     "ext": {},
     "images": [
-        {"caption": "Woof!", "link": "/media/dog.jpg"}
+        {"caption": "Woof!", "link": "/media/dog.jpg", "name": "A dog"}
     ],
     "videos": [
         {"caption": "Traveling at the speed of light!", "name": "A Starship",

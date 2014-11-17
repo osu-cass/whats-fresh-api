@@ -96,7 +96,7 @@ def image(request, id=None):
 
     if id:
         image = Image.objects.get(id=id)
-        title = "Edit {0}".format(image.caption)
+        title = "Edit {0}".format(image.name)
         post_url = reverse('edit-image', kwargs={'id': id})
         image_form = ImageForm(instance=image)
 

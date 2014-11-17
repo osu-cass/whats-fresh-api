@@ -41,7 +41,7 @@ class ProductVendorTestCase(TestCase):
       "market_price": "$33.31",
       "link": "http://www.amazon.com/Star-Trek-\
 Voyager-Complete-Seventh/dp/B00062IDCO/",
-      "image": {"caption": "Woof!", "link": "/media/dog.jpg"},
+      "image": {"caption": "Woof!", "link": "/media/dog.jpg", "name": "A dog"},
       "story": 1,
       "created": "2014-08-08T23:27:05.568Z",
       "modified": "2014-08-08T23:27:05.568Z"
@@ -58,7 +58,7 @@ Voyager-Complete-Seventh/dp/B00062IDCO/",
       "available": true,
       "market_price": "$32.64 per season",
       "link": "http://www.amazon.com/Star-Trek-Deep-Space-Nine/dp/B00008KA57/",
-      "image": {"caption": "Meow!", "link": "/media/cat.jpg"},
+      "image": {"caption": "Meow!", "link": "/media/cat.jpg", "name": "A cat"},
       "story": 2,
       "created": "2014-08-08T23:27:05.568Z",
       "modified": "2014-08-08T23:27:05.568Z"

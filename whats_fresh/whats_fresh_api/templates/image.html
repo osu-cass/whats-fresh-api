@@ -41,6 +41,8 @@
         {% endif %}
         <p class="field_text">Image*:</p>
         <input id="id_image" name="image" type="file" />
+        <p class="field_text">Name*:</p>
+        {{ image_form.name }}
         <p class="field_text">Caption*:</p>
         {{ image_form.caption }}
         <button>Save</button>
