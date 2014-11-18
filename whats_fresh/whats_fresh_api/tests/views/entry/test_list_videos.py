@@ -49,15 +49,15 @@ class ListVideoTestCase(TestCase):
 
         self.assertEqual(
             list(page_1['item_list']),
-            list(Video.objects.all()[:15]))
+            list(Video.objects.order_by('name')[:15]))
 
         self.assertEqual(
             list(page_2['item_list']),
-            list(Video.objects.all()[15:30]))
+            list(Video.objects.order_by('name')[15:30]))
 
         self.assertEqual(
             list(page_3['item_list']),
-            list(Video.objects.all()[30:33]))
+            list(Video.objects.order_by('name')[30:33]))
 
         # Page 4 should be identical to Page 3, as these fixtures
         # have enough content for three pages (15 items per page, 33 items)
