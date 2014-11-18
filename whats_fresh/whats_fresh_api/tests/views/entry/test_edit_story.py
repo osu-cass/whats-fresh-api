@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import Story
+from whats_fresh.whats_fresh_api.models import Story, Image, Video
 from django.contrib.auth.models import User, Group
 
 
@@ -50,16 +50,25 @@ class EditStoryTestCase(TestCase):
         new_story = {'name': 'To The Moon!', 'history': '',
                      'facts': '', 'buying': '',
                      'preparing': '', 'products': '',
-                     'season': ''}
+                     'season': '', 'image_ids': '1',
+                     'video_ids': '2'}
 
         self.client.post(
             reverse('edit-story', kwargs={'id': '1'}),
             new_story)
+        del new_story['image_ids']
+        del new_story['video_ids']
 
         story = Story.objects.get(id=1)
         for field in new_story:
             self.assertEqual(
                 getattr(story, field), new_story[field])
+
+        images = ([image.id for image in story.images.all()])
+        self.assertEqual(sorted(images), [1])
+
+        videos = ([video.id for video in story.videos.all()])
+        self.assertEqual(sorted(videos), [2])
 
     def test_form_fields(self):
         """

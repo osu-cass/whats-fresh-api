@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import Story
+from whats_fresh.whats_fresh_api.models import Story, Image, Video
 from django.contrib.auth.models import User, Group
 
 
@@ -71,9 +71,11 @@ class NewStoryTestCase(TestCase):
         new_story = {'name': 'To The Moon!', 'history': '',
                      'facts': '', 'buying': '',
                      'preparing': '', 'products': '',
-                     'season': ''}
+                     'season': '', 'image_ids': '', 'video_ids': ''}
 
         self.client.post(reverse('new-story'), new_story)
+        del new_story['image_ids']
+        del new_story['video_ids']
 
         story = Story.objects.all()[0]
         for field in new_story:
@@ -86,6 +88,10 @@ class NewStoryTestCase(TestCase):
         new story appears in the database. All optional fields are used.
         """
         Story.objects.all().delete()
+        Image.objects.create(id=1)
+        Image.objects.create(id=2)
+        Video.objects.create(id=1)
+        Video.objects.create(id=2)
 
         # Data that we'll post to the server to get the new story created
         new_story = {'name': 'To The Moon!',
@@ -94,14 +100,23 @@ class NewStoryTestCase(TestCase):
                      'buying': 'As a cryptocurrency, Dogecoin can be mined',
                      'preparing': 'Just mine some and use it!',
                      'products': 'Accepted anywhere on the moon',
-                     'season': 'All the time'}
+                     'season': 'All the time', 'image_ids': '1,2',
+                     'video_ids': '1,2'}
 
         self.client.post(reverse('new-story'), new_story)
+        del new_story['image_ids']
+        del new_story['video_ids']
 
         story = Story.objects.all()[0]
         for field in new_story:
             self.assertEqual(
                 getattr(story, field), new_story[field])
+
+        images = ([image.id for image in story.images.all()])
+        self.assertEqual(sorted(images), [1, 2])
+
+        videos = ([video.id for video in story.videos.all()])
+        self.assertEqual(sorted(videos), [1, 2])
 
     def test_no_data_error(self):
         """
