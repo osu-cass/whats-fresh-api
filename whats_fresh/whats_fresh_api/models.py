@@ -20,7 +20,7 @@ class Image(models.Model):
         return os.path.basename(self.image.name)
 
     def __unicode__(self):
-        return self.filename()
+        return self.name
 
     image = models.ImageField(upload_to='images')
     name = models.TextField()
@@ -126,7 +126,7 @@ class Story(models.Model):
         if not self.id:
             return u'Unsaved story'
         else:
-            return u'Story %d' % self.id
+            return self.name
 
     name = models.TextField()
     history = models.TextField(blank=True)

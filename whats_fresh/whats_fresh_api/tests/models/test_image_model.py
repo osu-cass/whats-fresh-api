@@ -44,7 +44,9 @@ class ImageTestCase(TestCase):
 
     def test___unicode___method(self):
         try:
-            Image.__unicode__(Image())
+            image = Image(name="test", image="image.jpg", caption="caption")
+            image.save()
+            self.assertEqual("test", image.__unicode__())
         except AttributeError:
             self.fail("No __unicode__ method found")
 
