@@ -24,7 +24,7 @@ class Image(models.Model):
         return self.filename()
 
     image = models.ImageField(upload_to='images')
-    name = models.TextField(default='Name')
+    name = models.TextField(default='')
     caption = models.TextField(blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
@@ -218,7 +218,7 @@ class Video(models.Model):
 
     video = models.URLField()
     caption = models.TextField(blank=True)
-    name = models.TextField(default='Name')
+    name = models.TextField(default='')
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
