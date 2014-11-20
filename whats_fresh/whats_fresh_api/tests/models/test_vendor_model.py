@@ -41,7 +41,7 @@ class VendorTestCase(TestCase):
             'phone'
         }
 
-        self.null_fields = {'story'}
+        self.null_fields = {'story', 'phone'}
 
     def test_fields_exist(self):
         model = models.get_model('whats_fresh_api', 'Vendor')

@@ -40,6 +40,9 @@ class StoryTestCase(TestCase):
 
     def test___unicode___method(self):
         try:
-            Story.__unicode__(Story())
-        except AttributeError:
+            story = Story(name="test")
+            story.save()
+            self.assertEqual("test", story.__unicode__())
+        except AttributeError as e:
+            raise e
             self.fail("No __unicode__ method found")
