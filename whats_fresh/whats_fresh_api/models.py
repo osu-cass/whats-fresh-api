@@ -65,7 +65,7 @@ class Vendor(models.Model):
     contact_name = models.TextField()
     website = models.URLField(blank=True)
     email = models.EmailField(blank=True)
-    phone = PhoneNumberField(blank=True)
+    phone = PhoneNumberField(blank=True, null=True)
 
     # Geo Django field to store a point
     location = models.PointField()
