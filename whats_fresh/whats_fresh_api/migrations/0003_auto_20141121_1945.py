@@ -15,10 +15,12 @@ class Migration(migrations.Migration):
             model_name='image',
             name='name',
             field=models.TextField(default=b''),
+            preserve_default=True,
         ),
         migrations.AlterField(
             model_name='video',
             name='name',
             field=models.TextField(default=b''),
+            preserve_default=True,
         ),
     ]
