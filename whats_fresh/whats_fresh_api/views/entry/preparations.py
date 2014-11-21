@@ -29,7 +29,8 @@ def prep_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Preparation saved successfully!"
 
-    paginator = Paginator(Preparation.objects.all(), settings.PAGE_LENGTH)
+    paginator = Paginator(Preparation.objects.order_by('name'),
+                          settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:

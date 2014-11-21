@@ -29,7 +29,7 @@ def video_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Video saved successfully!"
 
-    paginator = Paginator(Video.objects.all(), settings.PAGE_LENGTH)
+    paginator = Paginator(Video.objects.order_by('name'), settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:

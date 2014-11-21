@@ -145,7 +145,6 @@ def product_list(request):
     their description, and allows you to click on them to view/edit the
     product.
     """
-    products = Product.objects.all()
 
     message = ""
     if request.GET.get('success') == 'true':
@@ -153,7 +152,8 @@ def product_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Product saved successfully!"
 
-    paginator = Paginator(Product.objects.all(), settings.PAGE_LENGTH)
+    paginator = Paginator(Product.objects.order_by('name'),
+                          settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:

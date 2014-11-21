@@ -29,7 +29,7 @@ def image_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Image saved successfully!"
 
-    paginator = Paginator(Image.objects.all(), settings.PAGE_LENGTH)
+    paginator = Paginator(Image.objects.order_by('name'), settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:

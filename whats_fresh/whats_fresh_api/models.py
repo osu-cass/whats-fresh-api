@@ -1,7 +1,7 @@
 from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
-from whats_fresh.whats_fresh_api.signals import *
+import whats_fresh.whats_fresh_api.signals   # NOQA
 
 
 class Image(models.Model):

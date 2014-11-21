@@ -25,7 +25,7 @@ def story_list(request):
     if request.GET.get('success') == 'true':
         message = "Story deleted successfully!"
 
-    paginator = Paginator(Story.objects.all(), settings.PAGE_LENGTH)
+    paginator = Paginator(Story.objects.order_by('name'), settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
