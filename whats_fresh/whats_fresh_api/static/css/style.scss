@@ -195,9 +195,18 @@ a{
         text-align: left;
     }
 
-    input, select, textarea{
+    input, textarea{
         border: 2px solid $dark;
         display: block;
+        margin: 0px auto 20px;
+        font-size: 16pt;
+        font-family: $sans;
+        width: 90%;
+    }
+
+    select {
+        border: 2px solid $dark;
+        display: inline-block;
         margin: 0px auto 20px;
         font-size: 16pt;
         font-family: $sans;
@@ -217,6 +226,7 @@ a{
     }
 
     .delete {
+        display: inline-block;
         vertical-align: middle;
     }
 
@@ -285,7 +295,7 @@ a{
 
 }
 
-.product, .preparation{
+.product, .preparation, .image, .video {
     display: block;
 }
 
@@ -295,7 +305,7 @@ a{
     font-family: $sans;
 }
 
-#new_product, #new_preparation{
+#new_product, #new_preparation, #new_image, #new_video {
     display: none;
 }
 

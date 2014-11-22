@@ -128,13 +128,21 @@ a {
   .form h3, .entry_box h3 {
     margin-top: 30px;
     text-align: left; }
-  .form input, .form select, .form textarea, .entry_box input, .entry_box select, .entry_box textarea {
+  .form input, .form select, .form textarea, .entry_box input, .entry_box textarea {
     border: 2px solid #333;
     display: block;
     margin: 0px auto 20px;
     font-size: 16pt;
     font-family: "Montserrat", sans-serif;
     width: 90%; }
+  .entry_box select {
+    border: 2px solid #333;
+    display: block;
+    margin: 0px auto 20px;
+    font-size: 16pt;
+    font-family: "Montserrat", sans-serif;
+    width: 90%;
+    display: inline-block; }
   .form .submit, .form button, .entry_box .submit, .entry_box button {
     background: #FFCA5D;
     color: #333;
@@ -152,8 +160,10 @@ a {
     color: #517285; }
   .form p, .entry_box p {
     margin-left: 5%; }
-  .form .delete, .entry_box .delete {
-    vertical-align: middle; }
+  .entry_box .delete, .form .delete {
+    vertical-align: middle;
+    display: inline-block;
+  }
   .form .dbutton, .entry_box .dbutton {
     background: #D54133;
     float: right; }
@@ -211,15 +221,16 @@ a {
   background: #FFF;
   width: 40%; }
 
-.product, .preparation {
-  display: block; }
+.product, .preparation, .image, .video {
+  display: block;
+}
 
 .no_products {
   font-size: 18pt;
   color: #333;
   font-family: "Montserrat", sans-serif; }
 
-#new_product, #new_preparation {
+#new_product, #new_preparation, #new_video, #new_image {
   display: none; }
 
 .product_list {

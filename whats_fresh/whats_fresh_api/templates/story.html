@@ -16,6 +16,7 @@
 {% endblock title %}
 
 {% block content %}
+{% load staticfiles %}
 <form action="{{ post_url }}" method="post">
 
     <div class="error">
@@ -50,15 +51,79 @@
         {{ story_form.products }}
         <p class="field_text">Season:</p>
         {{ story_form.season }}
-        <button>Save</button>
+
+    <div class="image_container">
+        <h3>Images</h3>
+        <button type="button" onclick="appendImage()">Add Image</button>
+        {% if existing_images %}
+        {% for image in existing_images %}
+        <div class="image">
+            <select disabled id="existing{{ prep.id }}" class="image_select">
+                <option value="{{ image.id }}">{{ image.name }}</option>
+            </select>
+            <a href="#" onclick="deleteImage(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <span class="no_image">No Images Yet!</span>
+        {% endif %}
+    </div>
+
+        <div class="video_container">
+        <h3>Videos</h3>
+        <button type="button" onclick="appendVideo()">Add Video</button>
+        {% if existing_videos %}
+        {% for video in existing_videos %}
+        <div class="video">
+            <select disabled id="existing{{ prep.id }}" class="video_select">
+                <option value="{{ video.id }}">{{ video.name }}</option>
+            </select>
+            <a href="#" onclick="deleteVideo(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <span class="no_video">No Videos Yet!</span>
+        {% endif %}
+    </div>
+
+    <input class='image' name="image_ids" type="hidden" />
+    <input class='image' name="video_ids" type="hidden" />
+
+    <div class="buttons">
+        <button type="submit" onclick="setImageVideoFields();"/>Save</button>
+    </div>
     </div>
 </form>
+
+<!-- The template div used by appendVideo() -->
+<div id='new_video'>
+    <div class="video">
+        <select class="video_select">
+            <option selected disabled></option>
+            {% for video in data_dict.videos %}
+            <option value="{{ video.id }}">{{ video.name }}</option>
+            {% endfor %}
+        </select>
+        <a href="#" onclick="deleteVideo(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+    </div>
+</div>
+
+<!-- The template div used by appendImage() -->
+<div id='new_image'>
+    <div class="image">
+        <select class="image_select">
+            <option selected disabled></option>
+            {% for image in data_dict.images %}
+            <option value="{{ image.id }}">{{ image.name }}</option>
+            {% endfor %}
+        </select>
+        <a href="#" onclick="deleteImage(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+    </div>
+</div>
 {% endblock content %}
 
 {% block footer %}
 <script>
-
-
     function deleteStory()
     {
         if(confirm('Are you sure you want to delete this story?')) {
@@ -76,6 +141,61 @@
                 }
             });
         }
+    }
+    var image_options = {{ data_json|safe }};
+    var video_options = {{ data_json|safe }};
+
+    number_of_images = 0;
+    number_of_videos = 0;
+
+    function deleteVideo(element)
+    {
+        $( element ).parent().css("display", "none");
+        if ($( ".video:visible" ).length === 0) {
+            $( ".no_products" ).show();
+        };
+    }
+
+    function appendVideo()
+    {
+        $( ".no_videos" ).hide();
+        var new_html = $('#new_video').html();
+        var new_html = new_html.split("$iteration").join(number_of_videos);
+        $( ".video_container" ).append( new_html );
+        number_of_videos++;
+    }
+
+    function deleteImage(element)
+    {
+        $( element ).parent().css("display", "none");
+        if ($( ".image:visible" ).length === 0) {
+            $( ".no_images" ).show();
+        };
+    }
+
+    function appendImage()
+    {
+        $( ".no_images" ).hide();
+        var new_html = $('#new_image').html();
+        var new_html = new_html.split("$iteration").join(number_of_images);
+        $( ".image_container" ).append( new_html );
+        number_of_images++;
+    }
+    function setImageVideoFields()
+    {
+        var image_ids = []
+        $( ".image_select:visible" ).each( function( index, element ){
+            image_ids.push(this.options[this.selectedIndex].value);
+        });
+
+        $('input[name="image_ids"]').val(image_ids);
+
+        var video_ids = []
+        $( ".video_select:visible" ).each( function( index, element ){
+            video_ids.push(this.options[this.selectedIndex].value);
+        });
+
+        $('input[name="video_ids"]').val(video_ids);
     }
 </script>
 {% endblock footer %}

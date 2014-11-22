@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from whats_fresh.whats_fresh_api.models import Story
+from whats_fresh.whats_fresh_api.models import Story, Image, Video
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from whats_fresh.whats_fresh_api.functions import group_required
@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from whats_fresh.whats_fresh_api.forms import StoryForm
+import json
 
 
 @login_required
@@ -76,12 +77,43 @@ def story(request, id=None):
 
         story_form = StoryForm(post_data)
         if story_form.is_valid():
+            image_keys = post_data.get('image_ids', None)
+            images = []
+            if image_keys:
+                images = [Image.objects.get(
+                    pk=int(i)) for i in image_keys.split(',')]
+            video_keys = post_data.get('video_ids', None)
+            videos = []
+            if video_keys:
+                videos = [Video.objects.get(
+                    pk=int(v)) for v in video_keys.split(',')]
             if id:
                 story = Story.objects.get(id=id)
+                # process images
+                existing_images = story.images.all()
+                for image in existing_images:
+                    if image not in images:
+                        story.images.remove(image)
+                for image in images:
+                    if image not in existing_images:
+                        story.images.add(image)
+                # process videos
+                existing_videos = story.videos.all()
+                for video in existing_videos:
+                    if video not in videos:
+                        story.videos.remove(video)
+                for video in videos:
+                    if video not in existing_videos:
+                        story.videos.add(video)
                 story.__dict__.update(**story_form.cleaned_data)
                 story.save()
             else:
                 story = story_form.save()
+                for image in images:
+                    story.images.add(image)
+                for video in videos:
+                    story.videos.add(video)
+
             return HttpResponseRedirect(
                 "%s?success=true" % reverse(
                     'edit-story', kwargs={'id': story.id}))
@@ -95,6 +127,8 @@ def story(request, id=None):
         title = "Edit {0}".format(story.name)
         post_url = reverse('edit-story', kwargs={'id': id})
         story_form = StoryForm(instance=story)
+        existing_images = story.images.all()
+        existing_videos = story.videos.all()
 
         if request.GET.get('success') == 'true':
             message = "Story saved successfully!"
@@ -103,16 +137,38 @@ def story(request, id=None):
         story_form = StoryForm()
         post_url = reverse('new-story')
         title = "New Story"
+        existing_images = []
+        existing_videos = []
 
     else:
         post_url = reverse('new-story')
         title = "New Story"
+        existing_images = []
+        existing_videos = []
+
+    data = {'images': [], 'videos': []}
+
+    for image in Image.objects.all():
+        data['images'].append({
+            'id': image.id,
+            'name': image.name
+        })
+
+    for video in Video.objects.all():
+        data['videos'].append({
+            'id': video.id,
+            'name': video.name
+        })
 
     return render(request, 'story.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
             {'url': reverse('entry-list-stories'), 'name': 'Stories'}
         ],
+        'existing_images': existing_images,
+        'existing_videos': existing_videos,
+        'data_json': json.dumps(data),
+        'data_dict': data,
         'title': title,
         'message': message,
         'post_url': post_url,
