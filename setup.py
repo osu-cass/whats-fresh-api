@@ -2,7 +2,7 @@ from distutils.core import setup
 from setuptools import find_packages
 
 dependencies = [
-    'Django==1.7',
+    'Django==1.7.1',
     'Jinja2==2.7.3',
     'MarkupSafe==0.23',
     'Pillow==2.5.1',
