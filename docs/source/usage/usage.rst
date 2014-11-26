@@ -16,7 +16,7 @@ For example, clicking Vendors will display a table listing all the Vendors curre
 Adding and Editing
 ------------------
 
-The forms for editing and for adding new objects are the same, except that the edit form will allready be filled out with the existing data. You can edit this data and save the changes using the "Save" button at the bottom of the form, or delete the entire record using the red "Delete" button on the top of the form.
+The forms for editing and for adding new objects are the same, except that the edit form will already be filled out with the existing data. You can edit this data and save the changes using the "Save" button at the bottom of the form, or delete the entire record using the red "Delete" button on the top of the form.
 
 Workflow
 ++++++++
@@ -48,11 +48,11 @@ See below for details on adding these objects.
 Vendors
 +++++++
 
-These are the records for businesses that sell products. Vendors are also specific to a location, so if Bob's Fish has two different locations where they sell their Products, each location will be a separate Vendor. These can be distringuished by name, for instance Bob's Fish Newport and Bob's Fish Waldport.
+These are the records for businesses that sell products. Vendors are also specific to a location, so if Bob's Fish has two different locations where they sell their Products, each location will be a separate Vendor. These can be distinguished by name, for instance Bob's Fish Newport and Bob's Fish Waldport.
 
 The address for a Vendor should be the actual location where they sell their Products, not an office or P.O. box.
 
-**Pre-requisits**
+**Pre-requisites**
 
 Vendors sell Products, so in order to create a new Vendor, some Products must exist (ideally, the specific Products that Vendor sells). Before creating a new Vendor, it is a good idea to make sure their Products exist. The Vendor form *requires* at least one Product to be added to the Vendor. A Vendor's Product list can be changed later.
 
@@ -109,7 +109,7 @@ Preparations
 
 Preparations are the way in which a Product can be prepared for sale. This can include fresh, frozen, live, smoked, cooked, dried, and many more.
 
-**Pre-requisits**
+**Pre-requisites**
 
 Preparations have no prerequisites.
 
@@ -139,7 +139,7 @@ Products are what Vendors sell, and the central Object in What's Fresh.
 
 	Different varieties of a particular product should be treated as separate products, if they are sold as such. For instance, different varieties of Salmon are sold with different prices, therefore Coho, Chinook and Sockeye salmon should be separate products. The 'Name' field of all these Products will be 'Salmon', and each will have a different value in the 'Variety' field.
 
-**Pre-requisits**
+**Pre-requisites**
 
 Products require Preparations. Make sure all the possible preparations this Product can have are created first. If an Image or Story is going to be added, these objects should be created before adding the Product.
 
@@ -183,7 +183,7 @@ Stories
 
 Stories are collections of educational information about a Product or Vendor. Stories may be shared by many varieties of a particular Product - for instance the Salmon Story will likely apply to Coho, Chinook, and Sockeye salmon, which are all distinct Products.
 
-**Pre-requisits**
+**Pre-requisites**
 
 If Images or Videos are going to be added to this Story, they should be created before the Story is created.
 
@@ -219,7 +219,7 @@ Videos
 
 Videos are external links to videos hosted on YouTube, Vimeo, or elsewhere. Any video that can be streamed can be used here.
 
-**Pre-requisits**
+**Pre-requisites**
 
 Videos have no pre-requisites.
 
@@ -244,7 +244,7 @@ Images
 
 Images are uploaded image files. The Image upload form accepts .jpg, .png, and .gif image files. Images may be displayed as a single representative image for a Product in a Product view, or as part of a slideshow of images in a Story.
 
-**Pre-requisits**
+**Pre-requisites**
 
 Images have no pre-requisites.
 
