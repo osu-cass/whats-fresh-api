@@ -174,5 +174,6 @@ def product_list(request):
         'title': "All products",
         'item_classification': "product",
         'item_list': products,
+        'description_field': {'title': 'Variety', 'attribute': 'variety'},
         'edit_url': 'edit-product'
     })
