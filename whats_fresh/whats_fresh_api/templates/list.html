@@ -22,7 +22,14 @@
         <p class='item'>{{ item.name }}</p>
         {% if item.description %}
         <div class='description'>
-            <p>Description: {{ item.description }}</p>
+            <p>{% if description_field %}
+                    {% load getattr %}
+                    {% if item|getattr:description_field.attribute %}
+                        {{ description_field.title }}:
+                            {{ item|getattr:description_field.attribute }}
+                    {% endif %}
+                {% else %}
+                    Description: {{ item.description }}{% endif %}</p>
         </div>
         {% endif %}
     </div>
