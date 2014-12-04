@@ -7,6 +7,7 @@ API and Usage Documentation:
    :maxdepth: 2
 
    usage/usage
+   usage/admin
    api/api
    install/install
    planning/planning
