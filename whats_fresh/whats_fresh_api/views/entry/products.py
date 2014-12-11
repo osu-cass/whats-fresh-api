@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
+from django.forms.models import save_instance
 
 from whats_fresh.whats_fresh_api.models import (Product, Preparation,
                                                 ProductPreparation)
@@ -75,7 +76,7 @@ def product(request, id=None):
                         product=product,
                         preparation=Preparation.objects.get(
                             id=preparation))
-                product_form.save()
+                save_instance(product_form, product)
             else:
                 product = Product.objects.create(**product_form.cleaned_data)
                 for preparation in preparations:
