@@ -22,7 +22,7 @@ dependencies = [
 
 setup(
     name='whats-fresh',
-    version='0.1.0',
+    version='1.0.0',
     install_requires=dependencies,
     author=u'OSU Center for Applied Systems and Software',
     author_email='support@osuosl.org',
