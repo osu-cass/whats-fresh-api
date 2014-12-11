@@ -6,12 +6,12 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
+from django.forms.models import save_instance
 
 from whats_fresh.whats_fresh_api.models import (Product, Preparation,
                                                 ProductPreparation)
 from whats_fresh.whats_fresh_api.forms import ProductForm
 from whats_fresh.whats_fresh_api.functions import group_required
-from django.forms.models import save_instance
 
 import json
 
@@ -46,16 +46,20 @@ def product(request, id=None):
                 errors.append("You must choose at least one preparation.")
                 preparations = []
             else:
-                preparations = list(
-                    set(post_data['preparation_ids'].split(',')))
+                preparations = [int(p) for p in set(
+                    post_data['preparation_ids'].split(','))]
         except MultiValueDictKeyError:
             errors.append("You must choose at least one preparation.")
             preparations = []
 
-        product_form = ProductForm(post_data)
+        if id:
+            product = Product.objects.get(id=id)
+        else:
+            product = None
+
+        product_form = ProductForm(post_data, product)
         if product_form.is_valid() and not errors:
             if id:
-                product = Product.objects.get(id=id)
                 for preparation in product.preparations.all():
                     # Delete any that aren't in the returned list
                     if preparation.id not in preparations:
