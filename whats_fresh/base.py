@@ -23,7 +23,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 FIXTURE_DIRS = (
     os.path.join(BASE_DIR, 'whats_fresh/whats_fresh_api/tests/testdata'),
