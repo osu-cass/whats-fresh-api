@@ -58,8 +58,8 @@ Return a dictionary containing a record for every product in the database.The pr
 	{
 		error: {error_status: bool, error_name: text, error_text: text, error_level},
 	    <product_id>: {
-			name: text
-			variety: text or null
+			specific_variety: text
+			product_name: text or null
 			alt_name: text or null
 			description: text
 			origin: text or null
@@ -88,8 +88,8 @@ Returns a single product record identified by <id>. This may be useful for selec
 	{
 		error: {error_status: bool, error_name: text, error_text: text, error_level},
 		id: int
-		name: text
-		variety: text or null
+		specific_variety: text
+		product_name: text or null
 		alt_name: text or null
 		description: text
 		origin: text or null

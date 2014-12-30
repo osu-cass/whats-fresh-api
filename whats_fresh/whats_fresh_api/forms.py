@@ -27,8 +27,8 @@ class ProductForm(forms.ModelForm):
         model = Product
         exclude = []
         widgets = {
-            'name': forms.TextInput(attrs={'required': 'true'}),
-            'variety': forms.TextInput,
+            'specific_variety': forms.TextInput(attrs={'required': 'true'}),
+            'product_name': forms.TextInput,
             'season': forms.TextInput(attrs={'required': 'true'}),
             'origin': forms.TextInput,
             'alt_name': forms.TextInput,

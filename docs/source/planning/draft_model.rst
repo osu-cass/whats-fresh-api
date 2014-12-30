@@ -6,20 +6,20 @@ products
 
 .. code-block:: python
 
-	id              int (pk)
-	name            varchar
-	variety         varchar (optional)
-	alt_name        varchar (optional)
-	description     text
-	origin          varchar? (optional)
-	season          varchar (string describing season?)
-	available       bool (optional, is or is not available now?)
-	market_price    varchar
-	link            url (optional, link to industry info site)
-	image_id        int (optional, image foreign key)
-	stories_id      int (optional, image foreign key)
-	created         datetime
-	modified        datetime (auto-update on modification)
+    id                          int (pk)
+	specific_variety            varchar
+	product_name                varchar (optional)
+	alt_name                    varchar (optional)
+	description                 text
+	origin                      varchar? (optional)
+	season                      varchar (string describing season?)
+	available                   bool (optional, is or is not available now?)
+	market_price                varchar
+	link                        url (optional, link to industry info site)
+	image_id                    int (optional, image foreign key)
+	stories_id                  int (optional, image foreign key)
+	created                     datetime
+	modified                    datetime (auto-update on modification)
 
 
 vendors
