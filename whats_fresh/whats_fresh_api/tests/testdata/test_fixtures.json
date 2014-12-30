@@ -58,8 +58,8 @@
     "model": "whats_fresh_api.Product",
     "pk": "2",
     "fields": {
-      "name": "Starfish Voyager",
-      "variety": "Tuna",
+      "specific_variety": "Starfish Voyager",
+      "product_name": "Tuna",
       "alt_name": "The Stargazer",
       "description": "This is one sweet fish!",
       "origin": "The Delta Quadrant",
@@ -77,8 +77,8 @@
     "model": "whats_fresh_api.Product",
     "pk": "1",
     "fields": {
-      "name": "Ezri Dax",
-      "variety": "Freshwater Eel",
+      "specific_variety": "Ezri Dax",
+      "product_name": "Freshwater Eel",
       "alt_name": "Jadzia",
       "description": "That's not actually an eel, it's a symbiote.",
       "origin": "Trill",

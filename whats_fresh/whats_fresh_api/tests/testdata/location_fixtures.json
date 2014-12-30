@@ -58,8 +58,8 @@
     "model": "whats_fresh_api.Product",
     "pk": "2",
     "fields": {
-      "name": "Tuna",
-      "variety": "Tuna Variety",
+      "specific_variety": "Tuna",
+      "product_name": "Tuna product_name",
       "alt_name": "Albacore",
       "description": "Tuna Description",
       "origin": "The Oregon Coast",
@@ -77,8 +77,8 @@
     "model": "whats_fresh_api.Product",
     "pk": "1",
     "fields": {
-      "name": "Halibut",
-      "variety": "Alaskan",
+      "specific_variety": "Halibut",
+      "product_name": "Alaskan",
       "alt_name": "Pacific Halibut",
       "description": "Pacific Halibut is a fish.",
       "origin": "Offshore",

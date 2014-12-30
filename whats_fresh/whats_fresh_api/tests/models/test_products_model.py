@@ -8,8 +8,8 @@ class ProductTestCase(TestCase):
 
     def setUp(self):
         self.expected_fields = {
-            'name': models.TextField,
-            'variety': models.TextField,
+            'specific_variety': models.TextField,
+            'product_name': models.TextField,
             'alt_name': models.TextField,
             'description': models.TextField,
             'origin': models.TextField,
@@ -29,7 +29,7 @@ class ProductTestCase(TestCase):
         }
 
         self.optional_fields = {
-            'variety',
+            'product_name',
             'alt_name',
             'origin',
             'link'

@@ -29,8 +29,8 @@ class ProductViewTestCase(TestCase):
   "products": [
     {
       "id": 2,
-      "name": "Starfish Voyager",
-      "variety": "Tuna",
+      "specific_variety": "Starfish Voyager",
+      "product_name": "Tuna",
       "alt_name": "The Stargazer",
       "description": "This is one sweet fish!",
       "origin": "The Delta Quadrant",
@@ -47,8 +47,8 @@ Complete-Seventh/dp/B00062IDCO/",
     },
     {
       "id": 1,
-      "name": "Ezri Dax",
-      "variety": "Freshwater Eel",
+      "specific_variety": "Ezri Dax",
+      "product_name": "Freshwater Eel",
       "alt_name": "Jadzia",
       "description": "That's not actually an eel, it's a symbiote.",
       "origin": "Trill",

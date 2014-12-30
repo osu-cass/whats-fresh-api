@@ -35,8 +35,8 @@
       "link": "",
       "alt_name": "0",
       "story": null,
-      "name": "0",
-      "variety": "0",
+      "specific_variety": "0",
+      "product_name": "0",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -86,8 +86,8 @@
       "link": "",
       "alt_name": "1",
       "story": null,
-      "name": "1",
-      "variety": "1",
+      "specific_variety": "1",
+      "product_name": "1",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -137,8 +137,8 @@
       "link": "",
       "alt_name": "2",
       "story": null,
-      "name": "2",
-      "variety": "2",
+      "specific_variety": "2",
+      "product_name": "2",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -188,8 +188,8 @@
       "link": "",
       "alt_name": "3",
       "story": null,
-      "name": "3",
-      "variety": "3",
+      "specific_variety": "3",
+      "product_name": "3",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -239,8 +239,8 @@
       "link": "",
       "alt_name": "4",
       "story": null,
-      "name": "4",
-      "variety": "4",
+      "specific_variety": "4",
+      "product_name": "4",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -290,8 +290,8 @@
       "link": "",
       "alt_name": "5",
       "story": null,
-      "name": "5",
-      "variety": "5",
+      "specific_variety": "5",
+      "product_name": "5",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -341,8 +341,8 @@
       "link": "",
       "alt_name": "6",
       "story": null,
-      "name": "6",
-      "variety": "6",
+      "specific_variety": "6",
+      "product_name": "6",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -392,8 +392,8 @@
       "link": "",
       "alt_name": "7",
       "story": null,
-      "name": "7",
-      "variety": "7",
+      "specific_variety": "7",
+      "product_name": "7",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -443,8 +443,8 @@
       "link": "",
       "alt_name": "8",
       "story": null,
-      "name": "8",
-      "variety": "8",
+      "specific_variety": "8",
+      "product_name": "8",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -494,8 +494,8 @@
       "link": "",
       "alt_name": "9",
       "story": null,
-      "name": "9",
-      "variety": "9",
+      "specific_variety": "9",
+      "product_name": "9",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -545,8 +545,8 @@
       "link": "",
       "alt_name": "10",
       "story": null,
-      "name": "10",
-      "variety": "10",
+      "specific_variety": "10",
+      "product_name": "10",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -596,8 +596,8 @@
       "link": "",
       "alt_name": "11",
       "story": null,
-      "name": "11",
-      "variety": "11",
+      "specific_variety": "11",
+      "product_name": "11",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -647,8 +647,8 @@
       "link": "",
       "alt_name": "12",
       "story": null,
-      "name": "12",
-      "variety": "12",
+      "specific_variety": "12",
+      "product_name": "12",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -698,8 +698,8 @@
       "link": "",
       "alt_name": "13",
       "story": null,
-      "name": "13",
-      "variety": "13",
+      "specific_variety": "13",
+      "product_name": "13",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -749,8 +749,8 @@
       "link": "",
       "alt_name": "14",
       "story": null,
-      "name": "14",
-      "variety": "14",
+      "specific_variety": "14",
+      "product_name": "14",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -800,8 +800,8 @@
       "link": "",
       "alt_name": "15",
       "story": null,
-      "name": "15",
-      "variety": "15",
+      "specific_variety": "15",
+      "product_name": "15",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -851,8 +851,8 @@
       "link": "",
       "alt_name": "16",
       "story": null,
-      "name": "16",
-      "variety": "16",
+      "specific_variety": "16",
+      "product_name": "16",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -902,8 +902,8 @@
       "link": "",
       "alt_name": "17",
       "story": null,
-      "name": "17",
-      "variety": "17",
+      "specific_variety": "17",
+      "product_name": "17",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -953,8 +953,8 @@
       "link": "",
       "alt_name": "18",
       "story": null,
-      "name": "18",
-      "variety": "18",
+      "specific_variety": "18",
+      "product_name": "18",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1004,8 +1004,8 @@
       "link": "",
       "alt_name": "19",
       "story": null,
-      "name": "19",
-      "variety": "19",
+      "specific_variety": "19",
+      "product_name": "19",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1055,8 +1055,8 @@
       "link": "",
       "alt_name": "20",
       "story": null,
-      "name": "20",
-      "variety": "20",
+      "specific_variety": "20",
+      "product_name": "20",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1106,8 +1106,8 @@
       "link": "",
       "alt_name": "21",
       "story": null,
-      "name": "21",
-      "variety": "21",
+      "specific_variety": "21",
+      "product_name": "21",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1157,8 +1157,8 @@
       "link": "",
       "alt_name": "22",
       "story": null,
-      "name": "22",
-      "variety": "22",
+      "specific_variety": "22",
+      "product_name": "22",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1208,8 +1208,8 @@
       "link": "",
       "alt_name": "23",
       "story": null,
-      "name": "23",
-      "variety": "23",
+      "specific_variety": "23",
+      "product_name": "23",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1259,8 +1259,8 @@
       "link": "",
       "alt_name": "24",
       "story": null,
-      "name": "24",
-      "variety": "24",
+      "specific_variety": "24",
+      "product_name": "24",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1310,8 +1310,8 @@
       "link": "",
       "alt_name": "25",
       "story": null,
-      "name": "25",
-      "variety": "25",
+      "specific_variety": "25",
+      "product_name": "25",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1361,8 +1361,8 @@
       "link": "",
       "alt_name": "26",
       "story": null,
-      "name": "26",
-      "variety": "26",
+      "specific_variety": "26",
+      "product_name": "26",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1412,8 +1412,8 @@
       "link": "",
       "alt_name": "27",
       "story": null,
-      "name": "27",
-      "variety": "27",
+      "specific_variety": "27",
+      "product_name": "27",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1463,8 +1463,8 @@
       "link": "",
       "alt_name": "28",
       "story": null,
-      "name": "28",
-      "variety": "28",
+      "specific_variety": "28",
+      "product_name": "28",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1514,8 +1514,8 @@
       "link": "",
       "alt_name": "29",
       "story": null,
-      "name": "29",
-      "variety": "29",
+      "specific_variety": "29",
+      "product_name": "29",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1565,8 +1565,8 @@
       "link": "",
       "alt_name": "30",
       "story": null,
-      "name": "30",
-      "variety": "30",
+      "specific_variety": "30",
+      "product_name": "30",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1616,8 +1616,8 @@
       "link": "",
       "alt_name": "31",
       "story": null,
-      "name": "31",
-      "variety": "31",
+      "specific_variety": "31",
+      "product_name": "31",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }
@@ -1667,8 +1667,8 @@
       "link": "",
       "alt_name": "32",
       "story": null,
-      "name": "32",
-      "variety": "32",
+      "specific_variety": "32",
+      "product_name": "32",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z"
     }

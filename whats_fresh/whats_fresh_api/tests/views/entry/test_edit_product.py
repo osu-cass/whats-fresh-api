@@ -49,7 +49,7 @@ class EditProductTestCase(TestCase):
         update appears in the database
         """
         # Data that we'll post to the server to get the product updated
-        new_product = {'name': 'Salmon', 'variety': 'Pacific', 'story': 1,
+        new_product = {'specific_variety': 'Salmon', 'product_name': 'Pacific', 'story': 1,
                        'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',
                        'description': 'It\'s salmon -- from the Pacific!',
                        'season': 'Always', 'available': '', 'image': 1,
@@ -83,8 +83,8 @@ class EditProductTestCase(TestCase):
             reverse('edit-product', kwargs={'id': '1'}))
 
         fields = {
-            "name": "Ezri Dax",
-            "variety": "Freshwater Eel",
+            "specific_name": "Ezri Dax",
+            "product_name": "Freshwater Eel",
             "alt_name": "Jadzia",
             "description": "That's not actually an eel, it's a symbiote.",
             "origin": "Trill",

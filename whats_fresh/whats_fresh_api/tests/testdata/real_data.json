@@ -351,7 +351,7 @@
       "origin": "Pacific Ocean",
       "available": null,
       "description": "A classic fish",
-      "variety": "Salmon",
+      "product_name": "Salmon",
       "season": "July - October",
       "created": "2014-09-18T18:33:22.140Z",
       "modified": "2014-09-24T19:42:52.720Z",
@@ -360,7 +360,7 @@
       "link": "",
       "alt_name": "Oncorynchus kisutch",
       "story": null,
-      "name": "Coho Salmon"
+      "specific_variety": "Coho Salmon"
     }
   },
   {
@@ -370,7 +370,7 @@
       "origin": "Pacific Ocean",
       "available": null,
       "description": "A popular seafood prized for its sweet and tender flesh. ",
-      "variety": "Dungeness",
+      "product_name": "Dungeness",
       "season": "December to ???",
       "created": "2014-09-18T18:36:14.240Z",
       "modified": "2014-09-24T19:43:08.960Z",
@@ -379,7 +379,7 @@
       "link": "",
       "alt_name": "Metacarcinus magister",
       "story": null,
-      "name": "Dungeness Crab"
+      "specific_variety": "Dungeness Crab"
     }
   },
   {
@@ -389,7 +389,7 @@
       "origin": "",
       "available": null,
       "description": "The albacore, Thunnus alalunga, is a species of tuna in the family Scombridae.",
-      "variety": "",
+      "product_name": "",
       "season": "Starts in June",
       "created": "2014-09-18T18:39:09.478Z",
       "modified": "2014-09-24T19:43:26.180Z",
@@ -398,7 +398,7 @@
       "link": "",
       "alt_name": "",
       "story": null,
-      "name": "Albacore Tuna"
+      "specific_variety": "Albacore Tuna"
     }
   },
   {
@@ -408,7 +408,7 @@
       "origin": "Pacific Ocean",
       "available": null,
       "description": "Large crab usually found off the coast of tropical islands.",
-      "variety": "Spanner",
+      "product_name": "Spanner",
       "season": "June-???",
       "created": "2014-09-23T22:57:20.090Z",
       "modified": "2014-09-24T19:43:12.989Z",
@@ -417,7 +417,7 @@
       "link": "",
       "alt_name": "Ranina ranina / Red Frog Crab",
       "story": null,
-      "name": "Spanner Crab"
+      "specific_variety": "Spanner Crab"
     }
   },
   {
@@ -427,7 +427,7 @@
       "origin": "Pacific Ocean",
       "available": true,
       "description": "Long slender-bodied shark with black saddle-like markings and large spots over its back.",
-      "variety": "Shark",
+      "product_name": "Shark",
       "season": "Year round",
       "created": "2014-09-23T23:07:43.642Z",
       "modified": "2014-09-24T19:43:17.553Z",
@@ -436,7 +436,7 @@
       "link": "",
       "alt_name": "Triakis semifasciata",
       "story": null,
-      "name": "Leopard Shark"
+      "specific_variety": "Leopard Shark"
     }
   },
   {
@@ -446,7 +446,7 @@
       "origin": "Pacific Ocean",
       "available": null,
       "description": "Chinook are anadromous fish native to the north Pacific Ocean and the river systems of western North America ranging from California to Alaska. ",
-      "variety": "Salmon",
+      "product_name": "Salmon",
       "season": "Febuary-June",
       "created": "2014-09-23T23:13:25.710Z",
       "modified": "2014-09-24T19:43:21.481Z",
@@ -455,7 +455,7 @@
       "link": "",
       "alt_name": "Oncorynchus tshawytscha",
       "story": null,
-      "name": "Chinook Salmon"
+      "specific_variety": "Chinook Salmon"
     }
   },
   {
@@ -465,7 +465,7 @@
       "origin": "",
       "available": null,
       "description": "Tasty local clams",
-      "variety": "",
+      "product_name": "",
       "season": "Year round",
       "created": "2014-09-23T23:55:20.966Z",
       "modified": "2014-09-24T19:43:33.082Z",
@@ -474,7 +474,7 @@
       "link": "",
       "alt_name": "",
       "story": null,
-      "name": "Savory Clam"
+      "specific_variety": "Savory Clam"
     }
   },
   {
@@ -484,7 +484,7 @@
       "origin": "",
       "available": null,
       "description": "Big tasty clams",
-      "variety": "",
+      "product_name": "",
       "season": "Year round",
       "created": "2014-09-23T23:56:07.815Z",
       "modified": "2014-09-24T19:43:38.223Z",
@@ -493,7 +493,7 @@
       "link": "",
       "alt_name": "",
       "story": null,
-      "name": "Manila Clam"
+      "specific_variety": "Manila Clam"
     }
   },
   {
@@ -503,7 +503,7 @@
       "origin": "",
       "available": true,
       "description": "Pale white or off-white shell from 80-400 mm long.",
-      "variety": "Oyster",
+      "product_name": "Oyster",
       "season": "Year round",
       "created": "2014-09-24T17:03:35.109Z",
       "modified": "2014-09-24T19:43:02.057Z",
@@ -512,7 +512,7 @@
       "link": "",
       "alt_name": "Miyagi oyster",
       "story": null,
-      "name": "Pacific Oyster"
+      "specific_variety": "Pacific Oyster"
     }
   },
   {
@@ -522,7 +522,7 @@
       "origin": "",
       "available": null,
       "description": "Starting placeholder",
-      "variety": "",
+      "product_name": "",
       "season": "Year round",
       "created": "2014-09-24T19:42:38.717Z",
       "modified": "2014-09-24T19:42:38.765Z",
@@ -531,7 +531,7 @@
       "link": "",
       "alt_name": "",
       "story": null,
-      "name": "Please choose a product"
+      "specific_variety": "Please choose a product"
     }
   },
   {
@@ -541,7 +541,7 @@
       "origin": "",
       "available": null,
       "description": "Good fish",
-      "variety": "",
+      "product_name": "",
       "season": "Year round",
       "created": "2014-09-24T21:12:04.968Z",
       "modified": "2014-09-24T21:12:05.024Z",
@@ -550,7 +550,7 @@
       "link": "",
       "alt_name": "",
       "story": null,
-      "name": "Halibut"
+      "specific_variety": "Halibut"
     }
   },
   {

@@ -49,7 +49,7 @@ class NewProductTestCase(TestCase):
         """
         response = self.client.get(reverse('new-product'))
 
-        fields = {'name': 'input', 'variety': 'input', 'story': 'select',
+        fields = {'specific_variety': 'input', 'product_name': 'input', 'story': 'select',
                   'alt_name': 'input', 'description': 'textarea',
                   'origin': 'input', 'season': 'input', 'available': 'select',
                   'market_price': 'input', 'link': 'input',
@@ -83,7 +83,7 @@ class NewProductTestCase(TestCase):
         Image.objects.create(id=1)
 
         # Data that we'll post to the server to get the new vendor created
-        new_product = {'name': 'Salmon', 'variety': 'Pacific', 'story': 1,
+        new_product = {'specific_variety': 'Salmon', 'product_name': 'Pacific', 'story': 1,
                        'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',
                        'description': 'It\'s salmon -- from the Pacific!',
                        'season': 'Always', 'available': '', 'image': 1,
@@ -117,7 +117,7 @@ class NewProductTestCase(TestCase):
         all_products = Product.objects.all()
 
         response = self.client.post(reverse('new-product'))
-        required_fields = ['name', 'description', 'season', 'market_price']
+        required_fields = ['specific_variety', 'description', 'season', 'market_price']
         for field_name in required_fields:
             self.assertIn(field_name, response.context['product_form'].errors)
 

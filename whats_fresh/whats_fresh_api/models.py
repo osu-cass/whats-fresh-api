@@ -96,8 +96,8 @@ class Product(models.Model):
     def __unicode__(self):
         return self.name
 
-    name = models.TextField()
-    variety = models.TextField(blank=True)
+    specific_variety = models.TextField()
+    product_name = models.TextField(blank=True)
     alt_name = models.TextField(blank=True)
     description = models.TextField()
     origin = models.TextField(blank=True)
