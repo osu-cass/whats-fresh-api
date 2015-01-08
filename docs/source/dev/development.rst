@@ -63,6 +63,59 @@ Code Standards
 
 We follow `PEP 8 <http://www.python.org/dev/peps/pep-0008/>`_, "the guide for python style".
 
+Developing with Docker
+======================
+
+Platform dependent specifics
+----------------------------
+If you are using Linux you will need to prefix all of the
+following commands with sudo. If you are using OS X you will need to use
+the boot2docker tool.
+
+Postgis image
+-------------
+The What's Fresh Docker workflow relies on the kartoza/postgis image available
+on the docker hub. To pull this image run:
+
+::
+
+    $ docker pull kartoza/postgis
+
+The image can take two optional environment variables to specify a user and
+password to the database. These will be specified with the -e option. A port
+should be provided with the -p followed by the port to communicate with the
+host machine, a colon, and the port to communicate with the container.
+To run the image:
+
+::
+    $ docker run kartoza/postgis -p $HOSTPORT:$CONTAINERPORT -e  USERNAME=$USERNAME -e PASSWORD=$PASSWORD
+
+Make sure that the What's Fresh project container connects to the database over
+the host port.
+
+Building the What's Fresh docker image
+--------------------------------------
+
+::
+    $ docker build -t="osuosl/whats_fresh:dev" .
+
+Running the What's Fresh docker image
+-------------------------------------
+
+The Dockerfile included in the root of the repository will load the code from
+the current directory. This means that any changes you made to your copy of the
+repository will be run. Environment variables can be passed with the -e option.
+At a minimum you should specify $HOSTPORT, $USERNAME, $PASSWORD, $DBNAME and
+$ENVIRONMENTCONFIG.
+
+Before the app is ready to run, you should run migrations.
+
+::
+    $ docker run osuosl/whats_fresh:dev manage.py syncdb -e  USERNAME=$USERNAME -e PASSWORD=$PASSWORD -e ENVIRONMENTCONFIG=True -e DBNAME=$DBNAME
+
+    $ docker run osuosl/whats_fresh:dev manage.py migrate -e  USERNAME=$USERNAME -e PASSWORD=$PASSWORD -e ENVIRONMENTCONFIG=True -e DBNAME=$DBNAME
+
+
 Developing
 ==========
 
