@@ -88,7 +88,7 @@ host machine, a colon, and the port to communicate with the container.
 To run the image:
 
 ::
-    $ docker run kartoza/postgis -p $HOSTPORT:$CONTAINERPORT -e  USERNAME=$USERNAME -e PASSWORD=$PASSWORD
+    $ docker run -p $HOSTPORT:$CONTAINERPORT -e  USERNAME=$USERNAME -e PASSWORD=$PASSWORD kartoza/postgis
 
 Make sure that the What's Fresh project container connects to the database over
 the host port.
