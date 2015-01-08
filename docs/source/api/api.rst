@@ -498,6 +498,7 @@ Example: GET /stories/2
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: javascript
+
     {
         "error": {
             "status": false,
@@ -534,7 +535,7 @@ Example: GET /stories/2
                 "name": "Tuna Picture 2"
             }
         ],
-        "id": 1,
+        "id": 2,
         "buying": "To buy a tuna just head down to the docks.",
         "history": "Tuna have been eaten for years and years."
 
