@@ -12,7 +12,7 @@ import os
 from .base import *
 
 
-if os.environ['ENVIRONMENTCONFIG']:
+if os.environ.get('ENVIRONMENTCONFIG'):
     from whats_fresh.environment_config import *
 else:
     from .yaml_config import *
