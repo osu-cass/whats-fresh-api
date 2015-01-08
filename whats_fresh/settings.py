@@ -13,6 +13,6 @@ from .base import *
 
 
 if os.environ['ENVIRONMENTCONFIG']:
-    from whats_fresh/environment_config import *
+    from whats_fresh.environment_config import *
 else:
     from .yaml_config import *
