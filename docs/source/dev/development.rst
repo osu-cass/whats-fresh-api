@@ -91,6 +91,7 @@ found in the Dockerfile. Postgres typically runs on port 5432.
 To run the image:
 
 ::
+
     $ docker run -p $HOSTPORT:$CONTAINERPORT -e  USERNAME=$USERNAME -e PASS=$PASSWORD kartoza/postgis
 
 Make sure that the What's Fresh project container connects to the database over
@@ -100,6 +101,7 @@ Building the What's Fresh docker image
 --------------------------------------
 
 ::
+
     $ docker build -t="osuosl/whats_fresh:dev" .
 
 Running the What's Fresh docker image
@@ -114,6 +116,7 @@ which can be overridden with the -e option.
 Before the app is ready, create the database and run migrations.
 
 ::
+
     $ docker exec postgis -it bash
     # createdb -U $USERNAME -h localhost $DBNAME
     # psql -U $USERNAME -h localhost
@@ -127,17 +130,20 @@ Before the app is ready, create the database and run migrations.
 Next, connect to the database with psql and create the relevant user.
 
 ::
+
     $ psql -h localhost -U docker -p $HOSTPORT
 
 Running the server is similar:
 
 ::
+
     $ docker run --link postgis:postgis -p 8000:8000 osuosl/whats_fresh:dev
 
 If you are running linux, connect to http://localhost:8000 in your browser.
 If you are running OS X, get the IP address of your boot2docker vm
 
 ::
+
     $ boot2docker ip
     192.168.59.103
 
@@ -146,6 +152,7 @@ Next connect to http://192.168.59.103:8000 in your browser.
 On occasion it may be necessary to obtain a shell in the container:
 
 ::
+
     $ docker run -it osuosl/whats_fresh:dev bash
 
 Developing
