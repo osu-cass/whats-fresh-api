@@ -87,7 +87,7 @@ should be provided with the -p followed by the port to communicate with the
 host machine, a colon, and the port to communicate with the container.
 Make sure the environment variables passed to this container match those which
 are passed to the What's Fresh API Docker image. Reasonable defaults can be
-found in the Dockerfile.
+found in the Dockerfile. Postgres typically runs on port 5432.
 To run the image:
 
 ::
