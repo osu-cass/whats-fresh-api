@@ -1,4 +1,11 @@
 import os
 
-for key, value in os.env.items():
-    globals()[key] = value
+DATABASES = {
+    'default': {
+        'ENGINE': os.environ['ENGINE'],
+        'NAME': os.environ['NAME'],
+        'USER': os.environ['USER'],
+        'PASSWORD': os.environ['PASSWORD'],
+        'HOST': os.environ['HOST'],
+    }
+}
