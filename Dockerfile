@@ -1,18 +1,16 @@
 FROM centos:7
 
-MAINTAINER OSU Open Source Lab <support@osuosl.org>
+MAINTAINER OSU Open Source Lab, support@osuosl.org
 
 
-ENV USERNAME whats_fresh
 ENV PASSWORD whats_fresh
-ENV DBNAME whats_fresh
 ENV HOST postgis
 ENV USER whats_fresh
 ENV NAME  whats_fresh
 ENV ENVIRONMENTCONFIG True
 ENV ENGINE django.contrib.gis.db.backends.postgis
-ENV CONTAINERPORT 5432
-ENV HOSTPORT 5432
+
+EXPOSE 8000
 
 RUN yum install -y python-devel python-setuptools postgresql-devel gcc curl
 
@@ -27,4 +25,4 @@ WORKDIR /opt/whats_fresh
 
 COPY . /opt/whats_fresh
 RUN pip install .
-CMD ["python", "manage.py", "runserver", "postgis:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
