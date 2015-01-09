@@ -85,10 +85,13 @@ The image can take two optional environment variables to specify a user and
 password to the database. These will be specified with the -e option. A port
 should be provided with the -p followed by the port to communicate with the
 host machine, a colon, and the port to communicate with the container.
+Make sure the environment variables passed to this container match those which
+are passed to the What's Fresh API Docker image. Reasonable defaults can be
+found in the Dockerfile.
 To run the image:
 
 ::
-    $ docker run -p $HOSTPORT:$CONTAINERPORT -e  USERNAME=$USERNAME -e PASSWORD=$PASSWORD kartoza/postgis
+    $ docker run -p $HOSTPORT:$CONTAINERPORT -e  USERNAME=$USERNAME -e PASS=$PASSWORD kartoza/postgis
 
 Make sure that the What's Fresh project container connects to the database over
 the host port.
@@ -105,16 +108,45 @@ Running the What's Fresh docker image
 The Dockerfile included in the root of the repository will load the code from
 the current directory. This means that any changes you made to your copy of the
 repository will be run. Environment variables can be passed with the -e option.
-At a minimum you should specify $HOSTPORT, $USERNAME, $PASSWORD, $DBNAME and
-$ENVIRONMENTCONFIG.
+The Dockerfile specifies a reasonable default set of environment variables,
+which can be overridden with the -e option.
 
-Before the app is ready to run, you should run migrations.
+Before the app is ready, create the database and run migrations.
 
 ::
-    $ docker run osuosl/whats_fresh:dev manage.py syncdb -e  USERNAME=$USERNAME -e PASSWORD=$PASSWORD -e ENVIRONMENTCONFIG=True -e DBNAME=$DBNAME
+    $ docker exec postgis -it bash
+    # createdb -U $USERNAME -h localhost $DBNAME
+    # psql -U $USERNAME -h localhost
+    DBNAME=# create extension postgis;
+    CREATE EXTENSION
+    DBNAME=# ^D
+    # ^D
+    $ docker run --link postgis:postgis osuosl/whats_fresh:dev python manage.py syncdb --noinput
+    $ docker run --link postgis:postgis osuosl/whats_fresh:dev python manage.py migrate
 
-    $ docker run osuosl/whats_fresh:dev manage.py migrate -e  USERNAME=$USERNAME -e PASSWORD=$PASSWORD -e ENVIRONMENTCONFIG=True -e DBNAME=$DBNAME
+Next, connect to the database with psql and create the relevant user.
 
+::
+    $ psql -h localhost -U docker -p $HOSTPORT
+
+Running the server is similar:
+
+::
+    $ docker run --link postgis:postgis -p 8000:8000 osuosl/whats_fresh:dev
+
+If you are running linux, connect to http://localhost:8000 in your browser.
+If you are running OS X, get the IP address of your boot2docker vm
+
+::
+    $ boot2docker ip
+    192.168.59.103
+
+Next connect to http://192.168.59.103:8000 in your browser.
+
+On occasion it may be necessary to obtain a shell in the container:
+
+::
+    $ docker run -it osuosl/whats_fresh:dev bash
 
 Developing
 ==========
