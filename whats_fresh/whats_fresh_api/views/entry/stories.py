@@ -43,9 +43,9 @@ def story_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-story'),
-        'new_text': "New story",
+        'new_text': "New Item",
         'title': "Product Education",
-        'item_classification': "stories",
+        'item_classification': "item",
         'item_list': stories,
         'edit_url': 'edit-story'
     })
@@ -136,13 +136,13 @@ def story(request, id=None):
     elif request.method != 'POST':
         story_form = StoryForm()
         post_url = reverse('new-story')
-        title = "New Story"
+        title = "New Item"
         existing_images = []
         existing_videos = []
 
     else:
         post_url = reverse('new-story')
-        title = "New Story"
+        title = "New Item"
         existing_images = []
         existing_videos = []
 
