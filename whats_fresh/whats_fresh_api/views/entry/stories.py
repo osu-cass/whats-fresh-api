@@ -44,7 +44,7 @@ def story_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-story'),
         'new_text': "New story",
-        'title': "All stories",
+        'title': "Product Education",
         'item_classification': "stories",
         'item_list': stories,
         'edit_url': 'edit-story'
@@ -163,7 +163,7 @@ def story(request, id=None):
     return render(request, 'story.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-stories'), 'name': 'Stories'}
+            {'url': reverse('entry-list-stories'), 'name': 'Product Education'}
         ],
         'existing_images': existing_images,
         'existing_videos': existing_videos,
