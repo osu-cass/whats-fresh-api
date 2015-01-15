@@ -47,7 +47,7 @@ def video_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-video'),
         'new_text': "New video",
-        'title': "All videos",
+        'title': "Video Library",
         'item_classification': "video",
         'item_list': videos,
         'edit_url': 'edit-video'
@@ -118,7 +118,7 @@ def video(request, id=None):
     return render(request, 'video.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-videos'), 'name': 'Videos'}
+            {'url': reverse('entry-list-videos'), 'name': 'Video Library'}
         ],
         'title': title,
         'message': message,

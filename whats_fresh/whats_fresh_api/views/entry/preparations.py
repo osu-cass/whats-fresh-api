@@ -48,7 +48,7 @@ def prep_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-preparation'),
         'new_text': "New preparation",
-        'title': "All preparations",
+        'title': "Product Form/Packaging",
         'item_classification': "preparation",
         'item_list': preparations,
         'edit_url': 'edit-preparation'
@@ -119,7 +119,7 @@ def preparation(request, id=None):
     return render(request, 'preparation.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-preparations'), 'name': 'Preparations'}
+            {'url': reverse('entry-list-preparations'), 'name': 'Product Form/Packaging'}
         ],
         'title': title,
         'message': message,
