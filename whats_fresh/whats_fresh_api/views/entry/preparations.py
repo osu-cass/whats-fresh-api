@@ -119,7 +119,8 @@ def preparation(request, id=None):
     return render(request, 'preparation.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-preparations'), 'name': 'Product Form/Packaging'}
+            {'url': reverse('entry-list-preparations'),
+             'name': 'Product Form/Packaging'}
         ],
         'title': title,
         'message': message,
