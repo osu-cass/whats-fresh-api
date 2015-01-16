@@ -7,5 +7,5 @@ register = template.Library()
 def site_title(parser, token):
     """Register a template tag called site_title which returns SITE_TITLE"""
     node = template.Node()
-    node.render = lambda: settings.SITE_TITLE
+    node.render = lambda context: settings.SITE_TITLE
     return node
