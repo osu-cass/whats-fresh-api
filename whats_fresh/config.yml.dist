@@ -37,3 +37,6 @@ DEBUG: False
 # Proximity used for location queries if
 # proximity parameter is not also passed
 DEFAULT_PROXIMITY: 20
+
+# Title for the application UI
+SITE_TITLE: "Oregon's Catch"
