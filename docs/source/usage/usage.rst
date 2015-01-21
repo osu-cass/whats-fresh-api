@@ -137,7 +137,7 @@ Products are what Vendors sell, and the central Object in What's Fresh.
 
 .. note::
 
-	Different varieties of a particular product should be treated as separate products, if they are sold as such. For instance, different varieties of Salmon are sold with different prices, therefore Coho, Chinook and Sockeye salmon should be separate products. The 'Name' field of all these Products will be 'Salmon', and each will have a different value in the 'Variety' field.
+	Different varieties of a particular product should be treated as separate products, if they are sold as such. For instance, different varieties of Salmon are sold with different prices, therefore Coho, Chinook and Sockeye salmon should be separate products. The 'Specific Variety' field of all these Products will be 'Salmon', and each will have a different value in the 'Product Name' field.
 
 **Pre-requisites**
 
@@ -147,7 +147,7 @@ Products require Preparations. Make sure all the possible preparations this Prod
 
 Products require the following fields to be filled out:
 
-*Name*
+*Specific Variety*
 	The common name of this Product (i.e. Salmon).
 *Description*
 	A brief description of the product.
@@ -162,8 +162,8 @@ Products require the following fields to be filled out:
 
 These fields are optional:
 
-*Variety*
-	The variety of this product (ex. Coho, Sockeye, etc).
+*Product Name*
+	The name of this product (ex. Coho, Sockeye, etc).
 *Alternate Name*
 	Other name(s) this product might be commonly called.
 *Origin*

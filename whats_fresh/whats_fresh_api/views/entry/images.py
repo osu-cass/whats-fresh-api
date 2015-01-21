@@ -47,7 +47,7 @@ def image_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-image'),
         'new_text': "New image",
-        'title': "All images",
+        'title': "Image Library",
         'item_classification': "image",
         'item_list': images,
         'edit_url': 'edit-image'
@@ -115,7 +115,7 @@ def image(request, id=None):
     return render(request, 'image.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-images'), 'name': 'Images'}
+            {'url': reverse('entry-list-images'), 'name': 'Image Library'}
         ],
         'title': title,
         'message': message,

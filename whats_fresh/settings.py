@@ -8,5 +8,11 @@
 # Next our yaml file is opened, read, and settings defined in the yaml config
 # may override settings already defined.
 
+import os
 from .base import *
-from .yaml_config import *
+
+
+if os.environ.get('ENVIRONMENTCONFIG'):
+    from whats_fresh.environment_config import *
+else:
+    from .yaml_config import *

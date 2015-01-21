@@ -47,9 +47,9 @@ def prep_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-preparation'),
-        'new_text': "New preparation",
-        'title': "All preparations",
-        'item_classification': "preparation",
+        'new_text': "New Item",
+        'title': "Product Form/Packaging",
+        'item_classification': "item",
         'item_list': preparations,
         'edit_url': 'edit-preparation'
     })
@@ -105,21 +105,22 @@ def preparation(request, id=None):
         preparation_form = PreparationForm(instance=preparation)
 
         if request.GET.get('success') == 'true':
-            message = "Preparation saved successfully!"
+            message = "Item saved successfully!"
 
     elif request.method != 'POST':
         preparation_form = PreparationForm()
         post_url = reverse('new-preparation')
-        title = "New Preparation"
+        title = "New Item"
 
     else:
         post_url = reverse('new-preparation')
-        title = "New Preparation"
+        title = "New Item"
 
     return render(request, 'preparation.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-preparations'), 'name': 'Preparations'}
+            {'url': reverse('entry-list-preparations'),
+             'name': 'Product Form/Packaging'}
         ],
         'title': title,
         'message': message,
