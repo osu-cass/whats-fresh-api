@@ -51,3 +51,43 @@ def story_details(request, id=None):
     data['error'] = error
 
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+def stories_list(request):
+    """
+    */stories/*
+
+    Returns a list of all stories in the database. The ?limit=<int> parameter
+    limits the number of stories returned.
+    """
+
+    error = {
+        'status': False,
+        'name': None,
+        'text': None,
+        'level': None,
+        'debug': None
+    }
+
+    limit, error = get_limit(request, error)
+
+    serializer = FreshSerializer()
+    queryset = Product.objects.all()[:limit]
+
+    if not queryset:
+        error = {
+            "status": True,
+            "name": "No Products",
+            "text": "No Products found",
+            "level": "Information",
+            "debug": ""
+        }
+    data = {
+        "products": json.loads(
+            serializer.serialize(
+                queryset,
+                use_natural_foreign_keys=True
+            )
+        ),
+        "error": error
+    }
+    return HttpResponse(json.dumps(data), content_type="application/json")
