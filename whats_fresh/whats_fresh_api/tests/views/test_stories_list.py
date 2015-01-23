@@ -55,9 +55,10 @@ class StoriesListTestCase(TestCase):
         "buying": "Buying people is illegal",
         "preparing": "Being a prince is hard work, make sure you prepare for it",
         "products": "Still illegal",
+        "season": "",
         "ext": {},
         "images": [
-            {"image": "/media/cat.jpg", "caption": "Meow!", "name": "A cat"}
+            {"link": "/media/cat.jpg", "caption": "Meow!", "name": "A cat"}
         ],
         "videos": [
             {"link": "http://www.youtube.com/watch?v=M-nlAuCW7WY",
@@ -65,6 +66,9 @@ class StoriesListTestCase(TestCase):
         ],
         "created": "2014-08-08T23:27:05.568Z",
         "modified": "2014-08-08T23:27:05.568Z"
+       }
+    ]
+}
 """
 
         self.expected_limited_error = """
