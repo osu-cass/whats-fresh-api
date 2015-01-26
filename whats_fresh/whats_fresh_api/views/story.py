@@ -53,6 +53,7 @@ def story_details(request, id=None):
 
     return HttpResponse(json.dumps(data), content_type="application/json")
 
+
 def story_list(request):
     """
     */stories/*
