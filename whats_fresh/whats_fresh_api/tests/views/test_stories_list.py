@@ -52,10 +52,12 @@ class StoriesListTestCase(TestCase):
     }, {
         "id": 2,
         "name": "Fresh Prince",
-        "history": "This is the story, all about how my life got flip turned upside down!",
+        "history": "This is the story, \
+all about how my life got flip turned upside down!",
         "facts": "I have never watch this",
         "buying": "Buying people is illegal",
-        "preparing": "Being a prince is hard work, make sure you prepare for it",
+        "preparing": "Being a prince is hard work, \
+make sure you prepare for it",
         "products": "Still illegal",
         "season": "",
         "ext": {},
