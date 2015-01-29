@@ -1,6 +1,7 @@
 from django.http import (HttpResponse,
                          HttpResponseNotFound)
 from whats_fresh.whats_fresh_api.models import Story
+from whats_fresh.whats_fresh_api.functions import get_limit
 
 import json
 from .serializer import FreshSerializer
@@ -50,4 +51,44 @@ def story_details(request, id=None):
 
     data['error'] = error
 
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def story_list(request):
+    """
+    */stories/*
+
+    Returns a list of all stories in the database. The ?limit=<int> parameter
+    limits the number of stories returned.
+    """
+    error = {
+        'status': False,
+        'name': None,
+        'text': None,
+        'level': None,
+        'debug': None
+    }
+
+    limit, error = get_limit(request, error)
+
+    serializer = FreshSerializer()
+    queryset = Story.objects.all()[:limit]
+
+    if not queryset:
+        error = {
+            "status": True,
+            "name": "No Stories",
+            "text": "No Stories found",
+            "level": "Information",
+            "debug": ""
+        }
+    data = {
+        "stories": json.loads(
+            serializer.serialize(
+                queryset,
+                use_natural_foreign_keys=True
+            )
+        ),
+        "error": error
+    }
     return HttpResponse(json.dumps(data), content_type="application/json")

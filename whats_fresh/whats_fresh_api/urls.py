@@ -3,6 +3,9 @@ from django.conf.urls import url
 
 urlpatterns = patterns(
     '',
+    url(r'^1/stories/?$',
+        'whats_fresh.whats_fresh_api.views.story.story_list',
+        name='stories-list'),
     url(r'^1/stories/(?P<id>\d+)/?$',
         'whats_fresh.whats_fresh_api.views.story.story_details',
         name='story-details'),
