@@ -6,7 +6,7 @@ MAINTAINER OSU Open Source Lab, support@osuosl.org
 ENV PASSWORD whats_fresh
 ENV HOST postgis
 ENV USER whats_fresh
-ENV NAME  whats_fresh
+ENV NAME  template_postgis
 ENV ENVIRONMENTCONFIG True
 ENV ENGINE django.contrib.gis.db.backends.postgis
 
