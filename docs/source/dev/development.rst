@@ -140,12 +140,6 @@ Before the app is ready, create the database and run migrations.
     # ^D
     $ docker run --link postgis:postgis osuosl/whats_fresh:dev python manage.py migrate
 
-Next, connect to the database with psql and create the relevant user.
-
-::
-
-    $ psql -h localhost -U docker -p $HOSTPORT
-
 Running the server is similar:
 
 ::
