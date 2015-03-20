@@ -193,8 +193,16 @@ def vendor_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Vendor saved successfully!"
 
-    paginator = Paginator(Vendor.objects.order_by('name'),
-                          settings.PAGE_LENGTH)
+    search_term = request.GET.get('search')
+
+    # Only keep items that match the search query
+    if search_term is None:
+        paginator = Paginator(Vendor.objects.order_by('name'),
+                              settings.PAGE_LENGTH)
+    else:
+        paginator = Paginator(Vendor.objects.filter(name=search_term).order_by('name'),
+                              settings.PAGE_LENGTH)
+
     page = request.GET.get('page')
 
     try:
