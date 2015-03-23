@@ -200,7 +200,8 @@ def vendor_list(request):
         paginator = Paginator(Vendor.objects.order_by('name'),
                               settings.PAGE_LENGTH)
     else:
-        paginator = Paginator(Vendor.objects.filter(name=search_term).order_by('name'),
+        paginator = Paginator(Vendor.objects.filter
+                              (name=search_term).order_by('name'),
                               settings.PAGE_LENGTH)
 
     page = request.GET.get('page')
