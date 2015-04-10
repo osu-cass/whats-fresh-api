@@ -21,10 +21,10 @@
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>
     <div class='list'>
 {% for item in item_list %}
-<a href="{% url edit_url item.id %}">
+<a href="{% url edit_url item.object.id %}">
         <div class='{{ item_classification }} '>
-        <p class='item'>{{ item.name }}</p>
-        {% if item.description %}
+        <p class='item'>{{ item.object.name }}</p>
+        {% if item.object.description %}
         <div class='description'>
             <p>{% if description_field %}
                     {% load getattr %}
@@ -33,7 +33,7 @@
                             {{ item|getattr:description_field.attribute }}
                     {% endif %}
                 {% else %}
-                    Description: {{ item.description }}{% endif %}</p>
+                    Description: {{ item.object.description }}{% endif %}</p>
         </div>
         {% endif %}
     </div>

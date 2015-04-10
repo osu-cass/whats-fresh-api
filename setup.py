@@ -18,7 +18,9 @@ dependencies = [
     'psycopg2==2.5.3',
     'requests==2.3.0',
     'wsgiref==0.1.2',
-    'fig==1.0.1'
+    'fig==1.0.1',
+    'Whoosh==2.6.0',
+    'django-haystack==2.3.1'
 ]
 
 setup(

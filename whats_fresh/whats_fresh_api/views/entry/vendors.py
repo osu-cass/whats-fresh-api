@@ -16,6 +16,7 @@ from whats_fresh.whats_fresh_api.functions import (group_required,
                                                    coordinates_from_address,
                                                    BadAddressException)
 
+from haystack.query import SearchQuerySet
 import json
 
 
@@ -193,16 +194,12 @@ def vendor_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Vendor saved successfully!"
 
-    search_term = request.GET.get('search')
-
-    # Only keep items that match the search query
-    if search_term is None:
-        paginator = Paginator(Vendor.objects.order_by('name'),
-                              settings.PAGE_LENGTH)
+    if request.GET.get('search') is None:
+        vendors = SearchQuerySet().all()
     else:
-        paginator = Paginator(Vendor.objects.filter
-                              (name=search_term).order_by('name'),
-                              settings.PAGE_LENGTH)
+        vendors = SearchQuerySet().filter(content=request.GET.get('search'))
+
+    paginator = Paginator(vendors, settings.PAGE_LENGTH)
 
     page = request.GET.get('page')
 

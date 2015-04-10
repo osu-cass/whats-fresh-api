@@ -22,6 +22,7 @@ var/
 .installed.cfg
 *.egg
 *.pyc
+whats_fresh/whoosh_index
 
 # Installer logs
 pip-log.txt
