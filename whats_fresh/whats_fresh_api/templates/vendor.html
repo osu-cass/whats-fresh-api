@@ -52,42 +52,16 @@
 
     <!-- Code for Map based location inputs start -->
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-
     <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
-    <script src="http://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
 
-<body>
-   <div class="form-horizontal">
-        <div class="form-group">
-            <div><input type="text" class="form-control" id="us2-address"/></div>
-        </div><br>
+    <div><input type="text" id="us2-address"/></div><br>
 
-        <div id="us2" style="width: 550px; height: 400px;"></div><br>
+    <div id="us2" class="map"></div><br>
 
-        <div class="m-t-small">
-            <p class="field_text">Lat*:</p>
-            <div><input type="text" class="form-control" style="width: 200px" id="us2-lat"/></div>
-            <p class="field_text">Long*:</p>
-            <div><input type="text" class="form-control" style="width: 200px" id="us2-lon"/></div><br>
-        </div>
-    </div>
-
-    <script>
-    $('#us2').locationpicker({
-        location: {latitude: 44.563781, longitude: -123.27944400000001},
-        radius: false,
-        inputBinding: {
-            latitudeInput: $('#us2-lat'),
-            longitudeInput: $('#us2-lon'),
-            locationNameInput: $('#us2-address')
-        },
-        enableAutocomplete: true
-    });
-    </script>
-
-</body>
+    <p class="field_text">Latitude*:</p>
+    <div><input type="text" id="us2-lat"/></div>
+    <p class="field_text">Longitude*:</p>
+    <div><input type="text" id="us2-lon"/></div><br>
 
 <!-- Code for Map based location input ends -->
 
@@ -156,7 +130,21 @@
 </div>
 {% endblock content %}
 {% block footer %}
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
 <script>
+
+    $('#us2').locationpicker({
+        location: {latitude: 44.563781, longitude: -123.27944400000001},
+        radius: false,
+        inputBinding: {
+            latitudeInput: $('#us2-lat'),
+            longitudeInput: $('#us2-lon'),
+            locationNameInput: $('#us2-address')
+        },
+        enableAutocomplete: true
+    });
+
     var preparation_options = {{ json_preparations|safe }};
 
     number_of_products = 0;
