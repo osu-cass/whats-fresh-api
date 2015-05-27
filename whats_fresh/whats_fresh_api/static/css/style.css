@@ -242,4 +242,8 @@ a {
   .product_list ul li {
     padding-left: 30px; }
 
+.map {
+  width: 550px;
+  height: 400px; }
+
 /*# sourceMappingURL=style.css.map */
