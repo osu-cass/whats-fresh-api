@@ -136,12 +136,11 @@ $('#us3').locationpicker({
                 },
                 enableAutocomplete: true,
                 onchanged: function (currentLocation, radius,  isMarkerDropped) {
-                    alert($('#us3').data("locationpicker").addressComponents);
+                    console.log($('#us3').data("locationpicker").addressComponents);
                     alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
                 },
-
                 oninitialized: function() {
-                    alert($('#us3').data("locationpicker").addressComponents);
+                    console.log($('#us3').data("locationpicker").addressComponents);
                 }
 
             });
