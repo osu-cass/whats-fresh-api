@@ -129,8 +129,8 @@ $('#us3').locationpicker({
                 location: {latitude: 44.563781, longitude: -123.27944400000001},
                 radius: false,
                 inputBinding: {
-                    latitudeInput: $('#us3-lat'),
-                    longitudeInput: $('#us3-lon'),
+                    latitudeInput: $('#us3-lat').trigger('change'),
+                    longitudeInput: $('#us3-lon').trigger('change'),
                     locationNameInput: $('#us3-address')
 
                 },
