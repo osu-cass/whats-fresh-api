@@ -54,13 +54,17 @@
 
     <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
 
-    <div><input type="text" id="us3-address"/></div>
+    <div id="inputform">
+
+    <div><input type="text" id="us3-address" data-index="1"/></div>
 
     <div id="us3" class="map"></div><br>
+
                 <p class="field_text">Latitude*:</p>
-                <div><input type="text" id="us3-lat"/></div>
+                <div><input type="text" id="us3-lat" data-index="2"/></div>
                 <p class="field_text">Longitude*:</p>
-                <div><input type="text" id="us3-lon"/></div>
+                <div><input type="text" id="us3-lon" data-index="3"/></div>
+    </div>
 
     <!-- Code for Map based location inputs ends -->
 
@@ -129,8 +133,8 @@ $('#us3').locationpicker({
                 location: {latitude: 44.563781, longitude: -123.27944400000001},
                 radius: false,
                 inputBinding: {
-                    latitudeInput: $('#us3-lat').trigger('change'),
-                    longitudeInput: $('#us3-lon').trigger('change'),
+                    latitudeInput: $('#us3-lat'),
+                    longitudeInput: $('#us3-lon'),
                     locationNameInput: $('#us3-address')
 
                 },
@@ -145,7 +149,23 @@ $('#us3').locationpicker({
 
             });
 
-// script for map ends
+// Script to avoid form submission when enter is hit.
+
+    $('#inputform').on('keydown', 'input', function (event) {
+        if (event.which == 13) {
+            event.preventDefault();
+            var $this = $(event.target);
+            var index = parseFloat($this.attr('data-index'));
+            $('[data-index="' + (index + 1).toString() + '"]').focus();
+            }
+        });
+
+    // function removerEnter(e) {
+    //     if (e.which == 13 || e.keyCode == 13) {
+    //         e.preventDefault();
+    //     }
+    // }
+
 
     var preparation_options = {{ json_preparations|safe }};
 
@@ -213,3 +233,5 @@ $('#us3').locationpicker({
     }
 </script>
 {% endblock footer %}
+
+
