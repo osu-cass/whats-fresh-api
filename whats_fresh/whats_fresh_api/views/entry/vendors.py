@@ -12,9 +12,11 @@ from whats_fresh.whats_fresh_api.models import (Vendor, Product,
                                                 ProductPreparation,
                                                 VendorProduct)
 from whats_fresh.whats_fresh_api.forms import VendorForm
-from whats_fresh.whats_fresh_api.functions import (group_required,
-                                                   coordinates_from_address,
-                                                   BadAddressException)
+# from whats_fresh.whats_fresh_api.functions import (group_required,
+#                                                    coordinates_from_address,
+#                                                    BadAddressException)
+
+from whats_fresh.whats_fresh_api.functions import (group_required)
 
 import json
 
@@ -41,20 +43,17 @@ def vendor(request, id=None):
 
     if request.method == 'POST':
         post_data = request.POST.copy()
+        print post_data
         errors = []
 
         try:
-            coordinates = coordinates_from_address(
-                post_data['street'], post_data['city'], post_data['state'],
-                post_data['zip'])
-
             post_data['location'] = fromstr(
-                'POINT(%s %s)' % (coordinates[1], coordinates[0]),
-                srid=4326)
+                'POINT(%s %s)' % (post_data['longitude'],
+                                  post_data['latitude']), srid=4326)
         # Bad Address will be thrown if Google does not return coordinates for
         # the address, and MultiValueDictKeyError will be thrown if the POST
-        # data being passed in is empty.
-        except (MultiValueDictKeyError, BadAddressException):
+        # # data being passed in is empty.
+        except (MultiValueDictKeyError):
             errors.append("Full address is required.")
 
         try:

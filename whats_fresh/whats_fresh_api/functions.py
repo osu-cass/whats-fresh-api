@@ -1,10 +1,10 @@
-import requests
+# import requests
 from django.conf import settings
 
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.geos import fromstr
 
-
+'''
 class BadAddressException(Exception):
 
     """
@@ -18,7 +18,6 @@ def coordinates_from_address(street, city, state, zip):
     passed using the Google Geocoding API. If the address given does not
     return an exact coordinates (for instance, if the address can only be
     located down to the city), a BadAddressException is thrown.
-
     TODO: this should probably return a tuple, rather than a list.
     """
     try:
@@ -39,6 +38,7 @@ def coordinates_from_address(street, city, state, zip):
         return [lat, long]
     except:
         raise BadAddressException("Address %s not found" % full_address)
+'''
 
 
 def group_required(*group_names):

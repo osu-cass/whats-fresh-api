@@ -59,9 +59,9 @@
     <div id="us3" class="map"></div><br>
 
                 <p class="field_text">Latitude*:</p>
-                <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)"/></div>
+                <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" enctype="multipart/form-data" value="{{ vendor_form.latitude }}" /></div>
                 <p class="field_text">Longitude*:</p>
-                <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)"/></div>
+                <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" enctype="multipart/form-data" value="{{ vendor_form.longitude }}" /></div>
 
     <!-- Code for Map based location inputs ends -->
 
@@ -138,10 +138,19 @@ $('#us3').locationpicker({
                 enableAutocomplete: true,
                 onchanged: function (currentLocation, radius,  isMarkerDropped) {
                     console.log($('#us3').data("locationpicker").addressComponents);
+                    console.log($('#us3').data("locationpicker").addressComponents.streetName);
+                    console.log($('#us3').data("locationpicker").addressComponents.city);
+                    console.log($('#us3').data("locationpicker").addressComponents.stateOrProvince);
+                    console.log($('#us3').data("locationpicker").addressComponents.postalCode);
                     alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
                 },
                 oninitialized: function() {
                     console.log($('#us3').data("locationpicker").addressComponents);
+                    console.log($('#us3').data("locationpicker").addressComponents.streetName);
+                    console.log($('#us3').data("locationpicker").addressComponents.city);
+                    console.log($('#us3').data("locationpicker").addressComponents.stateOrProvince);
+                    console.log($('#us3').data("locationpicker").addressComponents.postalCode);
+
                 }
 
             });

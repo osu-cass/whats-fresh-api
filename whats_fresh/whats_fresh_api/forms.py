@@ -16,6 +16,8 @@ class VendorForm(forms.ModelForm):
             'city': forms.TextInput(attrs={'required': 'true'}),
             'state': forms.TextInput(attrs={'required': 'true'}),
             'zip': forms.TextInput(attrs={'required': 'true'}),
+            'latitude': forms.TextInput(attrs={'required': 'true'}),
+            'longitude': forms.TextInput(attrs={'required': 'true'}),
             'contact_name': forms.TextInput(attrs={'required': 'true'}),
             'lat': forms.HiddenInput
         }
