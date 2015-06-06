@@ -43,7 +43,7 @@ def vendor(request, id=None):
 
     if request.method == 'POST':
         post_data = request.POST.copy()
-        print post_data['street']
+        print post_data
         errors = []
 
         try:

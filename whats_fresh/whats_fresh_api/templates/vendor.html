@@ -54,14 +54,14 @@
 
     <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
 
-    <div><input type="text" id="us3-address" onclick="setLocationField();" onkeypress="removerEnter(event)" name="street" /></div>
+    <div><input type="text" id="us3-address" onClick="setLocationField();" onkeypress="removerEnter(event)" required="true" /></div>
 
     <div id="us3" class="map"></div><br>
 
                 <p class="field_text">Latitude*:</p>
-                <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" name="latitude" /></div>
+                <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" name="latitude" required="true" /></div>
                 <p class="field_text">Longitude*:</p>
-                <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" name="longitude" /></div>
+                <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" name="longitude" required="true" /></div>
 
     <!-- Code for Map based location inputs ends -->
 
@@ -138,22 +138,10 @@ $('#us3').locationpicker({
                 enableAutocomplete: true,
                 onchanged: function (currentLocation, radius,  isMarkerDropped) {
                     console.log($('#us3').data("locationpicker").addressComponents);
-                    var data = ($('#us3').data("locationpicker").addressComponents);
-                    var parts = JSON.stringify(data).split(',');
-                    console.log(parts[5]);   //Street
-                    console.log(parts[3]);   //City
-                    console.log(parts[2]);   //State
-                    console.log(parts[0]);   //ZIP
                     alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
                 },
                 oninitialized: function() {
                     console.log($('#us3').data("locationpicker").addressComponents);
-                    var data = ($('#us3').data("locationpicker").addressComponents);
-                    var parts = JSON.stringify(data).split(',');
-                    console.log(parts[5]);   //Street
-                    console.log(parts[3]);   //City
-                    console.log(parts[2]);   //State
-                    console.log(parts[0]);   //ZIP
 
                 }
 
@@ -234,23 +222,10 @@ $('#us3').locationpicker({
 
     function setLocationField()
     {
-        var street = []
-        var city = []
-        var state = []
-        var zip = []
-
-        $( ".location:visible" ).each( function( index, element ){
-            street.push($('#us3').data("locationpicker").addressComponents.streetName);
-            city.push($('#us3').data("locationpicker").addressComponents.city);
-            state.push($('#us3').data("locationpicker").addressComponents.stateOrProvince);
-            zip.push($('#us3').data("locationpicker").addressComponents.postalCode);
-
-        });
-
-        $('input[name="street"]').val(street);
-        $('input[name="city"]').val(city);
-        $('input[name="state"]').val(state);
-        $('input[name="zip"]').val(zip);
+        $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.streetName);
+        $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
+        $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
+        $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
 
     }
 
