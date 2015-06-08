@@ -55,10 +55,10 @@ class NewVendorTestCase(TestCase):
         response = self.client.get(reverse('new-vendor'))
 
         fields = {'name': 'input', 'description': 'textarea', 'hours': 'input',
-                  'story': 'select', 'status': 'select', 'street': 'input',
-                  'city': 'input', 'state': 'input', 'zip': 'input',
-                  'location_description': 'textarea', 'contact_name': 'input',
-                  'website': 'input', 'email': 'input', 'phone': 'input'}
+                  'story': 'select', 'status': 'select', 'latitude': 'input',
+                  'longitude': 'input', 'location_description': 'textarea',
+                  'contact_name': 'input', 'website': 'input',
+                  'email': 'input', 'phone': 'input'}
         form = response.context['vendor_form']
 
         for field in fields:
@@ -99,6 +99,7 @@ class NewVendorTestCase(TestCase):
             'street': '750 NW Lighthouse Dr', 'story': '',
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
+            'latitude': '44.6752643', 'longitude': '-124.072162',
             'location_description': 'Optional Description',
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Newport'}
@@ -145,9 +146,9 @@ class NewVendorTestCase(TestCase):
         new_vendor = {
             'zip': '', 'website': '', 'street': '', 'story': '',
             'status': '', 'state': '', 'preparation_ids': '',
-            'phone': '', 'name': '', 'location_description': '',
-            'email': '', 'description': '', 'contact_name': '',
-            'city': '', 'hours': ''}
+            'phone': '', 'name': '', 'latitude': '', 'longitude': '',
+            'location_description': '', 'email': '', 'description': '',
+            'contact_name': '', 'city': '', 'hours': ''}
 
         response = self.client.post(reverse('new-vendor'), new_vendor)
 

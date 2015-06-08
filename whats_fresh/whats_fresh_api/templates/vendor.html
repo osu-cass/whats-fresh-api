@@ -56,10 +56,10 @@
 
     <div><input type="text" id="us3-address" onkeypress="removerEnter(event)" name="location" required="true" /></div>
 
-    <div><input type="hidden" name="street"></div>
-    <div><input type="hidden" name="city"></div>
-    <div><input type="hidden" name="state"></div>
-    <div><input type="hidden" name="zip"></div>
+    <div><input type="hidden" name="street" required="true" ></div>
+    <div><input type="hidden" name="city" required="true" ></div>
+    <div><input type="hidden" name="state" required="true" ></div>
+    <div><input type="hidden" name="zip" required="true" ></div>
 
     <div id="us3" class="map"></div><br>
 
@@ -144,6 +144,7 @@ $('#us3').locationpicker({
                 onchanged: function (currentLocation, radius,  isMarkerDropped) {
                     console.log($('#us3').data("locationpicker").addressComponents);
                     alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
+                    $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
                     $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.streetName);
                     $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
                     $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
@@ -151,6 +152,12 @@ $('#us3').locationpicker({
                 },
                 oninitialized: function() {
                     console.log($('#us3').data("locationpicker").addressComponents);
+
+                    $('input[name="location"]').val($('#us3').data("locationpicker").locationNameInput);
+                    $('input[name="latitude"]').val($('#us3').data("locationpicker").latitudeInput);
+                    $('input[name="longitude"]').val($('#us3').data("locationpicker").longitudeInput);
+
+
                     $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.streetName);
                     $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
                     $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);

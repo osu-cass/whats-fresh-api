@@ -57,7 +57,8 @@ class EditVendorTestCase(TestCase):
             'phone': '', 'name': 'Test Name',
             'location_description': 'Optional Description',
             'email': '', 'description': 'Test Description',
-            'contact_name': 'Test Contact', 'city': 'Newport'}
+            'contact_name': 'Test Contact', 'city': 'Newport',
+            'latitude': '44.6752643', 'longitude': '-124.072162'}
 
         self.client.post(
             reverse('edit-vendor', kwargs={'id': '1'}), new_vendor)
@@ -99,10 +100,8 @@ class EditVendorTestCase(TestCase):
             "status": True,
             "description": "This is a vendor shop.",
             "hours": "Open Tuesday, 10am to 5pm",
-            "street": "1633 Sommerville Rd",
-            "city": "Sausalito",
-            "state": "CA",
-            "zip": "94965",
+            "latitude": "44.6752643",
+            "longitude": "-124.072162",
             "location_description": "Location description",
             "contact_name": "A. Persson",
             "story": 1,
