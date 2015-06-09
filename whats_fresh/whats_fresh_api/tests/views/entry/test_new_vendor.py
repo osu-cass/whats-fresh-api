@@ -204,7 +204,7 @@ class NewVendorTestCase(TestCase):
             'street': '123 Fake Street', 'story': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
-            'latitude': '10000', 'longitude': '10000',
+            'latitude': '', 'longitude': '',
             'location_description': 'Optional Description',
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Springfield'}
