@@ -55,8 +55,8 @@ class NewVendorTestCase(TestCase):
         response = self.client.get(reverse('new-vendor'))
 
         fields = {'name': 'input', 'description': 'textarea', 'hours': 'input',
-                  'story': 'select', 'status': 'select', 'latitude': 'input',
-                  'longitude': 'input', 'location_description': 'textarea',
+                  'story': 'select', 'status': 'select',
+                  'location_description': 'textarea',
                   'contact_name': 'input', 'website': 'input',
                   'email': 'input', 'phone': 'input'}
         form = response.context['vendor_form']
@@ -113,6 +113,8 @@ class NewVendorTestCase(TestCase):
         # into vendor_product objects, so we'll not need the preparations_id
         # field
         del new_vendor['preparation_ids']
+        del new_vendor['latitude']
+        del new_vendor['longitude']
         new_vendor['status'] = None
         new_vendor['phone'] = None
         new_vendor['story'] = None
@@ -156,7 +158,7 @@ class NewVendorTestCase(TestCase):
         self.assertIn(
             'You must choose at least one product.',
             response.context['errors'])
-        self.assertIn('Full address is required.', response.context['errors'])
+        self.assertIn('Invalid Coordinates.', response.context['errors'])
 
         required_fields = [
             'city', 'name', 'zip', 'location', 'state',
@@ -202,6 +204,7 @@ class NewVendorTestCase(TestCase):
             'street': '123 Fake Street', 'story': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
+            'latitude': '10000', 'longitude': '10000',
             'location_description': 'Optional Description',
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Springfield'}
@@ -209,7 +212,7 @@ class NewVendorTestCase(TestCase):
         response = self.client.post(reverse('new-vendor'), new_vendor)
 
         # Test that the bad address returns a bad address
-        self.assertIn("Full address is required.", response.context['errors'])
+        self.assertIn("Invalid Coordinates.", response.context['errors'])
 
         # Test that we didn't add any new objects
         self.assertTrue(list(Vendor.objects.all()) == list(all_vendors))

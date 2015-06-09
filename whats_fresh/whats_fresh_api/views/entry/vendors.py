@@ -1,6 +1,7 @@
 from django.http import (HttpResponse, HttpResponseRedirect)
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
+from django.contrib.gis.geos import GEOSException
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.gis.geos import fromstr
 from django.shortcuts import get_object_or_404
@@ -46,11 +47,11 @@ def vendor(request, id=None):
             post_data['location'] = fromstr(
                 'POINT(%s %s)' % (post_data['longitude'],
                                   post_data['latitude']), srid=4326)
-        # Bad Address will be thrown if Google does not return coordinates for
-        # the address, and MultiValueDictKeyError will be thrown if the POST
-        # # data being passed in is empty.
-        except (MultiValueDictKeyError):
-            errors.append("Full address is required.")
+        # Bad Address will be thrown if Google does not return a location for
+        # the coordinates submitted and MultiValueDictKeyError will be
+        # thrown if the POST data being passed in is empty.
+        except (GEOSException):
+            errors.append("Invalid Coordinates.")
 
         try:
             if not post_data['preparation_ids']:
