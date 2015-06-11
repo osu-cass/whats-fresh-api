@@ -50,25 +50,30 @@
         {{ vendor_form.status }}
         <h3>Location</h3><br>
 
-    <!-- Code for Map based location inputs start -->
 
-    <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+        <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
 
-    <div><input type="text" id="us3-address" onkeypress="removerEnter(event)" name="location" required="true" /></div>
+        <div><input type="text" id="us3-address" onkeypress="removerEnter(event)" name="location" required="true" /></div>
 
-    <div><input type="hidden" name="street" required="true" ></div>
-    <div><input type="hidden" name="city" required="true" ></div>
-    <div><input type="hidden" name="state" required="true" ></div>
-    <div><input type="hidden" name="zip" required="true" ></div>
+        <div><input type="hidden" name="street" required="true" ></div>
+        <div><input type="hidden" name="city" required="true" ></div>
+        <div><input type="hidden" name="state" required="true" ></div>
+        <div><input type="hidden" name="zip" required="true" ></div>
 
-    <div id="us3" class="map"></div><br>
+        <label>
+            <input type="checkbox" class="checkbox">
+            <p class="field_text">Lock Location</p>
+        </label>
 
-                <p class="field_text">Latitude*:</p>
-                <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" name="latitude" required="true" /></div>
-                <p class="field_text">Longitude*:</p>
-                <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" name="longitude" required="true" /></div>
+        <br><br>
+        <div id="us3" class="map"></div><br>     <!-- Provides the map -->
 
-    <!-- Code for Map based location inputs ends -->
+
+        <p class="field_text">Latitude*:</p>
+        <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" name="latitude" required="true" /></div>
+
+        <p class="field_text">Longitude*:</p>
+        <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" name="longitude" required="true" /></div>
 
         <p class=" field_text">Location Description:</p>
         {{ vendor_form.location_description }}
@@ -129,43 +134,86 @@
     <script src="http://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
 <script>
 
-// Script for map starts
-
 $('#us3').locationpicker({
-                location: {latitude: 44.563781, longitude: -123.27944400000001},
-                radius: false,
-                inputBinding: {
-                    latitudeInput: $('#us3-lat'),
-                    longitudeInput: $('#us3-lon'),
-                    locationNameInput: $('#us3-address')
+    location: {latitude: 44.563781, longitude: -123.27944400000001},
+    radius: false,
+    inputBinding: {
+        latitudeInput: $('#us3-lat'),
+        longitudeInput: $('#us3-lon'),
+        locationNameInput: $('#us3-address')
 
-                },
-                enableAutocomplete: true,
-                onchanged: function (currentLocation, radius,  isMarkerDropped) {
-                    console.log($('#us3').data("locationpicker").addressComponents);
-                    alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
-                    $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
-                    $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.streetName);
-                    $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
-                    $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
-                    $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
-                },
-                oninitialized: function() {
-                    console.log($('#us3').data("locationpicker").addressComponents);
+    },
+    enableAutocomplete: true,
 
-                    $('input[name="location"]').val($('#us3').data("locationpicker").locationNameInput);
-                    $('input[name="latitude"]').val($('#us3').data("locationpicker").latitudeInput);
-                    $('input[name="longitude"]').val($('#us3').data("locationpicker").longitudeInput);
+    onchanged: function (currentLocation, radius,  isMarkerDropped) {
+
+        alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
+        console.log($('#us3').data("locationpicker").addressComponents);
+
+         $('input[type="checkbox"]').click(function(){
+
+            if($(this).prop("checked") == true){
+
+               alert("Location field locked!");
+               $("#us3-address").prop('disabled',true);
+
+            }
+
+            else if($(this).prop("checked") == false){
+
+            alert("Location field unlocked!");
+            $("#us3-address").prop('disabled',false);
+
+            }
+
+    });
 
 
-                    $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.streetName);
-                    $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
-                    $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
-                    $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
+        $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
+        $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.streetName);
+        $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
+        $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
+        $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
 
-                }
+    },
 
-            });
+    oninitialized: function() {
+
+    console.log($('#us3').data("locationpicker").addressComponents);
+
+     $('input[type="checkbox"]').click(function(){
+
+        if($(this).prop("checked") == true){
+
+           alert("Location field locked!");
+
+           $("#us3-address").prop('disabled',true);
+
+        }
+
+        else if($(this).prop("checked") == false){
+
+            alert("Location field unlocked!");
+
+           $("#us3-address").prop('disabled',false);
+
+        }
+
+    });
+        // $('input[name="latitude"]').val($('#us3').data("locationpicker").latitude);
+        // $('input[name="longitude"]').val($('#us3').data("locationpicker").longitude);
+        // $('input[name="location"]').val($('#us3').data("locationpicker").locationNameInput);
+
+
+        $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.streetName);
+        $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
+        $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
+        $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
+
+    }
+
+});
+
 
     function removerEnter(e) {
         if (e.which == 13 || e.keyCode == 13) {
