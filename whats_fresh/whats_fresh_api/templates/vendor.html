@@ -54,7 +54,7 @@
         <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
 
         <div>
-        <input type="text" id="us3-address" onkeypress="removerEnter(event)" name="location" required="true" disabled="disabled" {% if location %} value="{{ location }}" {% endif %} />
+        <input type="text" id="us3-address" onkeypress="removerEnter(event)" name="location" required="true" disabled="disabled" />
         </div>
 
         <div><input type="hidden" name="street" required="true" ></div>
@@ -73,10 +73,10 @@
 
 
         <p class="field_text">Latitude*:</p>
-        <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" name="latitude" required="true" {% if latitude %} value="{{ latitude }}" {% endif %}/></div>
+        <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" name="latitude" required="true" {% if lati %} value="{{ lati }}" {% endif %}/></div>
 
         <p class="field_text">Longitude*:</p>
-        <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" name="longitude" required="true" {% if longitude %} value="{{ longitude }}" {% endif %}/></div>
+        <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" name="longitude" required="true" {% if longi %} value="{{ longi }}" {% endif %}/></div>
 
         <p class=" field_text">Location Description:</p>
         {{ vendor_form.location_description }}
@@ -138,7 +138,8 @@
 <script>
 
 $('#us3').locationpicker({
-    location: {latitude: 44.563781, longitude: -123.27944400000001},
+    // location: {latitude: 44.563781, longitude: -123.27944400000001},
+    location: {latitude: {% if lati %} {{ lati }} {% else %} 44.563781 {% endif %}, longitude: {% if longi %} {{ longi }} {% else %} -123.27944400000001 {% endif %}},
     radius: false,
     inputBinding: {
         latitudeInput: $('#us3-lat'),
@@ -159,7 +160,7 @@ $('#us3').locationpicker({
 
                alert("Location field locked!");
                $("#us3-address").prop('disabled',true);
-
+               $("#us3-address").attr('id',true);
             }
 
             else if($(this).prop("checked") == false){
