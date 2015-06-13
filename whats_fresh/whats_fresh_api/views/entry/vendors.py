@@ -40,6 +40,9 @@ def vendor(request, id=None):
 
     if request.method == 'POST':
         post_data = request.POST.copy()
+        location = post_data['location']
+        latitude = post_data['latitude']
+        longitude = post_data['longitide']
         print post_data
         errors = []
 
@@ -169,6 +172,9 @@ def vendor(request, id=None):
         'vendor_form': vendor_form,
         'json_preparations': json_preparations,
         'product_list': product_list,
+        'location': location,
+        'latitude': latitude,
+        'longitude': longitude,
     })
 
 

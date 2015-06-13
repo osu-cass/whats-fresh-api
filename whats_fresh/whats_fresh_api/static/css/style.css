@@ -246,4 +246,9 @@ a {
   width: 550px;
   height: 400px; }
 
+label p {
+
+display: inline;
+position: relative; }
+
 /*# sourceMappingURL=style.css.map */
