@@ -61,8 +61,6 @@
         <div><input type="hidden" name="city" required="true" ></div>
         <div><input type="hidden" name="state" required="true" ></div>
         <div><input type="hidden" name="zip" required="true" ></div>
-        <div><input type="hidden" name="latitude" required="true" ></div>
-        <div><input type="hidden" name="longitude" required="true" ></div>
 
 <!--         <label>
             <input type="checkbox" id="loc" checked="checked" required="true" />
@@ -72,7 +70,7 @@
 
 <table>
   <tr>
-    <td><input type="checkbox" id="loc" checked="checked" required="true" />Lock Location</td>
+    <td><input type="checkbox" id="loc" checked="checked" />Lock Location</td>
   </tr>
 </table>
 
@@ -83,10 +81,10 @@
 
 
         <p class="field_text">Latitude*:</p>
-        <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" required="true" {% if latit %} value="{{ latit }}" {% endif %}/></div>
+        <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" name="latitude" required="true" {% if latit %} value="{{ latit }}" {% endif %}/></div>
 
         <p class="field_text">Longitude*:</p>
-        <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" required="true" {% if longit %} value="{{ longit }}" {% endif %}/></div>
+        <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" name="longitude" required="true" {% if longit %} value="{{ longit }}" {% endif %}/></div>
 
         <p class=" field_text">Location Description:</p>
         {{ vendor_form.location_description }}
@@ -171,12 +169,10 @@ $('#us3').locationpicker({
                alert("Location field locked!");
                $("#us3-address").prop('disabled',true);
 
-               $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
-               $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
-               $('input[name="state"]').val($('#us3').data("locatisonpicker").addressComponents.stateOrProvince);
-               $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
-               $('input[name="latitude"]').val($('#us3').data("locationpicker").location.A);  //For submitting latitude
-               $('input[name="longitude"]').val($('#us3').data("locationpicker").location.F); //For submitting longitude
+               // $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
+               // $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
+               // $('input[name="state"]').val($('#us3').data("locatisonpicker").addressComponents.stateOrProvince);
+               // $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
 
             }
 
@@ -190,6 +186,10 @@ $('#us3').locationpicker({
         });
 
          $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
+         $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
+         $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
+         $('input[name="state"]').val($('#us3').data("locatisonpicker").addressComponents.stateOrProvince);
+         $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
 
     },
 
@@ -212,9 +212,6 @@ $('#us3').locationpicker({
             $("#us3-address").prop('disabled',false);
 
         }
-
-                       $('input[name="latitude"]').val($('#us3').data("locationpicker").location.A);  //For submitting latitude
-               $('input[name="longitude"]').val($('#us3').data("locationpicker").location.F); //For submitting longitude
 
     });
 
