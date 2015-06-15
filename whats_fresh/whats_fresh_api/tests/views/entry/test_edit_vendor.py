@@ -55,7 +55,7 @@ class EditVendorTestCase(TestCase):
             'street': '750 NW Lighthouse Dr', 'story': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
-            'latitude': '44.6752643', 'longitude': '-124.072162',
+            # 'latitude': '44.6752643', 'longitude': '-124.072162',
             'location_description': 'Optional Description',
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Newport'}
@@ -68,8 +68,8 @@ class EditVendorTestCase(TestCase):
         # into vendor_product objects, so we'll not need the preparations_id
         # field
         del new_vendor['preparation_ids']
-        del new_vendor['latitude']
-        del new_vendor['longitude']
+        # del new_vendor['latitude']
+        # del new_vendor['longitude']
         new_vendor['status'] = None
         new_vendor['phone'] = None
         new_vendor['story'] = Story.objects.get(id=new_vendor['story'])

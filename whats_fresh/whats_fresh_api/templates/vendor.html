@@ -61,11 +61,21 @@
         <div><input type="hidden" name="city" required="true" ></div>
         <div><input type="hidden" name="state" required="true" ></div>
         <div><input type="hidden" name="zip" required="true" ></div>
+        <div><input type="hidden" name="latitude" required="true" ></div>
+        <div><input type="hidden" name="longitude" required="true" ></div>
 
-        <label>
-            <input type="checkbox" id="loc" checked="checked" />
-            <p class="field_text">Lock Location</p>
-        </label>
+<!--         <label>
+            <input type="checkbox" id="loc" checked="checked" required="true" />
+            <!-- <p class="field_text">Lock Location</p> -->
+            <!-- LOCK -->
+        <!-- </label> -->
+
+<table>
+  <tr>
+    <td><input type="checkbox" id="loc" checked="checked" required="true" />Lock Location</td>
+  </tr>
+</table>
+
 
 
         <br><br>
@@ -73,10 +83,10 @@
 
 
         <p class="field_text">Latitude*:</p>
-        <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" name="latitude" required="true" {% if lati %} value="{{ lati }}" {% endif %}/></div>
+        <div><input type="text" id="us3-lat" onkeypress="removerEnter(event)" required="true" {% if latit %} value="{{ latit }}" {% endif %}/></div>
 
         <p class="field_text">Longitude*:</p>
-        <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" name="longitude" required="true" {% if longi %} value="{{ longi }}" {% endif %}/></div>
+        <div><input type="text" id="us3-lon" onkeypress="removerEnter(event)" required="true" {% if longit %} value="{{ longit }}" {% endif %}/></div>
 
         <p class=" field_text">Location Description:</p>
         {{ vendor_form.location_description }}
@@ -139,7 +149,7 @@
 
 $('#us3').locationpicker({
     // location: {latitude: 44.563781, longitude: -123.27944400000001},
-    location: {latitude: {% if lati %} {{ lati }} {% else %} 44.563781 {% endif %}, longitude: {% if longi %} {{ longi }} {% else %} -123.27944400000001 {% endif %}},
+    location: {latitude: {% if latit %} {{ latit }} {% else %} 44.563781 {% endif %}, longitude: {% if longit %} {{ longit }} {% else %} -123.27944400000001 {% endif %}},
     radius: false,
     inputBinding: {
         latitudeInput: $('#us3-lat'),
@@ -160,7 +170,14 @@ $('#us3').locationpicker({
 
                alert("Location field locked!");
                $("#us3-address").prop('disabled',true);
-               $("#us3-address").attr('id',true);
+
+               $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
+               $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
+               $('input[name="state"]').val($('#us3').data("locatisonpicker").addressComponents.stateOrProvince);
+               $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
+               $('input[name="latitude"]').val($('#us3').data("locationpicker").location.A);  //For submitting latitude
+               $('input[name="longitude"]').val($('#us3').data("locationpicker").location.F); //For submitting longitude
+
             }
 
             else if($(this).prop("checked") == false){
@@ -170,14 +187,9 @@ $('#us3').locationpicker({
 
             }
 
-    });
+        });
 
-
-       $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
-       $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
-       $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
-       $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
-       $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
+         $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
 
     },
 
@@ -200,6 +212,9 @@ $('#us3').locationpicker({
             $("#us3-address").prop('disabled',false);
 
         }
+
+                       $('input[name="latitude"]').val($('#us3').data("locationpicker").location.A);  //For submitting latitude
+               $('input[name="longitude"]').val($('#us3').data("locationpicker").location.F); //For submitting longitude
 
     });
 

@@ -99,7 +99,7 @@ class NewVendorTestCase(TestCase):
             'street': '750 NW Lighthouse Dr', 'story': '',
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
-            'latitude': '44.6752643', 'longitude': '-124.072162',
+            # 'latitude': '44.6752643', 'longitude': '-124.072162',
             'location_description': 'Optional Description',
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Newport'}
@@ -113,8 +113,8 @@ class NewVendorTestCase(TestCase):
         # into vendor_product objects, so we'll not need the preparations_id
         # field
         del new_vendor['preparation_ids']
-        del new_vendor['latitude']
-        del new_vendor['longitude']
+        # del new_vendor['latitude']
+        # del new_vendor['longitude']
         new_vendor['status'] = None
         new_vendor['phone'] = None
         new_vendor['story'] = None
@@ -148,7 +148,8 @@ class NewVendorTestCase(TestCase):
         new_vendor = {
             'zip': '', 'website': '', 'street': '', 'story': '',
             'status': '', 'state': '', 'preparation_ids': '',
-            'phone': '', 'name': '', 'latitude': '', 'longitude': '',
+            'phone': '', 'name': '',
+            # 'latitude': '', 'longitude': '',
             'location_description': '', 'email': '', 'description': '',
             'contact_name': '', 'city': '', 'hours': ''}
 
@@ -204,7 +205,7 @@ class NewVendorTestCase(TestCase):
             'street': '123 Fake Street', 'story': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
-            'latitude': '', 'longitude': '',
+            # 'latitude': '', 'longitude': '',
             'location_description': 'Optional Description',
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Springfield'}

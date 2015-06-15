@@ -246,9 +246,14 @@ a {
   width: 550px;
   height: 400px; }
 
-label p {
+table{
 
-display: inline;
-position: relative; }
+  margin: auto;
 
+}
+
+td input[type="checkbox"] {
+    float: left;
+    margin: 10px auto;
+}
 /*# sourceMappingURL=style.css.map */

@@ -329,9 +329,13 @@ a{
 
 }
 
-label p {
+table{
 
-display: inline;
-position: relative;
+    margin: auto;
 
+}
+
+td input[type="checkbox"] {
+    float: left;
+    margin: 10px auto;
 }
