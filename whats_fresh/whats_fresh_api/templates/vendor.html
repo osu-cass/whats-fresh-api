@@ -53,8 +53,17 @@
 
         <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
 
+
+    <!-- ASLI -->
         <div>
-        <input type="text" id="us3-address" onkeypress="removerEnter(event)" name="location" required="true" disabled="disabled" />
+        <input type="text" id="us3-address" onkeypress="removerEnter(event)" name="location" required="true" />
+        </div>
+
+
+    <!-- NAKLI -->
+
+        <div>
+        <input type="text" id="dis" onkeypress="removerEnter(event)" required="true" disabled="disabled" />
         </div>
 
         <div><input type="hidden" name="street" required="true" ></div>
@@ -70,7 +79,7 @@
 
 <table>
   <tr>
-    <td><input type="checkbox" id="loc" checked="checked" />Lock Location</td>
+    <td><input type="checkbox" id="loc"/>Lock Location</td>
   </tr>
 </table>
 
@@ -145,6 +154,8 @@
     <script src="http://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
 <script>
 
+$("#dis").hide();
+
 $('#us3').locationpicker({
     // location: {latitude: 44.563781, longitude: -123.27944400000001},
     location: {latitude: {% if latit %} {{ latit }} {% else %} 44.563781 {% endif %}, longitude: {% if longit %} {{ longit }} {% else %} -123.27944400000001 {% endif %}},
@@ -162,25 +173,29 @@ $('#us3').locationpicker({
         alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
         console.log($('#us3').data("locationpicker").addressComponents);
 
-         $('#loc').click(function(){
+         $('#loc').ready(function(){
 
             if($(this).prop("checked") == true){
 
                alert("Location field locked!");
-               $("#us3-address").prop('disabled',true);
+               $("#us3-address").hide();
+               $("#dis").attr('value', $("#us3-address").val());
+               $("#dis").show();
 
                $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
                $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
-               $('input[name="state"]').val($('#us3').data("locatisonpicker").addressComponents.stateOrProvince);
+               $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
                $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
 
             }
 
-            else if($(this).prop("checked") == false){
+            else {
 
                 alert("Location field unlocked!");
-                $("#us3-address").prop('disabled',false);
-                $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
+                $("#dis").hide();
+                $("#us3-address").show();
+
+                // $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
                 $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
                 $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
                 $('input[name="state"]').val($('#us3').data("locatisonpicker").addressComponents.stateOrProvince);
@@ -190,35 +205,60 @@ $('#us3').locationpicker({
 
         });
 
+
+        $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
+        // $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
+        // $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
+        // $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
+        // $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
+
+
     },
 
     oninitialized: function() {
 
+
     console.log($('#us3').data("locationpicker").addressComponents);
+
 
      $('#loc').click(function(){
 
         if($(this).prop("checked") == true){
 
            alert("Location field locked!");
-           $("#us3-address").prop('disabled',true);
+           $("#us3-address").hide();
+           $("#dis").attr('value', $("#us3-address").val());
+           $("#dis").show();
 
-        }
-
-        else if($(this).prop("checked") == false){
-
-            alert("Location field unlocked!");
-            $("#us3-address").prop('disabled',false);
-
-        }
-
-    });
 
        $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
        $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
        $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
        $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
        $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
+
+
+        }
+
+        else{
+
+            alert("Location field unlocked!");
+            $("#dis").hide();
+            $("#us3-address").show();
+
+            $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
+            $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
+            $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
+            $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
+        }
+
+    });
+
+       $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
+       // $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
+       // $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
+       // $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
+       // $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
 
     }
 
