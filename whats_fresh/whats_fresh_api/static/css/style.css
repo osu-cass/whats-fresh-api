@@ -246,14 +246,11 @@ a {
   width: 550px;
   height: 400px; }
 
-table{
+input[type=checkbox] {
 
-  margin: auto;
-
+  vertical-align: -2px;
+  margin: 0;
+  padding: 0;
 }
 
-td input[type="checkbox"] {
-    float: left;
-    margin: 10px auto;
-}
 /*# sourceMappingURL=style.css.map */

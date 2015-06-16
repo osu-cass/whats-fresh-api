@@ -329,13 +329,10 @@ a{
 
 }
 
-table{
+input[type=checkbox] {
 
-    margin: auto;
-
-}
-
-td input[type="checkbox"] {
-    float: left;
-    margin: 10px auto;
+  vertical-align: -2px;
+  margin: 0;
+  padding: 0;
+  text-align: left;
 }
