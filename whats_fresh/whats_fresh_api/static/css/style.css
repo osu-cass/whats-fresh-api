@@ -246,11 +246,13 @@ a {
   width: 550px;
   height: 400px; }
 
-input[type=checkbox] {
+#loc {
 
-  vertical-align: -2px;
-  margin: 0;
+  height: 21px;
+  position: absolute;
+  margin-left: 200px;
   padding: 0;
+
 }
 
 /*# sourceMappingURL=style.css.map */

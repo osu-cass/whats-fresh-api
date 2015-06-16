@@ -329,10 +329,11 @@ a{
 
 }
 
-input[type=checkbox] {
+#loc {
 
-  vertical-align: -2px;
-  margin: 0;
-  padding: 0;
-  text-align: left;
+    height: 21px;
+    position: absolute;
+    margin-left: 200px;
+    padding: 0;
+
 }
