@@ -47,9 +47,8 @@ def vendor(request, id=None):
             post_data['location'] = fromstr(
                 'POINT(%s %s)' % (post_data['longitude'],
                                   post_data['latitude']), srid=4326)
-        # Bad Address will be thrown if Google does not return a location for
-        # the coordinates submitted and MultiValueDictKeyError will be
-        # thrown if the POST data being passed in is empty.
+        # Bad Address will be thrown if the coordinates submitted
+        # are invalid and GEOSException will be thrown.
         except (GEOSException):
             errors.append("Invalid Coordinates.")
 
