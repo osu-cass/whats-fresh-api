@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
+from django.template.loader import render_to_string
 
 from whats_fresh.whats_fresh_api.models import Preparation
 from whats_fresh.whats_fresh_api.forms import PreparationForm
@@ -75,7 +76,22 @@ def preparation(request, id=None):
         preparation.delete()
         return HttpResponse()
 
-    if request.method == 'POST':
+    elif request.method == 'POST' and request.is_ajax():
+        message = ''
+        post_data = request.POST.copy()
+        errors = []
+
+        preparation_form = PreparationForm(post_data)
+        if preparation_form.is_valid() and not errors:
+            preparation = Preparation.objects.create(
+                **preparation_form.cleaned_data)
+            preparation.save()
+            html = render_to_string('/whats_fresh/whats_fresh_api/templates/preparation_ajax.html')
+            return HttpResponse(html)
+        else:
+            pass
+
+    elif request.method == 'POST':
         message = ''
         post_data = request.POST.copy()
         errors = []
