@@ -75,6 +75,7 @@
         <span class="no_prep">No Preparations Yet!</span>
         {% endif %}
     </div>
+    <a id="popupPrep" onclick="return popitup('/entry/preparations/new/?$')"><button type="button">Add New Preparation</button></a>
 
     <input class='preparation' name="preparation_ids" type="hidden" />
     <div class="buttons">
@@ -100,6 +101,12 @@
     var preparation_options = {{ json_preparations|safe }};
 
     number_of_preparations = 0;
+
+    function popitup(url) {
+        newwindow=window.open(url,'{{title}}','height=200,width=150');
+        if (window.focus) {newwindow.focus()}
+        return false;
+    }
 
     function deletePreparation(element)
     {
