@@ -76,11 +76,17 @@
         {% endif %}
     </div>
 
-    <button id="newButton" type="button">
+<!--     <button id="newButton" type="button">
         <div id="popupForm">
             <a href="/entry/products/new/preparations/new/">Add New Preparation</a>
         </div>
-    </button>
+    </button> -->
+
+
+    <!-- <a href="" onclick="return popitup('/entry/products/new/preparations/new/?$')">Add New Preparation </a> -->
+    <button onclick="return popitup('/entry/products/new/preparations/new/?$')">Add New Preparation</button>
+    <div id="dialog-form"></div>
+
 
     <input class='preparation' name="preparation_ids" type="hidden" />
     <div class="buttons">
@@ -112,27 +118,40 @@
 
     // Code for inline form starts
 
-        $('#newButton').click(function() {
-            $('#popupForm').dialog({
-                modal: true,
-                width: 700,
-                height: 700,
-                draggable: false,
-                title: "New Preparation",
-                open: function(){$.ajax({
+    //     $('#newButton').click(function() {
+    //         $('#popupForm').dialog({
+    //             modal: true,
+    //             width: 700,
+    //             height: 700,
+    //             draggable: false,
+    //             title: "New Preparation",
+    //             open: function(){$.ajax({
 
-                    type: "POST",
-                    url: "/entry/products/new/preparations/new/",
-                    data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
-                    success : function(data) {
-                         $('.row.replace').html(data);
-                     }
+    //                 type: "POST",
+    //                 url: "url",
+    //                 data: {'preparation_form': '{{ preparation_form }}', 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+    //                 success : function(data) {
+    //                      $('#popupForm').html(data).dialog({modal:true}).dialog('open');
+    // };
+    //                  }
 
-                });
+    //             });
+    //         }
+
+    //         });
+    //     });
+
+
+        function popitup(url) {
+          $.ajax({
+            url: url,
+            success: function(data) {
+              $("#dialog-form").html(data).dialog({modal:true}, {width: 700}, {height: 700}, {draggable: false}).dialog('open');
             }
+          })
+          return false;
+        }
 
-            });
-        });
 
 
     // Code for inline form ends
