@@ -75,12 +75,12 @@
         <span class="no_prep">No Preparations Yet!</span>
         {% endif %}
     </div>
-<!--     <a id="popupPrep" onclick="return popitup('/entry/preparations/new/?$')"><button id="myButton" onclick="showPopup" type="button">Add New Preparation</button></a> -->
 
-        <button id="opener" type="button">Add New Preparation</button>
-        <div id="wrapper">
-            <!-- <p>Some txt goes here</p> -->
+    <button id="newButton" type="button">
+        <div id="popupForm">
+            <a href="/entry/products/new/preparations/new/">Add New Preparation</a>
         </div>
+    </button>
 
     <input class='preparation' name="preparation_ids" type="hidden" />
     <div class="buttons">
@@ -112,43 +112,27 @@
 
     // Code for inline form starts
 
-    // function popitup(url) {
-    //     newwindow=window.open(url,'{{title}}','height=200,width=150');
-    //     if (window.focus) {newwindow.focus()}
-    //     return false;
-    // }
+        $('#newButton').click(function() {
+            $('#popupForm').dialog({
+                modal: true,
+                width: 700,
+                height: 700,
+                draggable: false,
+                title: "New Preparation",
+                open: function(){$.ajax({
 
-
-//                 $('#wrapper').dialog({
-//                     autoOpen: false,
-//                     title: 'Basic Dialog'
-//                 });
-//                 $('#opener').click(function() {
-//                     $('#wrapper').dialog('open');
-// //                  return false;
-//                 });
-
-
-            $('#wrapper').dialog({
-                autoOpen: false,
-                title: 'Basic Dialog'
-            });
-            $('#opener').click(function() {
-                $('#wrapper').dialog({
-                    open: function(){$.ajax({
-
-                        type: "GET",
-                        url: "/whats_fresh/whats_fresh_api/templates/preparation_ajax.html",
-                        data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
-                        success : function(data) {
-                             $('.row.replace').html(data);
-                         }
-
-                    });
-                }
+                    type: "POST",
+                    url: "preparation_ajax.html",
+                    data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                    success : function(data) {
+                         $('.row.replace').html(data);
+                     }
 
                 });
+            }
+
             });
+        });
 
 
     // Code for inline form ends

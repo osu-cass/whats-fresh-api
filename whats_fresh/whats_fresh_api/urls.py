@@ -58,6 +58,11 @@ urlpatterns = patterns(
         'whats_fresh.whats_fresh_api.views.entry.products.product',
         name='new-product'),
 
+    # Endpoint for popup form
+    url(r'^entry/products/new/preparations/new/?$',
+        'whats_fresh.whats_fresh_api.views.entry.preparations.preparation',
+        name='preparation-ajax'),
+
     url(r'^entry/products/?$',
         'whats_fresh.whats_fresh_api.views.entry.products.product_list',
         name='entry-list-products'),
