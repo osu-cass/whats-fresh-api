@@ -122,7 +122,7 @@
                 open: function(){$.ajax({
 
                     type: "POST",
-                    url: "preparation_ajax.html",
+                    url: "/entry/products/new/preparations/new/",
                     data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
                     success : function(data) {
                          $('.row.replace').html(data);

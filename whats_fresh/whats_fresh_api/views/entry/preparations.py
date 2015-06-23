@@ -75,22 +75,22 @@ def preparation(request, id=None):
         preparation.delete()
         return HttpResponse()
 
-    elif request.method == 'POST' and request.is_ajax():
-        message = ''
-        post_data = request.POST.copy()
-        errors = []
+    # elif request.method == 'POST' and request.is_ajax():
+    #     message = ''
+    #     post_data = request.POST.copy()
+    #     errors = []
 
-        preparation_form = PreparationForm(post_data)
-        if preparation_form.is_valid() and not errors:
-            preparation = Preparation.objects.create(
-                **preparation_form.cleaned_data)
-            preparation.save()
-            html = render('preparation_ajax.html')
-            return HttpResponse(html)
-        else:
-            pass
+    #     preparation_form = PreparationForm(post_data)
+    #     if preparation_form.is_valid() and not errors:
+    #         preparation = Preparation.objects.create(
+    #             **preparation_form.cleaned_data)
+    #         preparation.save()
+    #         html = render('preparation_ajax.html')
+    #         return HttpResponse(html)
+    #     else:
+    #         pass
 
-    elif request.method == 'POST':
+    if request.method == 'POST':
         message = ''
         post_data = request.POST.copy()
         errors = []
@@ -140,6 +140,40 @@ def preparation(request, id=None):
         'title': title,
         'message': message,
         'post_url': post_url,
+        'errors': errors,
+        'preparation_form': preparation_form,
+    })
+
+
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
+def preparation_ajax(request):
+    message = ''
+    post_data = request.POST.copy()
+    errors = []
+
+    preparation_form = PreparationForm(post_data)
+    if preparation_form.is_valid() and not errors:
+        if id:
+            preparation = Preparation.objects.get(id=id)
+            preparation.__dict__.update(**preparation_form.cleaned_data)
+            preparation.save()
+        else:
+            preparation = Preparation.objects.create(
+                **preparation_form.cleaned_data)
+            preparation.save()
+        return HttpResponseRedirect(
+            "%s?saved=true" % reverse('entry-list-preparations'))
+    else:
+        pass
+
+    return render(request, 'preparation_ajax.html', {
+        'parent_url': [
+            {'url': reverse('home'), 'name': 'Home'},
+            {'url': reverse('entry-list-preparations'),
+             'name': 'Product Form/Packaging'}
+        ],
+        'message': message,
         'errors': errors,
         'preparation_form': preparation_form,
     })
