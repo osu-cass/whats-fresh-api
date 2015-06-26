@@ -146,22 +146,13 @@ def preparation_ajax(request, id=None):
 
         preparation_form = PreparationForm(post_data)
         if preparation_form.is_valid() and not errors:
-            if id:
-                preparation = Preparation.objects.get(id=id)
-                preparation.__dict__.update(**preparation_form.cleaned_data)
-                preparation.save()
-            else:
-                preparation = Preparation.objects.create(
-                    **preparation_form.cleaned_data)
-                preparation.save()
+            preparation = Preparation.objects.create(
+                **preparation_form.cleaned_data)
+            preparation.save()
             # return HttpResponseRedirect(
             #     "%s?saved=true" % reverse('entry-list-preparations'))
         else:
             pass
-
-    else:
-        errors = []
-        message = ''
 
     return render(request, 'preparation_ajax.html', {
         'message': message,
