@@ -76,17 +76,11 @@
         {% endif %}
     </div>
 
-<!--     <button id="newButton" type="button">
-        <div id="popupForm">
-            <a href="/entry/products/new/preparations/new/">Add New Preparation</a>
-        </div>
-    </button> -->
 
-
-    <!-- <a href="" onclick="return popitup('/entry/products/new/preparations/new/?$')">Add New Preparation </a> -->
 
     <button onclick="return popitup('/entry/products/new/preparations/new/?$')">Add New Preparation</button>
     <div id="dialog-form"></div>
+
 
 
     <input class='preparation' name="preparation_ids" type="hidden" />
@@ -119,29 +113,6 @@
 
     // Code for inline form starts
 
-    //     $('#newButton').click(function() {
-    //         $('#popupForm').dialog({
-    //             modal: true,
-    //             width: 700,
-    //             height: 700,
-    //             draggable: false,
-    //             title: "New Preparation",
-    //             open: function(){$.ajax({
-
-    //                 type: "POST",
-    //                 url: "url",
-    //                 data: {'preparation_form': '{{ preparation_form }}', 'csrfmiddlewaretoken': '{{ csrf_token }}'},
-    //                 success : function(data) {
-    //                      $('#popupForm').html(data).dialog({modal:true}).dialog('open');
-    // };
-    //                  }
-
-    //             });
-    //         }
-
-    //         });
-    //     });
-
 
         function popitup(url) {
           $.ajax({
@@ -150,15 +121,30 @@
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data) {
               $("#dialog-form").html(data).dialog({modal:true}, {title: "New Preparation"}, {width: 700}, {height: 700}, {draggable: false}).dialog('open');
+
             }
 
-
-            // $("#dialog-form").submit();
-
-
           });
+
           return false;
         }
+
+
+        $("#dialog-form").submit(function() {
+
+            $.ajax({
+                   type: "POST",
+                   url: '/entry/products/new/preparations/new',
+                   data: $("#dialog-form").serialize(),
+                   headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                   success: function(data)
+                   {
+                       alert("New Preparation saved.");
+                   }
+                 });
+
+            return false; // avoid to execute the actual submit of the form.
+        });
 
 
 

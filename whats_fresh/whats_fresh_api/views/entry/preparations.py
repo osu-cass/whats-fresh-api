@@ -140,6 +140,7 @@ def preparation_ajax(request, id=None):
     elif request.method == 'POST':
         message = ''
         post_data = request.POST.copy()
+        print post_data
         errors = []
 
         preparation_form = PreparationForm(post_data)
