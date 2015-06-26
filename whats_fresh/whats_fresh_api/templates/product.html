@@ -78,7 +78,7 @@
 
 
 
-    <button onclick="return popitup('/entry/products/new/preparations/new/?$')">Add New Preparation</button>
+    <button type="submit" onclick="return popitup('/entry/products/new/preparations/new/?$')">Add New Preparation</button>
     <div id="dialog-form"></div>
 
 
@@ -130,21 +130,47 @@
         }
 
 
-        $("#dialog-form").submit(function() {
+        // $("#dialog-form").submit(function() {
 
-            $.ajax({
-                   type: "POST",
-                   url: '/entry/products/new/preparations/new',
-                   data: $("#dialog-form").serialize(),
-                   headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-                   success: function(data)
-                   {
-                       alert("New Preparation saved.");
-                   }
-                 });
+        //     $.ajax({
+        //            type: "POST",
+        //            url: '/entry/products/new/preparations/new',
+        //            data: $("#dialog-form").serialize(),
+        //            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        //            success: function(data)
+        //            {
+        //                alert("New Preparation saved.");
+        //            }
+        //          });
 
-            return false; // avoid to execute the actual submit of the form.
-        });
+        //     return false; // avoid to execute the actual submit of the form.
+        // });
+
+
+
+       $("#dialog-form").on('submit', function (e) {
+
+         e.preventDefault();
+
+         $.ajax({
+            type: "POST",
+            url: '/entry/products/new/preparations/new',
+            data: $("#dialog-form").serialize(),
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data)
+            {
+
+                alert("New Preparation saved.");
+                $("#dialog-form").html(data);
+                // $('input[name="name"]').data;
+
+            }
+          });
+
+
+       });
+
+
 
 
 

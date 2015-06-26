@@ -138,6 +138,7 @@ def preparation_ajax(request, id=None):
         return render(request, 'preparation_ajax.html', {'preparation_form': preparation_form})
 
     elif request.method == 'POST':
+        print "AJAX POST"
         message = ''
         post_data = request.POST.copy()
         print post_data
@@ -153,17 +154,16 @@ def preparation_ajax(request, id=None):
                 preparation = Preparation.objects.create(
                     **preparation_form.cleaned_data)
                 preparation.save()
-            return HttpResponseRedirect(
-                "%s?saved=true" % reverse('entry-list-preparations'))
+            # return HttpResponseRedirect(
+            #     "%s?saved=true" % reverse('entry-list-preparations'))
         else:
             pass
 
+    else:
+        errors = []
+        message = ''
+
     return render(request, 'preparation_ajax.html', {
-        'parent_url': [
-            {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-preparations'),
-             'name': 'Product Form/Packaging'}
-        ],
         'message': message,
         'errors': errors,
         'preparation_form': preparation_form,
