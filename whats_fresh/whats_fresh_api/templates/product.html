@@ -84,6 +84,7 @@
 
 
     <!-- <a href="" onclick="return popitup('/entry/products/new/preparations/new/?$')">Add New Preparation </a> -->
+
     <button onclick="return popitup('/entry/products/new/preparations/new/?$')">Add New Preparation</button>
     <div id="dialog-form"></div>
 
@@ -144,11 +145,18 @@
 
         function popitup(url) {
           $.ajax({
+            type: "GET",
             url: url,
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data) {
-              $("#dialog-form").html(data).dialog({modal:true}, {width: 700}, {height: 700}, {draggable: false}).dialog('open');
+              $("#dialog-form").html(data).dialog({modal:true}, {title: "New Preparation"}, {width: 700}, {height: 700}, {draggable: false}).dialog('open');
             }
-          })
+
+
+            // $("#dialog-form").submit();
+
+
+          });
           return false;
         }
 
