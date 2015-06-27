@@ -15,8 +15,8 @@
 <h4 class='light accent'>{{ message }}</h4>
 {% endblock title %}
 
-{% block content %}
-{% load staticfiles %} -->
+{% block content %}  -->
+{% load staticfiles %}
 <form class='form' action="{{ post_url }}" method="post">
     {% if product_form.errors or errors %}
     <div class="error">
@@ -31,6 +31,9 @@
     </div>
     {% endif %}
     <h4 id='error_tag' class='light warning'></h4>
+     {% if product_form.instance.pk != None %}
+    <button class='dbutton' type="button" onclick="deleteProduct();return false;" />Delete</button>
+    {% endif %}
     {% csrf_token %}
     <h3>Basic Info</h3>
    <p class="field_text">Specific Variety*:</p>
@@ -91,13 +94,11 @@
     </div>
 </div>
 
-{% endblock content %}
-{% block footer %}
+<!-- {% endblock content %} -->
+<!-- {% block footer %}
 <script>
     var preparation_options = {{ json_preparations|safe }};
-
     number_of_preparations = 0;
-
     function deletePreparation(element)
     {
         $( element ).parent().css("display", "none");
@@ -105,8 +106,24 @@
             $( ".no_products" ).show();
         };
     }
-
-
+    function deleteProduct()
+    {
+        if(confirm('Are you sure you want to delete this product?')) {
+            $.ajax({
+                type: 'DELETE',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                statusCode: {
+                    404: function() {
+                        $("#error_tag").text('Unable to delete product!');
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                    },
+                    200: function() {
+                        window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+                    }
+                }
+            });
+        }
+    }
     function appendPreparation()
     {
         $( ".no_preparations" ).hide();
@@ -121,7 +138,6 @@
         $( ".preparation_select:visible" ).each( function( index, element ){
             preparation_ids.push(this.options[this.selectedIndex].value);
         });
-
         $('input[name="preparation_ids"]').val(preparation_ids);
     }
 </script>

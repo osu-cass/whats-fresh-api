@@ -91,7 +91,7 @@
             <input id="preparation_ids" name="preparation_ids" type="hidden" />
         </div>
 
-        <button onclick="return popitup('/entry/vendors/new/products/new/?$')">Add New Product</button>
+        <button type="submit" onclick="return popitup('/entry/vendors/new/products/new/?$')">Add New Product</button>
         <div id="dialog-form"></div>
 
         <button type="submit" onclick="setPreparationField();" />Save</button>
@@ -147,24 +147,6 @@
         }
 
 
-        // $("#dialog-form").submit(function() {
-
-        //     $.ajax({
-        //            type: "POST",
-        //            url: '/entry/products/new/preparations/new',
-        //            data: $("#dialog-form").serialize(),
-        //            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-        //            success: function(data)
-        //            {
-        //                alert("New Preparation saved.");
-        //            }
-        //          });
-
-        //     return false; // avoid to execute the actual submit of the form.
-        // });
-
-
-
        $("#dialog-form").on('submit', function (e) {
 
          e.preventDefault();
@@ -187,11 +169,7 @@
 
 
 
-
-
     // Code for inline form ends
-
-
 
 
     function deleteProduct(element)
