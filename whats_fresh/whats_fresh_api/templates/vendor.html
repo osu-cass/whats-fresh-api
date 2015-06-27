@@ -90,6 +90,10 @@
             {% endif %}
             <input id="preparation_ids" name="preparation_ids" type="hidden" />
         </div>
+
+        <button onclick="return popitup('/entry/vendors/new/products/new/?$')">Add New Product</button>
+        <div id="dialog-form"></div>
+
         <button type="submit" onclick="setPreparationField();" />Save</button>
     </div>
 </form>
@@ -112,10 +116,83 @@
 </div>
 {% endblock content %}
 {% block footer %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+
 <script>
+
     var preparation_options = {{ json_preparations|safe }};
 
     number_of_products = 0;
+
+    // Code for inline form starts
+
+
+        function popitup(url) {
+          $.ajax({
+            type: "GET",
+            url: url,
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data) {
+
+              $("#dialog-form").html(data).dialog({modal:true}, {title: "New Product"}, {width: 700}, {height: 1500}, {draggable: false}).dialog('open');
+
+            }
+
+          });
+
+          return false;
+        }
+
+
+        // $("#dialog-form").submit(function() {
+
+        //     $.ajax({
+        //            type: "POST",
+        //            url: '/entry/products/new/preparations/new',
+        //            data: $("#dialog-form").serialize(),
+        //            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        //            success: function(data)
+        //            {
+        //                alert("New Preparation saved.");
+        //            }
+        //          });
+
+        //     return false; // avoid to execute the actual submit of the form.
+        // });
+
+
+
+       $("#dialog-form").on('submit', function (e) {
+
+         e.preventDefault();
+
+         $.ajax({
+            type: "POST",
+            url: '/entry/vendors/new/products/new',
+            data: $("#dialog-form").serialize(),
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data)
+            {
+
+                alert("New Product saved.");
+
+            }
+          });
+
+
+       });
+
+
+
+
+
+    // Code for inline form ends
+
+
+
 
     function deleteProduct(element)
     {
