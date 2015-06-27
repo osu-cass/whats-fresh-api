@@ -190,93 +190,59 @@ def product_ajax(request, id=None):
         product_form = ProductForm()
         return render(request, 'product_ajax.html', {'product_form': product_form})
 
-   #  elif request.method == 'POST':
-   #      message = ''
-   #      post_data = request.POST.copy()
-   #      errors = []
+    elif request.method == 'POST':
+        message = ''
+        post_data = request.POST.copy()
+        errors = []
 
-   #      try:
-   #          if len(post_data['preparation_ids']) == 0:
-   #              errors.append("You must choose at least one preparation.")
-   #              preparations = []
-   #          else:
-   #              preparations = [int(p) for p in set(
-   #                  post_data['preparation_ids'].split(','))]
-   #      except MultiValueDictKeyError:
-   #          errors.append("You must choose at least one preparation.")
-   #          preparations = []
+        try:
+            if len(post_data['preparation_ids']) == 0:
+                errors.append("You must choose at least one preparation.")
+                preparations = []
+            else:
+                preparations = [int(p) for p in set(
+                    post_data['preparation_ids'].split(','))]
+        except MultiValueDictKeyError:
+            errors.append("You must choose at least one preparation.")
+            preparations = []
 
-   #      if id:
-   #          product = Product.objects.get(id=id)
-   #      else:
-   #          product = None
+        product = None
 
-   #      product_form = ProductForm(post_data, product)
-   #      if product_form.is_valid() and not errors:
-   #          if id:
-   #              for preparation in product.preparations.all():
-   #                  # Delete any that aren't in the returned list
-   #                  if preparation.id not in preparations:
-   #                      product_preparation = ProductPreparation.objects.get(
-   #                          product=product, preparation=preparation)
-   #                      product_preparation.delete()
-   #                  # And ignore any that are in both the existing and the
-   #                  # returned list
-   #                  elif preparation.id in preparations:
-   #                      preparations.remove(preparation.id)
-   #              # Then, create all of the new ones
-   #              for preparation in preparations:
-   #                  preparation = ProductPreparation.objects.create(
-   #                      product=product,
-   #                      preparation=Preparation.objects.get(
-   #                          id=preparation))
-   #              save_instance(product_form, product)
-   #          else:
-   #              product = Product.objects.create(**product_form.cleaned_data)
-   #              for preparation in preparations:
-   #                  product_preparation = ProductPreparation.objects.create(
-   #                      product=product,
-   #                      preparation=Preparation.objects.get(
-   #                          id=preparation))
-   #              product.save()
-   #          return HttpResponseRedirect(
-   #              "%s?saved=true" % reverse('entry-list-products'))
-   #  else:
-   #      errors = []
-   #      message = ''
+        product_form = ProductForm(post_data, product)
+        if product_form.is_valid() and not errors:
+            product = Product.objects.create(**product_form.cleaned_data)
+            for preparation in preparations:
+                product_preparation = ProductPreparation.objects.create(
+                    product=product,
+                    preparation=Preparation.objects.get(
+                        id=preparation))
+            product.save()
+            # return HttpResponseRedirect(
+            #     "%s?saved=true" % reverse('entry-list-products'))
+    else:
+        errors = []
+        message = ''
 
-   #  if id:
-   #      product = Product.objects.get(id=id)
-   #      title = "Edit {0}".format(product.name)
-   #      post_url = reverse('edit-product', kwargs={'id': id})
-   #      product_form = ProductForm(instance=product)
 
-   #      existing_preparations = product.preparations.all()
+    data = {'preparations': []}
 
-   #      if request.GET.get('success') == 'true':
-   #          message = "Product saved successfully!"
+    for preparation in Preparation.objects.all():
+       data['preparations'].append({
+           'id': preparation.id,
+           'name': preparation.name
+       })
 
-   #  data = {'preparations': []}
+    json_preparations = json.dumps(data)
 
-   #  for preparation in Preparation.objects.all():
-   #     data['preparations'].append({
-   #         'id': preparation.id,
-   #         'name': preparation.name
-   #     })
-
-   #  json_preparations = json.dumps(data)
-
-   #  return render(request, 'product.html', {
-   #     'parent_url': [
-   #         {'url': reverse('home'), 'name': 'Home'},
-   #         {'url': reverse('entry-list-products'), 'name': 'Products'}],
-   #     'json_preparations': json_preparations,
-   #     'preparation_dict': data,
-   #     'existing_preparations': existing_preparations,
-   #     'parent_text': 'Product List',
-   #     'message': message,
-   #     'title': title,
-   #     'post_url': post_url,
-   #     'errors': errors,
-   #     'product_form': product_form,
-   # })
+    return render(request, 'product.html', {
+       'parent_url': [
+           {'url': reverse('home'), 'name': 'Home'},
+           {'url': reverse('entry-list-products'), 'name': 'Products'}],
+       'json_preparations': json_preparations,
+       'preparation_dict': data,
+       'existing_preparations': existing_preparations,
+       'parent_text': 'Product List',
+       'message': message,
+       'errors': errors,
+       'product_form': product_form,
+   })
