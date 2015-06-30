@@ -91,7 +91,7 @@
             <input id="preparation_ids" name="preparation_ids" type="hidden" />
         </div>
 
-        <button type="submit" onclick="return popitup('/entry/vendors/new/products/new/?$')">Add New Product</button>
+        <button type="submit" onclick="return popitup('/entry/vendors/new/products/new/')">Add New Product</button>
         <div id="dialog-form"></div>
 
         <button type="submit" onclick="setPreparationField();" />Save</button>
@@ -160,7 +160,7 @@
             {
 
                 alert("New Product saved.");
-                // $("#dialog-form").dialog('close');
+                $("#dialog-form").dialog('close');
 
 
             }

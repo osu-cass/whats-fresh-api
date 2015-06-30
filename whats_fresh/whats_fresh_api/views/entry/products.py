@@ -188,7 +188,19 @@ def product_list(request):
 def product_ajax(request, id=None):
     if request.method == 'GET':
         product_form = ProductForm()
-        return render(request, 'product_ajax.html', {'product_form': product_form})
+
+        data = {'preparations': []}
+
+        for preparation in Preparation.objects.all():
+            data['preparations'].append({
+                'id': preparation.id,
+                'name': preparation.name
+            })
+
+        json_preparations = json.dumps(data)
+
+        return render(request, 'product_ajax.html', {'product_form': product_form, 'json_preparations': json_preparations,
+        'preparation_dict': data})
 
     elif request.method == 'POST':
         message = ''
