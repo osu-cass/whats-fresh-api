@@ -137,7 +137,7 @@
          $.ajax({
             type: "POST",
             url: '/entry/products/new/preparations/new',
-            data: $("#dialog-form").serialize(),
+            data: $("#popup-form").serialize(),
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
