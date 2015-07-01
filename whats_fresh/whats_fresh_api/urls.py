@@ -71,6 +71,16 @@ urlpatterns = patterns(
         'whats_fresh.whats_fresh_api.views.entry.stories.story_list',
         name='entry-list-stories'),
 
+    # Endpoint for image popup in story.html
+    url(r'^entry/stories/new/images/new/?$',
+        'whats_fresh.whats_fresh_api.views.entry.images.image_ajax',
+        name='image_ajax'),
+
+    # Endpoint for video popup in story.html
+    url(r'^entry/stories/new/videos/new/?$',
+        'whats_fresh.whats_fresh_api.views.entry.videos.video_ajax',
+        name='video_ajax'),
+
     url(r'^entry/preparations/new/?$',
         'whats_fresh.whats_fresh_api.views.entry.preparations.preparation',
         name='new-preparation'),
