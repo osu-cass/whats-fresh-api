@@ -232,23 +232,23 @@ def product_ajax(request, id=None):
                         id=preparation))
                 print product_preparation
             product.save()
-    else:
-        errors = []
-        message = ''
+    # else:
+    #     errors = []
+    #     message = ''
 
-    data = {'preparations': []}
+        data = {'preparations': []}
 
-    for preparation in Preparation.objects.all():
-        data['preparations'].append({
-           'id': preparation.id,
-           'name': preparation.name})
+        for preparation in Preparation.objects.all():
+            data['preparations'].append({
+               'id': preparation.id,
+               'name': preparation.name})
 
-    json_preparations = json.dumps(data)
+        json_preparations = json.dumps(data)
 
-    return render(request, 'product_ajax.html', {
-       'json_preparations': json_preparations,
-       'preparation_dict': data,
-       'parent_text': 'Product List',
-       'message': message,
-       'errors': errors,
-       'product_form': product_form})
+        return render(request, 'product_ajax.html', {
+           'json_preparations': json_preparations,
+           'preparation_dict': data,
+           'parent_text': 'Product List',
+           'message': message,
+           'errors': errors,
+           'product_form': product_form})

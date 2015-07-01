@@ -152,8 +152,8 @@ def preparation_ajax(request, id=None):
         else:
             pass
 
-    return render(request, 'preparation_ajax.html', {
-        'message': message,
-        'errors': errors,
-        'preparation_form': preparation_form,
-    })
+        return render(request, 'preparation_ajax.html', {
+            'message': message,
+            'errors': errors,
+            'preparation_form': preparation_form,
+        })
