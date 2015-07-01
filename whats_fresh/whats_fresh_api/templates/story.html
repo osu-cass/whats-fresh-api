@@ -67,6 +67,10 @@
         {% else %}
         <span class="no_image">No Images Yet!</span>
         {% endif %}
+
+        <button type="submit"  onclick="return popImage('/entry/stories/new/images/new/')">Add New Images</button>
+        <div id="image-dialog"></div>
+
     </div>
 
         <div class="video_container">
@@ -84,6 +88,10 @@
         {% else %}
         <span class="no_video">No Videos Yet!</span>
         {% endif %}
+
+        <button type="submit" onclick="return popVideo('/entry/stories/new/videos/new/')">Add New Videos</button>
+        <div id="video-dialog"></div>
+
     </div>
 
     <input class='image' name="image_ids" type="hidden" />
@@ -123,7 +131,93 @@
 {% endblock content %}
 
 {% block footer %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
 <script>
+
+        function popImage(url) {
+          $.ajax({
+            type: "GET",
+            url: url,
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data) {
+              $("#image-dialog").html(data).dialog({modal:true}, {title: "New Image"}, {width: 600}, {height: 600}, {draggable: false}).dialog('open');
+
+            }
+
+          });
+
+          return false;
+        }
+
+
+        function popVideo(url) {
+          $.ajax({
+            type: "GET",
+            url: url,
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data) {
+              $("#video-dialog").html(data).dialog({modal:true}, {title: "New Video"}, {width: 600}, {height: 600}, {draggable: false}).dialog('open');
+
+            }
+
+          });
+
+          return false;
+        }
+
+
+       $("#image-dialog").on('submit', function (e) {
+
+         e.preventDefault();
+
+         $.ajax({
+            type: "POST",
+            url: '/entry/stories/new/images/new',
+            data: $("#image-form").serialize(),
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data)
+            {
+
+                data = JSON.stringify(data);
+                alert(data);
+                alert("New Image saved.");
+                $("#image-dialog").dialog('close');
+
+            }
+          });
+
+
+       });
+
+
+       $("#video-dialog").on('submit', function (e) {
+
+         e.preventDefault();
+
+         $.ajax({
+            type: "POST",
+            url: '/entry/stories/new/videos/new',
+            data: $("#video-form").serialize(),
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data)
+            {
+
+                data = JSON.stringify(data);
+                alert(data);
+                alert("New Video saved.");
+                $("#dialog-form").dialog('close');
+
+            }
+          });
+
+
+       });
+
+
+
+
     function deleteStory()
     {
         if(confirm('Are you sure you want to delete this story?')) {
