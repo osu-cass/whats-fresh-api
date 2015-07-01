@@ -142,15 +142,16 @@
             success: function(data)
             {
 
-                data = JSON.stringify(data);
-                alert(data);
+                var text = JSON.stringify(data);
+                var object = JSON.parse(text);
+                alert(object[1]);
                 alert("New Preparation saved.");
                 $("#dialog-form").dialog('close');
 
             }
           });
 
-            $(".preparation_select").append(data);
+            $(".preparation_select").append( object );
 
 
        });
