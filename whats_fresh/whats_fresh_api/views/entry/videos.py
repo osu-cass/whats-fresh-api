@@ -126,3 +126,33 @@ def video(request, id=None):
         'errors': errors,
         'video_form': video_form,
     })
+
+
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
+def video_ajax(request, id=None):
+    if request.method == 'GET':
+        video_form = VideoForm()
+        return render(request, 'video_ajax.html', {'video_form': video_form})
+
+    elif request.method == 'POST':
+        message = ''
+        post_data = request.POST.copy()
+        errors = []
+
+        video_form = VideoForm(post_data)
+        if video_form.is_valid() and not errors:
+            video = Video.objects.create(
+                **video_form.cleaned_data)
+            video.save()
+        else:
+            pass
+
+        return render(request, 'video.html', {
+            'parent_url': [
+                {'url': reverse('home'), 'name': 'Home'},
+                {'url': reverse('entry-list-videos'), 'name': 'Video Library'}
+            ],
+            'message': message,
+            'errors': errors,
+            'video_form': video_form})
