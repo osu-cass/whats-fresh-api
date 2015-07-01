@@ -61,7 +61,7 @@
     <!-- Fake Input address field-->
 
         <div>
-        <input type="text" id="us3-address-new" onkeypress="removerEnter(event)" required="true" disabled="disabled" name="{{ vendor_form.street }}" />
+        <input type="text" id="us3-address-new" onkeypress="removerEnter(event)" required="true" disabled="disabled" />
         </div>
 
         <label><input type="checkbox" id="loc" checked="checked" />Lock</label>   <!-- Checkbox -->
@@ -241,6 +241,12 @@ $('#us3').locationpicker({
             e.preventDefault();
         }
     }
+
+
+    $('#us3-address-new').val($('#id_street').val() + ', ' +
+                             $('#id_city').val() + ', ' +
+                             $('#id_state').val() + ',' +
+                             $('#id_zip').val());
 
 
     function locationParam()          // For determining the location parameters.
