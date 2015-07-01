@@ -13,11 +13,11 @@
 {% block title %}
 <h2 class='light'>{{ title }}</h2>
 <h4 class='light accent'>{{ message }}</h4>
-{% endblock title %}
+{% endblock title %} -->
 
-{% block content %}  -->
+<!-- {% block content %} -->
 {% load staticfiles %}
-<form class='form' action="{{ post_url }}" method="post">
+<form class='form' action="{{ post_url }}" method="post" id="popup-form">
     {% if product_form.errors or errors %}
     <div class="error">
         {% for error in product_form.errors %}
@@ -94,8 +94,8 @@
     </div>
 </div>
 
-{% endblock content %}
-{% block footer %}
+<!-- {% endblock content %} -->
+<!-- {% block footer %} -->
 <script>
     var preparation_options = {{ json_preparations|safe }};
     number_of_preparations = 0;
@@ -124,4 +124,4 @@
         $('input[name="preparation_ids"]').val(preparation_ids);
     }
 </script>
-{% endblock footer %}
+<!-- {% endblock footer %} -->

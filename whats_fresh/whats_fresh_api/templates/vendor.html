@@ -154,7 +154,7 @@
          $.ajax({
             type: "POST",
             url: '/entry/vendors/new/products/new',
-            data: $("#dialog-form").serialize(),
+            data: $("#popup-form").serialize(),
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
@@ -162,11 +162,8 @@
                 alert("New Product saved.");
                 $("#dialog-form").dialog('close');
 
-
             }
           });
-
-
        });
 
 

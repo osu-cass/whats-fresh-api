@@ -142,15 +142,18 @@
             success: function(data)
             {
 
+                data = JSON.stringify(data);
+                alert(data);
                 alert("New Preparation saved.");
                 $("#dialog-form").dialog('close');
 
             }
           });
 
+            $(".preparation_select").append(data);
+
 
        });
-
 
 
     // Code for inline form ends

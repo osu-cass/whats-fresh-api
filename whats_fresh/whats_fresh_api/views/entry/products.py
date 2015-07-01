@@ -203,8 +203,10 @@ def product_ajax(request, id=None):
         'preparation_dict': data})
 
     elif request.method == 'POST':
+        print "AJAX POST"
         message = ''
         post_data = request.POST.copy()
+        print post_data
         errors = []
 
         try:
@@ -228,33 +230,25 @@ def product_ajax(request, id=None):
                     product=product,
                     preparation=Preparation.objects.get(
                         id=preparation))
+                print product_preparation
             product.save()
-            # return HttpResponseRedirect(
-            #     "%s?saved=true" % reverse('entry-list-products'))
     else:
         errors = []
         message = ''
 
-
     data = {'preparations': []}
 
     for preparation in Preparation.objects.all():
-       data['preparations'].append({
+        data['preparations'].append({
            'id': preparation.id,
-           'name': preparation.name
-       })
+           'name': preparation.name})
 
     json_preparations = json.dumps(data)
 
-    return render(request, 'product.html', {
-       'parent_url': [
-           {'url': reverse('home'), 'name': 'Home'},
-           {'url': reverse('entry-list-products'), 'name': 'Products'}],
+    return render(request, 'product_ajax.html', {
        'json_preparations': json_preparations,
        'preparation_dict': data,
-       'existing_preparations': existing_preparations,
        'parent_text': 'Product List',
        'message': message,
        'errors': errors,
-       'product_form': product_form,
-   })
+       'product_form': product_form})

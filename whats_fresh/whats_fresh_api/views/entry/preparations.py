@@ -149,8 +149,6 @@ def preparation_ajax(request, id=None):
             preparation = Preparation.objects.create(
                 **preparation_form.cleaned_data)
             preparation.save()
-            # return HttpResponseRedirect(
-            #     "%s?saved=true" % reverse('entry-list-preparations'))
         else:
             pass
 
