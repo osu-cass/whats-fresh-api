@@ -1,0 +1,71 @@
+<!-- {% extends "base.html" %}
+
+{% block header %}
+<div class="back">
+    {% for p in parent_url %}
+    <a href="{{ p.url }}">
+        &lt; <span class="parent_text">{{ p.name }}</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock header %}
+
+{% block title %}
+<h2 class='light'>{{ title }}</h2>
+<h4 class='light accent'>{{ message }}</h4>
+{% endblock title %}
+
+{% block content %} -->
+<form action="{{ post_url }}" method="post" id="video-form">
+
+    <div class="error">
+        {% if video_form.errors or errors %}
+        {% for error in video_form.errors %}
+        <p class='warning'>Invalid {{ error|escape }}!</p>
+        {% endfor %}
+        {% for error in errors %}
+        <p class='warning'>{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+        <h4 id='error_tag' class='light warning'></h4>
+    </div>
+
+    {% csrf_token %}
+    <div class="entry_box">
+        {% if video_form.instance.pk != None %}
+        <button class='dbutton' type="button" onclick="deleteVideo();return false;"/>Delete</button>
+        {% endif %}
+        <h3>Basic Info</h3>
+        <p class="field_text">Name*:</p>
+        {{ video_form.name }}
+        <p class="field_text">Link*:</p>
+        {{ video_form.video }}
+        <p class="field_text">Caption*:</p>
+        {{ video_form.caption }}
+        <button>Save</button>
+    </div>
+</form>
+<!-- {% endblock content %}
+
+{% block footer %}
+<script>
+    function deleteVideo()
+    {
+        if(confirm('Are you sure you want to delete this video?')) {
+            $.ajax({
+                type: 'DELETE',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                statusCode: {
+                    404: function() {
+                        $("#error_tag").text('Unable to delete video!');
+                        $("html, body").animate({ scrollTop: 0 }, "slow");
+                    },
+                    200: function() {
+                        window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
+                    }
+                }
+            });
+        }
+    }
+</script>
+{% endblock footer %}
