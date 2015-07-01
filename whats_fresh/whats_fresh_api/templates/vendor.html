@@ -61,7 +61,7 @@
     <!-- Fake Input address field-->
 
         <div>
-        <input type="text" id="us3-address-new" onkeypress="removerEnter(event)" required="true" disabled="disabled" />
+        <input type="text" id="us3-address-new" onkeypress="removerEnter(event)" required="true" disabled="disabled" name="{{ vendor_form.street }}" />
         </div>
 
         <label><input type="checkbox" id="loc" checked="checked" />Lock</label>   <!-- Checkbox -->
@@ -198,7 +198,7 @@ $('#us3').locationpicker({
 
     oninitialized: function() {
 
-    $("#us3-address").show();
+    $("#us3-address-new").show();
     console.log($('#us3').data("locationpicker").addressComponents);
 
     $('#loc').click(function(){
@@ -217,6 +217,8 @@ $('#us3').locationpicker({
         else{
 
             alert("Location field unlocked!");
+            $("#us3-address-new").hide();
+            $("#us3-address").show();
             $("#us3-address").prop('disabled', false);
 
             locationParam();
@@ -233,7 +235,7 @@ $('#us3').locationpicker({
 });
 
 
-    function removerEnter(e)         // To override enter for us3-addrees, us3-lat and us3-long
+    function removerEnter(e)         // To override enter for us3-address, us3-lat and us3-long
     {
         if (e.which == 13 || e.keyCode == 13) {
             e.preventDefault();
