@@ -123,3 +123,28 @@ def image(request, id=None):
         'errors': [],
         'image_form': image_form,
     })
+
+
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
+def image_ajax(request, id=None):
+    if request.method == 'GET':
+        image_form = ImageForm()
+        return render(request, 'image_ajax.html', {'image_form': image_form})
+
+    elif request.method == 'POST':
+        message = ''
+        instance = None
+        image_form = ImageForm(
+            request.POST,
+            request.FILES,
+            instance=instance)
+        if image_form.is_valid():
+            image_form.save()
+        else:
+            pass
+
+        return render(request, 'image.html', {
+            'message': message,
+            'errors': [],
+            'image_form': image_form})
