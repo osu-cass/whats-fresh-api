@@ -16,7 +16,7 @@
 {% endblock title %} -->
 
 <!-- {% block content %} -->
-{% load staticfiles %}
+<!-- {% load staticfiles %} -->
 <form class='form' action="{{ post_url }}" method="post" id="popup-form">
     {% if product_form.errors or errors %}
     <div class="error">
@@ -78,7 +78,7 @@
 
     <input class='preparation' name="preparation_ids" type="hidden" />
     <div class="buttons">
-        <button type="submit" onclick="setPreparationField();"/>Save</button>
+        <button type="submit" onclick="setPreparationField();">Save</button>
     </div>
 </form>
 <!-- The template div used by appendPreparation() -->
@@ -124,4 +124,4 @@
         $('input[name="preparation_ids"]').val(preparation_ids);
     }
 </script>
-<!-- {% endblock footer %} -->
+<!-- {% endblock footer %}
