@@ -223,7 +223,16 @@ $('#us3').locationpicker({
 
     oninitialized: function() {
 
-    $("#us3-address-new").show();
+    {% if vendor_form.errors or errors %}
+
+        $("#us3-address-new").val(dbAddress).show();
+
+    {% else %}
+
+        $("#us3-address-new").show();
+
+    {% endif %}
+
     console.log($('#us3').data("locationpicker").addressComponents);
 
     $('#loc').click(function(){

@@ -40,7 +40,6 @@ def vendor(request, id=None):
 
     if request.method == 'POST':
         post_data = request.POST.copy()
-        print post_data
         errors = []
 
         try:
@@ -145,8 +144,8 @@ def vendor(request, id=None):
         title = "Add aVendor"
         message = "* = Required field"
         post_url = reverse('new-vendor')
-        latit = '44.563781'
-        longit = '-123.27944400000001'
+        latit = post_data['latitude']
+        longit = post_data['longitude']
 
     data = {}
     product_list = []
