@@ -206,7 +206,6 @@ def product_ajax(request, id=None):
         print "AJAX POST"
         message = ''
         post_data = request.POST.copy()
-        print post_data
         errors = []
 
         try:
@@ -232,9 +231,6 @@ def product_ajax(request, id=None):
                         id=preparation))
                 print product_preparation
             product.save()
-    # else:
-    #     errors = []
-    #     message = ''
 
         data = {'preparations': []}
 

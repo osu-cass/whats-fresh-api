@@ -141,17 +141,26 @@
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
-
                 var text = JSON.stringify(data);
                 var object = JSON.parse(text);
-                alert(object[1]);
+                alert(object["name"]);
+                // var object = JSON.parse(data);
                 alert("New Preparation saved.");
                 $("#dialog-form").dialog('close');
+
+                // if(typeof response=="object") {
+                //     alert("javascript object");
+                //     }
+
+                // else{
+
+                //     alert("HTML");
+                // }
 
             }
           });
 
-            $(".preparation_select").append( object );
+            // $(".preparation_select").append( object );
 
 
        });
