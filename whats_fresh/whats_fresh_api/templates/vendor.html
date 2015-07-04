@@ -21,10 +21,10 @@
 
 <head>
 
-    <meta id="myStreet" name="dbstreet" value="{{ vendor_form.street }}">
-    <meta id="myCity" name="dbcity" value="{{ vendor_form.city }}">
-    <meta id="myState" name="dbstate" value="{{ vendor_form.state }}">
-    <meta id="myZip" name="dbzip" value="{{ vendor_form.zip }}">
+    <meta id="myStreet" name="dbstreet" value="{{ vendor_form.street.value }}">
+    <meta id="myCity" name="dbcity" value="{{ vendor_form.city.value }}">
+    <meta id="myState" name="dbstate" value="{{ vendor_form.state.value }}">
+    <meta id="myZip" name="dbzip" value="{{ vendor_form.zip.value }}">
 
 </head>
 
@@ -154,6 +154,21 @@
 $('#us3-address').hide();
 $('#us3-address-new').hide();
 
+
+    var newStreet = $('meta[name=dbstreet]').attr('value');
+    var newCity = $('meta[name=dbcity]').attr('value');
+    var newState = $('meta[name=dbstate]').attr('value');
+    var newZip = $('meta[name=dbzip]').attr('value');
+
+    var dbAddress = newStreet + "," + newCity + "," + newState + "," + newZip;
+
+{% if vendor_form.instance.pk != None  %}
+
+    $('#us3-address-new').val(dbAddress);
+
+{% endif %}
+
+
 $('#us3').locationpicker({
     location: {latitude: {% if latit %} {{ latit }} {% else %} 44.563781 {% endif %}, longitude: {% if longit %} {{ longit }} {% else %} -123.27944400000001 {% endif %}},
     radius: false,
@@ -218,6 +233,7 @@ $('#us3').locationpicker({
            alert("Location field locked!");
            $("#us3-address").hide();
            $("#us3-address-new").attr('value', $("#us3-address").val());
+           document.getElementById('us3-address-new').value = document.getElementById('us3-address').value;
            $("#us3-address-new").show();
 
            locationParam();
@@ -227,6 +243,7 @@ $('#us3').locationpicker({
         else{
 
             alert("Location field unlocked!");
+            document.getElementById('us3-address').value = document.getElementById('us3-address-new').value;
             $("#us3-address-new").hide();
             $("#us3-address").show();
             $("#us3-address").prop('disabled', false);
@@ -252,18 +269,6 @@ $('#us3').locationpicker({
         }
     }
 
-
-// var author = $('meta[name=author]').attr("content");
-
-    var newStreet = $('meta[name=dbstreet]').attr('value');
-
-
-    // var newStreet = $('#myStreet').data();
-    // var newCity = $('#myCity').data();
-    // var newState = $('#myState').data();
-    // var newZip = $('#myZip').data();
-
-    $('#us3-address-new').val(newStreet);
 
 
     function locationParam()          // For determining the location parameters.
