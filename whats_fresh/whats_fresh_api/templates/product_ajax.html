@@ -59,7 +59,7 @@
     <p class="field_text">Story:</p>
     {{ product_form.story }}
     <input class="preparations" name="preparations" type="hidden" />
-    <div class="container">
+    <div class="container_prep">
         <h3>Preparation</h3>
         <button type="button" onclick="appendPreparation()">Add Preparation</button>
         {% if existing_preparations %}
@@ -112,7 +112,7 @@
         $( ".no_prep" ).hide();
         var new_html = $('#new_preparation').html();
         var new_html = new_html.split("$iteration").join(number_of_prep);
-        $( ".container" ).append( new_html );
+        $( ".container_prep" ).append( new_html );
         number_of_prep++;
     }
     function setPrepField()

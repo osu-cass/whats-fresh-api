@@ -203,22 +203,17 @@ def product_ajax(request, id=None):
         'preparation_dict': data})
 
     elif request.method == 'POST':
-        print "AJAX POST"
         message = ''
         post_data = request.POST.copy()
-        post_data['prep_ids'] = post_data['prep_ids'].strip(',')
         errors = []
 
         try:
             if len(post_data['prep_ids']) == 0:
-                print "if"
                 errors.append("You must choose at least one preparation.")
                 preparations = []
             else:
-                print "else"
                 preparations = [int(p) for p in set(
                     post_data['prep_ids'].split(','))]
-                print preparations
         except MultiValueDictKeyError:
             errors.append("You must choose at least one preparation.")
             preparations = []
@@ -227,14 +222,12 @@ def product_ajax(request, id=None):
 
         product_form = ProductForm(post_data, product)
         if product_form.is_valid() and not errors:
-            print "Valid"
             product = Product.objects.create(**product_form.cleaned_data)
             for preparation in preparations:
                 product_preparation = ProductPreparation.objects.create(
                     product=product,
                     preparation=Preparation.objects.get(
                         id=preparation))
-                print product_preparation
             product.save()
 
         data = {'preparations': []}
