@@ -78,10 +78,10 @@
 
     <!-- Hidden Fields for the location parameters -->
 
-        <div><input id="hidStreet" type="hidden" name="street" required="true" ></div>
-        <div><input id="hidCity" type="hidden" name="city" required="true" ></div>
-        <div><input id="hidState" type="hidden" name="state" required="true" ></div>
-        <div><input id="hidZip" type="hidden" name="zip" required="true" ></div>
+        <div><input id="hidStreet" type="hidden" name="street" required="true" value="{{ vendor_form.street.value }}" ></div>
+        <div><input id="hidCity" type="hidden" name="city" required="true" value="{{ vendor_form.city.value }}" ></div>
+        <div><input id="hidState" type="hidden" name="state" required="true" value="{{ vendor_form.state.value }}" ></div>
+        <div><input id="hidZip" type="hidden" name="zip" required="true" value="{{ vendor_form.zip.value }}" ></div>
 
         <br><br>
         <div id="us3" class="map"></div><br>            <!-- Map -->
@@ -151,7 +151,7 @@
     <script src="http://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
 <script>
 
-var checkboxStatus = 1;
+// var checkboxStatus = 1;
 $('#us3-address').hide();
 $('#us3-address-new').hide();
 
@@ -169,6 +169,33 @@ $('#us3-address-new').hide();
 
 {% endif %}
 
+    $('#loc').click(function(){
+
+        if($(this).prop("checked") == true){
+
+           alert("Location field locked!");
+           $("#us3-address").hide();
+           $("#us3-address-new").attr('value', $("#us3-address").val());
+           document.getElementById('us3-address-new').value = document.getElementById('us3-address').value;
+           $("#us3-address-new").show();
+
+           locationParam();
+           // checkboxStatus = 2;
+        }
+
+        else{
+
+            alert("Location field unlocked!");
+            $("#us3-address-new").hide();
+            $("#us3-address").show();
+            $("#us3-address").prop('disabled', false);
+
+            locationParam();
+            // checkboxStatus = 3;
+        }
+
+    });
+
 
 $('#us3').locationpicker({
     location: {latitude: {% if latit %} {{ latit }} {% else %} 44.563781 {% endif %}, longitude: {% if longit %} {{ longit }} {% else %} -123.27944400000001 {% endif %}},
@@ -185,32 +212,7 @@ $('#us3').locationpicker({
 
 
     alert("Location changed. New location (" + currentLocation.latitude + ", " + currentLocation.longitude + ")");
-    console.log($('#us3').data("locationpicker").addressComponents);
-
-    $('#loc').click(function(){
-
-        if($(this).prop("checked") == true){
-
-           alert("Location field locked!");
-           $("#us3-address").hide();
-           $("#us3-address-new").attr('value', $("#us3-address").val());
-           $("#us3-address-new").show();
-
-           locationParam();
-           checkboxStatus = 2;
-        }
-
-        else{
-
-            alert("Location field unlocked!");
-            $("#us3-address-new").hide();
-            $("#us3-address").show();
-
-            locationParam();
-            checkboxStatus = 3;
-        }
-
-    });
+    console.log($('#us3').data("locationpicker").location.F);
 
    if(!document.getElementById('loc').checked){
 
@@ -218,17 +220,10 @@ $('#us3').locationpicker({
 
        }
 
-    else
-    {
-        if (checkboxStatus === 1)  // Case when checkbox was untouched
-        {
-            $('input[name="street"]').val($('#myStreet').attr('value'));
-            $('input[name="city"]').val($('#myCity').attr('value'));
-            $('input[name="state"]').val($('#myState').attr('value'));
-            $('input[name="zip"]').val($('#myZip').attr('value'));
-        }
+       $('input[name="latitude"]').val($('#us3').data("locationpicker").location.A);
+       $('input[name="longitude"]').val($('#us3').data("locationpicker").location.F);
 
-    }
+
 
         $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
 
@@ -248,37 +243,9 @@ $('#us3').locationpicker({
 
     console.log($('#us3').data("locationpicker").addressComponents);
 
-    $('#loc').click(function(){
-
-        if($(this).prop("checked") == true){
-
-           alert("Location field locked!");
-           $("#us3-address").hide();
-           $("#us3-address-new").attr('value', $("#us3-address").val());
-           document.getElementById('us3-address-new').value = document.getElementById('us3-address').value;
-           $("#us3-address-new").show();
-
-           locationParam();
-           checkboxStatus = 2;
-        }
-
-        else{
-
-            alert("Location field unlocked!");
-            document.getElementById('us3-address').value = document.getElementById('us3-address-new').value;
-            $("#us3-address-new").hide();
-            $("#us3-address").show();
-            $("#us3-address").prop('disabled', false);
-
-            locationParam();
-            checkboxStatus = 3;
-        }
-
-    });
-
        $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
 
-       locationParam();
+       // locationParam();
 
     }
 
