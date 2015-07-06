@@ -78,10 +78,10 @@
 
     <!-- Hidden Fields for the location parameters -->
 
-        <div><input type="hidden" name="street" required="true" ></div>
-        <div><input type="hidden" name="city" required="true" ></div>
-        <div><input type="hidden" name="state" required="true" ></div>
-        <div><input type="hidden" name="zip" required="true" ></div>
+        <div><input id="hidStreet" type="hidden" name="street" required="true" ></div>
+        <div><input id="hidCity" type="hidden" name="city" required="true" ></div>
+        <div><input id="hidState" type="hidden" name="state" required="true" ></div>
+        <div><input id="hidZip" type="hidden" name="zip" required="true" ></div>
 
         <br><br>
         <div id="us3" class="map"></div><br>            <!-- Map -->
@@ -151,6 +151,7 @@
     <script src="http://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
 <script>
 
+var checkboxStatus = 1;
 $('#us3-address').hide();
 $('#us3-address-new').hide();
 
@@ -196,7 +197,7 @@ $('#us3').locationpicker({
            $("#us3-address-new").show();
 
            locationParam();
-
+           checkboxStatus = 2;
         }
 
         else{
@@ -206,7 +207,7 @@ $('#us3').locationpicker({
             $("#us3-address").show();
 
             locationParam();
-
+            checkboxStatus = 3;
         }
 
     });
@@ -216,6 +217,18 @@ $('#us3').locationpicker({
             locationParam();
 
        }
+
+    else
+    {
+        if (checkboxStatus === 1)  // Case when checkbox was untouched
+        {
+            $('input[name="street"]').val($('#myStreet').attr('value'));
+            $('input[name="city"]').val($('#myCity').attr('value'));
+            $('input[name="state"]').val($('#myState').attr('value'));
+            $('input[name="zip"]').val($('#myZip').attr('value'));
+        }
+
+    }
 
         $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
 
@@ -246,7 +259,7 @@ $('#us3').locationpicker({
            $("#us3-address-new").show();
 
            locationParam();
-
+           checkboxStatus = 2;
         }
 
         else{
@@ -258,6 +271,7 @@ $('#us3').locationpicker({
             $("#us3-address").prop('disabled', false);
 
             locationParam();
+            checkboxStatus = 3;
         }
 
     });
