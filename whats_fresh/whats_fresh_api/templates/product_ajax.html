@@ -31,9 +31,9 @@
     </div>
     {% endif %}
     <h4 id='error_tag' class='light warning'></h4>
-     {% if product_form.instance.pk != None %}
-    <button class='dbutton' type="button" onclick="deleteProduct();return false;" />Delete</button>
-    {% endif %}
+     <!-- {% if product_form.instance.pk != None %} -->
+    <!-- <button class='dbutton' type="button" onclick="deleteProduct();return false;" />Delete</button> -->
+    <!-- {% endif %} -->
     {% csrf_token %}
     <h3>Basic Info</h3>
    <p class="field_text">Specific Variety*:</p>
@@ -64,9 +64,9 @@
         <button type="button" onclick="appendPreparation()">Add Preparation</button>
         {% if existing_preparations %}
         {% for prep in existing_preparations %}
-        <div class="preparation">
+        <div class="prep">
             <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" />Delete</a>
-            <select disabled id="existing{{ prep.id }}" class="preparation_select">
+            <select disabled id="existing{{ prep.id }}" class="prep_select">
                 <option value="{{ prep.id }}">{{ prep.name }}</option>
             </select>
         </div>
@@ -76,15 +76,15 @@
         {% endif %}
     </div>
 
-    <input class='preparation' name="preparation_ids" type="hidden" />
+    <input class='prep' name="prep_ids" type="hidden" />
     <div class="buttons">
-        <button type="submit" onclick="setPrepField();">Save</button>   <!-- setPreparationField(),name was overlapping -->
+        <button type="submit" onclick="setPrepField();">Save</button>
     </div>
 </form>
 <!-- The template div used by appendPreparation() -->
 <div id='new_preparation'>
-    <div class="preparation">
-        <select class="preparation_select">
+    <div class="prep">
+        <select class="prep_select">
             <option selected disabled></option>
             {% for preparation in preparation_dict.preparations %}
             <option value="{{ preparation.id }}">{{ preparation.name }}</option>
@@ -97,31 +97,31 @@
 <!-- {% endblock content %} -->
 <!-- {% block footer %} -->
 <script>
-    var preparation_options = {{ json_preparations|safe }};
-    number_of_preparations = 0;
+    var prep_options = {{ json_preparations|safe }};
+    number_of_prep = 0;
     function deletePreparation(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".preparation:visible" ).length === 0) {
+        if ($( ".prep:visible" ).length === 0) {
             $( ".no_products" ).show();
         };
     }
 
     function appendPreparation()
     {
-        $( ".no_preparations" ).hide();
+        $( ".no_prep" ).hide();
         var new_html = $('#new_preparation').html();
-        var new_html = new_html.split("$iteration").join(number_of_preparations);
+        var new_html = new_html.split("$iteration").join(number_of_prep);
         $( ".container" ).append( new_html );
-        number_of_preparations++;
+        number_of_prep++;
     }
-    function setPrepField()       //Overlapping, setPreparationField()
+    function setPrepField()
     {
-        var preparation_ids = []
-        $( ".preparation_select:visible" ).each( function( index, element ){
-            preparation_ids.push(this.options[this.selectedIndex].value);
+        var prep_ids = []
+        $( ".prep_select:visible" ).each( function( index, element ){
+            prep_ids.push(this.options[this.selectedIndex].value);
         });
-        $('input[name="preparation_ids"]').val(preparation_ids);
+        $('input[name="prep_ids"]').val(prep_ids);
     }
 </script>
 <!-- {% endblock footer %}
