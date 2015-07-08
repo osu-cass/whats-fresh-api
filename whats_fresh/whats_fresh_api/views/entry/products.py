@@ -199,8 +199,10 @@ def product_ajax(request, id=None):
 
         json_preparations = json.dumps(data)
 
-        return render(request, 'product_ajax.html', {'product_form': product_form, 'json_preparations': json_preparations,
-        'preparation_dict': data})
+        return render(request, 'product_ajax.html',
+                      {'product_form': product_form,
+                       'json_preparations': json_preparations,
+                       'preparation_dict': data})
 
     elif request.method == 'POST':
         message = ''
@@ -224,7 +226,7 @@ def product_ajax(request, id=None):
         if product_form.is_valid() and not errors:
             product = Product.objects.create(**product_form.cleaned_data)
             for preparation in preparations:
-                product_preparation = ProductPreparation.objects.create(
+                ProductPreparation.objects.create(
                     product=product,
                     preparation=Preparation.objects.get(
                         id=preparation))
@@ -234,15 +236,15 @@ def product_ajax(request, id=None):
 
         for preparation in Preparation.objects.all():
             data['preparations'].append({
-               'id': preparation.id,
-               'name': preparation.name})
+                'id': preparation.id,
+                'name': preparation.name})
 
         json_preparations = json.dumps(data)
 
         return render(request, 'product_ajax.html', {
-           'json_preparations': json_preparations,
-           'preparation_dict': data,
-           'parent_text': 'Product List',
-           'message': message,
-           'errors': errors,
-           'product_form': product_form})
+            'json_preparations': json_preparations,
+            'preparation_dict': data,
+            'parent_text': 'Product List',
+            'message': message,
+            'errors': errors,
+            'product_form': product_form})
