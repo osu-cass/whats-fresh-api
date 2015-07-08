@@ -242,17 +242,15 @@ a {
   .product_list ul li {
     padding-left: 30px; }
 
-.map {
+.map-ui {
   width: 550px;
   height: 400px; }
 
-#loc {
+#address-checkbox {
 
   height: 21px;
   position: absolute;
   margin-left: 200px;
-  padding: 0;
-
-}
+  padding-right: 100px; }
 
 /*# sourceMappingURL=style.css.map */
