@@ -60,7 +60,8 @@ urlpatterns = patterns(
 
     # Endpoint for popup form in product.html
     url(r'^entry/products/new/preparations/new/?$',
-        'whats_fresh.whats_fresh_api.views.entry.preparations.preparation_ajax',
+        'whats_fresh.whats_fresh_api.views'
+        '.entry.preparations.preparation_ajax',
         name='preparation_ajax'),
 
     # Endpoint for popup form in vendor.html

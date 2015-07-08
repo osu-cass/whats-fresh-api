@@ -137,7 +137,8 @@ def preparation(request, id=None):
 def preparation_ajax(request, id=None):
     if request.method == 'GET':
         preparation_form = PreparationForm()
-        return render(request, 'preparation_ajax.html', {'preparation_form': preparation_form})
+        return render(request, 'preparation_ajax.html',
+                      {'preparation_form': preparation_form})
 
     elif request.method == 'POST':
         print "AJAX POST"
