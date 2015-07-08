@@ -76,12 +76,15 @@
         {% endif %}
     </div>
 
-
+    <div  id="popup-preparation" class="preparation">
+        <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" />Delete</a>
+        <select disabled id="existing{{ prep.id }}" class="popup_preparation_select">
+            <option value="{{ prep.id }}">{{ prep.name }}</option>
+        </select>
+    </div>
 
     <button type="submit" onclick="return popitup('/entry/products/new/preparations/new/')">Add New Preparation</button>
     <div id="dialog-form"></div>
-
-
 
     <input class='preparation' name="preparation_ids" type="hidden" />
     <div class="buttons">
@@ -107,6 +110,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
 <script>
+
+    $('#popup-preparation').hide();
+
     var preparation_options = {{ json_preparations|safe }};
 
     number_of_preparations = 0;
@@ -141,26 +147,15 @@
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
-                // var text = JSON.stringify(data);
-                var object = JSON.parse(data);
-                alert(object);
-                // var object = JSON.parse(data);
                 alert("New Preparation saved.");
                 $("#dialog-form").dialog('close');
-
-                // if(typeof response=="object") {
-                //     alert("javascript object");
-                //     }
-
-                // else{
-
-                //     alert("HTML");
-                // }
+                $('#popup-preparation').show();
+                $('.no_prep').hide();
+                $(".preparation_select").append( data["name"] );
+                $(".popup_preparation_select").append( data["name"] );
 
             }
           });
-
-            // $(".preparation_select").append( object );
 
        });
 
