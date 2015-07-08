@@ -18,16 +18,6 @@
 {% load static %}
 
 {% block content %}
-
-<head>
-
-    <meta id="myStreet" name="dbstreet" value="{{ vendor_form.street.value }}">
-    <meta id="myCity" name="dbcity" value="{{ vendor_form.city.value }}">
-    <meta id="myState" name="dbstate" value="{{ vendor_form.state.value }}">
-    <meta id="myZip" name="dbzip" value="{{ vendor_form.zip.value }}">
-
-</head>
-
 <form class='form' action="{{ post_url }}" method="post">
     {% if vendor_form.errors or errors %}
     <div class='error'>
@@ -74,9 +64,9 @@
         <input type="text" id="us3-address-new" onkeypress="removerEnter(event)" required="true" disabled="disabled" />
         </div>
 
-        <label><input type="checkbox" id="loc" checked="checked" />Lock</label>   <!-- Checkbox -->
+        <label><input type="checkbox" id="loc" checked="checked" />Lock Address Field</label>   <!-- Checkbox -->
 
-    <!-- Hidden Fields for the location parameters -->
+    <!-- Hidden Fields for the Address Fields -->
 
         <div><input id="hidStreet" type="hidden" name="street" required="true" value="{{ vendor_form.street.value }}" ></div>
         <div><input id="hidCity" type="hidden" name="city" required="true" value="{{ vendor_form.city.value }}" ></div>
@@ -151,54 +141,44 @@
     <script src="http://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
 <script>
 
-// var checkboxStatus = 1;
 $('#us3-address').hide();
 $('#us3-address-new').hide();
 
+var dbAddress = "{{ vendor_form.street.value }}, {{ vendor_form.city.value }}, {{ vendor_form.state.value }}, {{ vendor_form.zip.value }}";
 
-    var newStreet = $('meta[name=dbstreet]').attr('value');
-    var newCity = $('meta[name=dbcity]').attr('value');
-    var newState = $('meta[name=dbstate]').attr('value');
-    var newZip = $('meta[name=dbzip]').attr('value');
-
-    var dbAddress = newStreet + "," + newCity + "," + newState + "," + newZip;
-
-{% if vendor_form.instance.pk != None  %}
-
+{% if vendor_form.instance.pk  %}
     $('#us3-address-new').val(dbAddress);
-
 {% endif %}
 
-    $('#loc').click(function(){
+$('#loc').click(function(){
 
-        if($(this).prop("checked") == true){
+    if($(this).prop("checked") == true) {
 
-           alert("Location field locked!");
-           $("#us3-address").hide();
-           $("#us3-address-new").attr('value', $("#us3-address").val());
-           document.getElementById('us3-address-new').value = document.getElementById('us3-address').value;
-           $("#us3-address-new").show();
+       alert("Location field locked!");
+       $("#us3-address").hide();
+       document.getElementById('us3-address-new').value = document.getElementById('us3-address').value;
+       $("#us3-address-new").show();
 
-           locationParam();
-           // checkboxStatus = 2;
-        }
+    }
 
-        else{
+    else {
 
-            alert("Location field unlocked!");
-            $("#us3-address-new").hide();
-            $("#us3-address").show();
-            $("#us3-address").prop('disabled', false);
+        alert("Location field unlocked!");
+        $("#us3-address-new").hide();
+        document.getElementById('us3-address').value = document.getElementById('us3-address-new').value;
+        $("#us3-address").show();
+        $("#us3-address").prop('disabled', false);
 
-            locationParam();
-            // checkboxStatus = 3;
-        }
+    }
 
-    });
+    setAddressFields();
+
+});
 
 
 $('#us3').locationpicker({
-    location: {latitude: {% if latit %} {{ latit }} {% else %} 44.563781 {% endif %}, longitude: {% if longit %} {{ longit }} {% else %} -123.27944400000001 {% endif %}},
+    location: { latitude: {% if latit %} {{ latit }} {% else %} 44.563781 {% endif %},
+                longitude: {% if longit %} {{ longit }} {% else %} -123.27944400000001 {% endif %}},
     radius: false,
     inputBinding: {
         latitudeInput: $('#us3-lat'),
@@ -206,6 +186,7 @@ $('#us3').locationpicker({
         locationNameInput: $('#us3-address')
 
     },
+
     enableAutocomplete: true,
 
     onchanged: function (currentLocation, radius,  isMarkerDropped) {
@@ -216,41 +197,30 @@ $('#us3').locationpicker({
 
    if(!document.getElementById('loc').checked){
 
-            locationParam();
+            setAddressFields();
 
        }
 
-       $('input[name="latitude"]').val($('#us3').data("locationpicker").location.A);
-       $('input[name="longitude"]').val($('#us3').data("locationpicker").location.F);
-
-
-
-        $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
+       $('input[name="latitude"]').val($('#us3').data("locationpicker").location.A);  // Updates the latitude input
+       $('input[name="longitude"]').val($('#us3').data("locationpicker").location.F); // Updates the longitude input
+       $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
 
     },
 
     oninitialized: function() {
 
     {% if vendor_form.errors or errors %}
-
         $("#us3-address-new").val(dbAddress).show();
-
     {% else %}
-
         $("#us3-address-new").show();
-
     {% endif %}
 
     console.log($('#us3').data("locationpicker").addressComponents);
 
        $('input[name="location"]').val($('#us3').data("locationpicker").locationName);
-
-       // locationParam();
-
     }
 
 });
-
 
     function removerEnter(e)         // To override enter for us3-address, us3-lat and us3-long
     {
@@ -260,15 +230,13 @@ $('#us3').locationpicker({
     }
 
 
-
-    function locationParam()          // For determining the location parameters.
+    function setAddressFields()          // For determining the location parameters.
     {
 
         $('input[name="street"]').val($('#us3').data("locationpicker").addressComponents.addressLine1);
         $('input[name="city"]').val($('#us3').data("locationpicker").addressComponents.city);
         $('input[name="state"]').val($('#us3').data("locationpicker").addressComponents.stateOrProvince);
         $('input[name="zip"]').val($('#us3').data("locationpicker").addressComponents.postalCode);
-
 
     }
 
