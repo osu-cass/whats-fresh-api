@@ -247,10 +247,9 @@ a {
   height: 400px; }
 
 #address-checkbox {
+  margin-left: 250px; }
 
-  height: 21px;
-  position: absolute;
-  margin-left: 200px;
-  padding-right: 100px; }
+label {
+  font-family: "Montserrat"; }
 
 /*# sourceMappingURL=style.css.map */

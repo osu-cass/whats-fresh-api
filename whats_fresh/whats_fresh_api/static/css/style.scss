@@ -323,17 +323,15 @@ a{
 }
 
 .map-ui {
-
   width: 550px;
   height: 400px;
-
 }
 
 #address-checkbox {
+  margin-left: 250px;
+  border: 1px solid #000;
+}
 
-    height: 21px;
-    position: absolute;
-    margin-left: 200px;
-    padding-right: 100px;
-
+label {
+  font-family: "Montserrat";
 }

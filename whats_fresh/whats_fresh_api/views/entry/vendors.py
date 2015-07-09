@@ -48,7 +48,7 @@ def vendor(request, id=None):
                                   post_data['latitude']), srid=4326)
         # Bad Address will be thrown if the coordinates submitted
         # are invalid and GEOSException will be thrown.
-        except (GEOSException):
+        except (GEOSException, ValueError):
             errors.append("Invalid Coordinates.")
 
         try:
