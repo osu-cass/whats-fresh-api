@@ -76,10 +76,10 @@
         {% endif %}
     </div>
 
-    <div class="preparation">
-        <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" />Delete</a>
+    <div class="preparation" id="inline_preparation">  <!-- Div used if a new inline preparation -->
         <select disabled class="preparation_select">
         </select>
+        <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
     </div>
 
     <button type="submit" onclick="return popitup('/entry/products/new/preparations/new/')">Add New Preparation</button>
@@ -114,30 +114,27 @@
 
     number_of_preparations = 0;
 
-    // Code for inline form starts
+    function popitup(url) {
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data) {
+          $("#dialog-form").html(data).dialog({modal:true}, {title: "New Preparation"}, {width: 700}, {height: 700}, {draggable: false}).dialog('open');
 
-
-        function popitup(url) {
-          $.ajax({
-            type: "GET",
-            url: url,
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-            success: function(data) {
-              $("#dialog-form").html(data).dialog({modal:true}, {title: "New Preparation"}, {width: 700}, {height: 700}, {draggable: false}).dialog('open');
-
-            }
-
-          });
-
-          return false;
         }
 
+      });
 
-       $("#dialog-form").on('submit', function (e) {
+      return false;
+    }
+
+
+    $("#dialog-form").on('submit', function (e) {
 
          e.preventDefault();
 
-         $.ajax({
+        $.ajax({
             type: "POST",
             url: '/entry/products/new/preparations/new',
             data: $("#popup-form").serialize(),
@@ -146,24 +143,22 @@
             {
                 alert("New Preparation saved.");
                 $("#dialog-form").dialog('close');
-                var prepName = data["name"];
+                var prepName = data.name;
+                var prepId = data.id;
 
-                $('.preparation_select')
-                     .append($("<option></option>")
-                     .attr("value", prepName)
-                     .text(prepName));
+                $('.container').append($('#inline_preparation'))
+                .append($('.preparation_select').append($("<option>").attr("value", prepId)
+                     .text(prepName)));
 
-                     $('#cool').show();
+                $('.no_preparations').hide();
 
-                $('.no_prep').hide();
 
             }
-          });
 
-       });
+        });
 
+    });
 
-    // Code for inline form ends
 
     function deletePreparation(element)
     {
