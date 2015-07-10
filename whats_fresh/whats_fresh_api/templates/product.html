@@ -143,17 +143,13 @@
                 var prepName = data.name;
                 var prepId = data.id;
 
-              // $('#inline_preparation')
-              // .append($('<select disabled class="preparation_select">')
-              // .append($("<option>").attr("value", prepId)
-              // .text(prepName))).append('<a href="#" onclick="deletePreparation(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>');
+                $('#inline_preparation').append($('<div class="popup_preparation">')
+                .append($('<select disabled class="preparation_select">')
+                .append($("<option>").attr("value", prepId)
+                .text(prepName))).append('<a href="#" onclick="deletePreparation(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
 
-        $('#inline_preparation').append($("<div>")
-        .append($('<select disabled class="preparation_select">')
-        .append($("<option>").attr("value", prepId)
-        .text(prepName))).append('<a href="#" onclick="deletePreparation(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
-
-              $( ".no_preparations" ).hide();
+                $( ".preparation_select" ).append($("<option>").attr("value", prepId).text(prepName));
+                $( ".no_preparations" ).hide();
 
             }
 
@@ -165,7 +161,7 @@
     function deletePreparation(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".preparation:visible" ).length === 0) {
+        if ($( ".preparation:visible" ).length === 0 && $( ".popup_preparation:visible" ).length === 0 ) {
             $( ".no_preparations" ).show();
         };
     }
