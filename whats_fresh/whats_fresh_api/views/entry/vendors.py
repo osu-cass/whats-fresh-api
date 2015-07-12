@@ -61,8 +61,10 @@ def vendor(request, id=None):
                     + get_fieldname.get_fieldname('products'))
                 prod_preps = []
             else:
-                prod_preps = list(
-                    set(post_data['preparation_ids'].split(',')))
+                prod_preps = [
+                    int(pp) for pp in
+                    set(post_data['preparation_ids'].split(','))
+                ]
                 # TODO: Find better way to do form validation
                 # Needed for form validation to pass
                 post_data['products_preparations'] = prod_preps[0]
@@ -79,22 +81,25 @@ def vendor(request, id=None):
             if id:
                 vendor = Vendor.objects.get(id=id)
 
-                # For all of the current vendor products,
-                for vendor_product in vendor.vendorproduct_set.all():
-                    # Delete any that aren't in the returned list
-                    if vendor_product.product_preparation.id not in prod_preps:
-                        vendor_product.delete()
-                    # And ignore any that are in both the existing and the
-                    # returned list
-                    elif vendor_product.product_preparation.id in prod_preps:
-                        prod_preps.remove(
-                            vendor_product.product_preparation.id)
-                # Then, create all of the new ones
-                for product_preparation in prod_preps:
-                    vendor_product = VendorProduct.objects.create(
-                        vendor=vendor,
-                        product_preparation=ProductPreparation.objects.get(
-                            id=product_preparation))
+                for vendor_product in (
+                        VendorProduct.objects.filter(vendor=vendor)
+                        .exclude(product_preparation__id__in=prod_preps)):
+                    vendor_product.delete()
+
+                existing_prod_preps = [
+                    vp.product_preparation.id for vp in
+                        VendorProduct.objects.filter(
+                            vendor=vendor,
+                            product_preparation__id__in=prod_preps)
+                ]
+
+                for prod_prep in prod_preps:
+                    if not prod_prep in existing_prod_preps:
+                        v = VendorProduct.objects.create(
+                            vendor=vendor,
+                            product_preparation=ProductPreparation.objects.get(
+                                id=prod_prep))
+
                 vendor.__dict__.update(**vendor_form.cleaned_data)
                 vendor.save()
             else:
