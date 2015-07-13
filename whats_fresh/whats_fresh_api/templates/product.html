@@ -76,6 +76,13 @@
         {% endif %}
     </div>
 
+
+
+    <button type="submit" onclick="return popitup('/entry/products/new/preparations/new/')">Add New Preparation</button>
+    <div id="dialog-form"></div>
+
+
+
     <input class='preparation' name="preparation_ids" type="hidden" />
     <div class="buttons">
         <button type="submit" onclick="setPreparationField();"/>Save</button>
@@ -96,10 +103,69 @@
 
 {% endblock content %}
 {% block footer %}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
 <script>
     var preparation_options = {{ json_preparations|safe }};
 
     number_of_preparations = 0;
+
+    // Code for inline form starts
+
+
+        function popitup(url) {
+          $.ajax({
+            type: "GET",
+            url: url,
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data) {
+              $("#dialog-form").html(data).dialog({modal:true}, {title: "New Preparation"}, {width: 700}, {height: 700}, {draggable: false}).dialog('open');
+
+            }
+
+          });
+
+          return false;
+        }
+
+
+       $("#dialog-form").on('submit', function (e) {
+
+         e.preventDefault();
+
+         $.ajax({
+            type: "POST",
+            url: '/entry/products/new/preparations/new',
+            data: $("#popup-form").serialize(),
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data)
+            {
+                // var text = JSON.stringify(data);
+                var object = JSON.parse(data);
+                alert(object);
+                // var object = JSON.parse(data);
+                alert("New Preparation saved.");
+                $("#dialog-form").dialog('close');
+
+                // if(typeof response=="object") {
+                //     alert("javascript object");
+                //     }
+
+                // else{
+
+                //     alert("HTML");
+                // }
+
+            }
+          });
+
+            // $(".preparation_select").append( object );
+
+       });
+
+
+    // Code for inline form ends
 
     function deletePreparation(element)
     {

@@ -72,6 +72,20 @@ If you are using Linux you will need to prefix all of the
 following commands with sudo. If you are using OS X you will need to use
 the boot2docker tool.
 
+Fig
+---
+Starting multiple Docker containers with complicated options can lead to a
+lengthy and difficult to remember commands. Using fig, a program for
+orchestrating multiple Docker containers, setting up the development
+environment can be done with one command:
+
+::
+	$ fig up
+
+This command starts a postgis container and a What's Fresh container using the
+fig.yml file. Fig creates a volume mount to the current directory to make
+development easier.
+
 Postgis image
 -------------
 The What's Fresh Docker workflow relies on the kartoza/postgis image available

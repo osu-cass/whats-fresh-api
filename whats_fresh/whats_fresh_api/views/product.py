@@ -37,12 +37,7 @@ def product_list(request):
         }
 
     data = {
-        "products": json.loads(
-            serializer.serialize(
-                queryset,
-                use_natural_foreign_keys=True
-            )
-        ),
+        "products": json.loads(serializer.serialize(queryset)),
         "error": error
     }
 
@@ -82,13 +77,7 @@ def product_details(request, id=None):
 
     serializer = FreshSerializer()
 
-    data = json.loads(
-        serializer.serialize(
-            [product],
-            use_natural_foreign_keys=True
-        )[1:-1]
-    )
-
+    data = json.loads(serializer.serialize(product))
     data['error'] = error
 
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -141,12 +130,7 @@ def product_vendor(request, id=None):
         }
 
     data = {
-        "products": json.loads(
-            serializer.serialize(
-                product_list,
-                use_natural_foreign_keys=True
-            )
-        ),
+        "products": json.loads(serializer.serialize(product_list)),
         "error": error
     }
 

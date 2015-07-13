@@ -181,3 +181,70 @@ def product_list(request):
         'description_field': {'title': 'Variety', 'attribute': 'variety'},
         'edit_url': 'edit-product'
     })
+
+
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
+def product_ajax(request, id=None):
+    if request.method == 'GET':
+        product_form = ProductForm()
+
+        data = {'preparations': []}
+
+        for preparation in Preparation.objects.all():
+            data['preparations'].append({
+                'id': preparation.id,
+                'name': preparation.name
+            })
+
+        json_preparations = json.dumps(data)
+
+        return render(request, 'product_ajax.html',
+                      {'product_form': product_form,
+                       'json_preparations': json_preparations,
+                       'preparation_dict': data})
+
+    elif request.method == 'POST':
+        message = ''
+        post_data = request.POST.copy()
+        errors = []
+
+        try:
+            if len(post_data['prep_ids']) == 0:
+                errors.append("You must choose at least one preparation.")
+                preparations = []
+            else:
+                preparations = [int(p) for p in set(
+                    post_data['prep_ids'].split(','))]
+        except MultiValueDictKeyError:
+            errors.append("You must choose at least one preparation.")
+            preparations = []
+
+        product = None
+
+        product_form = ProductForm(post_data, product)
+        if product_form.is_valid() and not errors:
+            product = Product.objects.create(**product_form.cleaned_data)
+            for preparation in preparations:
+                product_preparation = ProductPreparation.objects.create(
+                    product=product,
+                    preparation=Preparation.objects.get(
+                        id=preparation))
+            product.save()
+
+        data = {'preparations': []}
+
+        for preparation in Preparation.objects.all():
+            data['preparations'].append({
+                'id': preparation.id,
+                'name': preparation.name})
+
+        json_preparations = json.dumps(data)
+
+        return render(request, 'product_ajax.html', {
+            'json_preparations': json_preparations,
+            'preparation_dict': data,
+            'parent_text': 'Product List',
+            'message': message,
+            'errors': errors,
+            'product_form': product_form})
