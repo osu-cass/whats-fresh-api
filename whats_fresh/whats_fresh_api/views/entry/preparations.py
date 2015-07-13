@@ -150,8 +150,7 @@ def preparation_ajax(request, id=None):
                 **preparation_form.cleaned_data)
             preparation.save()
             serializer = FreshSerializer()
-            return HttpResponse(serializer.serialize([preparation],
-                                use_natural_foreign_keys=True)[1:-1],
+            return HttpResponse(serializer.serialize(preparation),
                                 content_type="application/json")
         else:
             pass

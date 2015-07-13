@@ -91,6 +91,9 @@
             <input id="preparation_ids" name="preparation_ids" type="hidden" />
         </div>
 
+        <div id="inline_product">  <!-- Div used if a new inline product submitted -->
+        </div>
+
         <button type="submit" onclick="return popitup('/entry/vendors/new/products/new/')">Add New Product</button>
         <div id="dialog-form"></div>
 
@@ -161,6 +164,18 @@
 
                 alert("New Product saved.");
                 $("#dialog-form").dialog('close');
+                var prodName = data.name;
+                var prodId = data.id;
+
+                $('#inline_product').append($('<div class="popup_product">')
+                .append($('<select disabled>')
+                .append($("<option>").attr("value", prodId)
+                .text(prodName))).append($('<select id="preparation$iteration" class="preparation">')
+                .append($("<option>")))
+                .append('<a href="#" onclick="deleteProduct(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+                $( ".product" ).append($("<option>").attr("value", prodId).text(prodName));
+                $( ".no_products" ).hide();
 
             }
           });
@@ -174,7 +189,7 @@
     function deleteProduct(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".preparation:visible" ).length === 0) {
+        if ($( ".preparation:visible" ).length === 0 && $( ".popup_product:visible" ).length === 0 ) {
             $( ".no_products" ).show();
         };
     }

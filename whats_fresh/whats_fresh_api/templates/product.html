@@ -65,10 +65,10 @@
         {% if existing_preparations %}
         {% for prep in existing_preparations %}
         <div class="preparation">
-            <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" />Delete</a>
             <select disabled id="existing{{ prep.id }}" class="preparation_select">
                 <option value="{{ prep.id }}">{{ prep.name }}</option>
             </select>
+            <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
         </div>
         {% endfor %}
         {% else %}

@@ -12,6 +12,7 @@ from whats_fresh.whats_fresh_api.models import (Product, Preparation,
                                                 ProductPreparation)
 from whats_fresh.whats_fresh_api.forms import ProductForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 
 import json
 
@@ -231,6 +232,9 @@ def product_ajax(request, id=None):
                     preparation=Preparation.objects.get(
                         id=preparation))
             product.save()
+            serializer = FreshSerializer()
+            return HttpResponse(serializer.serialize(product),
+                                content_type="application/json")
 
         data = {'preparations': []}
 
