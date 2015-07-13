@@ -152,11 +152,7 @@ def video_ajax(request, id=None):
         else:
             pass
 
-        return render(request, 'video.html', {
-            'parent_url': [
-                {'url': reverse('home'), 'name': 'Home'},
-                {'url': reverse('entry-list-videos'), 'name': 'Video Library'}
-            ],
-            'message': message,
-            'errors': errors,
-            'video_form': video_form})
+        return render(request, 'video_ajax.html', {
+                     'message': message,
+                     'errors': errors,
+                     'video_form': video_form})

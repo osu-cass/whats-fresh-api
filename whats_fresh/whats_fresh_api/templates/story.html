@@ -70,6 +70,9 @@
 
     </div>
 
+    <div id="inline_image">  <!-- Div used if a new inline image submitted -->
+    </div>
+
         <button type="submit"  onclick="return popImage('/entry/stories/new/images/new/')">Add New Images</button>
         <div id="image-dialog"></div>
 
@@ -186,7 +189,16 @@
 
                 alert("New Image saved.");
                 $("#image-dialog").dialog('close');
-                alert(data);
+                var imgName = data.name;
+                var imgId = data.id;
+
+                $('#inline_image').append($('<div class="popup_image">')
+                .append($('<select disabled class="image_select">')
+                .append($("<option>").attr("value", imgId)
+                .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+                $( ".image_select" ).append($("<option>").attr("value", vidId).text(vidName));
+                $( ".no_image" ).hide();
 
             }
           });
@@ -270,14 +282,14 @@
     function deleteImage(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".image:visible" ).length === 0) {
-            $( ".no_images" ).show();
+        if ($( ".image:visible" ).length === 0 && $( ".popup_image:visible" ).length === 0) {
+            $( ".no_image" ).show();
         };
     }
 
     function appendImage()
     {
-        $( ".no_images" ).hide();
+        $( ".no_image" ).hide();
         var new_html = $('#new_image').html();
         var new_html = new_html.split("$iteration").join(number_of_images);
         $( ".image_container" ).append( new_html );
