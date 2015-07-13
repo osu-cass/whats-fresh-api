@@ -198,7 +198,9 @@ a {
   .form p, .entry_box p {
     margin-left: 5%; }
   .entry_box .delete, .form .delete {
+    font-size: 2em;
     vertical-align: middle;
+    padding-bottom: 5px;
     display: inline-block;
   }
   .form .dbutton, .entry_box .dbutton {
