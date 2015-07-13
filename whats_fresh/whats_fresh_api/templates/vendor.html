@@ -64,7 +64,7 @@
         <input type="text" id="map-address-fake" onkeypress="removerEnter(event)" required="true" disabled="disabled" />
         </div>
 
-        <label><input type="checkbox" id="address-checkbox" checked="checked" />Lock Address Field</label>
+        <label><input type="checkbox" id="address-checkbox" {% if vendor_form.instance.pk %} checked="checked" {% else %} checked="unchecked" {% endif %}/>Lock Address Field</label>
 
     <!-- Hidden Fields for the Address Fields -->
 
@@ -137,8 +137,6 @@
 </div>
 {% endblock content %}
 {% block footer %}
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="http://rawgit.com/Logicify/jquery-locationpicker-plugin/master/dist/locationpicker.jquery.js"></script>
 <script>
 
 $('#map-address').hide();
