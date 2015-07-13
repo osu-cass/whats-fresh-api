@@ -75,9 +75,9 @@ def product(request, id=None):
 
                 existing_preparations = [
                     pp.preparation.id for pp in
-                        ProductPreparation.objects.filter(
-                            product=product,
-                            preparation__id__in=preparations)
+                    ProductPreparation.objects.filter(
+                        product=product,
+                        preparation__id__in=preparations)
                 ]
 
                 for preparation in preparations:

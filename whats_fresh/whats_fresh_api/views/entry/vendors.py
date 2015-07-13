@@ -88,14 +88,14 @@ def vendor(request, id=None):
 
                 existing_prod_preps = [
                     vp.product_preparation.id for vp in
-                        VendorProduct.objects.filter(
-                            vendor=vendor,
-                            product_preparation__id__in=prod_preps)
+                    VendorProduct.objects.filter(
+                        vendor=vendor,
+                        product_preparation__id__in=prod_preps)
                 ]
 
                 for prod_prep in prod_preps:
-                    if not prod_prep in existing_prod_preps:
-                        v = VendorProduct.objects.create(
+                    if prod_prep not in existing_prod_preps:
+                        VendorProduct.objects.create(
                             vendor=vendor,
                             product_preparation=ProductPreparation.objects.get(
                                 id=prod_prep))
