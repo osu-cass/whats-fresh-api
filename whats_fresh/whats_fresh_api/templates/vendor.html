@@ -165,12 +165,36 @@
                 var prodName = data.name;
                 var prodId = data.id;
 
-                $('#inline_product').append($('<div class="popup_product">')
-                .append($('<select disabled>')
-                .append($("<option>").attr("value", prodId)
-                .text(prodName))).append($('<select id="preparation$iteration" class="preparation">')
-                .append($("<option>")))
-                .append('<a href="#" onclick="deleteProduct(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+                for(i=0; i < data.preparations.length; i++) {
+
+                    if ( i == 0) {
+                    $('#inline_product').append($('<div class="popup_product">')
+                    .append($('<select disabled id="product$iteration">')
+                    .append($("<option>").attr("value", prodId)
+                    .text(prodName))).append($('<select class="preparation">')
+                    .append($('<option >').attr("value", data.preparations[i].id).text(data.preparations[i].name)))
+                    .append('<a href="#" onclick="deleteProduct(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+                    $("#product$iteration").show();
+                    $("#preparation").hide();
+
+                    }
+
+                    else {
+
+                    $('#inline_product').append($('<div class="popup_product">')
+                    .append($('<select disabled id="product$iteration">')
+                    .append($("<option>").attr("value", prodId)
+                    .text(prodName))).append($('<select class="preparation">')
+                    .append($('<option >').attr("value", data.preparations[i].id).text(data.preparations[i].name)))
+                    .append('<a href="#" onclick="deleteProduct(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+                    $("#product$iteration").hide();
+                    $("#preparation").hide();
+
+                    }
+
+                }
 
                 $( ".product" ).append($("<option>").attr("value", prodId).text(prodName));
                 $( ".no_products" ).hide();

@@ -224,16 +224,22 @@ def product_ajax(request, id=None):
         product = None
 
         product_form = ProductForm(post_data, product)
+        popup_prep = []
         if product_form.is_valid() and not errors:
             product = Product.objects.create(**product_form.cleaned_data)
             for preparation in preparations:
-                ProductPreparation.objects.create(
+                inline_prep = ProductPreparation.objects.create(
                     product=product,
                     preparation=Preparation.objects.get(
                         id=preparation))
+                popup_prep.append({
+                    'id': inline_prep.id,
+                    'name': inline_prep.preparation.name})
             product.save()
             serializer = FreshSerializer()
-            return HttpResponse(serializer.serialize(product),
+            data = json.loads(serializer.serialize(product))
+            data['preparations'] = popup_prep
+            return HttpResponse(json.dumps(data),
                                 content_type="application/json")
 
         data = {'preparations': []}
