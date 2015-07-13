@@ -10,6 +10,7 @@ from django.conf import settings
 from whats_fresh.whats_fresh_api.models import Video
 from whats_fresh.whats_fresh_api.forms import VideoForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 
 
 @login_required
@@ -145,6 +146,9 @@ def video_ajax(request, id=None):
             video = Video.objects.create(
                 **video_form.cleaned_data)
             video.save()
+            serializer = FreshSerializer()
+            return HttpResponse(serializer.serialize(video),
+                                content_type="application/json")
         else:
             pass
 

@@ -68,10 +68,10 @@
         <span class="no_image">No Images Yet!</span>
         {% endif %}
 
+    </div>
+
         <button type="submit"  onclick="return popImage('/entry/stories/new/images/new/')">Add New Images</button>
         <div id="image-dialog"></div>
-
-    </div>
 
         <div class="video_container">
         <h3>Videos</h3>
@@ -89,10 +89,14 @@
         <span class="no_video">No Videos Yet!</span>
         {% endif %}
 
+        </div>
+
+        <div id="inline_video">  <!-- Div used if a new inline video submitted -->
+        </div>
+
         <button type="submit" onclick="return popVideo('/entry/stories/new/videos/new/')">Add New Videos</button>
         <div id="video-dialog"></div>
 
-    </div>
 
     <input class='image' name="image_ids" type="hidden" />
     <input class='image' name="video_ids" type="hidden" />
@@ -180,10 +184,9 @@
             success: function(data)
             {
 
-                data = JSON.stringify(data);
-                alert(data);
                 alert("New Image saved.");
                 $("#image-dialog").dialog('close');
+                alert(data);
 
             }
           });
@@ -204,18 +207,23 @@
             success: function(data)
             {
 
-                data = JSON.stringify(data);
-                alert(data);
                 alert("New Video saved.");
-                $("#dialog-form").dialog('close');
+                $("#video-dialog").dialog('close');
+                var vidName = data.name;
+                var vidId = data.id;
+
+                $('#inline_video').append($('<div class="popup_video">')
+                .append($('<select disabled class="video_select">')
+                .append($("<option>").attr("value", vidId)
+                .text(vidName))).append('<a href="#" onclick="deleteVideo(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+                $( ".video_select" ).append($("<option>").attr("value", vidId).text(vidName));
+                $( ".no_video" ).hide();
 
             }
           });
 
-
        });
-
-
 
 
     function deleteStory()
@@ -245,14 +253,14 @@
     function deleteVideo(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".video:visible" ).length === 0) {
-            $( ".no_products" ).show();
+        if ($( ".video:visible" ).length === 0 && $( ".popup_video:visible" ).length === 0 ) {
+            $( ".no_video" ).show();
         };
     }
 
     function appendVideo()
     {
-        $( ".no_videos" ).hide();
+        $( ".no_video" ).hide();
         var new_html = $('#new_video').html();
         var new_html = new_html.split("$iteration").join(number_of_videos);
         $( ".video_container" ).append( new_html );
