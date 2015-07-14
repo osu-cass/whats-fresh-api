@@ -77,10 +77,10 @@
         <div id="map" class="map-ui"></div><br>            <!-- Map -->
 
         <p class="field_text">Latitude*:</p>
-        <div><input type="text" id="map-lat" onkeypress="removerEnter(event)" name="latitude" required="true" {% if latit %} value="{{ latit }}" {% endif %}/></div>
+        <div><input type="text" id="map-lat" onkeypress="removerEnter(event)" onchange="checkValue()" name="latitude" required="true" {% if latit %} value="{{ latit }}" {% endif %}/></div>
 
         <p class="field_text">Longitude*:</p>
-        <div><input type="text" id="map-lon" onkeypress="removerEnter(event)" name="longitude" required="true" {% if longit %} value="{{ longit }}" {% endif %}/></div>
+        <div><input type="text" id="map-lon" onkeypress="removerEnter(event)" onchange="checkValue()" name="longitude" required="true" {% if longit %} value="{{ longit }}" {% endif %}/></div>
 
         <p class=" field_text">Location Description:</p>
         {{ vendor_form.location_description }}
@@ -214,37 +214,45 @@ $('#map').locationpicker({
 
 });
 
-    // function removerEnter(event)         // To override enter for map-address, map-lat and map-lon
-    // {
-    //     if (event.which === 13 || event.keyCode === 13 || event.which === 9 || event.keyCode === 9)  {
-
-    //         event.preventDefault();
-    //         var checkLat = document.getElementById('map-lat').value;
-    //         var checkLon = document.getElementById('map-lon').value;
-
-    //         if (isNaN(checkLat) || isNaN(checkLon)) {
-
-    //             alert("Invalid coordinate");
-    //         }
-
-    //     }
-    // }
-
-    function removerEnter(event)
+    function removerEnter(event)         // To override enter for map-address, map-lat and map-lon
     {
 
-    var checkLat = document.getElementById('map-lat').value;
-    var checkLon = document.getElementById('map-lon').value;
-
-        if(isNaN(checkLat) || isNaN(checkLon)) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        if(event.which == 13 || event.keyCode == 13) {
+        if (event.which === 13 || event.keyCode === 13)  {
 
             event.preventDefault();
+
         }
+    }
+
+    function checkValue()
+    {
+        var checkLat = document.getElementById('map-lat').value;
+        var checkLon = document.getElementById('map-lon').value;
+
+        if (isNaN(checkLat)) {
+
+            $('input[name="latitude"]').css({ 'background': '#D54133' });
+
+        }
+
+        else {
+
+            $('input[name="latitude"]').css({ 'background': 'white' });
+
+        }
+
+        if (isNaN(checkLon)) {
+
+            $('input[name="longitude"]').css({ 'background': '#D54133' });
+
+        }
+
+        else {
+
+            $('input[name="longitude"]').css({ 'background': 'white' });
+
+        }
+
     }
 
 
