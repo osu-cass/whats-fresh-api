@@ -64,7 +64,7 @@
         <input type="text" id="map-address-fake" onkeypress="removerEnter(event)" required="true" disabled="disabled" />
         </div>
 
-        <label><input type="checkbox" id="address-checkbox" {% if vendor_form.instance.pk %} checked="checked" {% else %} checked="unchecked" {% endif %}/>Lock Address Field</label>
+        <label><input type="checkbox" id="address-checkbox" {% if vendor_form.instance.pk %} checked="checked" {% endif %}/>Lock Address Field</label>
 
     <!-- Hidden Fields for the Address Fields -->
 
@@ -202,8 +202,11 @@ $('#map').locationpicker({
 
     {% if vendor_form.errors or errors %}
         $("#map-address-fake").val(dbAddress).show();
-    {% else %}
+    {% elif vendor_form.instance.pk %}
         $("#map-address-fake").show();
+    {% else %}
+        $("#map-address").show();
+        $("#map-address").prop('disabled', false);
     {% endif %}
 
        $('input[name="location"]').val($('#map').data("locationpicker").locationName);
@@ -211,10 +214,36 @@ $('#map').locationpicker({
 
 });
 
-    function removerEnter(e)         // To override enter for map-address, map-lat and map-lon
+    // function removerEnter(event)         // To override enter for map-address, map-lat and map-lon
+    // {
+    //     if (event.which === 13 || event.keyCode === 13 || event.which === 9 || event.keyCode === 9)  {
+
+    //         event.preventDefault();
+    //         var checkLat = document.getElementById('map-lat').value;
+    //         var checkLon = document.getElementById('map-lon').value;
+
+    //         if (isNaN(checkLat) || isNaN(checkLon)) {
+
+    //             alert("Invalid coordinate");
+    //         }
+
+    //     }
+    // }
+
+    function removerEnter(event)
     {
-        if (e.which == 13 || e.keyCode == 13) {
-            e.preventDefault();
+
+    var checkLat = document.getElementById('map-lat').value;
+    var checkLon = document.getElementById('map-lon').value;
+
+        if(isNaN(checkLat) || isNaN(checkLon)) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        if(event.which == 13 || event.keyCode == 13) {
+
+            event.preventDefault();
         }
     }
 
