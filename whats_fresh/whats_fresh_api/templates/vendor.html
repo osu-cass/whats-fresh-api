@@ -156,6 +156,16 @@
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
+                try {
+
+                    $.parseJSON(data);
+                }
+
+                catch(e) {
+
+                    $("#dialog-form").html(data);
+                    return
+                }
 
                 alert("New Product saved.");
                 $("#dialog-form").dialog('close');
@@ -175,11 +185,11 @@
 
                 appendProduct();
 
-                $("#product" + (number_of_products - 1) + "option").filter(function() {
+                $("#product" + (number_of_products - 1) + " option").filter(function() {
                     return $(this).text() == prodName;
                 }).prop('selected', true);
 
-                $( ".no_products" ).hide();
+                showPreparations(number_of_products - 1);
 
             }
           });
