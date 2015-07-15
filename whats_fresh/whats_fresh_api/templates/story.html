@@ -182,22 +182,22 @@
          $.ajax({
             type: "POST",
             url: '/entry/stories/new/images/new',
+            enctype: 'multipart/form-data',
             data: $("#image-form").serialize(),
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
-
                 alert("New Image saved.");
                 $("#image-dialog").dialog('close');
-                var imgName = data.name;
-                var imgId = data.id;
+                // var imgName = data.name;
+                // var imgId = data.id;
 
-                $('#inline_image').append($('<div class="popup_image">')
-                .append($('<select disabled class="image_select">')
-                .append($("<option>").attr("value", imgId)
-                .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+                // $('#inline_image').append($('<div class="popup_image">')
+                // .append($('<select disabled class="image_select">')
+                // .append($("<option>").attr("value", imgId)
+                // .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
 
-                $( ".image_select" ).append($("<option>").attr("value", vidId).text(vidName));
+                // $( ".image_select" ).append($("<option>").attr("value", vidId).text(vidName));
                 $( ".no_image" ).hide();
 
             }

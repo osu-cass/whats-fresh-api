@@ -226,7 +226,7 @@ def product_ajax(request, id=None):
         if product_form.is_valid() and not errors:
             product = Product.objects.create(**product_form.cleaned_data)
             for preparation in preparations:
-                product_preparation = ProductPreparation.objects.create(
+                ProductPreparation.objects.create(
                     product=product,
                     preparation=Preparation.objects.get(
                         id=preparation))

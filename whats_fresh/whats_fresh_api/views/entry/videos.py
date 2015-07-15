@@ -153,6 +153,6 @@ def video_ajax(request, id=None):
             pass
 
         return render(request, 'video_ajax.html', {
-                     'message': message,
-                     'errors': errors,
-                     'video_form': video_form})
+            'message': message,
+            'errors': errors,
+            'video_form': video_form})

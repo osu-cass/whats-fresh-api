@@ -133,6 +133,7 @@ def image_ajax(request, id=None):
         return render(request, 'image_ajax.html', {'image_form': image_form})
 
     elif request.method == 'POST':
+        print "AJAX_POST"
         message = ''
         instance = None
         image_form = ImageForm(
@@ -140,11 +141,12 @@ def image_ajax(request, id=None):
             request.FILES,
             instance=instance)
         if image_form.is_valid():
+            print "valid"
             image_form.save()
         else:
             pass
 
-        return render(request, 'image.html', {
+        return render(request, 'image_ajax.html', {
             'message': message,
             'errors': [],
             'image_form': image_form})
