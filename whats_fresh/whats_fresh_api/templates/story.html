@@ -219,6 +219,11 @@
             success: function(data)
             {
 
+                if (data.constructor === "test".constructor) {      // checks if the data is a string
+                    $("#video-form").html(data);
+                    return
+                }
+
                 alert("New Video saved.");
                 $("#video-dialog").dialog('close');
                 var vidName = data.name;
