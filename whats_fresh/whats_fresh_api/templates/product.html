@@ -138,6 +138,12 @@
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
+
+                if (data.constructor === "test".constructor) {       // checks if the data is a string
+                    $("#dialog-form").html(data);
+                    return
+                }
+
                 alert("New Preparation saved.");
                 $("#dialog-form").dialog('close');
                 var prepName = data.name;
