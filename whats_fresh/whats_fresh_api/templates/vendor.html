@@ -183,13 +183,13 @@ $('#map').locationpicker({
     },
 
     enableAutocomplete: true,
+    enableAutocompleteBlur: true,
 
     onchanged: function (currentLocation, radius,  isMarkerDropped) {
 
-   if(!document.getElementById('address-checkbox').checked){
+       if(!document.getElementById('address-checkbox').checked){
 
             setAddressFields();
-
        }
 
        $('input[name="latitude"]').val($('#map').data("locationpicker").location.A);  // Updates the latitude input
@@ -200,17 +200,16 @@ $('#map').locationpicker({
 
     oninitialized: function() {
 
-    {% if vendor_form.errors or errors %}
-        $("#map-address-fake").val(dbAddress).show();
-    {% elif vendor_form.instance.pk %}
-        $("#map-address-fake").show();
-    {% else %}
-        $("#map-address").show();
-        $("#map-address").prop('disabled', false);
-    {% endif %}
+        {% if vendor_form.errors %}
+            $("#map-address").val(dbAddress).attr('disabled', false).show();
+        {% elif vendor_form.instance.pk and not vendor_form.errors %}
+           $("#map-address-fake").show();
+        {% else %}
+            $("#map-address").attr('disabled', false).show();
+        {% endif %}
 
-       $('input[name="location"]').val($('#map').data("locationpicker").locationName);
-    }
+           $('input[name="location"]').val($('#map').data("locationpicker").locationName);
+        }
 
 });
 

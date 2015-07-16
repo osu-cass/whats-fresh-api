@@ -141,7 +141,7 @@ def vendor(request, id=None):
         latit = '44.563781'
         longit = '-123.27944400000001'
     else:
-        title = "Add aVendor"
+        title = "Add a Vendor"
         message = "* = Required field"
         post_url = reverse('new-vendor')
         latit = post_data['latitude']
