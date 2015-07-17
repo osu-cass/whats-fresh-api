@@ -1,6 +1,7 @@
 from django.http import (HttpResponse, HttpResponseRedirect)
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
+from django.contrib.gis.geos import GEOSException
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.gis.geos import fromstr
 from django.shortcuts import get_object_or_404
@@ -12,9 +13,7 @@ from whats_fresh.whats_fresh_api.models import (Vendor, Product,
                                                 ProductPreparation,
                                                 VendorProduct)
 from whats_fresh.whats_fresh_api.forms import VendorForm
-from whats_fresh.whats_fresh_api.functions import (group_required,
-                                                   coordinates_from_address,
-                                                   BadAddressException)
+from whats_fresh.whats_fresh_api.functions import group_required
 
 import json
 
@@ -44,18 +43,13 @@ def vendor(request, id=None):
         errors = []
 
         try:
-            coordinates = coordinates_from_address(
-                post_data['street'], post_data['city'], post_data['state'],
-                post_data['zip'])
-
             post_data['location'] = fromstr(
-                'POINT(%s %s)' % (coordinates[1], coordinates[0]),
-                srid=4326)
-        # Bad Address will be thrown if Google does not return coordinates for
-        # the address, and MultiValueDictKeyError will be thrown if the POST
-        # data being passed in is empty.
-        except (MultiValueDictKeyError, BadAddressException):
-            errors.append("Full address is required.")
+                'POINT(%s %s)' % (post_data['longitude'],
+                                  post_data['latitude']), srid=4326)
+        # Bad Address will be thrown if the coordinates submitted
+        # are invalid and GEOSException will be thrown.
+        except (GEOSException, ValueError):
+            errors.append("Invalid Coordinates.")
 
         try:
             if not post_data['preparation_ids']:
@@ -120,12 +114,19 @@ def vendor(request, id=None):
     else:
         existing_prod_preps = []
         errors = []
+        post_data = {}
 
     if id:
         vendor = Vendor.objects.get(id=id)
-        vendor_form = VendorForm(instance=vendor)
         title = "Edit %s" % vendor.name
         message = ""
+        if post_data:
+            latit = post_data.get('location')[1]
+            longit = post_data.get('location')[0]
+        else:
+            vendor_form = VendorForm(instance=vendor)
+            latit = vendor.location[1]
+            longit = vendor.location[0]
         post_url = reverse('edit-vendor', kwargs={'id': id})
         # If the list already has items, we're coming back to it from above
         # And have already filled the list with the product preparations POSTed
@@ -142,10 +143,14 @@ def vendor(request, id=None):
         post_url = reverse('new-vendor')
         message = "* = Required field"
         vendor_form = VendorForm()
+        latit = '44.563781'
+        longit = '-123.27944400000001'
     else:
-        title = "Add aVendor"
+        title = "Add a Vendor"
         message = "* = Required field"
         post_url = reverse('new-vendor')
+        latit = post_data['latitude']
+        longit = post_data['longitude']
 
     data = {}
     product_list = []
@@ -173,6 +178,8 @@ def vendor(request, id=None):
         'vendor_form': vendor_form,
         'json_preparations': json_preparations,
         'product_list': product_list,
+        'latit': latit,
+        'longit': longit,
     })
 
 
