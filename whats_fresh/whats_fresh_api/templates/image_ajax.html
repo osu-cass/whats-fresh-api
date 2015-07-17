@@ -16,7 +16,7 @@
 {% endblock title %}
 
 {% block content %} -->
-<form action="{{ post_url }}" method="post" enctype="multipart/form-data" id="image-form">
+<form action="{{ post_url }}" method="post" enctype="multipart/form-data" id="image-form" name="newImage">
 
     <div class="error">
         {% if image_form.errors or errors %}
@@ -40,7 +40,8 @@
             <img src="{{ image_form.instance.image.url }}" class="image_embed" />
         {% endif %}
         <p class="field_text">Image*:</p>
-        <input id="id_image" name="image" type="file" />
+        <!-- <input id="id_image" name="image" type="file" /> -->
+        {{ image_form.image }}
         <p class="field_text">Name*:</p>
         {{ image_form.name }}
         <p class="field_text">Caption*:</p>
