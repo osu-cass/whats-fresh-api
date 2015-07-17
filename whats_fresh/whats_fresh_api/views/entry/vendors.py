@@ -114,14 +114,20 @@ def vendor(request, id=None):
     else:
         existing_prod_preps = []
         errors = []
+        post_data = {}
 
     if id:
         vendor = Vendor.objects.get(id=id)
-        vendor_form = VendorForm(instance=vendor)
+        # vendor_form = VendorForm(instance=vendor)
         title = "Edit %s" % vendor.name
         message = ""
-        latit = vendor.location[1]
-        longit = vendor.location[0]
+        if post_data:
+            latit = post_data.get('location', vendor.location)[1]
+            longit = post_data.get('location', vendor.location)[0]
+        else:
+            vendor_form = VendorForm(instance=vendor)
+            latit = vendor.location[1]
+            longit = vendor.location[0]
         post_url = reverse('edit-vendor', kwargs={'id': id})
         # If the list already has items, we're coming back to it from above
         # And have already filled the list with the product preparations POSTed

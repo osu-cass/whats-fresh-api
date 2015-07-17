@@ -68,19 +68,19 @@
 
     <!-- Hidden Fields for the Address Fields -->
 
-        <div><input id="hidStreet" type="hidden" name="street" required="true" value="{{ vendor_form.street.value }}" ></div>
-        <div><input id="hidCity" type="hidden" name="city" required="true" value="{{ vendor_form.city.value }}" ></div>
-        <div><input id="hidState" type="hidden" name="state" required="true" value="{{ vendor_form.state.value }}" ></div>
-        <div><input id="hidZip" type="hidden" name="zip" required="true" value="{{ vendor_form.zip.value }}" ></div>
+        <div><input type="hidden" name="street" required="true" value="{{ vendor_form.street.value }}" ></div>
+        <div><input type="hidden" name="city" required="true" value="{{ vendor_form.city.value }}" ></div>
+        <div><input type="hidden" name="state" required="true" value="{{ vendor_form.state.value }}" ></div>
+        <div><input type="hidden" name="zip" required="true" value="{{ vendor_form.zip.value }}" ></div>
 
         <br><br>
         <div id="map" class="map-ui"></div><br>            <!-- Map -->
 
         <p class="field_text">Latitude*:</p>
-        <div><input type="text" id="map-lat" onkeypress="removerEnter(event)" onchange="checkValue()" name="latitude" required="true" {% if latit %} value="{{ latit }}" {% endif %}/></div>
+        <div><input type="text" id="map-lat" onkeypress="removerEnter(event)" onchange="checkLatLong()" name="latitude" required="true" {% if latit %} value="{{ latit }}" {% endif %}/></div>
 
         <p class="field_text">Longitude*:</p>
-        <div><input type="text" id="map-lon" onkeypress="removerEnter(event)" onchange="checkValue()" name="longitude" required="true" {% if longit %} value="{{ longit }}" {% endif %}/></div>
+        <div><input type="text" id="map-lon" onkeypress="removerEnter(event)" onchange="checkLatLong()" name="longitude" required="true" {% if longit %} value="{{ longit }}" {% endif %}/></div>
 
         <p class=" field_text">Location Description:</p>
         {{ vendor_form.location_description }}
@@ -223,7 +223,7 @@ $('#map').locationpicker({
         }
     }
 
-    function checkValue()
+    function checkLatLong()
     {
         var checkLat = document.getElementById('map-lat').value;
         var checkLon = document.getElementById('map-lon').value;
