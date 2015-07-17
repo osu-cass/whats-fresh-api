@@ -48,15 +48,40 @@
         {{ vendor_form.story }}
         <p class=" field_text">In Port:</p>
         {{ vendor_form.status }}
-        <h3>Location</h3>
-        <p class="field_text">Street Address*:</p>
-        {{ vendor_form.street }}
-        <p class="field_text">City*:</p>
-        {{ vendor_form.city }}
-        <p class="field_text">State*:</p>
-        {{ vendor_form.state }}
-        <p class="field_text">Zipcode*:</p>
-        {{ vendor_form.zip }}
+        <h3>Location</h3><br>
+
+        <script type="text/javascript" src='http://maps.google.com/maps/api/js?sensor=false&libraries=places'></script>
+
+    <!-- Real Input Address Field -->
+
+        <div>
+        <input type="text" id="map-address" onkeypress="removerEnter(event)" name="location" required="true"  disabled="disabled" />
+        </div>
+
+    <!-- Dummy Input address field-->
+
+        <div>
+        <input type="text" id="map-address-fake" onkeypress="removerEnter(event)" required="true" disabled="disabled" />
+        </div>
+
+        <label><input type="checkbox" id="address-checkbox" {% if vendor_form.instance.pk %} checked="checked" {% endif %}/>Lock Address Field</label>
+
+    <!-- Hidden Fields for the Address Fields -->
+
+        <div><input type="hidden" name="street" required="true" value="{{ vendor_form.street.value }}" ></div>
+        <div><input type="hidden" name="city" required="true" value="{{ vendor_form.city.value }}" ></div>
+        <div><input type="hidden" name="state" required="true" value="{{ vendor_form.state.value }}" ></div>
+        <div><input type="hidden" name="zip" required="true" value="{{ vendor_form.zip.value }}" ></div>
+
+        <br><br>
+        <div id="map" class="map-ui"></div><br>            <!-- Map -->
+
+        <p class="field_text">Latitude*:</p>
+        <div><input type="text" id="map-lat" onkeypress="removerEnter(event)" onchange="checkLatLong()" name="latitude" required="true" {% if latit %} value="{{ latit }}" {% endif %}/></div>
+
+        <p class="field_text">Longitude*:</p>
+        <div><input type="text" id="map-lon" onkeypress="removerEnter(event)" onchange="checkLatLong()" name="longitude" required="true" {% if longit %} value="{{ longit }}" {% endif %}/></div>
+
         <p class=" field_text">Location Description:</p>
         {{ vendor_form.location_description }}
         <h3>Contact info: </h3>
@@ -122,6 +147,130 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
 
 <script>
+$('#map-address').hide();
+$('#map-address-fake').hide();
+
+var dbAddress = "{{ vendor_form.street.value }}, {{ vendor_form.city.value }}, {{ vendor_form.state.value }}, {{ vendor_form.zip.value }}";
+
+{% if vendor_form.instance.pk  %}
+    $('#map-address-fake').val(dbAddress);
+{% endif %}
+
+$('#address-checkbox').click(function(){
+
+    if($(this).prop("checked") == true) {
+
+       $("#map-address").hide();
+       document.getElementById('map-address-fake').value = document.getElementById('map-address').value;
+       $("#map-address-fake").show();
+       setAddressFields();
+
+    }
+
+    else {
+
+        $("#map-address-fake").hide();
+        document.getElementById('map-address').value = document.getElementById('map-address-fake').value;
+        $("#map-address").show();
+        $("#map-address").prop('disabled', false);
+
+    }
+
+});
+
+
+$('#map').locationpicker({
+    location: { latitude: {% if latit %} {{ latit }} {% else %} 44.563781 {% endif %},
+                longitude: {% if longit %} {{ longit }} {% else %} -123.27944400000001 {% endif %}},
+    radius: false,
+    inputBinding: {
+        latitudeInput: $('#map-lat'),
+        longitudeInput: $('#map-lon'),
+        locationNameInput: $('#map-address')
+
+    },
+
+    enableAutocomplete: true,
+    enableAutocompleteBlur: true,
+
+    onchanged: function (currentLocation, radius,  isMarkerDropped) {
+
+       if(!document.getElementById('address-checkbox').checked){
+
+            setAddressFields();
+       }
+
+       $('input[name="latitude"]').val($('#map').data("locationpicker").location.A);  // Updates the latitude input
+       $('input[name="longitude"]').val($('#map').data("locationpicker").location.F); // Updates the longitude input
+       $('input[name="location"]').val($('#map').data("locationpicker").locationName);
+
+    },
+
+    oninitialized: function() {
+
+        {% if vendor_form.errors %}
+            $("#map-address").val(dbAddress).attr('disabled', false).show();
+        {% elif vendor_form.instance.pk and not vendor_form.errors %}
+           $("#map-address-fake").show();
+        {% else %}
+            $("#map-address").attr('disabled', false).show();
+            setAddressFields();
+        {% endif %}
+
+        }
+});
+
+    function removerEnter(event)         // To override enter for map-address, map-lat and map-lon
+    {
+
+        if (event.which === 13 || event.keyCode === 13)  {
+
+            event.preventDefault();
+
+        }
+    }
+
+    function checkLatLong()
+    {
+        var checkLat = document.getElementById('map-lat').value;
+        var checkLon = document.getElementById('map-lon').value;
+
+        if (isNaN(checkLat)) {
+
+            $('input[name="latitude"]').css({ 'background': '#D54133' });
+
+        }
+
+        else {
+
+            $('input[name="latitude"]').css({ 'background': 'white' });
+
+        }
+
+        if (isNaN(checkLon)) {
+
+            $('input[name="longitude"]').css({ 'background': '#D54133' });
+
+        }
+
+        else {
+
+            $('input[name="longitude"]').css({ 'background': 'white' });
+
+        }
+
+    }
+
+
+    function setAddressFields()          // For determining the location parameters.
+    {
+
+        $('input[name="street"]').val($('#map').data("locationpicker").addressComponents.addressLine1);
+        $('input[name="city"]').val($('#map').data("locationpicker").addressComponents.city);
+        $('input[name="state"]').val($('#map').data("locationpicker").addressComponents.stateOrProvince);
+        $('input[name="zip"]').val($('#map').data("locationpicker").addressComponents.postalCode);
+
+    }
 
     var preparation_options = {{ json_preparations|safe }};
 
@@ -231,5 +380,6 @@
 
         $('input[name="preparation_ids"]').val(preparation_ids);
     }
+
 </script>
 {% endblock footer %}
