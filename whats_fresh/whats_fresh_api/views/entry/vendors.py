@@ -118,12 +118,11 @@ def vendor(request, id=None):
 
     if id:
         vendor = Vendor.objects.get(id=id)
-        # vendor_form = VendorForm(instance=vendor)
         title = "Edit %s" % vendor.name
         message = ""
         if post_data:
-            latit = post_data.get('location', vendor.location)[1]
-            longit = post_data.get('location', vendor.location)[0]
+            latit = post_data.get('location')[1]
+            longit = post_data.get('location')[0]
         else:
             vendor_form = VendorForm(instance=vendor)
             latit = vendor.location[1]

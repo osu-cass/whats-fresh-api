@@ -206,11 +206,10 @@ $('#map').locationpicker({
            $("#map-address-fake").show();
         {% else %}
             $("#map-address").attr('disabled', false).show();
+            setAddressFields();
         {% endif %}
 
-           $('input[name="location"]').val($('#map').data("locationpicker").locationName);
         }
-
 });
 
     function removerEnter(event)         // To override enter for map-address, map-lat and map-lon
