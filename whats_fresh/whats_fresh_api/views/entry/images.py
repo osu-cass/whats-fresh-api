@@ -10,6 +10,8 @@ from django.conf import settings
 from whats_fresh.whats_fresh_api.models import Image
 from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+import json
 
 
 @login_required
@@ -141,6 +143,11 @@ def image_ajax(request, id=None):
             instance=instance)
         if image_form.is_valid():
             image_form.save()
+            serializer = FreshSerializer()
+            data = json.loads(serializer.serialize(fields=('name', 'id')))
+            return HttpResponse(json.dumps(data),
+                                content_type="application/json")
+
         else:
             pass
 

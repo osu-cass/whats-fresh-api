@@ -193,7 +193,6 @@
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
-                console.log(data);
                 // if (data.constructor === "test".constructor) {      // checks if the data is a string
                 //     $("#image-dialog").html(data);
                 //     return
@@ -201,13 +200,9 @@
 
                 alert("New Image saved.");
                 $("#image-dialog").dialog('close');
-
-                var imgName = data.name;
-                var imgId = data.id;
-
-                console.log(data.name);
-
-                console.log(data);
+                // var imgName = data.name;
+                // var imgId = data.id;
+                console.log(data.name)
 
 
                 $('#inline_image').append($('<div class="popup_image">')
