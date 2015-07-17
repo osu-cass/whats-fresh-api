@@ -73,32 +73,32 @@
     <div id="inline_image">  <!-- Div used if a new inline image submitted -->
     </div>
 
-        <button type="submit"  onclick="return popImage('/entry/stories/new/images/new/')">Add New Images</button>
-        <div id="image-dialog"></div>
+    <button type="submit"  onclick="return popImage('/entry/stories/new/images/new/')">Add New Images</button>
+    <div id="image-dialog"></div>
 
-        <div class="video_container">
-        <h3>Videos</h3>
-        <button type="button" onclick="appendVideo()">Add Video</button>
-        {% if existing_videos %}
-        {% for video in existing_videos %}
-        <div class="video">
-            <select disabled id="existing{{ prep.id }}" class="video_select">
-                <option value="{{ video.id }}">{{ video.name }}</option>
-            </select>
-            <a href="#" onclick="deleteVideo(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
-        </div>
-        {% endfor %}
-        {% else %}
-        <span class="no_video">No Videos Yet!</span>
-        {% endif %}
+    <div class="video_container">
+    <h3>Videos</h3>
+    <button type="button" onclick="appendVideo()">Add Video</button>
+    {% if existing_videos %}
+    {% for video in existing_videos %}
+    <div class="video">
+        <select disabled id="existing{{ prep.id }}" class="video_select">
+            <option value="{{ video.id }}">{{ video.name }}</option>
+        </select>
+        <a href="#" onclick="deleteVideo(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+    </div>
+    {% endfor %}
+    {% else %}
+    <span class="no_video">No Videos Yet!</span>
+    {% endif %}
 
-        </div>
+    </div>
 
-        <div id="inline_video">  <!-- Div used if a new inline video submitted -->
-        </div>
+    <div id="inline_video">  <!-- Div used if a new inline video submitted -->
+    </div>
 
-        <button type="submit" onclick="return popVideo('/entry/stories/new/videos/new/')">Add New Videos</button>
-        <div id="video-dialog"></div>
+    <button type="submit" id="newImage-btn" onclick="return popVideo('/entry/stories/new/videos/new/')">Add New Videos</button>
+    <div id="video-dialog"></div>
 
 
     <input class='image' name="image_ids" type="hidden" />
@@ -143,6 +143,9 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
 <script>
 
+        if ( window.FormData === undefined )
+            $("#newImage-btn").hide();
+
         function popImage(url) {
           $.ajax({
             type: "GET",
@@ -177,27 +180,42 @@
 
        $("#image-dialog").on('submit', function (e) {
 
+        var fd = new FormData(document.forms.namedItem("newImage"));
+
          e.preventDefault();
 
          $.ajax({
             type: "POST",
             url: '/entry/stories/new/images/new',
-            enctype: 'multipart/form-data',
-            data: $("#image-form").serialize(),
+            processData: false,
+            contentType: false,
+            data: fd,
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
+                console.log(data);
+                // if (data.constructor === "test".constructor) {      // checks if the data is a string
+                //     $("#image-dialog").html(data);
+                //     return
+                // }
+
                 alert("New Image saved.");
                 $("#image-dialog").dialog('close');
-                // var imgName = data.name;
-                // var imgId = data.id;
 
-                // $('#inline_image').append($('<div class="popup_image">')
-                // .append($('<select disabled class="image_select">')
-                // .append($("<option>").attr("value", imgId)
-                // .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+                var imgName = data.name;
+                var imgId = data.id;
 
-                // $( ".image_select" ).append($("<option>").attr("value", vidId).text(vidName));
+                console.log(data.name);
+
+                console.log(data);
+
+
+                $('#inline_image').append($('<div class="popup_image">')
+                .append($('<select disabled class="image_select">')
+                .append($("<option>").attr("value", imgId)
+                .text(imgName))).append('<a href="#" onclick="deleteVideo(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+                $( ".image_select" ).append($("<option>").attr("value", imgId).text(imgName));
                 $( ".no_image" ).hide();
 
             }
@@ -220,7 +238,7 @@
             {
 
                 if (data.constructor === "test".constructor) {      // checks if the data is a string
-                    $("#video-form").html(data);
+                    $("#video-dialog").html(data);
                     return
                 }
 
@@ -228,6 +246,10 @@
                 $("#video-dialog").dialog('close');
                 var vidName = data.name;
                 var vidId = data.id;
+
+                console.log(data.name);
+
+                console.log(data);
 
                 $('#inline_video').append($('<div class="popup_video">')
                 .append($('<select disabled class="video_select">')

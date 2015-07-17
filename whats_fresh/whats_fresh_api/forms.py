@@ -86,5 +86,6 @@ class ImageForm(forms.ModelForm):
         exclude = []
         widgets = {
             'caption': forms.TextInput(attrs={'required': 'true'}),
-            'name': forms.TextInput(attrs={'required': 'true'})
+            'name': forms.TextInput(attrs={'required': 'true'}),
+            'image': forms.FileInput(attrs={'required': 'true'})
         }
