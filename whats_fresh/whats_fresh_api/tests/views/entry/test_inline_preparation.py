@@ -7,11 +7,11 @@ from django.contrib.auth.models import User, Group
 class InlinePreparationTestCase(TestCase):
 
     """
-    Test that the Inline Preparation popup works as expected.
+    Test that the Inline Preparation form works as expected.
 
     Things tested:
         URLs reverse correctly
-        The outputted popup has the correct form fields
+        The outputted popup form has the correct form fields
         POSTing "correct" data will result in the creation of a new
             object with the specified details
         POSTing data with all fields missing (hitting "save" without entering
