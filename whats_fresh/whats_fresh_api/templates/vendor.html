@@ -141,9 +141,6 @@
 </div>
 {% endblock content %}
 {% block footer %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script>
 $('#map-address').hide();
 $('#map-address-fake').hide();
@@ -271,77 +268,64 @@ $('#map').locationpicker({
 
     number_of_products = 0;
 
-    // Code for inline form starts
+    function popitup(url) {
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data) {
 
-
-        function popitup(url) {
-          $.ajax({
-            type: "GET",
-            url: url,
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-            success: function(data) {
-
-              $("#dialog-form").html(data).dialog({modal:true}, {title: "New Product"}, {width: 700}, {height: 1500}, {draggable: false}).dialog('open');
-
-            }
-
-          });
-
-          return false;
+          $("#dialog-form").html(data).dialog({modal:true}, {title: "New Product"}, {width: 700}, {height: 1500}, {draggable: false}).dialog('open');
         }
+      });
+      return false;
+    }
 
 
-       $("#dialog-form").on('submit', function (e) {
+   $("#dialog-form").on('submit', function (e) {
 
-         e.preventDefault();
+     e.preventDefault();
 
-         $.ajax({
-            type: "POST",
-            url: '/entry/vendors/new/products/new',
-            data: $("#popup-form").serialize(),
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-            success: function(data)
-            {
+     $.ajax({
+        type: "POST",
+        url: '/entry/vendors/new/products/new',
+        data: $("#popup-form").serialize(),
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data)
+        {
+            if (data.constructor === "test".constructor) {     // checks if the data is a string
+                $('html, body').animate({
+                    scrollTop: $("#dialog-form").offset().top
+                }, 500);
+                $("#dialog-form").html(data);
+                return
+            }
 
-                if (data.constructor === "test".constructor) {     // checks if the data is a string
-                    $('html, body').animate({
-                        scrollTop: $("#dialog-form").offset().top
-                    }, 500);
-                    $("#dialog-form").html(data);
-                    return
-                }
+            $("#dialog-form").dialog('close');
+            var prodName = data.name;
+            var prodId = data.id;
 
-                alert("New Product saved.");
-                $("#dialog-form").dialog('close');
-                var prodName = data.name;
-                var prodId = data.id;
+            preparation_options[prodName] = [];
 
-                preparation_options[prodName] = [];
+            for(i=0; i < data.preparations.length; i++) {
 
-                for(i=0; i < data.preparations.length; i++) {
-
-                    preparation_options[prodName].push({name: data.preparations[i].name, value: data.preparations[i].id});
-
-                }
-
-
-                $('#product_select').append($("<option>").attr("value", prodName).html(prodName));
-
-                appendProduct();
-
-                $("#product" + (number_of_products - 1) + " option").filter(function() {
-                    return $(this).text() == prodName;
-                }).prop('selected', true);
-
-                showPreparations(number_of_products - 1);
+                preparation_options[prodName].push({name: data.preparations[i].name, value: data.preparations[i].id});
 
             }
-          });
-       });
 
+            $('#product_select').append($("<option>").attr("value", prodName).html(prodName));
 
+            appendProduct();
 
-    // Code for inline form ends
+            $("#product" + (number_of_products - 1) + " option").filter(function() {
+                return $(this).text() == prodName;
+            }).prop('selected', true);
+
+            showPreparations(number_of_products - 1);
+
+        }
+      });
+   });
 
 
     function deleteProduct(element)

@@ -102,9 +102,6 @@
 
 {% endblock content %}
 {% block footer %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script>
 
     var preparation_options = {{ json_preparations|safe }};
@@ -117,12 +114,10 @@
         url: url,
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
+
           $("#dialog-form").html(data).dialog({modal:true}, {title: "New Preparation"}, {width: 700}, {height: 700}, {draggable: false}).dialog('open');
-
         }
-
       });
-
       return false;
     }
 
@@ -138,13 +133,11 @@
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
             {
-
                 if (data.constructor === "test".constructor) {       // checks if the data is a string
                     $("#dialog-form").html(data);
                     return
                 }
 
-                alert("New Preparation saved.");
                 $("#dialog-form").dialog('close');
                 var prepName = data.name;
                 var prepId = data.id;
@@ -158,9 +151,7 @@
                 $( ".no_preparations" ).hide();
 
             }
-
         });
-
     });
 
 
