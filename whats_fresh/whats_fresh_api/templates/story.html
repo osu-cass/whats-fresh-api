@@ -138,120 +138,110 @@
 {% endblock content %}
 
 {% block footer %}
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
 <script>
 
-        if ( window.FormData === undefined )
-            $("#newImage-btn").hide();
+    if ( window.FormData === undefined )
+        $("#newImage-btn").hide();
 
-        function popImage(url) {
-          $.ajax({
-            type: "GET",
-            url: url,
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-            success: function(data) {
-              $("#image-dialog").html(data).dialog({modal:true}, {title: "New Image"}, {width: 600}, {height: 600}, {draggable: false}).dialog('open');
-
-            }
-
-          });
-
-          return false;
+    function popImage(url) {
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data) {
+          $("#image-dialog").html(data).dialog({modal:true}, {title: "New Image"}, {width: 600}, {height: 600}, {draggable: false}).dialog('open');
         }
 
+      });
 
-        function popVideo(url) {
-          $.ajax({
-            type: "GET",
-            url: url,
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-            success: function(data) {
-              $("#video-dialog").html(data).dialog({modal:true}, {title: "New Video"}, {width: 600}, {height: 600}, {draggable: false}).dialog('open');
+      return false;
+    }
 
-            }
 
-          });
-
-          return false;
+    function popVideo(url) {
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data) {
+          $("#video-dialog").html(data).dialog({modal:true}, {title: "New Video"}, {width: 600}, {height: 600}, {draggable: false}).dialog('open');
         }
+      });
 
+      return false;
+    }
 
-       $("#image-dialog").on('submit', function (e) {
+   $("#image-dialog").on('submit', function (e) {
 
-        var fd = new FormData(document.forms.namedItem("newImage"));
+    var fd = new FormData(document.forms.namedItem("newImage"));
 
-         e.preventDefault();
+     e.preventDefault();
 
-         $.ajax({
-            type: "POST",
-            url: '/entry/stories/new/images/new',
-            processData: false,
-            contentType: false,
-            data: fd,
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-            success: function(data)
-            {
-                if (data.constructor === "test".constructor) {      // checks if the data is a string
-                    $("#image-dialog").html(data);
-                    return
-                }
-
-                alert("New Image saved.");
-                $("#image-dialog").dialog('close');
-                var imgName = data.name;
-                var imgId = data.id;
-
-                $('#inline_image').append($('<div class="popup_image">')
-                .append($('<select disabled class="image_select">')
-                .append($("<option>").attr("value", imgId)
-                .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
-
-                $( ".image_select" ).append($("<option>").attr("value", imgId).text(imgName));
-                $( ".no_image" ).hide();
-
+     $.ajax({
+        type: "POST",
+        url: '/entry/stories/new/images/new',
+        processData: false,
+        contentType: false,
+        data: fd,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data)
+        {
+            if (data.constructor === "test".constructor) {      // checks if the data is a string
+                $("#image-dialog").html(data);
+                return
             }
-          });
+
+            $("#image-dialog").dialog('close');
+            var imgName = data.name;
+            var imgId = data.id;
+
+            $('#inline_image').append($('<div class="popup_image">')
+            .append($('<select disabled class="image_select">')
+            .append($("<option>").attr("value", imgId)
+            .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+            $( ".image_select" ).append($("<option>").attr("value", imgId).text(imgName));
+            $( ".no_image" ).hide();
+        }
+      });
 
 
-       });
+   });
 
 
-       $("#video-dialog").on('submit', function (e) {
+   $("#video-dialog").on('submit', function (e) {
 
-         e.preventDefault();
+     e.preventDefault();
 
-         $.ajax({
-            type: "POST",
-            url: '/entry/stories/new/videos/new',
-            data: $("#video-form").serialize(),
-            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-            success: function(data)
-            {
+     $.ajax({
+        type: "POST",
+        url: '/entry/stories/new/videos/new',
+        data: $("#video-form").serialize(),
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data)
+        {
 
-                if (data.constructor === "test".constructor) {      // checks if the data is a string
-                    $("#video-dialog").html(data);
-                    return
-                }
-
-                alert("New Video saved.");
-                $("#video-dialog").dialog('close');
-                var vidName = data.name;
-                var vidId = data.id;
-
-                $('#inline_video').append($('<div class="popup_video">')
-                .append($('<select disabled class="video_select">')
-                .append($("<option>").attr("value", vidId)
-                .text(vidName))).append('<a href="#" onclick="deleteVideo(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
-
-                $( ".video_select" ).append($("<option>").attr("value", vidId).text(vidName));
-                $( ".no_video" ).hide();
-
+            if (data.constructor === "test".constructor) {      // checks if the data is a string
+                $("#video-dialog").html(data);
+                return
             }
-          });
 
-       });
+            $("#video-dialog").dialog('close');
+            var vidName = data.name;
+            var vidId = data.id;
+
+            $('#inline_video').append($('<div class="popup_video">')
+            .append($('<select disabled class="video_select">')
+            .append($("<option>").attr("value", vidId)
+            .text(vidName))).append('<a href="#" onclick="deleteVideo(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+            $( ".video_select" ).append($("<option>").attr("value", vidId).text(vidName));
+            $( ".no_video" ).hide();
+
+        }
+      });
+
+   });
 
 
     function deleteStory()
