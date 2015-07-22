@@ -35,8 +35,11 @@ class InlinePreparationTestCase(TestCase):
         self.client.logout()
 
         response = self.client.get(
-            reverse('edit-product', kwargs={'id': '1'}))
-        self.assertRedirects(response, '/login?next=/entry/products/1')
+            reverse('preparation_ajax'))
+        self.assertRedirects(
+            response,
+            '/login?next=/entry/products/new/preparations/new'
+        )
 
     def test_url_endpoint(self):
         url = reverse('preparation_ajax')

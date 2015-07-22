@@ -1,19 +1,4 @@
-<!-- {% extends "base.html" %}
-
-{% block header %}
-<div class="back">
-    {% for p in parent_url %}
-    <a href="{{ p.url }}">
-        &lt; <span>{{ p.name }}</span>
-    </a>
-    {% endfor %}
-</div>
-{% endblock header %}
-
-{% block title %}
-<h2 class='light'>{{ title }}</h2>
-<h4 class='light accent'>{{ message }}</h4>
-{% endblock title %} -->
+<!-- {% extends "product.html" %} -->
 
 <!-- {% block content %} -->
 <!-- {% load staticfiles %} -->
@@ -31,9 +16,6 @@
     </div>
     {% endif %}
     <h4 id='error_tag' class='light warning'></h4>
-     <!-- {% if product_form.instance.pk != None %} -->
-    <!-- <button class='dbutton' type="button" onclick="deleteProduct();return false;" />Delete</button> -->
-    <!-- {% endif %} -->
     {% csrf_token %}
     <h3>Basic Info</h3>
    <p class="field_text">Specific Variety*:</p>

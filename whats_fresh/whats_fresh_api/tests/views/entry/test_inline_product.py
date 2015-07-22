@@ -36,8 +36,9 @@ class InlineProductTestCase(TestCase):
         self.client.logout()
 
         response = self.client.get(
-            reverse('edit-vendor', kwargs={'id': '1'}))
-        self.assertRedirects(response, '/login?next=/entry/vendors/1')
+            reverse('product_ajax'))
+        self.assertRedirects(response,
+                             '/login?next=/entry/vendors/new/products/new')
 
     def test_url_endpoint(self):
         url = reverse('product_ajax')
@@ -80,15 +81,18 @@ class InlineProductTestCase(TestCase):
         Story.objects.create(id=1)
         Preparation.objects.create(id=1)
         Preparation.objects.create(id=2)
-        Image.objects.create(id=1)
+        Image.objects.create(id=1, image='cat.jpg')
 
         # Data that we'll post to the server to get the new Product created
         inline_product = {'name': 'Salmon', 'variety': 'Pacific', 'story': 1,
-                          'alt_name': 'Pacific Salmon', 'origin': 'The Pacific',  # noqa
+                          'alt_name': 'Pacific Salmon',
+                          'origin': 'The Pacific',
                           'description': 'It\'s salmon -- from the Pacific!',
                           'season': 'Always', 'available': '', 'image': 1,
-                          'market_price': '$3 a pack', 'preparation_ids': '1,2',  # noqa
-                          'link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}  # noqa
+                          'market_price': '$3 a pack',
+                          'prep_ids': '1,2',
+                          'link':
+                          'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
         self.client.post(reverse('product_ajax'), inline_product)
 
@@ -98,7 +102,7 @@ class InlineProductTestCase(TestCase):
         inline_product['story'] = Story.objects.get(id=inline_product['story'])
         inline_product['image'] = Image.objects.get(id=inline_product['image'])
 
-        del inline_product['preparation_ids']
+        del inline_product['prep_ids']
 
         product = Product.objects.all()[0]
         for field in inline_product:
