@@ -46,7 +46,8 @@ class InlineImageTestCase(TestCase):
 
         response = self.client.get(
             reverse('image_ajax'))
-        self.assertRedirects(response, '/login?next=/entry/stories/new/images/new')  # noqa
+        self.assertRedirects(response,
+                             '/login?next=/entry/stories/new/images/new')
 
     def test_url_endpoint(self):
         url = reverse('image_ajax')
@@ -66,30 +67,10 @@ class InlineImageTestCase(TestCase):
             # form[field].value
             self.assertIn(fields[field], str(form[field]))
 
-    def test_successful_image_creation_minimal(self):
+    def test_successful_image_creation(self):
         """
         POST a proper "new image" command to the server, and see if the
         new image appears in the database. All optional fields are null.
-        """
-        Image.objects.all().delete()
-
-        # Data that we'll post to the server to get the new image created
-        inline_image = {
-            'name': "A cat",
-            'caption': "Catption",
-            'image': self.image}
-
-        self.client.post(reverse('image_ajax'), inline_image)
-
-        image = Image.objects.all()[0]
-        self.assertEqual(getattr(image, 'caption'), inline_image['caption'])
-        self.assertEqual(getattr(image, 'name'), inline_image['name'])
-        self.assertIn('/media/images/cat', getattr(image, 'image').url)
-
-    def test_successful_image_creation_maximal(self):
-        """
-        POST a proper "new image" command to the server, and see if the
-        new image appears in the database. All optional fields are used.
         """
         Image.objects.all().delete()
 

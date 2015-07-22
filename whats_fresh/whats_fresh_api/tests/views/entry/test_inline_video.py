@@ -36,7 +36,8 @@ class InlineVideoTestCase(TestCase):
 
         response = self.client.get(
             reverse('video_ajax'))
-        self.assertRedirects(response, '/login?next=/entry/stories/new/videos/new')  # noqa
+        self.assertRedirects(response,
+                             '/login?next=/entry/stories/new/videos/new')
 
     def test_url_endpoint(self):
         url = reverse('video_ajax')
@@ -56,30 +57,10 @@ class InlineVideoTestCase(TestCase):
             # form[field].value
             self.assertIn(fields[field], str(form[field]))
 
-    def test_successful_video_creation_minimal(self):
+    def test_successful_video_creation(self):
         """
         POST a proper "new video" command to the server, and see if the
         new video appears in the database. All optional fields are null.
-        """
-        Video.objects.all().delete()
-
-        # Data that we'll post to the server to get the new video created
-        inline_video = {
-            'caption': "A thrilling display of utmost might",
-            'name': "You won't believe number 3!",
-            'video': 'http://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-
-        self.client.post(reverse('video_ajax'), inline_video)
-
-        video = Video.objects.all()[0]
-        for field in inline_video:
-            self.assertEqual(
-                getattr(video, field), inline_video[field])
-
-    def test_successful_video_creation_maximal(self):
-        """
-        POST a proper "new video" command to the server, and see if the
-        new video appears in the database. All optional fields are used.
         """
         Video.objects.all().delete()
 

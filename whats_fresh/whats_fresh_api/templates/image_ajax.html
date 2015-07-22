@@ -1,20 +1,5 @@
 <!-- {% extends "base.html" %}
 
-{% block header %}
-<div class="back">
-    {% for p in parent_url %}
-    <a href="{{ p.url }}">
-        &lt; <span class="parent_text">{{ p.name }}</span>
-    </a>
-    {% endfor %}
-</div>
-{% endblock header %}
-
-{% block title %}
-<h2 class='light'>{{ title }}</h2>
-<h4 class='light accent'>{{ message }}</h4>
-{% endblock title %}
-
 {% block content %} -->
 <form action="{{ post_url }}" method="post" enctype="multipart/form-data" id="image-form" name="newImage">
 
@@ -49,27 +34,4 @@
         <button>Save</button>
     </div>
 </form>
-<!-- {% endblock content %}
-
-{% block footer %}
-<script>
-    function deleteImage()
-    {
-        if(confirm('Are you sure you want to delete this image?')) {
-            $.ajax({
-                type: 'DELETE',
-                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-                statusCode: {
-                    404: function() {
-                        $("#error_tag").text('Unable to delete image!');
-                        $("html, body").animate({ scrollTop: 0 }, "slow");
-                    },
-                    200: function() {
-                        window.location.replace('{% with parent_url|last as last %}{{ last.url }}{% endwith %}/?success=true');
-                    }
-                }
-            });
-        }
-    }
-</script>
-{% endblock footer %} -->
+<!-- {% endblock content %} -->
