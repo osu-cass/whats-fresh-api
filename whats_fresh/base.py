@@ -51,6 +51,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.contrib.messages.context_processors.messages",
+)
+
 ROOT_URLCONF = 'whats_fresh.urls'
 
 WSGI_APPLICATION = 'whats_fresh.wsgi.application'
