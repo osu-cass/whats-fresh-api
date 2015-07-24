@@ -7,12 +7,14 @@ class ColorPickerWidget(forms.TextInput):
     class Media:
         css = {
             'all': (
-                settings.MEDIA_URL + 'cssjs/colorPicker.css',
+                # settings.MEDIA_URL + 'css/colorPicker.css',
+                'https://rawgit.com/laktek/really-simple-color-picker/master/css/colorPicker.css',  # noqa
             )
         }
         js = (
             'http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js',
-            settings.MEDIA_URL + 'cssjs/jquery.colorPicker.js',
+            # settings.MEDIA_URL + 'js/jquery.colorPicker.js',
+            'https://rawgit.com/laktek/really-simple-color-picker/master/js/jquery.colorPicker.js',  # noqa
         )
 
     def __init__(self, language=None, attrs=None):
