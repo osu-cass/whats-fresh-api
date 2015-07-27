@@ -1,10 +1,7 @@
-<!-- {% extends "product.html" %} -->
-
-<!-- {% block content %} -->
-<!-- {% load staticfiles %} -->
+{% load staticfiles %}
 <form class='form' action="{{ post_url }}" method="post" id="popup-form">
     {% if product_form.errors or errors %}
-    <div class="error">
+    <div class="error" id="product_error">
         {% for error in product_form.errors %}
         {% if error != "lat" and error != "long" %}
         <p class='warning'>Invalid {{ error|escape }}!</p>
@@ -76,8 +73,6 @@
     </div>
 </div>
 
-<!-- {% endblock content %} -->
-<!-- {% block footer %} -->
 <script>
     var prep_options = {{ json_preparations|safe }};
     number_of_prep = 0;
@@ -85,7 +80,7 @@
     {
         $( element ).parent().css("display", "none");
         if ($( ".prep:visible" ).length === 0) {
-            $( ".no_products" ).show();
+            $( ".no_prep" ).show();
         };
     }
 
@@ -106,4 +101,3 @@
         $('input[name="prep_ids"]').val(prep_ids);
     }
 </script>
-<!-- {% endblock footer %}
