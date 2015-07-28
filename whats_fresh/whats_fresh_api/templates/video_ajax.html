@@ -1,6 +1,6 @@
 <form action="{{ post_url }}" method="post" id="video-form">
 
-    <div class="error">
+    <div class="error" id="video_error">
         {% if video_form.errors or errors %}
         {% for error in video_form.errors %}
         <p class='warning'>Invalid {{ error|escape }}!</p>

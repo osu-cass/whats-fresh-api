@@ -1,6 +1,6 @@
 <form action="{{ post_url }}" method="post" enctype="multipart/form-data" id="image-form" name="newImage">
 
-    <div class="error">
+    <div class="error" id="image_error">
         {% if image_form.errors or errors %}
         {% for error in image_form.errors %}
         <p class='warning'>Invalid {{ error|escape }}!</p>

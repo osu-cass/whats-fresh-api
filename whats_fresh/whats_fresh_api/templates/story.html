@@ -149,7 +149,7 @@
         url: url,
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
-          $("#image-dialog").html(data).dialog({modal:true}, {title: "New Image"}, {width: 600}, {height: 600}, {draggable: false}).dialog('open');
+          $("#image-dialog").html(data).dialog({modal:true}, {title: "New Image"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
 
       });
@@ -164,7 +164,7 @@
         url: url,
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
-          $("#video-dialog").html(data).dialog({modal:true}, {title: "New Video"}, {width: 600}, {height: 600}, {draggable: false}).dialog('open');
+          $("#video-dialog").html(data).dialog({modal:true}, {title: "New Video"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
       });
 
@@ -188,6 +188,9 @@
         {
             if (data.constructor === "test".constructor) {      // checks if the data is a string
                 $("#image-dialog").html(data);
+                $('html, body').animate({
+                    scrollTop: $("#image_error").offset().top - 100
+                 }, 500);
                 return
             }
 
@@ -223,6 +226,9 @@
 
             if (data.constructor === "test".constructor) {      // checks if the data is a string
                 $("#video-dialog").html(data);
+                $('html, body').animate({
+                    scrollTop: $("#video_error").offset().top - 100
+                 }, 500);
                 return
             }
 
