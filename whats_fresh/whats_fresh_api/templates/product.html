@@ -115,7 +115,7 @@
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
 
-          $("#dialog-form").html(data).dialog({modal:true}, {title: "New Preparation"}, {width: 700}, {height: 700}, {draggable: false}).dialog('open');
+          $("#dialog-form").html(data).dialog({modal:true}, {title: "New Preparation"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
       });
       return false;
@@ -135,6 +135,9 @@
             {
                 if (data.constructor === "test".constructor) {       // checks if the data is a string
                     $("#dialog-form").html(data);
+                    $('html, body').animate({
+                        scrollTop: $("#preparation_error").offset().top - 100
+                    }, 500);
                     return
                 }
 

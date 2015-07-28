@@ -1,6 +1,6 @@
 <form action="{{ post_url }}" method="post" id="popup-form">
 
-    <div class="error">
+    <div class="error" id="preparation_error">
         {% if preparation_form.errors or errors %}
         {% for error in preparation_form.errors %}
         <p class='warning'>Invalid {{ error|escape }}!</p>

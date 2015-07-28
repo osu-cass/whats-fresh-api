@@ -275,7 +275,7 @@ $('#map').locationpicker({
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
 
-          $("#dialog-form").html(data).dialog({modal:true}, {title: "New Product"}, {width: 700}, {height: 1500}, {draggable: false}).dialog('open');
+          $("#dialog-form").html(data).dialog({modal:true}, {title: "New Product"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
       });
       return false;
@@ -294,10 +294,10 @@ $('#map').locationpicker({
         success: function(data)
         {
             if (data.constructor === "test".constructor) {     // checks if the data is a string
-                $('html, body').animate({
-                    scrollTop: $("#product_error").offset().top
-                }, 500);
                 $("#dialog-form").html(data);
+                $('html, body').animate({
+                    scrollTop: $("#product_error").offset().top - 100
+                }, 500);
                 return
             }
 
