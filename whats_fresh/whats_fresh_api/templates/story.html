@@ -73,8 +73,8 @@
     <div id="inline_image">  <!-- Div used if a new inline image submitted -->
     </div>
 
-    <button type="submit"  onclick="return popImage('/entry/stories/new/images/new/')">Add New Images</button>
-    <div id="image-dialog"></div>
+    <button type="submit"  onclick="return imagePopup('/entry/stories/new/images/new/')">Add New Images</button>
+    <div id="image-popup"></div>
 
     <div class="video_container">
     <h3>Videos</h3>
@@ -97,8 +97,8 @@
     <div id="inline_video">  <!-- Div used if a new inline video submitted -->
     </div>
 
-    <button type="submit" id="newImage-btn" onclick="return popVideo('/entry/stories/new/videos/new/')">Add New Videos</button>
-    <div id="video-dialog"></div>
+    <button type="submit" id="newImage-btn" onclick="return videoPopup('/entry/stories/new/videos/new/')">Add New Videos</button>
+    <div id="video-popup"></div>
 
 
     <input class='image' name="image_ids" type="hidden" />
@@ -143,13 +143,13 @@
     if ( window.FormData === undefined )
         $("#newImage-btn").hide();
 
-    function popImage(url) {
+    function imagePopup(url) {
       $.ajax({
         type: "GET",
         url: url,
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
-          $("#image-dialog").html(data).dialog({modal:true}, {title: "New Image"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+          $("#image-popup").html(data).dialog({modal:true}, {title: "New Image"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
 
       });
@@ -158,20 +158,20 @@
     }
 
 
-    function popVideo(url) {
+    function videoPopup(url) {
       $.ajax({
         type: "GET",
         url: url,
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
-          $("#video-dialog").html(data).dialog({modal:true}, {title: "New Video"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+          $("#video-popup").html(data).dialog({modal:true}, {title: "New Video"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
       });
 
       return false;
     }
 
-   $("#image-dialog").on('submit', function (e) {
+   $("#image-popup").on('submit', function (e) {
 
     var fd = new FormData(document.forms.namedItem("newImage"));
 
@@ -187,18 +187,18 @@
         success: function(data)
         {
             if (data.constructor === "test".constructor) {      // checks if the data is a string
-                $("#image-dialog").html(data);
+                $("#image-popup").html(data);
                 $('html, body').animate({
                     scrollTop: $("#image_error").offset().top - 100
                  }, 500);
                 return
             }
 
-            $("#image-dialog").dialog('close');
+            $("#image-popup").dialog('close');
             var imgName = data.name;
             var imgId = data.id;
 
-            $('#inline_image').append($('<div class="popup_image">')
+            $('#inline_image').append($('<div class="image">')
             .append($('<select disabled class="image_select">')
             .append($("<option>").attr("value", imgId)
             .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
@@ -212,7 +212,7 @@
    });
 
 
-   $("#video-dialog").on('submit', function (e) {
+   $("#video-popup").on('submit', function (e) {
 
      e.preventDefault();
 
@@ -225,18 +225,18 @@
         {
 
             if (data.constructor === "test".constructor) {      // checks if the data is a string
-                $("#video-dialog").html(data);
+                $("#video-popup").html(data);
                 $('html, body').animate({
                     scrollTop: $("#video_error").offset().top - 100
                  }, 500);
                 return
             }
 
-            $("#video-dialog").dialog('close');
+            $("#video-popup").dialog('close');
             var vidName = data.name;
             var vidId = data.id;
 
-            $('#inline_video').append($('<div class="popup_video">')
+            $('#inline_video').append($('<div class="video">')
             .append($('<select disabled class="video_select">')
             .append($("<option>").attr("value", vidId)
             .text(vidName))).append('<a href="#" onclick="deleteVideo(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
@@ -277,7 +277,7 @@
     function deleteVideo(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".video:visible" ).length === 0 && $( ".popup_video:visible" ).length === 0 ) {
+        if ($( ".video:visible" ).length === 0 && $( ".video:visible" ).length === 0 ) {
             $( ".no_video" ).show();
         };
     }
@@ -294,7 +294,7 @@
     function deleteImage(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".image:visible" ).length === 0 && $( ".popup_image:visible" ).length === 0 ) {
+        if ($( ".image:visible" ).length === 0 && $( ".image:visible" ).length === 0 ) {
             $( ".no_image" ).show();
         };
     }
