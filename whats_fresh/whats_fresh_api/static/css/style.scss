@@ -305,11 +305,17 @@ a{
     font-family: $sans;
 }
 
-.no_preparations{
+.no_image {
   font-size: 18pt;
   color: #333;
   font-family: "Montserrat", sans-serif;
- }
+}
+
+.no_video {
+  font-size: 18pt;
+  color: #333;
+  font-family: "Montserrat", sans-serif;
+}
 
 #new_product, #new_preparation, #new_image, #new_video {
     display: none;

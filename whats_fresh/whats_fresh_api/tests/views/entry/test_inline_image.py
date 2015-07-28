@@ -5,14 +5,14 @@ from django.contrib.auth.models import User, Group
 import os
 
 
-class NewImageTestCase(TestCase):
+class InlineImageTestCase(TestCase):
 
     """
-    Test that the New Image page works as expected.
+    Test that the Inline Image form works as expected.
 
     Things tested:
         URLs reverse correctly
-        The outputted page has the correct form fields
+        The outputted popup form has the correct form fields
         POSTing "correct" data will result in the creation of a new
             object with the specified details
         POSTing data with all fields missing (hitting "save" without entering
@@ -45,18 +45,19 @@ class NewImageTestCase(TestCase):
         self.client.logout()
 
         response = self.client.get(
-            reverse('new-image'))
-        self.assertRedirects(response, '/login?next=/entry/images/new')
+            reverse('image_ajax'))
+        self.assertRedirects(response,
+                             '/login?next=/entry/stories/new/images/new')
 
     def test_url_endpoint(self):
-        url = reverse('new-image')
-        self.assertEqual(url, '/entry/images/new')
+        url = reverse('image_ajax')
+        self.assertEqual(url, '/entry/stories/new/images/new')
 
     def test_form_fields(self):
         """
         Tests to see if the form contains all of the right fields
         """
-        response = self.client.get(reverse('new-image'))
+        response = self.client.get(reverse('image_ajax'))
 
         fields = {'image': 'file', 'caption': 'input', 'name': 'input'}
         form = response.context['image_form']
@@ -74,16 +75,16 @@ class NewImageTestCase(TestCase):
         Image.objects.all().delete()
 
         # Data that we'll post to the server to get the new image created
-        new_image = {
-            'caption': "Catption",
+        inline_image = {
             'name': "A cat",
+            'caption': "Catption",
             'image': self.image}
 
-        self.client.post(reverse('new-image'), new_image)
+        self.client.post(reverse('image_ajax'), inline_image)
 
         image = Image.objects.all()[0]
-        self.assertEqual(getattr(image, 'caption'), new_image['caption'])
-        self.assertEqual(getattr(image, 'name'), new_image['name'])
+        self.assertEqual(getattr(image, 'caption'), inline_image['caption'])
+        self.assertEqual(getattr(image, 'name'), inline_image['name'])
         self.assertIn('/media/images/cat', getattr(image, 'image').url)
 
     def test_no_data_error(self):
@@ -94,7 +95,7 @@ class NewImageTestCase(TestCase):
         # Create a list of all objects before sending bad POST data
         all_images = Image.objects.all()
 
-        response = self.client.post(reverse('new-image'))
+        response = self.client.post(reverse('image_ajax'))
         required_fields = ['image', 'name']
         for field_name in required_fields:
             self.assertIn(field_name,

@@ -230,7 +230,12 @@ a {
   color: #333;
   font-family: "Montserrat", sans-serif; }
 
-.no_preparations {
+.no_image {
+  font-size: 18pt;
+  color: #333;
+  font-family: "Montserrat", sans-serif; }
+
+.no_video {
   font-size: 18pt;
   color: #333;
   font-family: "Montserrat", sans-serif; }

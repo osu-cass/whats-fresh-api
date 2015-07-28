@@ -234,8 +234,9 @@ def product_ajax(request, id=None):
                         id=preparation))
                 popup_prep.append({
                     'id': inline_prep.id,
-                    'name': inline_prep.preparation.name})
-            product.save()
+                    'name': inline_prep.preparation.name
+                })
+                product.save()
             serializer = FreshSerializer()
             data = json.loads(serializer.serialize(product))
             data['preparations'] = popup_prep
