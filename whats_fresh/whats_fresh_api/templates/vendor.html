@@ -116,8 +116,8 @@
             <input id="preparation_ids" name="preparation_ids" type="hidden" />
         </div>
 
-        <button type="submit" onclick="return popitup('/entry/vendors/new/products/new/')">Add New Product</button>
-        <div id="dialog-form"></div>
+        <button type="submit" onclick="return createPopup('/entry/vendors/new/products/new/')">Add New Product</button>
+        <div id="popup"></div>
 
         <button type="submit" onclick="setPreparationField();" />Save</button>
     </div>
@@ -268,21 +268,21 @@ $('#map').locationpicker({
 
     number_of_products = 0;
 
-    function popitup(url) {
+    function createPopup(url) {
       $.ajax({
         type: "GET",
         url: url,
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
 
-          $("#dialog-form").html(data).dialog({modal:true}, {title: "New Product"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+          $("#popup").html(data).dialog({modal:true}, {title: "New Product"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
       });
       return false;
     }
 
 
-   $("#dialog-form").on('submit', function (e) {
+   $("#popup").on('submit', function (e) {
 
      e.preventDefault();
 
@@ -294,14 +294,14 @@ $('#map').locationpicker({
         success: function(data)
         {
             if (data.constructor === "test".constructor) {     // checks if the data is a string
-                $("#dialog-form").html(data);
+                $("#popup").html(data);
                 $('html, body').animate({
                     scrollTop: $("#product_error").offset().top - 100
                 }, 500);
                 return
             }
 
-            $("#dialog-form").dialog('close');
+            $("#popup").dialog('close');
             var prodName = data.name;
             var prodId = data.id;
 
@@ -331,7 +331,7 @@ $('#map').locationpicker({
     function deleteProduct(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".preparation:visible" ).length === 0 && $( ".new_product:visible" ).length === 0 ) {
+        if ($( ".product:visible" ).length === 0 ) {
             $( ".no_products" ).show();
         };
     }
