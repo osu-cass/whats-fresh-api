@@ -1,14 +1,6 @@
-<!-- {% extends "preparation.html" %}
-
-{% block title %}
-<h2 class='light'>{{ title }}</h2>
-<h4 class='light accent'>{{ message }}</h4>
-{% endblock title %} -->
-
-<!-- {% block content %} -->
 <form action="{{ post_url }}" method="post" id="popup-form">
 
-    <div class="error">
+    <div class="error" id="preparation_error">
         {% if preparation_form.errors or errors %}
         {% for error in preparation_form.errors %}
         <p class='warning'>Invalid {{ error|escape }}!</p>
@@ -32,4 +24,5 @@
         <button>Save</button>
     </div>
 </form>
-<!-- {% endblock content %} -->
+<script>  // To prevent .html() from stripping top level tag
+</script>

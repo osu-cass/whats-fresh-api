@@ -10,8 +10,7 @@ from django.conf import settings
 from whats_fresh.whats_fresh_api.models import Preparation
 from whats_fresh.whats_fresh_api.forms import PreparationForm
 from whats_fresh.whats_fresh_api.functions import group_required
-import json
-from django.core import serializers
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 
 
 @login_required
@@ -141,10 +140,8 @@ def preparation_ajax(request, id=None):
                       {'preparation_form': preparation_form})
 
     elif request.method == 'POST':
-        print "AJAX POST"
         message = ''
         post_data = request.POST.copy()
-        print post_data
         errors = []
 
         preparation_form = PreparationForm(post_data)
@@ -152,12 +149,13 @@ def preparation_ajax(request, id=None):
             preparation = Preparation.objects.create(
                 **preparation_form.cleaned_data)
             preparation.save()
-            data = json.loads(serializers.serialize(preparation))
+            serializer = FreshSerializer()
+            return HttpResponse(serializer.serialize(preparation),
+                                content_type="application/json")
         else:
             pass
 
         return render(request, 'preparation_ajax.html', {
             'message': message,
             'errors': errors,
-            'preparation_form': preparation_form,
-            'data': data}, content_type="application/json")
+            'preparation_form': preparation_form})

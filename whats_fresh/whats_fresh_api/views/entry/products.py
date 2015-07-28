@@ -12,6 +12,7 @@ from whats_fresh.whats_fresh_api.models import (Product, Preparation,
                                                 ProductPreparation)
 from whats_fresh.whats_fresh_api.forms import ProductForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 
 import json
 
@@ -223,14 +224,24 @@ def product_ajax(request, id=None):
         product = None
 
         product_form = ProductForm(post_data, product)
+        popup_prep = []
         if product_form.is_valid() and not errors:
             product = Product.objects.create(**product_form.cleaned_data)
             for preparation in preparations:
-                ProductPreparation.objects.create(
+                inline_prep = ProductPreparation.objects.create(
                     product=product,
                     preparation=Preparation.objects.get(
                         id=preparation))
-            product.save()
+                popup_prep.append({
+                    'id': inline_prep.id,
+                    'name': inline_prep.preparation.name
+                })
+                product.save()
+            serializer = FreshSerializer()
+            data = json.loads(serializer.serialize(product))
+            data['preparations'] = popup_prep
+            return HttpResponse(json.dumps(data),
+                                content_type="application/json")
 
         data = {'preparations': []}
 

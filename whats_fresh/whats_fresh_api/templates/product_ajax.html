@@ -1,25 +1,7 @@
-<!-- {% extends "base.html" %}
-
-{% block header %}
-<div class="back">
-    {% for p in parent_url %}
-    <a href="{{ p.url }}">
-        &lt; <span>{{ p.name }}</span>
-    </a>
-    {% endfor %}
-</div>
-{% endblock header %}
-
-{% block title %}
-<h2 class='light'>{{ title }}</h2>
-<h4 class='light accent'>{{ message }}</h4>
-{% endblock title %} -->
-
-<!-- {% block content %} -->
-<!-- {% load staticfiles %} -->
+{% load staticfiles %}
 <form class='form' action="{{ post_url }}" method="post" id="popup-form">
     {% if product_form.errors or errors %}
-    <div class="error">
+    <div class="error" id="product_error">
         {% for error in product_form.errors %}
         {% if error != "lat" and error != "long" %}
         <p class='warning'>Invalid {{ error|escape }}!</p>
@@ -31,9 +13,6 @@
     </div>
     {% endif %}
     <h4 id='error_tag' class='light warning'></h4>
-     <!-- {% if product_form.instance.pk != None %} -->
-    <!-- <button class='dbutton' type="button" onclick="deleteProduct();return false;" />Delete</button> -->
-    <!-- {% endif %} -->
     {% csrf_token %}
     <h3>Basic Info</h3>
    <p class="field_text">Specific Variety*:</p>
@@ -94,8 +73,6 @@
     </div>
 </div>
 
-<!-- {% endblock content %} -->
-<!-- {% block footer %} -->
 <script>
     var prep_options = {{ json_preparations|safe }};
     number_of_prep = 0;
@@ -103,7 +80,7 @@
     {
         $( element ).parent().css("display", "none");
         if ($( ".prep:visible" ).length === 0) {
-            $( ".no_products" ).show();
+            $( ".no_prep" ).show();
         };
     }
 
@@ -124,4 +101,3 @@
         $('input[name="prep_ids"]').val(prep_ids);
     }
 </script>
-<!-- {% endblock footer %}
