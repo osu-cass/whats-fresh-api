@@ -73,7 +73,7 @@
     <div id="inline_image">  <!-- Div used if a new inline image submitted -->
     </div>
 
-    <button type="submit"  onclick="return imagePopup('/entry/stories/new/images/new/')">Add New Images</button>
+    <button type="submit" id="newImage-btn" onclick="return imagePopup('/entry/stories/new/images/new/')">Add New Image</button>
     <div id="image-popup"></div>
 
     <div class="video_container">
@@ -97,7 +97,7 @@
     <div id="inline_video">  <!-- Div used if a new inline video submitted -->
     </div>
 
-    <button type="submit" id="newImage-btn" onclick="return videoPopup('/entry/stories/new/videos/new/')">Add New Videos</button>
+    <button type="submit" onclick="return videoPopup('/entry/stories/new/videos/new/')">Add New Video</button>
     <div id="video-popup"></div>
 
 
@@ -277,7 +277,7 @@
     function deleteVideo(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".video:visible" ).length === 0 && $( ".video:visible" ).length === 0 ) {
+        if ($( ".video:visible" ).length === 0 ) {
             $( ".no_video" ).show();
         };
     }
@@ -294,7 +294,7 @@
     function deleteImage(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".image:visible" ).length === 0 && $( ".image:visible" ).length === 0 ) {
+        if ($( ".image:visible" ).length === 0 ) {
             $( ".no_image" ).show();
         };
     }
