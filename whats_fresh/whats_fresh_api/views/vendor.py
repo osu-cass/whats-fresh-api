@@ -44,12 +44,7 @@ def vendor_list(request):
     serializer = FreshSerializer()
 
     data = {
-        "vendors": json.loads(
-            serializer.serialize(
-                vendor_list,
-                use_natural_foreign_keys=True
-            )
-        ),
+        "vendors": json.loads(serializer.serialize(vendor_list)),
         "error": error
     }
 
@@ -108,12 +103,7 @@ def vendors_products(request, id=None):
     serializer = FreshSerializer()
 
     data = {
-        "vendors": json.loads(
-            serializer.serialize(
-                vendor_list,
-                use_natural_foreign_keys=True
-            )
-        ),
+        "vendors": json.loads(serializer.serialize(vendor_list)),
         "error": error
     }
 
@@ -153,15 +143,7 @@ def vendor_details(request, id=None):
 
     serializer = FreshSerializer()
 
-    data = json.loads(
-        serializer.serialize(
-            [vendor],
-            use_natural_foreign_keys=True
-        )[1:-1]  # Serializer can only serialize lists,
-        # so we have to chop off the list brackets
-        # to get the serialized string without the list
-    )
-
+    data = json.loads(serializer.serialize(vendor))
     data['error'] = error
 
     return HttpResponse(json.dumps(data), content_type="application/json")

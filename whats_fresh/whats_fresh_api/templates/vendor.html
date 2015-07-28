@@ -115,19 +115,23 @@
             {% endif %}
             <input id="preparation_ids" name="preparation_ids" type="hidden" />
         </div>
+
+        <button type="submit" onclick="return createPopup('/entry/vendors/new/products/new/')">Add New Product</button>
+        <div id="popup"></div>
+
         <button type="submit" onclick="setPreparationField();" />Save</button>
     </div>
 </form>
 <!-- The template div used by appendProduct() -->
 <div id='new_product'>
     <div class='product'>
-        <select id="product$iteration" onchange="showPreparations($iteration)">
+        <select id="product_select" onchange="showPreparations(_select)">
             <option selected disabled></option>
             {% for product in product_list %}
             <option value="{{ product }}">{{ product }}</option>
             {% endfor %}
         </select>
-        <select disabled id="preparation$iteration" class="preparation">
+        <select disabled id="preparation_select" class="preparation">
             <option selected disabled></option>
         </select>
         <a href="#" onclick="deleteProduct(this);return false;">
@@ -138,7 +142,6 @@
 {% endblock content %}
 {% block footer %}
 <script>
-
 $('#map-address').hide();
 $('#map-address-fake').hide();
 
@@ -169,7 +172,6 @@ $('#address-checkbox').click(function(){
     }
 
 });
-
 
 $('#map').locationpicker({
     location: { latitude: {% if latit %} {{ latit }} {% else %} 44.563781 {% endif %},
@@ -256,23 +258,80 @@ $('#map').locationpicker({
 
     function setAddressFields()          // For determining the location parameters.
     {
-
         $('input[name="street"]').val($('#map').data("locationpicker").addressComponents.addressLine1);
         $('input[name="city"]').val($('#map').data("locationpicker").addressComponents.city);
         $('input[name="state"]').val($('#map').data("locationpicker").addressComponents.stateOrProvince);
         $('input[name="zip"]').val($('#map').data("locationpicker").addressComponents.postalCode);
-
     }
-
 
     var preparation_options = {{ json_preparations|safe }};
 
     number_of_products = 0;
 
+    function createPopup(url) {
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data) {
+
+          $("#popup").html(data).dialog({modal:true}, {title: "New Product"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+        }
+      });
+      return false;
+    }
+
+
+   $("#popup").on('submit', function (e) {
+
+     e.preventDefault();
+
+     $.ajax({
+        type: "POST",
+        url: '/entry/vendors/new/products/new',
+        data: $("#popup-form").serialize(),
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data)
+        {
+            if (data.constructor === "test".constructor) {     // checks if the data is a string
+                $("#popup").html(data);
+                $('html, body').animate({
+                    scrollTop: $("#product_error").offset().top - 100
+                }, 500);
+                return
+            }
+
+            $("#popup").dialog('close');
+            var prodName = data.name;
+            var prodId = data.id;
+
+            preparation_options[prodName] = [];
+
+            for(i=0; i < data.preparations.length; i++) {
+
+                preparation_options[prodName].push({name: data.preparations[i].name, value: data.preparations[i].id});
+
+            }
+
+            $('#product_select').append($("<option>").attr("value", prodName).html(prodName));
+
+            appendProduct();
+
+            $("#product" + (number_of_products - 1) + " option").filter(function() {
+                return $(this).text() == prodName;
+            }).prop('selected', true);
+
+            showPreparations(number_of_products - 1);
+
+        }
+      });
+   });
+
+
     function deleteProduct(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".preparation:visible" ).length === 0) {
+        if ($( ".product:visible" ).length === 0 ) {
             $( ".no_products" ).show();
         };
     }
@@ -315,7 +374,7 @@ $('#map').locationpicker({
     {
         $( ".no_products" ).hide();
         var new_product_html = $('#new_product').html();
-        var new_product_html = new_product_html.split("$iteration").join(number_of_products);
+        var new_product_html = new_product_html.split("_select").join(number_of_products);
         $( ".container" ).append( new_product_html );
         number_of_products++;
     }
@@ -329,6 +388,5 @@ $('#map').locationpicker({
 
         $('input[name="preparation_ids"]').val(preparation_ids);
     }
-
 </script>
 {% endblock footer %}

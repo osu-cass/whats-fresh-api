@@ -40,15 +40,7 @@ def story_details(request, id=None):
 
     serializer = FreshSerializer()
 
-    data = json.loads(
-        serializer.serialize(
-            [story],
-            use_natural_foreign_keys=True
-        )[1:-1]  # Serializer can only serialize lists,
-                 # so we have to chop off the list brackets
-                 # to get the serialized string without the list
-        )
-
+    data = json.loads(serializer.serialize(story))
     data['error'] = error
 
     return HttpResponse(json.dumps(data), content_type="application/json")
@@ -83,12 +75,7 @@ def story_list(request):
             "debug": ""
         }
     data = {
-        "stories": json.loads(
-            serializer.serialize(
-                queryset,
-                use_natural_foreign_keys=True
-            )
-        ),
+        "stories": json.loads(serializer.serialize(queryset)),
         "error": error
     }
     return HttpResponse(json.dumps(data), content_type="application/json")
