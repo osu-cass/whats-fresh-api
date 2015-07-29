@@ -1,5 +1,6 @@
 from django import forms
 from django.conf import settings
+# from whats_fresh import base
 from django.utils.safestring import mark_safe
 
 
@@ -7,13 +8,13 @@ class ColorPickerWidget(forms.TextInput):
     class Media:
         css = {
             'all': (
-                # settings.MEDIA_URL + 'css/colorPicker.css',
+                # base.STATIC_URL + 'cssjs/colorPicker.css',
                 'https://rawgit.com/laktek/really-simple-color-picker/master/css/colorPicker.css',  # noqa
             )
         }
         js = (
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js',
-            # settings.MEDIA_URL + 'js/jquery.colorPicker.js',
+               'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+                # base.STATIC_URL + 'cssjs/jquery.colorPicker.js',
             'https://rawgit.com/laktek/really-simple-color-picker/master/js/jquery.colorPicker.js',  # noqa
         )
 
