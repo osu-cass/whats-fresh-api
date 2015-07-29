@@ -4,14 +4,14 @@ from whats_fresh.whats_fresh_api.models import Video
 from django.contrib.auth.models import User, Group
 
 
-class NewVideoTestCase(TestCase):
+class InlineVideoTestCase(TestCase):
 
     """
-    Test that the New Video page works as expected.
+    Test that the Inline Video form works as expected.
 
     Things tested:
         URLs reverse correctly
-        The outputted page has the correct form fields
+        The outputted popup form has the correct form fields
         POSTing "correct" data will result in the creation of a new
             object with the specified details
         POSTing data with all fields missing (hitting "save" without entering
@@ -35,18 +35,19 @@ class NewVideoTestCase(TestCase):
         self.client.logout()
 
         response = self.client.get(
-            reverse('new-video'))
-        self.assertRedirects(response, '/login?next=/entry/videos/new')
+            reverse('video_ajax'))
+        self.assertRedirects(response,
+                             '/login?next=/entry/stories/new/videos/new')
 
     def test_url_endpoint(self):
-        url = reverse('new-video')
-        self.assertEqual(url, '/entry/videos/new')
+        url = reverse('video_ajax')
+        self.assertEqual(url, '/entry/stories/new/videos/new')
 
     def test_form_fields(self):
         """
         Tests to see if the form contains all of the right fields
         """
-        response = self.client.get(reverse('new-video'))
+        response = self.client.get(reverse('video_ajax'))
 
         fields = {'video': 'input', 'name': 'input', 'caption': 'input'}
         form = response.context['video_form']
@@ -64,17 +65,17 @@ class NewVideoTestCase(TestCase):
         Video.objects.all().delete()
 
         # Data that we'll post to the server to get the new video created
-        new_video = {
+        inline_video = {
             'caption': "A thrilling display of utmost might",
             'name': "You won't believe number 3!",
             'video': 'http://www.youtube.com/watch?v=dQw4w9WgXcQ'}
 
-        self.client.post(reverse('new-video'), new_video)
+        self.client.post(reverse('video_ajax'), inline_video)
 
         video = Video.objects.all()[0]
-        for field in new_video:
+        for field in inline_video:
             self.assertEqual(
-                getattr(video, field), new_video[field])
+                getattr(video, field), inline_video[field])
 
     def test_no_data_error(self):
         """
@@ -84,7 +85,7 @@ class NewVideoTestCase(TestCase):
         # Create a list of all objects before sending bad POST data
         all_videos = Video.objects.all()
 
-        response = self.client.post(reverse('new-video'))
+        response = self.client.post(reverse('video_ajax'))
         required_fields = ['video']
         for field_name in required_fields:
             self.assertIn(field_name,

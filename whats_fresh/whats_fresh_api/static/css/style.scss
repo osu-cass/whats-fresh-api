@@ -305,6 +305,18 @@ a{
     font-family: $sans;
 }
 
+.no_image {
+  font-size: 18pt;
+  color: #333;
+  font-family: "Montserrat", sans-serif;
+}
+
+.no_video {
+  font-size: 18pt;
+  color: #333;
+  font-family: "Montserrat", sans-serif;
+}
+
 #new_product, #new_preparation, #new_image, #new_video {
     display: none;
 }
@@ -320,4 +332,18 @@ a{
     ul li{
         padding-left: 30px;
     }
+}
+
+.map-ui {
+  width: 550px;
+  height: 400px;
+}
+
+#address-checkbox {
+  display: inline;
+  margin: 0px;
+  width: auto; }
+
+label {
+  font-family: "Montserrat";
 }

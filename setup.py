@@ -17,7 +17,8 @@ dependencies = [
     'phonenumbers==6.2.0',
     'psycopg2==2.5.3',
     'requests==2.3.0',
-    'wsgiref==0.1.2'
+    'wsgiref==0.1.2',
+    'fig==1.0.1'
 ]
 
 setup(

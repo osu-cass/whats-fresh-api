@@ -10,6 +10,7 @@ from django.conf import settings
 from whats_fresh.whats_fresh_api.models import Image
 from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 
 
 @login_required
@@ -123,3 +124,31 @@ def image(request, id=None):
         'errors': [],
         'image_form': image_form,
     })
+
+
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
+def image_ajax(request, id=None):
+    if request.method == 'GET':
+        image_form = ImageForm()
+        return render(request, 'image_ajax.html', {'image_form': image_form})
+
+    elif request.method == 'POST':
+        message = ''
+        instance = None
+        image_form = ImageForm(
+            request.POST,
+            request.FILES,
+            instance=instance)
+        if image_form.is_valid():
+            image = image_form.save()
+            serializer = FreshSerializer()
+            return HttpResponse(serializer.serialize(image),
+                                content_type="application/json")
+        else:
+            pass
+
+        return render(request, 'image_ajax.html', {
+            'message': message,
+            'errors': [],
+            'image_form': image_form})

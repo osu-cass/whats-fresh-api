@@ -1,0 +1,14 @@
+postgis:
+  image: kartoza/postgis
+  environment:
+    PASS: whats_fresh
+    USERNAME: whats_fresh
+
+web:
+  build: .
+  ports:
+    - "8000:8000"
+  volumes:
+    - .:/opt/whats_fresh
+  links:
+    - postgis
