@@ -2,7 +2,6 @@ from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 import whats_fresh.whats_fresh_api.signals  # NOQA
-from whats_fresh.whats_fresh_api.widgets import ColorPickerWidget
 
 
 class Image(models.Model):
@@ -232,16 +231,6 @@ class Video(models.Model):
         }
 
 
-class ColorField(models.CharField):
-    def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 10
-        super(ColorField, self).__init__(*args, **kwargs)
-
-    def formfield(self, **kwargs):
-        kwargs['widget'] = ColorPickerWidget
-        return super(ColorField, self).formfield(**kwargs)
-
-
 class Theme(models.Model):
     """
     The themes model holds theming and customiztion data.
@@ -253,6 +242,6 @@ class Theme(models.Model):
         return self.name
 
     name = models.CharField(max_length=50)
-    background_color = ColorField(blank=True)
-    foreground_color = ColorField(blank=True)
+    background_color = models.TextField()
+    foreground_color = models.TextField()
     logo = models.ImageField(upload_to='images')

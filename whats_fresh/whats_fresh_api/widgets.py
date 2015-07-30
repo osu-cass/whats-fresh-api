@@ -1,29 +1,17 @@
 from django import forms
-from django.conf import settings
 # from whats_fresh import base
-from django.utils.safestring import mark_safe
 
 
 class ColorPickerWidget(forms.TextInput):
     class Media:
         css = {
             'all': (
-                # base.STATIC_URL + 'cssjs/colorPicker.css',
-                'https://rawgit.com/laktek/really-simple-color-picker/master/css/colorPicker.css',  # noqa
+                # base.STATIC_URL + 'css/spectrum.css',
+                'https://rawgit.com/bgrins/spectrum/master/spectrum.css',  # noqa
             )
         }
         js = (
-               'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
-                # base.STATIC_URL + 'cssjs/jquery.colorPicker.js',
-            'https://rawgit.com/laktek/really-simple-color-picker/master/js/jquery.colorPicker.js',  # noqa
+               'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',  # noqa
+                # base.STATIC_URL + 'js/spectrum.js',
+            # 'https://rawgit.com/bgrins/spectrum/master/spectrum.js',  # noqa
         )
-
-    def __init__(self, language=None, attrs=None):
-        self.language = language or settings.LANGUAGE_CODE[:2]
-        super(ColorPickerWidget, self).__init__(attrs=attrs)
-
-    def render(self, name, value, attrs=None):
-        rendered = super(ColorPickerWidget, self).render(name, value, attrs)
-        return rendered + mark_safe(u'''<script type="text/javascript">
-            $('#id_%s').colorPicker();
-            </script>''' % name)
