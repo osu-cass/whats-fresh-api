@@ -242,6 +242,6 @@ class Theme(models.Model):
         return self.name
 
     name = models.CharField(max_length=50)
-    background_color = models.TextField()
-    foreground_color = models.TextField()
+    background_color = models.TextField(max_length=50)
+    foreground_color = models.TextField(max_length=50)
     logo = models.ImageField(upload_to='images')
