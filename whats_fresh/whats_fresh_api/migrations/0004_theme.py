@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Theme',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False,
+                 auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=50)),
                 ('background_color', models.TextField(max_length=50)),
                 ('foreground_color', models.TextField(max_length=50)),
