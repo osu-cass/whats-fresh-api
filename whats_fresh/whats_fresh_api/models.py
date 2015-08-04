@@ -1,7 +1,7 @@
 from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
-import whats_fresh.whats_fresh_api.signals  # NOQA
+import whats_fresh.whats_fresh_api.signals  # noqa
 
 
 class Image(models.Model):
@@ -202,6 +202,7 @@ class VendorProduct(models.Model):
 
 
 class Video(models.Model):
+
     """
     The video model holds a video URL and related data.
 
@@ -232,12 +233,14 @@ class Video(models.Model):
 
 
 class Theme(models.Model):
+
     """
     The themes model holds theming and customiztion data.
 
     The user will be able to define his own customization for the site
     in the form of personel color prepferences, site logo etc.
     """
+
     def __unicode__(self):
         return self.name
 
@@ -245,3 +248,27 @@ class Theme(models.Model):
     background_color = models.TextField(max_length=50)
     foreground_color = models.TextField(max_length=50)
     logo = models.ImageField(upload_to='images')
+    site_name = models.CharField(
+        max_length=50, default="Oregon's Catch", unique=True)
+    site_name_slug = models.SlugField(
+        max_length=40, default="Oregon's Catch", unique=True)
+    vendors = models.CharField(max_length=100, default="vendors", unique=True)
+    vendors_slug = models.SlugField(
+        max_length=40, default="vendors", unique=True)
+    products = models.CharField(
+        max_length=100, default="products", unique=True)
+    products_slug = models.SlugField(
+        max_length=40, default="products", unique=True)
+    preparations = models.CharField(
+        max_length=100, default="preparations", unique=True)
+    preparations_slug = models.SlugField(
+        max_length=40, default="preparations", unique=True)
+    stories = models.CharField(max_length=100, default="stories", unique=True)
+    stories_slug = models.SlugField(
+        max_length=40, default="stories", unique=True)
+    videos = models.CharField(max_length=100, default="videos", unique=True)
+    videos_slug = models.SlugField(
+        max_length=40, default="videos", unique=True)
+    images = models.CharField(max_length=100, default="images", unique=True)
+    images_slug = models.SlugField(
+        max_length=40, default="images", unique=True)
