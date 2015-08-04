@@ -244,6 +244,11 @@ class Theme(models.Model):
     def __unicode__(self):
         return self.name
 
+    CHOICES = (
+        ('Yes', 'Yes'),
+        ('No', 'No'),
+    )
+
     name = models.CharField(max_length=50)
     background_color = models.TextField(max_length=50)
     foreground_color = models.TextField(max_length=50)
@@ -272,3 +277,5 @@ class Theme(models.Model):
     images = models.CharField(max_length=100, default="images", unique=True)
     images_slug = models.SlugField(
         max_length=40, default="images", unique=True)
+    active = models.CharField(
+        max_length=5, choices=CHOICES, default="No", unique=True)
