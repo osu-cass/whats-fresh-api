@@ -13,6 +13,7 @@ from whats_fresh.whats_fresh_api.models import (Product, Preparation,
 from whats_fresh.whats_fresh_api.forms import ProductForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 import json
 
@@ -176,7 +177,7 @@ def product_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-product'),
         'new_text': "New product",
-        'title': "All Products",
+        'title': get_fieldname.get_fieldname('products', 'products'),
         'item_classification': "product",
         'item_list': products,
         'description_field': {'title': 'Variety', 'attribute': 'variety'},

@@ -11,6 +11,7 @@ from whats_fresh.whats_fresh_api.models import Image
 from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 
 @login_required
@@ -48,7 +49,7 @@ def image_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-image'),
         'new_text': "New image",
-        'title': "Image Library",
+        'title': get_fieldname.get_fieldname('images', 'images'),
         'item_classification': "image",
         'item_list': images,
         'edit_url': 'edit-image'

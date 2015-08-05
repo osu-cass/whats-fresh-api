@@ -8,6 +8,8 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from whats_fresh.whats_fresh_api.forms import StoryForm
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+
 import json
 
 
@@ -44,7 +46,7 @@ def story_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-story'),
         'new_text': "New Item",
-        'title': "Product Education",
+        'title': get_fieldname.get_fieldname('stories', 'stories'),
         'item_classification': "item",
         'item_list': stories,
         'edit_url': 'edit-story'

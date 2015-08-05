@@ -11,6 +11,7 @@ from whats_fresh.whats_fresh_api.models import Video
 from whats_fresh.whats_fresh_api.forms import VideoForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 
 @login_required
@@ -48,7 +49,7 @@ def video_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-video'),
         'new_text': "New video",
-        'title': "Video Library",
+        'title': get_fieldname.get_fieldname('videos', 'videos'),
         'item_classification': "video",
         'item_list': videos,
         'edit_url': 'edit-video'

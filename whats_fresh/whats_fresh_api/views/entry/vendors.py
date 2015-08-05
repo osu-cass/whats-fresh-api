@@ -14,6 +14,7 @@ from whats_fresh.whats_fresh_api.models import (Vendor, Product,
                                                 VendorProduct)
 from whats_fresh.whats_fresh_api.forms import VendorForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 import json
 
@@ -219,7 +220,7 @@ def vendor_list(request):
         'message': message,
         'new_url': reverse('new-vendor'),
         'new_text': "New Vendor",
-        'title': "All Vendors",
+        'title': get_fieldname.get_fieldname('vendors', 'vendors'),
         'item_classification': "vendor",
         'item_list': vendors,
         'edit_url': 'edit-vendor'

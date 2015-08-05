@@ -11,6 +11,7 @@ from whats_fresh.whats_fresh_api.models import Preparation
 from whats_fresh.whats_fresh_api.forms import PreparationForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 
 @login_required
@@ -49,7 +50,7 @@ def prep_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-preparation'),
         'new_text': "New Item",
-        'title': "Product Form/Packaging",
+        'title': get_fieldname.get_fieldname('preparations', 'preparations'),
         'item_classification': "item",
         'item_list': preparations,
         'edit_url': 'edit-preparation'
