@@ -107,5 +107,18 @@ LOGIN_URL = '/login'
 
 DEFAULT_GROUP_NAME = 'Data Entry Users'
 
-# Title for the application UI
+# Default Theme for the application UI
+
 SITE_TITLE = "Oregon's Catch"
+
+vendors = "Vendors"
+
+products = "Products"
+
+preparations = "Preparations"
+
+stories = "Stories"
+
+videos = "Videos"
+
+images = "Images"
