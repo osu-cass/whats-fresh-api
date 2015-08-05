@@ -12,9 +12,11 @@ def get_fieldname(value, arg):
        which returns value from theme model"""
     theme = Theme.objects.all()
 
-    for val in theme:
-        if hasattr(val, str(arg)):
-            return getattr(val, arg)
+    if theme:
+        for val in theme:
+            if hasattr(val, str(arg)):
+                return getattr(val, arg)
 
-        else:
-            return settings.str(arg)
+    else:
+        if hasattr(settings, str(arg).upper()):
+            return getattr(settings, arg.upper())

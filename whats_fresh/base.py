@@ -111,14 +111,14 @@ DEFAULT_GROUP_NAME = 'Data Entry Users'
 
 SITE_TITLE = "Oregon's Catch"
 
-vendors = "Vendors"
+VENDORS = "Vendors"
 
-products = "Products"
+PRODUCTS = "Products"
 
-preparations = "Preparations"
+PREPARATIONS = "Preparations"
 
-stories = "Stories"
+STORIES = "Stories"
 
-videos = "Videos"
+VIDEOS = "Videos"
 
-images = "Images"
+IMAGES = "Images"
