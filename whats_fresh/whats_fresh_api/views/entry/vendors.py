@@ -220,7 +220,7 @@ def vendor_list(request):
         'message': message,
         'new_url': reverse('new-vendor'),
         'new_text': "New Vendor",
-        'title': get_fieldname.get_fieldname('vendors', 'vendors'),
+        'title': get_fieldname.get_fieldname('vendors'),
         'item_classification': "vendor",
         'item_list': vendors,
         'edit_url': 'edit-vendor'

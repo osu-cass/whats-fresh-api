@@ -177,7 +177,7 @@ def product_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-product'),
         'new_text': "New product",
-        'title': get_fieldname.get_fieldname('products', 'products'),
+        'title': get_fieldname.get_fieldname('products'),
         'item_classification': "product",
         'item_list': products,
         'description_field': {'title': 'Variety', 'attribute': 'variety'},

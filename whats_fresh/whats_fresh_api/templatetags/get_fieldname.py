@@ -7,9 +7,10 @@ register = template.Library()
 
 
 @register.filter(name='get_fieldname')
-def get_fieldname(value, arg):
+def get_fieldname(arg):
     """Register a template tag called getfieldname,
-       which returns value from theme model"""
+       which returns value from theme model(if present) else
+       returns the default theme value from settings"""
     theme = Theme.objects.all()
 
     if theme:

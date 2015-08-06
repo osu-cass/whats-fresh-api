@@ -50,7 +50,7 @@ def prep_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-preparation'),
         'new_text': "New Item",
-        'title': get_fieldname.get_fieldname('preparations', 'preparations'),
+        'title': get_fieldname.get_fieldname('preparations'),
         'item_classification': "item",
         'item_list': preparations,
         'edit_url': 'edit-preparation'

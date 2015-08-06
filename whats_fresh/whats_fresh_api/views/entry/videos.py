@@ -49,7 +49,7 @@ def video_list(request):
         'parent_text': 'Home',
         'new_url': reverse('new-video'),
         'new_text': "New video",
-        'title': get_fieldname.get_fieldname('videos', 'videos'),
+        'title': get_fieldname.get_fieldname('videos'),
         'item_classification': "video",
         'item_list': videos,
         'edit_url': 'edit-video'
