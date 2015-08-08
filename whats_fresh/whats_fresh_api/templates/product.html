@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load get_fieldname %}
 {% block header %}
 <div class="back">
     {% for p in parent_url %}
@@ -60,8 +61,8 @@
     {{ product_form.story }}
     <input class="preparations" name="preparations" type="hidden" />
     <div class="container">
-        <h3>Preparation</h3>
-        <button type="button" onclick="appendPreparation()">Add Preparation</button>
+        <h3>{{ 'preparations'|get_fieldname }}</h3>
+        <button type="button" onclick="appendPreparation()">Add {{ 'preparations'|get_fieldname }}</button>
         {% if existing_preparations %}
         {% for prep in existing_preparations %}
         <div class="preparation">
@@ -72,14 +73,15 @@
         </div>
         {% endfor %}
         {% else %}
-        <span class="no_preparations">No Preparations Yet!</span>
+        <span class="no_preparations">No {{ 'preparations'|get_fieldname }} Yet!</span>
         {% endif %}
     </div>
 
     <div id="inline_preparation">  <!-- Div used if a new inline preparation submitted -->
     </div>
 
-    <button type="submit" onclick="return createPopup('/entry/products/new/preparations/new/')">Add New Preparation</button>
+    <button type="submit" onclick="return createPopup('/entry/products/new/preparations/new/')">Add New
+    {{ 'preparations'|get_fieldname }}</button>
     <div id="popup"></div>
 
     <input class='preparation' name="preparation_ids" type="hidden" />

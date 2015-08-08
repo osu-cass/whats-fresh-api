@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load get_fieldname %}
 {% block header %}
 <div class="back">
     {% for p in parent_url %}
@@ -93,8 +94,8 @@
         {{ vendor_form.email }}
         <p class=" field_text">Phone:</p>
         {{ vendor_form.phone }}
-        <h3 class="title">Products</h3>
-        <button type="button" onclick="appendProduct()">Add Product</button>
+        <h3 class="title">{{ 'products'|get_fieldname }}</h3>
+        <button type="button" onclick="appendProduct()">Add {{ 'products'|get_fieldname }}</button>
         <div class="container">
             {% if existing_product_preparations %}
             {% for pp in existing_product_preparations %}
@@ -111,12 +112,13 @@
             </div>
             {% endfor %}
             {% else %}
-            <span class="no_products">No Products Yet!</span>
+            <span class="no_products">No {{ 'products'|get_fieldname }} Yet!</span>
             {% endif %}
             <input id="preparation_ids" name="preparation_ids" type="hidden" />
         </div>
 
-        <button type="submit" onclick="return createPopup('/entry/vendors/new/products/new/')">Add New Product</button>
+        <button type="submit" onclick="return createPopup('/entry/vendors/new/products/new/')">Add New
+        {{ 'products'|get_fieldname }}</button>
         <div id="popup"></div>
 
         <button type="submit" onclick="setPreparationField();" />Save</button>
