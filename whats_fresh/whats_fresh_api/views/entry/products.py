@@ -107,12 +107,12 @@ def product(request, id=None):
     elif request.method != 'POST':
         product_form = ProductForm()
         post_url = reverse('new-product')
-        title = "New Product"
+        title = "New " + get_fieldname.get_fieldname('products')
         existing_preparations = []
 
     else:
         post_url = reverse('new-product')
-        title = "New Product"
+        title = "New " + get_fieldname.get_fieldname('products')
         existing_preparations = []
 
     data = {'preparations': []}
@@ -176,9 +176,9 @@ def product_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-product'),
-        'new_text': "New product",
+        'new_text': "New " + get_fieldname.get_fieldname('products'),
         'title': get_fieldname.get_fieldname('products'),
-        'item_classification': "product",
+        'item_classification': get_fieldname.get_fieldname('products'),
         'item_list': products,
         'description_field': {'title': 'Variety', 'attribute': 'variety'},
         'edit_url': 'edit-product'

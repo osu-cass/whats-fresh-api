@@ -49,9 +49,9 @@ def prep_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-preparation'),
-        'new_text': "New Item",
+        'new_text': "New " + get_fieldname.get_fieldname('preparations'),
         'title': get_fieldname.get_fieldname('preparations'),
-        'item_classification': "item",
+        'item_classification': get_fieldname.get_fieldname('preparations'),
         'item_list': preparations,
         'edit_url': 'edit-preparation'
     })
@@ -112,11 +112,11 @@ def preparation(request, id=None):
     elif request.method != 'POST':
         preparation_form = PreparationForm()
         post_url = reverse('new-preparation')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('preparations')
 
     else:
         post_url = reverse('new-preparation')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('preparations')
 
     return render(request, 'preparation.html', {
         'parent_url': [

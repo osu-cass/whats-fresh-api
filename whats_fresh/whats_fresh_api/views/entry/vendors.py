@@ -140,14 +140,14 @@ def vendor(request, id=None):
                     'product': vendor_product.product_preparation.product.name
                 })
     elif request.method != 'POST':
-        title = "Add a Vendor"
+        title = "New " + get_fieldname.get_fieldname('vendors')
         post_url = reverse('new-vendor')
         message = "* = Required field"
         vendor_form = VendorForm()
         latit = '44.563781'
         longit = '-123.27944400000001'
     else:
-        title = "Add a Vendor"
+        title = "New " + get_fieldname.get_fieldname('vendors')
         message = "* = Required field"
         post_url = reverse('new-vendor')
         latit = post_data['latitude']
@@ -219,9 +219,9 @@ def vendor_list(request):
         'parent_text': 'Home',
         'message': message,
         'new_url': reverse('new-vendor'),
-        'new_text': "New Vendor",
+        'new_text': "New " + get_fieldname.get_fieldname('vendors'),
         'title': get_fieldname.get_fieldname('vendors'),
-        'item_classification': "vendor",
+        'item_classification': get_fieldname.get_fieldname('vendors'),
         'item_list': vendors,
         'edit_url': 'edit-vendor'
     })

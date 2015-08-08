@@ -48,9 +48,9 @@ def video_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-video'),
-        'new_text': "New video",
+        'new_text': "New " + get_fieldname.get_fieldname('videos'),
         'title': get_fieldname.get_fieldname('videos'),
-        'item_classification': "video",
+        'item_classification': get_fieldname.get_fieldname('videos'),
         'item_list': videos,
         'edit_url': 'edit-video'
     })
@@ -111,11 +111,11 @@ def video(request, id=None):
     elif request.method != 'POST':
         video_form = VideoForm()
         post_url = reverse('new-video')
-        title = "New Video"
+        title = "New " + get_fieldname.get_fieldname('videos')
 
     else:
         post_url = reverse('new-video')
-        title = "New Video"
+        title = "New " + get_fieldname.get_fieldname('videos')
 
     return render(request, 'video.html', {
         'parent_url': [

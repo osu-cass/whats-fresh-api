@@ -48,9 +48,9 @@ def image_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-image'),
-        'new_text': "New image",
+        'new_text': "New " + get_fieldname.get_fieldname('images'),
         'title': get_fieldname.get_fieldname('images'),
-        'item_classification': "image",
+        'item_classification': get_fieldname.get_fieldname('images'),
         'item_list': images,
         'edit_url': 'edit-image'
     })
@@ -108,11 +108,11 @@ def image(request, id=None):
     elif request.method != 'POST':
         image_form = ImageForm()
         post_url = reverse('new-image')
-        title = "New Image"
+        title = "New " + get_fieldname.get_fieldname('images')
 
     else:
         post_url = reverse('new-image')
-        title = "New Image"
+        title = "New " + get_fieldname.get_fieldname('images')
 
     return render(request, 'image.html', {
         'parent_url': [
