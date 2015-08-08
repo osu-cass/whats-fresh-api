@@ -74,7 +74,7 @@
     <div id="inline_image">  <!-- Div used if a new inline image submitted -->
     </div>
 
-    <button type="submit" id="newImage-btn" onclick="return imagePopup('/entry/stories/new/images/new/')">Add New
+    <button type="submit" id="newImage-btn" onclick="return imagePopup('/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'images_slug'|get_fieldname }}/new/')">Add New
     {{ 'images'|get_fieldname }}</button>
     <div id="image-popup"></div>
 
@@ -99,7 +99,7 @@
     <div id="inline_video">  <!-- Div used if a new inline video submitted -->
     </div>
 
-    <button type="submit" onclick="return videoPopup('/entry/stories/new/videos/new/')">Add New {{ 'videos'|get_fieldname }}</button>
+    <button type="submit" onclick="return videoPopup('/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'videos_slug'|get_fieldname }}/new/')">Add New {{ 'videos'|get_fieldname }}</button>
     <div id="video-popup"></div>
 
 
@@ -181,7 +181,7 @@
 
      $.ajax({
         type: "POST",
-        url: '/entry/stories/new/images/new',
+        url: '/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'images_slug'|get_fieldname }}/new',
         processData: false,
         contentType: false,
         data: fd,
@@ -220,7 +220,7 @@
 
      $.ajax({
         type: "POST",
-        url: '/entry/stories/new/videos/new',
+        url: '/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'videos_slug'|get_fieldname }}/new',
         data: $("#video-form").serialize(),
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data)

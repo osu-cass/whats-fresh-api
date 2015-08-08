@@ -117,7 +117,7 @@
             <input id="preparation_ids" name="preparation_ids" type="hidden" />
         </div>
 
-        <button type="submit" onclick="return createPopup('/entry/vendors/new/products/new/')">Add New
+        <button type="submit" onclick="return createPopup('/entry/{{'vendors_slug'|get_fieldname}}/new/{{'products_slug'|get_fieldname}}/new/')">Add New
         {{ 'products'|get_fieldname }}</button>
         <div id="popup"></div>
 
@@ -277,7 +277,7 @@ $('#map').locationpicker({
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
 
-          $("#popup").html(data).dialog({modal:true}, {title: "New Product"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+          $("#popup").html(data).dialog({modal:true}, {title: "New {{ 'products'|get_fieldname }}"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
       });
       return false;
@@ -290,7 +290,7 @@ $('#map').locationpicker({
 
      $.ajax({
         type: "POST",
-        url: '/entry/vendors/new/products/new',
+        url: '/entry/{{'vendors_slug'|get_fieldname}}/new/{{'products_slug'|get_fieldname}}/new',
         data: $("#popup-form").serialize(),
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data)

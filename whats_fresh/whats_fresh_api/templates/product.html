@@ -80,7 +80,7 @@
     <div id="inline_preparation">  <!-- Div used if a new inline preparation submitted -->
     </div>
 
-    <button type="submit" onclick="return createPopup('/entry/products/new/preparations/new/')">Add New
+    <button type="submit" onclick="return createPopup('/entry/{{ 'products_slug'|get_fieldname }}/new/{{ 'preparations_slug'|get_fieldname }}/new/')">Add New
     {{ 'preparations'|get_fieldname }}</button>
     <div id="popup"></div>
 
@@ -117,7 +117,7 @@
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
 
-          $("#popup").html(data).dialog({modal:true}, {title: "New Preparation"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+          $("#popup").html(data).dialog({modal:true}, {title: "New {{ 'preparations'|get_fieldname }}"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
       });
       return false;
@@ -130,7 +130,7 @@
 
         $.ajax({
             type: "POST",
-            url: '/entry/products/new/preparations/new',
+            url: '/entry/{{ 'products_slug'|get_fieldname }}/new/{{ 'preparations_slug'|get_fieldname }}/new',
             data: $("#popup-form").serialize(),
             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
             success: function(data)
