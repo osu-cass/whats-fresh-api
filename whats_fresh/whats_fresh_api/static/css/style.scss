@@ -94,15 +94,21 @@ a{
 //Header
 .header{
     background: $secondary;
-    height: $navheight;
+    height: 100px;
     width: 100%;
     margin: 0px auto;
     font-weight: 700;
 
     h2{
-        line-height: $navheight;
+        line-height: 70px;
         text-align: center;
         color: $dark;
+    }
+
+    h4 {
+         line-height: 30px;
+         text-align: center;
+         color: $dark;
     }
 
     .logout{

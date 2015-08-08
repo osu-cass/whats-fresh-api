@@ -94,7 +94,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join('/home/vagrant/media')
+MEDIA_ROOT = os.path.join('home/vagrant/media')
 MEDIA_URL = '/media/'
 
 # Proximity used for location queries if
@@ -122,3 +122,15 @@ STORIES = "Stories"
 VIDEOS = "Videos"
 
 IMAGES = "Images"
+
+VENDORS_SLUG = "vendors"
+
+PRODUCTS_SLUG = "products"
+
+PREPARATIONS_SLUG = "preparations"
+
+STORIES_SLUG = "stories"
+
+IMAGES_SLUG = "images"
+
+VIDEOS_SLUG = "videos"

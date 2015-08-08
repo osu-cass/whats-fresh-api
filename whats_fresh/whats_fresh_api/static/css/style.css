@@ -3,7 +3,7 @@ body {
   margin: 0px;
   padding: 0px;
   font-size: 100%;
-  background: #517285;
+  background: #517285;   /*Background color*/
   text-align: center; }
 
 body, html {
@@ -59,12 +59,16 @@ a {
 
 .header {
   background: #FFF;
-  height: 70px;
+  height: 100px;
   width: 100%;
   margin: 0px auto;
   font-weight: 700; }
   .header h2 {
     line-height: 70px;
+    text-align: center;
+    color: #333; }
+  .header h4 {
+    line-height: 30px;
     text-align: center;
     color: #333; }
   .header .logout {
@@ -79,7 +83,7 @@ a {
   text-align: center; }
 
 .content {
-  background: #517285;
+  background: #517285;  /*Foreground color*/
   min-height: 100%;
   width: 70%;
   height: auto;

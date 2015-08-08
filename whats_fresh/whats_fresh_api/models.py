@@ -253,10 +253,9 @@ class Theme(models.Model):
     background_color = models.TextField(max_length=50)
     foreground_color = models.TextField(max_length=50)
     logo = models.ImageField(upload_to='images')
+    slogan = models.CharField(max_length=50, null=True)
     site_title = models.CharField(
         max_length=50, default="Oregon's Catch", unique=True)
-    site_title_slug = models.SlugField(
-        max_length=40, default="Oregon's Catch", unique=True)
     vendors = models.CharField(max_length=100, default="vendors", unique=True)
     vendors_slug = models.SlugField(
         max_length=40, default="vendors", unique=True)
