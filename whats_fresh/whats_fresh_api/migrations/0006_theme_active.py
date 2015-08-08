@@ -14,7 +14,10 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='theme',
             name='active',
-            field=models.CharField(default=b'No', max_length=5, choices=[(b'Yes', b'Yes'), (b'No', b'No')]),
+            field=models.CharField(
+                default=b'No', max_length=5,
+                choices=[(b'Yes', b'Yes'), (b'No', b'No')]
+                ),
             preserve_default=True,
         ),
     ]
