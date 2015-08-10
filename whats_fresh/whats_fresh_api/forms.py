@@ -1,6 +1,6 @@
 import django.forms as forms
 from whats_fresh.whats_fresh_api.models import (Vendor, Product, Preparation,
-                                                Story, Video, Image)
+                                                Story, Video, Image, Theme)
 
 
 class VendorForm(forms.ModelForm):
@@ -88,4 +88,31 @@ class ImageForm(forms.ModelForm):
             'caption': forms.TextInput(attrs={'required': 'true'}),
             'name': forms.TextInput(attrs={'required': 'true'}),
             'image': forms.FileInput(attrs={'required': 'true'})
+        }
+
+
+class ThemeForm(forms.ModelForm):
+
+    class Meta:
+        model = Theme
+        exclude = []
+        widgets = {
+            'name': forms.TextInput(attrs={'required': 'true'}),
+            'background_color': forms.TextInput,
+            'foreground_color': forms.TextInput,
+            'logo': forms.FileInput,
+            'slogan': forms.TextInput,
+            'site_title': forms.TextInput(attrs={'required': 'true'}),
+            'vendors': forms.TextInput(attrs={'required': 'true'}),
+            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
+            'products': forms.TextInput(attrs={'required': 'true'}),
+            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
+            'vendors': forms.TextInput(attrs={'required': 'true'}),
+            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
+            'vendors': forms.TextInput(attrs={'required': 'true'}),
+            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
+            'vendors': forms.TextInput(attrs={'required': 'true'}),
+            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
+            'active': forms.TextInput
+
         }
