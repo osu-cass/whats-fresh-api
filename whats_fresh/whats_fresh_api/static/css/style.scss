@@ -99,6 +99,15 @@ a{
     margin: 0px auto;
     font-weight: 700;
 
+    .site_image {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    margin-left: 350px;
+    max-height: 90px;
+    max-width: 200px;
+    }
+
     h2{
         line-height: 70px;
         text-align: center;
