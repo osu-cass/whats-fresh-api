@@ -82,16 +82,6 @@ class NewThemeTestCase(TestCase):
         Theme.objects.all().delete()
 
         # Data that we'll post to the server to get the new theme created
-        new_theme = {
-            'zip': '97365', 'website': '', 'hours': 'optional hours',
-            'street': '750 NW Lighthouse Dr', 'story': '',
-            'status': '', 'state': 'OR', 'preparation_ids': '1,2',
-            'phone': '', 'name': 'Test Name',
-            'latitude': '44.6752643', 'longitude': '-124.072162',
-            'location_description': 'Optional Description',
-            'email': '', 'description': 'Test Description',
-            'contact_name': 'Test Contact', 'city': 'Newport'}
-
         new_theme = {'name': 'Test Name',
                      'background_color': 'rgb(81, 114, 133)',
                      'foreground_color': 'rgb(81, 114, 133)',
