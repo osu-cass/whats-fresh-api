@@ -14,7 +14,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='theme',
             name='logo',
-            field=models.ImageField(null=True, upload_to=b'images', blank=True),
+            field=models.ImageField(
+                null=True, upload_to=b'images', blank=True),
             preserve_default=True,
         ),
         migrations.AlterField(

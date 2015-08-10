@@ -37,7 +37,8 @@ class EditThemeTestCase(TestCase):
 
         response = self.client.get(
             reverse('edit-theme', kwargs={'id': '1'}))
-        self.assertRedirects(response, '/login?next=/admin/whats_fresh_api/theme/1')
+        self.assertRedirects(
+            response, '/login?next=/admin/whats_fresh_api/theme/1')
 
     def test_url_endpoint(self):
         url = reverse('edit-theme', kwargs={'id': '1'})
@@ -81,25 +82,25 @@ class EditThemeTestCase(TestCase):
         response = self.client.get(reverse('edit-theme', kwargs={'id': '1'}))
 
         fields = {
-                 'name': "Test Name",
-                 'background_color': "rgb(81, 114, 133)",
-                 'foreground_color': "rgb(81, 114, 133)",
-                 'logo': self.logo,
-                 'slogan': "Test Slogan",
-                 'site_title': "Oregon Catch",
-                 'vendors': "vendors",
-                 'vendors_slug': "vendors",
-                 'products': "products",
-                 'products_slug': "products",
-                 'preparations': "preparations",
-                 'preparations_slug': "preparations",
-                 'stories': "stories",
-                 'stories_slug': "stories",
-                 'images': "images",
-                 'images_slug': "images",
-                 'videos': "videos",
-                 'videos_slug': "videos",
-                 'active': "no"
+            'name': "Test Name",
+            'background_color': "rgb(81, 114, 133)",
+            'foreground_color': "rgb(81, 114, 133)",
+            'logo': self.logo,
+            'slogan': "Test Slogan",
+            'site_title': "Oregon Catch",
+            'vendors': "vendors",
+            'vendors_slug': "vendors",
+            'products': "products",
+            'products_slug': "products",
+            'preparations': "preparations",
+            'preparations_slug': "preparations",
+            'stories': "stories",
+            'stories_slug': "stories",
+            'images': "images",
+            'images_slug': "images",
+            'videos': "videos",
+            'videos_slug': "videos",
+            'active': "no"
         }
 
         form = response.context['theme_form']
