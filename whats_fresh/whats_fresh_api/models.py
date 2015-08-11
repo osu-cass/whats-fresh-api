@@ -254,27 +254,17 @@ class Theme(models.Model):
     foreground_color = models.TextField(max_length=50)
     logo = models.ImageField(upload_to='images', null=True, blank=True)
     slogan = models.CharField(max_length=50, null=True, blank=True)
-    site_title = models.CharField(
-        max_length=50, default="Oregon's Catch", unique=True)
-    vendors = models.CharField(max_length=100, default="vendors", unique=True)
-    vendors_slug = models.SlugField(
-        max_length=40, default="vendors", unique=True)
-    products = models.CharField(
-        max_length=100, default="products", unique=True)
-    products_slug = models.SlugField(
-        max_length=40, default="products", unique=True)
-    preparations = models.CharField(
-        max_length=100, default="preparations", unique=True)
-    preparations_slug = models.SlugField(
-        max_length=40, default="preparations", unique=True)
-    stories = models.CharField(max_length=100, default="stories", unique=True)
-    stories_slug = models.SlugField(
-        max_length=40, default="stories", unique=True)
-    videos = models.CharField(max_length=100, default="videos", unique=True)
-    videos_slug = models.SlugField(
-        max_length=40, default="videos", unique=True)
-    images = models.CharField(max_length=100, default="images", unique=True)
-    images_slug = models.SlugField(
-        max_length=40, default="images", unique=True)
-    active = models.CharField(
-        max_length=5, choices=CHOICES, default="No", unique=True)
+    site_title = models.CharField(max_length=50, default="Oregon's Catch")
+    vendors = models.CharField(max_length=100, default="vendors")
+    vendors_slug = models.SlugField(max_length=40, default="vendors")
+    products = models.CharField(max_length=100, default="products")
+    products_slug = models.SlugField(max_length=40, default="products")
+    preparations = models.CharField(max_length=100, default="preparations")
+    preparations_slug = models.SlugField(max_length=40, default="preparations")
+    stories = models.CharField(max_length=100, default="stories")
+    stories_slug = models.SlugField(max_length=40, default="stories")
+    videos = models.CharField(max_length=100, default="videos")
+    videos_slug = models.SlugField(max_length=40, default="videos")
+    images = models.CharField(max_length=100, default="images")
+    images_slug = models.SlugField(max_length=40, default="images")
+    active = models.CharField(max_length=5, choices=CHOICES, default="No")
