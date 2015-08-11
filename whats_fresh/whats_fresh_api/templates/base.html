@@ -15,12 +15,25 @@
         <script src="//rawgit.com/tschuy/jquery-locationpicker-plugin/master/src/locationpicker.jquery.js"></script>
         {% load staticfiles %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
     </head>
+    <style type="text/css">
+        body
+        {
+            background-color: {{ 'background_color' | get_fieldname }};
+        }
+        .content
+        {
+          background: {{ 'foreground_color' | get_fieldname }};
+        }
+    </style>
     <body>
         <div class="header">
             {% block header %}
             {% endblock header%}
+            {% if 'logo'|get_fieldname %}
             <a><img class='site_image' src="{{ 'logo'|get_fieldname }}"></a>
+            {% endif %}
             <h2><a href='/entry'>{{ 'site_title'|get_fieldname }}</a></h2>
             <h4>{% firstof 'slogan'|get_fieldname "" %}</h4>
             {% if user.is_authenticated %}

@@ -17,7 +17,10 @@ def get_fieldname(arg):
         for val in theme:
             if hasattr(val, str(arg)):
                 if arg == 'logo':
-                    return settings.MEDIA_URL + str(getattr(val, arg))
+                    if val.logo is None or val.logo == "":
+                        return False
+                    else:
+                        return settings.MEDIA_URL + str(getattr(val, arg))
                 else:
                     return getattr(val, arg)
 
