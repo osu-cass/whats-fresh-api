@@ -24,8 +24,25 @@
         }
         .content
         {
-          background: {{ 'foreground_color' | get_fieldname }};
+          background-color: {{ 'foreground_color' | get_fieldname }};
         }
+        .header
+        {
+          background-color: {{ 'header_color' | get_fieldname }};
+        }
+        .header h2
+        {
+          color: {{ 'font_color' | get_fieldname }};
+        }
+        .header h4
+        {
+          color: {{ 'font_color' | get_fieldname }};
+        }
+        .entry h4
+        {
+          color: {{ 'font_color' | get_fieldname }};
+        }
+
     </style>
     <body>
         <div class="header">

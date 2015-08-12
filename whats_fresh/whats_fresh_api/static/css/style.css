@@ -3,7 +3,7 @@ body {
   margin: 0px;
   padding: 0px;
   font-size: 100%;
-  background: #517285;   /*Background color*/
+  background: #517285;
   text-align: center; }
 
 body, html {
@@ -86,11 +86,17 @@ a {
   .header .logout:hover {
     color: #517285; }
 
+.entry h4 {
+
+  color: #333;
+}
+
 .title p {
   text-align: center; }
 
 .content {
-  background: #517285;  /*Foreground color*/
+  background: #517285;
+  border-radius: 10px;
   min-height: 100%;
   width: 70%;
   height: auto;

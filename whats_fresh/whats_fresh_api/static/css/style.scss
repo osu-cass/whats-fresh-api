@@ -132,6 +132,11 @@ a{
     }
 }
 
+.entry h4 {
+
+  color: #333;
+}
+
 .title{
     p{
         text-align: center;
@@ -140,6 +145,7 @@ a{
 
 .content {
     background: $primary;
+    border-radius: 10px;
     min-height: 100%;
     width: 70%;
     height: auto;
