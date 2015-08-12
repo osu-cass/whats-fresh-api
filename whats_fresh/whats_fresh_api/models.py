@@ -249,7 +249,7 @@ class Theme(models.Model):
         ('No', 'No'),
     )
 
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     background_color = models.TextField(
         max_length=50, default="rgb(81, 114, 133)")
     foreground_color = models.TextField(
@@ -273,3 +273,14 @@ class Theme(models.Model):
     images = models.CharField(max_length=100, default="images")
     images_slug = models.SlugField(max_length=40, default="images")
     active = models.CharField(max_length=5, choices=CHOICES, default="No")
+
+    def save(self, *args, **kwargs):
+        if self.active == "Yes":
+            try:
+                temp = Theme.objects.get(active="Yes")
+                if self != temp:
+                    temp.active = "No"
+                    temp.save()
+            except Theme.DoesNotExist:
+                pass
+        super(Theme, self).save(*args, **kwargs)

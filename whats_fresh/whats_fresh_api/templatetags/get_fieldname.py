@@ -11,19 +11,17 @@ def get_fieldname(arg):
     """Register a template tag called getfieldname,
        which returns value from theme model(if present) else
        returns the default theme value from settings"""
-    theme = Theme.objects.all()
-
-    if theme:
-        for val in theme:
-            if hasattr(val, str(arg)):
-                if arg == 'logo':
-                    if val.logo is None or val.logo == "":
-                        return False
-                    else:
-                        return settings.MEDIA_URL + str(getattr(val, arg))
+    try:
+        theme = Theme.objects.get(active="Yes")
+        if hasattr(theme, str(arg)):
+            if arg == 'logo':
+                if theme.logo is None or theme.logo == "":
+                    return False
                 else:
-                    return getattr(val, arg)
+                    return settings.MEDIA_URL + str(getattr(theme, arg))
+            else:
+                return getattr(theme, arg)
 
-    else:
+    except Theme.DoesNotExist:
         if hasattr(settings, str(arg).upper()):
             return getattr(settings, arg.upper())
