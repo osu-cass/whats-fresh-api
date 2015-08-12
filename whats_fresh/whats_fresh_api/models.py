@@ -250,8 +250,13 @@ class Theme(models.Model):
     )
 
     name = models.CharField(max_length=50)
-    background_color = models.TextField(max_length=50)
-    foreground_color = models.TextField(max_length=50)
+    background_color = models.TextField(
+        max_length=50, default="rgb(81, 114, 133)")
+    foreground_color = models.TextField(
+        max_length=50, default="rgb(81, 114, 133)")
+    header_color = models.TextField(
+        max_length=50, default="rgb(255, 255, 255)")
+    font_color = models.TextField(max_length=50, default="rgb(51, 51, 51)")
     logo = models.ImageField(upload_to='images', null=True, blank=True)
     slogan = models.CharField(max_length=50, null=True, blank=True)
     site_title = models.CharField(max_length=50, default="Oregon's Catch")
