@@ -275,6 +275,7 @@ class Theme(models.Model):
     active = models.CharField(max_length=5, choices=CHOICES, default="No")
 
     def save(self, *args, **kwargs):
+
         if self.active == "Yes":
             try:
                 temp = Theme.objects.get(active="Yes")

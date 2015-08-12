@@ -1,6 +1,7 @@
 import django.forms as forms
 from whats_fresh.whats_fresh_api.models import (Vendor, Product, Preparation,
                                                 Story, Video, Image, Theme)
+from django.core.exceptions import ValidationError
 
 
 class VendorForm(forms.ModelForm):
@@ -116,3 +117,17 @@ class ThemeForm(forms.ModelForm):
             'active': forms.TextInput
 
         }
+
+
+class ThemeAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = Theme
+        exclude = []
+
+    def clean(self):
+        self.slug_fields = [Theme.vendors_slug, Theme.products_slug, Theme.preparations_slug, Theme.stories_slug, Theme.images_slug, Theme.videos_slug]  # noqa
+        print self.slug_fields
+        if len(self.slug_fields) != len(set(self.slug_fields)):
+            raise forms.ValidationError('Error')
+        return self.cleaned_data
