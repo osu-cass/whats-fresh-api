@@ -126,8 +126,14 @@ class ThemeAdminForm(forms.ModelForm):
         exclude = []
 
     def clean(self):
-        self.slug_fields = [Theme.vendors_slug, Theme.products_slug, Theme.preparations_slug, Theme.stories_slug, Theme.images_slug, Theme.videos_slug]  # noqa
-        print self.slug_fields
+        cleaned_data = super(ThemeAdminForm, self).clean()
+        vendors_slug = cleaned_data.get('vendors_slug')
+        products_slug = cleaned_data.get('products_slug')
+        preparations_slug = cleaned_data.get('preparations_slug')
+        stories_slug = cleaned_data.get('stories_slug')
+        images_slug = cleaned_data.get('images_slug')
+        videos_slug = cleaned_data.get('videos_slug')
+        self.slug_fields = [vendors_slug, products_slug, preparations_slug, stories_slug, images_slug, videos_slug]  # noqa
         if len(self.slug_fields) != len(set(self.slug_fields)):
             raise forms.ValidationError('Error')
         return self.cleaned_data
