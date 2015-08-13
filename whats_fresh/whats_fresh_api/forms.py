@@ -1,7 +1,6 @@
 import django.forms as forms
 from whats_fresh.whats_fresh_api.models import (Vendor, Product, Preparation,
                                                 Story, Video, Image, Theme)
-from django.core.exceptions import ValidationError
 
 
 class VendorForm(forms.ModelForm):

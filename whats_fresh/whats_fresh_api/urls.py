@@ -164,4 +164,5 @@ urlpatterns = patterns(
 
 )
 
-admin.site.site_header = get_fieldname.get_fieldname('site_title') + ' administration'
+admin.site.site_header = get_fieldname.get_fieldname(
+    'site_title') + ' administration'
