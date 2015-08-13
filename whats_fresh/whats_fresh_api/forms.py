@@ -136,5 +136,8 @@ class ThemeAdminForm(forms.ModelForm):
         self.slug_fields = [vendors_slug, products_slug, preparations_slug,
                             stories_slug, images_slug, videos_slug]
         if len(self.slug_fields) != len(set(self.slug_fields)):
-            raise forms.ValidationError('Error')
+            error = set(
+                [x for x in self.slug_fields if self.slug_fields.count(x) > 1])
+            raise forms.ValidationError(
+                "Cannot use slug %s" % list(error)[0] + ' for multiple items!')
         return self.cleaned_data
