@@ -1,6 +1,7 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from django.contrib import admin
 
 
 urlpatterns = patterns(
@@ -162,3 +163,5 @@ urlpatterns = patterns(
         name='home'),
 
 )
+
+admin.site.site_header = get_fieldname.get_fieldname('site_title') + ' administration'
