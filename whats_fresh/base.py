@@ -51,12 +51,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.contrib.messages.context_processors.messages",
-)
-
 ROOT_URLCONF = 'whats_fresh.urls'
 
 WSGI_APPLICATION = 'whats_fresh.wsgi.application'
@@ -94,7 +88,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join('home/vagrant/media')
+MEDIA_ROOT = os.path.join('/home/vagrant/media')
 MEDIA_URL = '/media/'
 
 # Proximity used for location queries if
@@ -108,29 +102,16 @@ LOGIN_URL = '/login'
 DEFAULT_GROUP_NAME = 'Data Entry Users'
 
 # Default Theme for the application UI
-
 SITE_TITLE = "Oregon's Catch"
-
 VENDORS = "Vendors"
-
 PRODUCTS = "Products"
-
 PREPARATIONS = "Preparations"
-
 STORIES = "Stories"
-
 VIDEOS = "Videos"
-
 IMAGES = "Images"
-
 VENDORS_SLUG = "vendors"
-
 PRODUCTS_SLUG = "products"
-
 PREPARATIONS_SLUG = "preparations"
-
 STORIES_SLUG = "stories"
-
 IMAGES_SLUG = "images"
-
 VIDEOS_SLUG = "videos"
