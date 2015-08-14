@@ -91,38 +91,17 @@ class ImageForm(forms.ModelForm):
         }
 
 
-class ThemeForm(forms.ModelForm):
+class ThemeAdminForm(forms.ModelForm):
 
     class Meta:
         model = Theme
         exclude = []
         widgets = {
             'name': forms.TextInput(attrs={'required': 'true'}),
-            'background_color': forms.TextInput,
-            'foreground_color': forms.TextInput,
             'logo': forms.FileInput,
             'slogan': forms.TextInput,
-            'site_title': forms.TextInput(attrs={'required': 'true'}),
-            'vendors': forms.TextInput(attrs={'required': 'true'}),
-            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
-            'products': forms.TextInput(attrs={'required': 'true'}),
-            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
-            'vendors': forms.TextInput(attrs={'required': 'true'}),
-            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
-            'vendors': forms.TextInput(attrs={'required': 'true'}),
-            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
-            'vendors': forms.TextInput(attrs={'required': 'true'}),
-            'vendors_slug': forms.TextInput(attrs={'required': 'true'}),
-            'active': forms.TextInput
 
         }
-
-
-class ThemeAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = Theme
-        exclude = []
 
     def clean(self):
         cleaned_data = super(ThemeAdminForm, self).clean()
