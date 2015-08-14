@@ -219,9 +219,7 @@ def vendor_list(request):
         'parent_text': 'Home',
         'message': message,
         'new_url': reverse('new-vendor'),
-        'new_text': "New " + get_fieldname.get_fieldname('vendors'),
         'title': get_fieldname.get_fieldname('vendors'),
-        'item_classification': get_fieldname.get_fieldname('vendors'),
         'item_list': vendors,
         'edit_url': 'edit-vendor'
     })

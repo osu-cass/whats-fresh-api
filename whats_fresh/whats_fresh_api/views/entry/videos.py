@@ -48,9 +48,7 @@ def video_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-video'),
-        'new_text': "New " + get_fieldname.get_fieldname('videos'),
         'title': get_fieldname.get_fieldname('videos'),
-        'item_classification': get_fieldname.get_fieldname('videos'),
         'item_list': videos,
         'edit_url': 'edit-video'
     })

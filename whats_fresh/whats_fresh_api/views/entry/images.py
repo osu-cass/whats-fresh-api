@@ -48,9 +48,7 @@ def image_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-image'),
-        'new_text': "New " + get_fieldname.get_fieldname('images'),
         'title': get_fieldname.get_fieldname('images'),
-        'item_classification': get_fieldname.get_fieldname('images'),
         'item_list': images,
         'edit_url': 'edit-image'
     })
