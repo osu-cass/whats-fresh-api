@@ -99,13 +99,12 @@ a{
     margin: 0px auto;
     font-weight: 700;
 
-    .site_image {
-    position: absolute;
-    top: 5px;
-    bottom: 5px;
-    margin-left: 350px;
-    max-height: 90px;
-    max-width: 200px;
+    .header .site_image {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      max-height: 90px;
+      max-width: 250px;
+      float: left;
     }
 
     h2{
@@ -118,6 +117,16 @@ a{
          line-height: 30px;
          text-align: center;
          color: $dark;
+    }
+
+    #header_site h2 {
+      margin: auto;
+      font-size: 30pt;
+    }
+
+    #header_site h4 {
+      margin: auto;
+      font-size: 18pt;
     }
 
     .logout{

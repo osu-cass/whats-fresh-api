@@ -49,10 +49,12 @@
             {% block header %}
             {% endblock header%}
             {% if 'logo'|get_fieldname %}
-            <a><img class='site_image' src="{{ 'logo'|get_fieldname }}"></a>
+            <a href='/entry'><img class="site_image" src="{{ 'logo'|get_fieldname }}"></a>
             {% endif %}
+            <div id="header_site">
             <h2><a href='/entry'>{{ 'site_title'|get_fieldname }}</a></h2>
             <h4>{% firstof 'slogan'|get_fieldname "" %}</h4>
+            </div>
             {% if user.is_authenticated %}
             <a class='logout' href='/logout'>Logout</a>
             {% endif %}
