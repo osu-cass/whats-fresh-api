@@ -159,7 +159,7 @@ def product_list(request):
         message = "Product saved successfully!"
 
     if request.GET.get('search') is None:
-        products = SearchQuerySet().all()
+        products = SearchQuerySet().order_by('name')
     else:
         products = SearchQuerySet().filter(content=request.GET.get('search'))
 

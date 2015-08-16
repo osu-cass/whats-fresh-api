@@ -28,7 +28,7 @@ def story_list(request):
         message = "Story deleted successfully!"
 
     if request.GET.get('search') is None:
-        stories = SearchQuerySet().all()
+        stories = SearchQuerySet().order_by('name')
     else:
         stories = SearchQuerySet().filter(content=request.GET.get('search'))
 

@@ -32,7 +32,7 @@ def video_list(request):
         message = "Video saved successfully!"
 
     if request.GET.get('search') is None:
-        videos = SearchQuerySet().all()
+        videos = SearchQuerySet().order_by('name')
     else:
         videos = SearchQuerySet().filter(content=request.GET.get('search'))
 

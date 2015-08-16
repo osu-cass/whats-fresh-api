@@ -32,7 +32,7 @@ def prep_list(request):
         message = "Preparation saved successfully!"
 
     if request.GET.get('search') is None:
-        preparations = SearchQuerySet().all()
+        preparations = SearchQuerySet().order_by('name')
     else:
         preparations = SearchQuerySet().filter(
             content=request.GET.get('search'))
