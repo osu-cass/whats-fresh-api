@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from whats_fresh.whats_fresh_api.forms import StoryForm
+from haystack.query import SearchQuerySet
 import json
 
 
@@ -26,7 +27,12 @@ def story_list(request):
     if request.GET.get('success') == 'true':
         message = "Story deleted successfully!"
 
-    paginator = Paginator(Story.objects.order_by('name'), settings.PAGE_LENGTH)
+    if request.GET.get('search') is None:
+        stories = SearchQuerySet().all()
+    else:
+        stories = SearchQuerySet().filter(content=request.GET.get('search'))
+
+    paginator = Paginator(stories, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
