@@ -27,9 +27,11 @@ urlpatterns = patterns(
     url(r'^1/'+get_fieldname.get_fieldname('vendors_slug')+'/?$',
         'whats_fresh.whats_fresh_api.views.vendor.vendor_list',
         name='vendors-list'),
+
     url(r'^1/'+get_fieldname.get_fieldname('vendors_slug')+'/(?P<id>\d+)/?$',
         'whats_fresh.whats_fresh_api.views.vendor.vendor_details',
         name='vendor-details'),
+
     url(r'^1/'+get_fieldname.get_fieldname('vendors_slug')+'/'
         + get_fieldname.get_fieldname('products_slug')+'/(?P<id>\d+)/?$',
         'whats_fresh.whats_fresh_api.views.vendor.vendors_products',
@@ -43,6 +45,14 @@ urlpatterns = patterns(
     url(r'^1/locations/?$',
         'whats_fresh.whats_fresh_api.views.location.locations',
         name='locations'),
+
+    url(r'^1/themes/?$',
+        'whats_fresh.whats_fresh_api.views.theme.theme_list',
+        name='theme-list'),
+
+    url(r'^1/themes/(?P<id>\d+)/?$',
+        'whats_fresh.whats_fresh_api.views.theme.theme_details',
+        name='theme-details'),
 
     url(r'^entry/'+get_fieldname.get_fieldname('vendors_slug')+'/new/?$',
         'whats_fresh.whats_fresh_api.views.entry.vendors.vendor',
