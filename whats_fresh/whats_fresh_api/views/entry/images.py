@@ -11,6 +11,7 @@ from whats_fresh.whats_fresh_api.models import Image
 from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from haystack.query import SearchQuerySet
 
 
 @login_required
@@ -30,7 +31,12 @@ def image_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Image saved successfully!"
 
-    paginator = Paginator(Image.objects.order_by('name'), settings.PAGE_LENGTH)
+    if request.GET.get('search') is None:
+        images = SearchQuerySet().all()
+    else:
+        images = SearchQuerySet().filter(content=request.GET.get('search'))
+
+    paginator = Paginator(images, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
