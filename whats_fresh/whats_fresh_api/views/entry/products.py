@@ -14,6 +14,7 @@ from whats_fresh.whats_fresh_api.forms import ProductForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 
+from haystack.query import SearchQuerySet
 import json
 
 
@@ -157,8 +158,14 @@ def product_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Product saved successfully!"
 
-    paginator = Paginator(Product.objects.order_by('name'),
-                          settings.PAGE_LENGTH)
+    if request.GET.get('search') is None:
+        products = SearchQuerySet().all()
+    else:
+        products = SearchQuerySet().filter(content=request.GET.get('search'))
+        # products = SearchQuerySet().autocomplete(content_auto=request.GET.get('search', ''))
+
+    paginator = Paginator(products, settings.PAGE_LENGTH)
+
     page = request.GET.get('page')
 
     try:
