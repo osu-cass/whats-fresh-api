@@ -58,6 +58,16 @@ urlpatterns = patterns(
         'whats_fresh.whats_fresh_api.views.entry.products.product',
         name='new-product'),
 
+    # Endpoint for popup form in product.html
+    url(r'^entry/products/new/preparations/new/?$',
+        'whats_fresh.whats_fresh_api.views.entry.preparations.preparation_ajax',  # noqa
+        name='preparation_ajax'),
+
+    # Endpoint for popup form in vendor.html
+    url(r'^entry/vendors/new/products/new/?$',
+        'whats_fresh.whats_fresh_api.views.entry.products.product_ajax',
+        name='product_ajax'),
+
     url(r'^entry/products/?$',
         'whats_fresh.whats_fresh_api.views.entry.products.product_list',
         name='entry-list-products'),
@@ -73,6 +83,16 @@ urlpatterns = patterns(
     url(r'^entry/stories/?$',
         'whats_fresh.whats_fresh_api.views.entry.stories.story_list',
         name='entry-list-stories'),
+
+    # Endpoint for image popup in story.html
+    url(r'^entry/stories/new/images/new/?$',
+        'whats_fresh.whats_fresh_api.views.entry.images.image_ajax',
+        name='image_ajax'),
+
+    # Endpoint for video popup in story.html
+    url(r'^entry/stories/new/videos/new/?$',
+        'whats_fresh.whats_fresh_api.views.entry.videos.video_ajax',
+        name='video_ajax'),
 
     url(r'^entry/preparations/new/?$',
         'whats_fresh.whats_fresh_api.views.entry.preparations.preparation',

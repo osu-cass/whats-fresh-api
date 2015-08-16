@@ -1,0 +1,31 @@
+<form action="{{ post_url }}" method="post" id="video-form">
+
+    <div class="error" id="video_error">
+        {% if video_form.errors or errors %}
+        {% for error in video_form.errors %}
+        <p class='warning'>Invalid {{ error|escape }}!</p>
+        {% endfor %}
+        {% for error in errors %}
+        <p class='warning'>{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+        <h4 id='error_tag' class='light warning'></h4>
+    </div>
+
+    {% csrf_token %}
+    <div class="entry_box">
+        {% if video_form.instance.pk != None %}
+        <button class='dbutton' type="button" onclick="deleteVideo();return false;"/>Delete</button>
+        {% endif %}
+        <h3>Basic Info</h3>
+        <p class="field_text">Name*:</p>
+        {{ video_form.name }}
+        <p class="field_text">Link*:</p>
+        {{ video_form.video }}
+        <p class="field_text">Caption*:</p>
+        {{ video_form.caption }}
+        <button>Save</button>
+    </div>
+</form>
+<script>  // To prevent .html() from stripping top level tag
+</script>

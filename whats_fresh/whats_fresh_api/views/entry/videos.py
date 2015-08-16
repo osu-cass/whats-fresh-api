@@ -10,6 +10,7 @@ from django.conf import settings
 from whats_fresh.whats_fresh_api.models import Video
 from whats_fresh.whats_fresh_api.forms import VideoForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 
 
 @login_required
@@ -126,3 +127,32 @@ def video(request, id=None):
         'errors': errors,
         'video_form': video_form,
     })
+
+
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
+def video_ajax(request, id=None):
+    if request.method == 'GET':
+        video_form = VideoForm()
+        return render(request, 'video_ajax.html', {'video_form': video_form})
+
+    elif request.method == 'POST':
+        message = ''
+        post_data = request.POST.copy()
+        errors = []
+
+        video_form = VideoForm(post_data)
+        if video_form.is_valid() and not errors:
+            video = Video.objects.create(
+                **video_form.cleaned_data)
+            video.save()
+            serializer = FreshSerializer()
+            return HttpResponse(serializer.serialize(video),
+                                content_type="application/json")
+        else:
+            pass
+
+        return render(request, 'video_ajax.html', {
+            'message': message,
+            'errors': errors,
+            'video_form': video_form})
