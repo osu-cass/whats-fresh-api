@@ -1,5 +1,5 @@
 from haystack import indexes
-from .models import Vendor, Product
+from .models import Vendor, Product, Preparation
 
 
 class VendorIndex(indexes.SearchIndex, indexes.Indexable):
@@ -25,3 +25,14 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     def index_queryset(self, using=None):
         return self.get_model().objects.all()
 
+
+class PreparationIndex(indexes.SearchIndex, indexes.Indexable):
+    text = indexes.CharField(document=True, use_template=True)
+    name = indexes.CharField(model_attr='name')
+    # content_auto = indexes.EdgeNgramField(model_attr='name')
+
+    def get_model(self):
+        return Preparation
+
+    def index_queryset(self, using=None):
+        return self.get_model().objects.all()

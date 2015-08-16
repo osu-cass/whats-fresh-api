@@ -11,6 +11,7 @@ from whats_fresh.whats_fresh_api.models import Preparation
 from whats_fresh.whats_fresh_api.forms import PreparationForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from haystack.query import SearchQuerySet
 
 
 @login_required
@@ -30,8 +31,14 @@ def prep_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Preparation saved successfully!"
 
-    paginator = Paginator(Preparation.objects.order_by('name'),
-                          settings.PAGE_LENGTH)
+    if request.GET.get('search') is None:
+        preparations = SearchQuerySet().all()
+    else:
+        preparations = SearchQuerySet().filter(content=request.GET.get('search'))
+        # products = SearchQuerySet().autocomplete(content_auto=request.GET.get('search', ''))
+
+    paginator = Paginator(preparations, settings.PAGE_LENGTH)
+
     page = request.GET.get('page')
 
     try:
