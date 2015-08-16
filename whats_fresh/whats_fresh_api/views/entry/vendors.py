@@ -202,9 +202,11 @@ def vendor_list(request):
         message = "Vendor saved successfully!"
 
     if request.GET.get('search') is None:
-        vendors = SearchQuerySet().all()
+        vendors = SearchQuerySet().order_by('name')
     else:
         vendors = SearchQuerySet().filter(content=request.GET.get('search'))
+        # vendors = SearchQuerySet().autocomplete(
+        # content_auto=request.GET.get('search', ''))
 
     paginator = Paginator(vendors, settings.PAGE_LENGTH)
 

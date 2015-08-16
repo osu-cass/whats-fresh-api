@@ -34,8 +34,8 @@ def prep_list(request):
     if request.GET.get('search') is None:
         preparations = SearchQuerySet().all()
     else:
-        preparations = SearchQuerySet().filter(content=request.GET.get('search'))
-        # products = SearchQuerySet().autocomplete(content_auto=request.GET.get('search', ''))
+        preparations = SearchQuerySet().filter(
+            content=request.GET.get('search'))
 
     paginator = Paginator(preparations, settings.PAGE_LENGTH)
 

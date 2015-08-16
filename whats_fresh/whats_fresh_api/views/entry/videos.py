@@ -11,6 +11,7 @@ from whats_fresh.whats_fresh_api.models import Video
 from whats_fresh.whats_fresh_api.forms import VideoForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from haystack.query import SearchQuerySet
 
 
 @login_required
@@ -30,7 +31,12 @@ def video_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Video saved successfully!"
 
-    paginator = Paginator(Video.objects.order_by('name'), settings.PAGE_LENGTH)
+    if request.GET.get('search') is None:
+        videos = SearchQuerySet().all()
+    else:
+        videos = SearchQuerySet().filter(content=request.GET.get('search'))
+
+    paginator = Paginator(videos, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:

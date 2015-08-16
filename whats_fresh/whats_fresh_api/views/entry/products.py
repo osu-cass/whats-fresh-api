@@ -162,7 +162,6 @@ def product_list(request):
         products = SearchQuerySet().all()
     else:
         products = SearchQuerySet().filter(content=request.GET.get('search'))
-        # products = SearchQuerySet().autocomplete(content_auto=request.GET.get('search', ''))
 
     paginator = Paginator(products, settings.PAGE_LENGTH)
 
