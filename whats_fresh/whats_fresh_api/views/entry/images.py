@@ -32,9 +32,10 @@ def image_list(request):
         message = "Image saved successfully!"
 
     if request.GET.get('search') is None:
-        images = SearchQuerySet().order_by('name')
+        images = SearchQuerySet().order_by('name').models(Image)
     else:
-        images = SearchQuerySet().filter(content=request.GET.get('search'))
+        images = SearchQuerySet().filter(
+            content=request.GET.get('search')).models(Image)
 
     paginator = Paginator(images, settings.PAGE_LENGTH)
     page = request.GET.get('page')

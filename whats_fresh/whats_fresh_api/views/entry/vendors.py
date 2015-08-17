@@ -202,9 +202,10 @@ def vendor_list(request):
         message = "Vendor saved successfully!"
 
     if request.GET.get('search') is None:
-        vendors = SearchQuerySet().order_by('name')
+        vendors = SearchQuerySet().models(Vendor).order_by('name')
     else:
-        vendors = SearchQuerySet().filter(content=request.GET.get('search'))
+        vendors = SearchQuerySet().models(Vendor).filter(
+            content=request.GET.get('search'))
         # vendors = SearchQuerySet().autocomplete(
         # content_auto=request.GET.get('search', ''))
 

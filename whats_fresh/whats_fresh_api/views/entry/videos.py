@@ -32,9 +32,10 @@ def video_list(request):
         message = "Video saved successfully!"
 
     if request.GET.get('search') is None:
-        videos = SearchQuerySet().order_by('name')
+        videos = SearchQuerySet().order_by('name').models(Video)
     else:
-        videos = SearchQuerySet().filter(content=request.GET.get('search'))
+        videos = SearchQuerySet().filter(
+            content=request.GET.get('search')).models(Video)
 
     paginator = Paginator(videos, settings.PAGE_LENGTH)
     page = request.GET.get('page')

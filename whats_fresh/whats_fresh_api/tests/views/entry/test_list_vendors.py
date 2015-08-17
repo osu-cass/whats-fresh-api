@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group
+from whats_fresh.whats_fresh_api.models import Vendor
 from haystack.query import SearchQuerySet
 
 
@@ -46,17 +47,19 @@ class ListVendorTestCase(TestCase):
         page_nan = self.client.get(
             '{}?page=NaN'.format(reverse('list-vendors-edit'))).context
 
+        self.maxDiff = None
+
         self.assertEqual(
             list(page_1['item_list']),
-            list(SearchQuerySet().order_by('name')[:15]))
+            list(SearchQuerySet().models(Vendor).order_by('name')[:15]))
 
         self.assertEqual(
             list(page_2['item_list']),
-            list(SearchQuerySet().order_by('name')[15:30]))
+            list(SearchQuerySet().models(Vendor).order_by('name')[15:30]))
 
         self.assertEqual(
             list(page_3['item_list']),
-            list(SearchQuerySet().order_by('name')[30:33]))
+            list(SearchQuerySet().models(Vendor).order_by('name')[30:33]))
 
         # Page 4 should be identical to Page 3, as these fixtures
         # have enough content for three pages (15 items per page, 33 items)
@@ -77,4 +80,5 @@ class ListVendorTestCase(TestCase):
             '{}?search=alice'.format(reverse('list-vendors-edit'))).context
 
         self.assertEqual(search_result,
-                         list(SearchQuerySet().filter(content='alice')))
+                         list(SearchQuerySet().models(Vendor).filter(
+                             content='alice')))

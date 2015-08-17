@@ -159,9 +159,10 @@ def product_list(request):
         message = "Product saved successfully!"
 
     if request.GET.get('search') is None:
-        products = SearchQuerySet().order_by('name')
+        products = SearchQuerySet().order_by('name').models(Product)
     else:
-        products = SearchQuerySet().filter(content=request.GET.get('search'))
+        products = SearchQuerySet().filter(
+            content=request.GET.get('search')).models(Product)
 
     paginator = Paginator(products, settings.PAGE_LENGTH)
 

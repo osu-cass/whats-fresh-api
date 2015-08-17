@@ -28,9 +28,10 @@ def story_list(request):
         message = "Story deleted successfully!"
 
     if request.GET.get('search') is None:
-        stories = SearchQuerySet().order_by('name')
+        stories = SearchQuerySet().order_by('name').models(Story)
     else:
-        stories = SearchQuerySet().filter(content=request.GET.get('search'))
+        stories = SearchQuerySet().filter(
+            content=request.GET.get('search')).models(Story)
 
     paginator = Paginator(stories, settings.PAGE_LENGTH)
     page = request.GET.get('page')

@@ -32,10 +32,10 @@ def prep_list(request):
         message = "Preparation saved successfully!"
 
     if request.GET.get('search') is None:
-        preparations = SearchQuerySet().order_by('name')
+        preparations = SearchQuerySet().order_by('name').models(Preparation)
     else:
         preparations = SearchQuerySet().filter(
-            content=request.GET.get('search'))
+            content=request.GET.get('search')).models(Preparation)
 
     paginator = Paginator(preparations, settings.PAGE_LENGTH)
 
