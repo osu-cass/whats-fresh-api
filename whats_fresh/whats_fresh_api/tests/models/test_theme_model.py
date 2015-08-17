@@ -29,7 +29,7 @@ class ThemeTestCase(TestCase):
             'stories_slug': models.SlugField,
             'images_slug': models.SlugField,
             'videos_slug': models.SlugField,
-            'active': models.SlugField,
+            'active': models.CharField,
             'id': models.AutoField
         }
 
@@ -73,7 +73,7 @@ class ThemeTestCase(TestCase):
             'foreground_color': 'rgb(81, 114, 133)',
             'header_color': 'rgb(255, 255, 255)',
             'font_color': 'rgb(51, 51, 51)',
-            'logo': self.logo,
+            'logo': 'cat.jpg',
             'slogan': 'Test Slogan',
             'site_title': 'Test Title',
             'vendors': 'vendors',
@@ -90,16 +90,11 @@ class ThemeTestCase(TestCase):
             'videos_slug': 'slug',
             'active': 'No'})
 
-        form.is_valid()
-
         self.assertFalse(form.is_valid())
 
         with self.assertRaises(forms.ValidationError) as v_err:
-            self.clean()
-
-        the_exception = v_err.exception
-        print the_exception
-        self.assertEqual(the_exception, 'Cannot use slug' + form.clean() + ' for multiple items!')
+            form.clean()
+        self.assertIn("Cannot use slug", v_err.exception[0])
 
     def test_no_overlapping_fields(self):
 
@@ -109,7 +104,7 @@ class ThemeTestCase(TestCase):
             'foreground_color': 'rgb(81, 114, 133)',
             'header_color': 'rgb(255, 255, 255)',
             'font_color': 'rgb(51, 51, 51)',
-            'logo': self.logo,
+            'logo': 'cat.jpg',
             'slogan': 'Test Slogan',
             'site_title': 'Test Title',
             'vendors': 'vendors',
@@ -126,13 +121,4 @@ class ThemeTestCase(TestCase):
             'videos_slug': 'videos',
             'active': 'No'})
 
-        form.is_valid()
-
         self.assertTrue(form.is_valid())
-
-        self.assertEqual(form.clean_vendors_slug(), 'vendors')
-        self.assertEqual(form.clean_products_slug(), 'products')
-        self.assertEqual(form.clean_preparations_slug(), 'preparations')
-        self.assertEqual(form.clean_stories_slug(), 'stories')
-        self.assertEqual(form.clean_images_slug(), 'images')
-        self.assertEqual(form.clean_videos_slug(), 'videos')
