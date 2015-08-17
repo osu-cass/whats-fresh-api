@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import Story
 from django.contrib.auth.models import User, Group
+from haystack.query import SearchQuerySet
 
 
 class ListStoryTestCase(TestCase):
@@ -48,15 +48,15 @@ class ListStoryTestCase(TestCase):
 
         self.assertEqual(
             list(page_1['item_list']),
-            list(Story.objects.order_by('name')[:15]))
+            list(SearchQuerySet().order_by('name')[:15]))
 
         self.assertEqual(
             list(page_2['item_list']),
-            list(Story.objects.order_by('name')[15:30]))
+            list(SearchQuerySet().order_by('name')[15:30]))
 
         self.assertEqual(
             list(page_3['item_list']),
-            list(Story.objects.order_by('name')[30:33]))
+            list(SearchQuerySet().order_by('name')[30:33]))
 
         # Page 4 should be identical to Page 3, as these fixtures
         # have enough content for three pages (15 items per page, 33 items)
@@ -71,3 +71,11 @@ class ListStoryTestCase(TestCase):
         self.assertEqual(
             list(page_1['item_list']),
             list(page_nan['item_list']))
+
+    def TestSearchResults(self):
+        search_result = self.client.get(
+            '{}?search=alice'.format(
+                reverse('entry-list-stories'))).context
+
+        self.assertEqual(search_result,
+                         list(SearchQuerySet().filter(content='alice')))
