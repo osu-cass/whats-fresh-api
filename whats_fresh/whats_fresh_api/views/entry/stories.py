@@ -26,7 +26,7 @@ def story_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Story deleted successfully!"
+        message = "Entry deleted successfully!"
 
     paginator = Paginator(Story.objects.order_by('name'), settings.PAGE_LENGTH)
     page = request.GET.get('page')
@@ -131,7 +131,7 @@ def story(request, id=None):
         existing_videos = story.videos.all()
 
         if request.GET.get('success') == 'true':
-            message = "Story saved successfully!"
+            message = "Entry saved successfully!"
 
     elif request.method != 'POST':
         story_form = StoryForm()
@@ -163,7 +163,8 @@ def story(request, id=None):
     return render(request, 'story.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-stories'), 'name': 'Product Education'}
+            {'url': reverse('entry-list-stories'),
+             'name': get_fieldname.get_fieldname('stories')}
         ],
         'existing_images': existing_images,
         'existing_videos': existing_videos,

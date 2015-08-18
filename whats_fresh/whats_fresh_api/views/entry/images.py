@@ -27,9 +27,9 @@ def image_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Image deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Image saved successfully!"
+        message = "Entry saved successfully!"
 
     paginator = Paginator(Image.objects.order_by('name'), settings.PAGE_LENGTH)
     page = request.GET.get('page')
@@ -115,7 +115,8 @@ def image(request, id=None):
     return render(request, 'image.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-images'), 'name': 'Image Library'}
+            {'url': reverse('entry-list-images'),
+             'name': get_fieldname.get_fieldname('images')}
         ],
         'title': title,
         'message': message,

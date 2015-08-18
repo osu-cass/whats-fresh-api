@@ -117,7 +117,7 @@
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data) {
 
-          $("#popup").html(data).dialog({modal:true}, {title: "New {{ 'preparations'|get_fieldname }}"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+          $("#popup").html(data).dialog({modal:true}, {title: "New Entry"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
         }
       });
       return false;

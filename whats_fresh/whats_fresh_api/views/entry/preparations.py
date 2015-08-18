@@ -27,9 +27,9 @@ def prep_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Preparation deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Preparation saved successfully!"
+        message = "Entry saved successfully!"
 
     paginator = Paginator(Preparation.objects.order_by('name'),
                           settings.PAGE_LENGTH)
@@ -120,7 +120,7 @@ def preparation(request, id=None):
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
             {'url': reverse('entry-list-preparations'),
-             'name': 'Product Form/Packaging'}
+             'name': get_fieldname.get_fieldname('preparations')}
         ],
         'title': title,
         'message': message,

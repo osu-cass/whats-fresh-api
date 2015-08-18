@@ -170,7 +170,8 @@ def vendor(request, id=None):
     return render(request, 'vendor.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('list-vendors-edit'), 'name': 'Vendors'}],
+            {'url': reverse('list-vendors-edit'),
+             'name': get_fieldname.get_fieldname('vendors')}],
         'title': title,
         'message': message,
         'post_url': post_url,
@@ -197,9 +198,9 @@ def vendor_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Vendor deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Vendor saved successfully!"
+        message = "Entry saved successfully!"
 
     paginator = Paginator(Vendor.objects.order_by('name'),
                           settings.PAGE_LENGTH)

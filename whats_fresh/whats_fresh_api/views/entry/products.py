@@ -128,7 +128,8 @@ def product(request, id=None):
     return render(request, 'product.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-products'), 'name': 'Products'}],
+            {'url': reverse('entry-list-products'),
+             'name': get_fieldname.get_fieldname('products')}],
         'json_preparations': json_preparations,
         'preparation_dict': data,
         'existing_preparations': existing_preparations,
@@ -154,9 +155,9 @@ def product_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Product deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Product saved successfully!"
+        message = "Entry saved successfully!"
 
     paginator = Paginator(Product.objects.order_by('name'),
                           settings.PAGE_LENGTH)

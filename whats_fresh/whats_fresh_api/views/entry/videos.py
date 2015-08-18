@@ -27,9 +27,9 @@ def video_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Video deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Video saved successfully!"
+        message = "Entry saved successfully!"
 
     paginator = Paginator(Video.objects.order_by('name'), settings.PAGE_LENGTH)
     page = request.GET.get('page')
@@ -118,7 +118,8 @@ def video(request, id=None):
     return render(request, 'video.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-videos'), 'name': 'Video Library'}
+            {'url': reverse('entry-list-videos'),
+             'name': get_fieldname.get_fieldname('videos')}
         ],
         'title': title,
         'message': message,
