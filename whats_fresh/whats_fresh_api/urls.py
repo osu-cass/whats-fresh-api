@@ -9,6 +9,7 @@ urlpatterns = patterns(
     url(r'^1/'+get_fieldname.get_fieldname('stories_slug')+'/?$',
         'whats_fresh.whats_fresh_api.views.story.story_list',
         name='stories-list'),
+
     url(r'^1/'+get_fieldname.get_fieldname('stories_slug')+'/(?P<id>\d+)/?$',
         'whats_fresh.whats_fresh_api.views.story.story_details',
         name='story-details'),
