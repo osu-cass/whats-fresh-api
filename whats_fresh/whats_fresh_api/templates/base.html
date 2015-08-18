@@ -56,7 +56,7 @@
             </div>
             <div class="header_text">
                 <h2><a href='/entry'>{{ 'site_title'|get_fieldname }}</a></h2>
-                <h4>{{ 'slogan'|get_fieldname }}</h4>
+                <h4>{% if 'slogan'|get_fieldname %} {{ 'slogan'|get_fieldname }} {% endif %}</h4>
             </div>
             </div>
             {% if user.is_authenticated %}

@@ -17,9 +17,11 @@ urlpatterns = patterns(
     url(r'^1/'+get_fieldname.get_fieldname('products_slug')+'/?$',
         'whats_fresh.whats_fresh_api.views.product.product_list',
         name='products-list'),
+
     url(r'^1/'+get_fieldname.get_fieldname('products_slug')+'/(?P<id>\d+)/?$',
         'whats_fresh.whats_fresh_api.views.product.product_details',
         name='product-details'),
+
     url(r'^1/'+get_fieldname.get_fieldname('products_slug')+'/'
          + get_fieldname.get_fieldname('vendors_slug')+'/(?P<id>\d+)/?$',
         'whats_fresh.whats_fresh_api.views.product.product_vendor',
