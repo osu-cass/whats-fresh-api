@@ -54,7 +54,9 @@ def vendor(request, id=None):
 
         try:
             if not post_data['preparation_ids']:
-                errors.append("You must choose at least one product.")
+                errors.append(
+                    "You must choose at least one entry from "
+                    + get_fieldname.get_fieldname('products'))
                 prod_preps = []
             else:
                 prod_preps = list(
@@ -64,7 +66,9 @@ def vendor(request, id=None):
                 post_data['products_preparations'] = prod_preps[0]
 
         except MultiValueDictKeyError:
-            errors.append("You must choose at least one product.")
+            errors.append(
+                "You must choose at least one entry from "
+                + get_fieldname.get_fieldname('products'))
             prod_preps = []
 
         vendor_form = VendorForm(post_data)

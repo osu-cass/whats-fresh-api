@@ -45,13 +45,17 @@ def product(request, id=None):
 
         try:
             if len(post_data['preparation_ids']) == 0:
-                errors.append("You must choose at least one preparation.")
+                errors.append(
+                    "You must choose at least one entry from "
+                    + get_fieldname.get_fieldname('preparations'))
                 preparations = []
             else:
                 preparations = [int(p) for p in set(
                     post_data['preparation_ids'].split(','))]
         except MultiValueDictKeyError:
-            errors.append("You must choose at least one preparation.")
+            errors.append(
+                "You must choose at least one entry from "
+                + get_fieldname.get_fieldname('preparations'))
             preparations = []
 
         if id:
@@ -212,13 +216,16 @@ def product_ajax(request, id=None):
 
         try:
             if len(post_data['prep_ids']) == 0:
-                errors.append("You must choose at least one preparation.")
+                errors.append(
+                    "You must choose at least one entry from "
+                    + get_fieldname.get_fieldname('preparations'))
                 preparations = []
             else:
                 preparations = [int(p) for p in set(
                     post_data['prep_ids'].split(','))]
         except MultiValueDictKeyError:
-            errors.append("You must choose at least one preparation.")
+            errors.append("You must choose at least one entry from " +
+                          get_fieldname.get_fieldname('preparations'))
             preparations = []
 
         product = None
