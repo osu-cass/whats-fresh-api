@@ -33,6 +33,9 @@ def story_list(request):
         stories = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Story)
 
+    if not stories:
+        message = "No entry named " + request.GET.get('search')
+
     paginator = Paginator(stories, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
@@ -54,7 +57,9 @@ def story_list(request):
         'title': "Product Education",
         'item_classification': "item",
         'item_list': stories,
-        'edit_url': 'edit-story'
+        'edit_url': 'edit-story',
+        'search_text': request.GET.get('search')
+
     })
 
 

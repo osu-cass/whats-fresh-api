@@ -37,6 +37,9 @@ def video_list(request):
         videos = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Video)
 
+    if not videos:
+        message = "No entry named " + request.GET.get('search')
+
     paginator = Paginator(videos, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
@@ -58,7 +61,9 @@ def video_list(request):
         'title': "Video Library",
         'item_classification': "video",
         'item_list': videos,
-        'edit_url': 'edit-video'
+        'edit_url': 'edit-video',
+        'search_text': request.GET.get('search')
+
     })
 
 

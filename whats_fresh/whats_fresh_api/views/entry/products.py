@@ -164,6 +164,9 @@ def product_list(request):
         products = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Product)
 
+    if not products:
+        message = "No entry named " + request.GET.get('search')
+
     paginator = Paginator(products, settings.PAGE_LENGTH)
 
     page = request.GET.get('page')
@@ -187,7 +190,9 @@ def product_list(request):
         'item_classification': "product",
         'item_list': products,
         'description_field': {'title': 'Variety', 'attribute': 'variety'},
-        'edit_url': 'edit-product'
+        'edit_url': 'edit-product',
+        'search_text': request.GET.get('search')
+
     })
 
 

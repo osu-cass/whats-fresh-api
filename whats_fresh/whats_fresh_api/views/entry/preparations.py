@@ -37,8 +37,10 @@ def prep_list(request):
         preparations = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Preparation)
 
-    paginator = Paginator(preparations, settings.PAGE_LENGTH)
+    if not preparations:
+        message = "No entry named " + request.GET.get('search')
 
+    paginator = Paginator(preparations, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -59,7 +61,9 @@ def prep_list(request):
         'title': "Product Form/Packaging",
         'item_classification': "item",
         'item_list': preparations,
-        'edit_url': 'edit-preparation'
+        'edit_url': 'edit-preparation',
+        'search_text': request.GET.get('search')
+
     })
 
 

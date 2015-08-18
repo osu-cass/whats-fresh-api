@@ -210,10 +210,9 @@ def vendor_list(request):
         # content_auto=request.GET.get('search', ''))
 
     if not vendors:
-        message = "No vendor named " + request.GET.get('search')
+        message = "No entry named " + request.GET.get('search')
 
     paginator = Paginator(vendors, settings.PAGE_LENGTH)
-
     page = request.GET.get('page')
 
     try:

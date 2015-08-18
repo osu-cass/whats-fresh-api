@@ -15,7 +15,7 @@
 
 {% block content %}
 <form class="form" action="">
-    <input id="search_list" type="text" name="search" value="{{ search_text }}">
+    <input id="search_list" type="text" name="search" {% if search_text %} value="{{ search_text }}" {% endif %}>
     <input type="submit" value="Search">
 </form><br>
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>

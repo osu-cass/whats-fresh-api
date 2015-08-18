@@ -37,6 +37,9 @@ def image_list(request):
         images = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Image)
 
+    if not images:
+        message = "No entry named " + request.GET.get('search')
+
     paginator = Paginator(images, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
@@ -58,7 +61,9 @@ def image_list(request):
         'title': "Image Library",
         'item_classification': "image",
         'item_list': images,
-        'edit_url': 'edit-image'
+        'edit_url': 'edit-image',
+        'search_text': request.GET.get('search')
+
     })
 
 
