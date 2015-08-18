@@ -94,18 +94,29 @@ a{
 //Header
 .header{
     background: $secondary;
-    height: 100px;
+    max-height: 150px;
     width: 100%;
     margin: 0px auto;
-    font-weight: 700;
+    font-weight: 700;}
 
     .header .site_image {
-      padding-top: 5px;
-      padding-bottom: 5px;
-      max-height: 90px;
-      max-width: 250px;
-      float: left;
+      max-height: 100px;
+      margin-bottom: 10px;
+      margin-top: 10px;
     }
+
+      .header .header_image {
+        display: inline-block;
+        margin-right: 15px;
+
+       }
+
+      .header .header_text {
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 10px;
+      }
+
 
     h2{
         line-height: 70px;

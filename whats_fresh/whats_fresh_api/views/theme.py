@@ -12,7 +12,7 @@ def theme_list(request):
     */themes/*
 
     Returns a list of all themes in the database. The ?limit=<int> parameter
-    limits the number of products returned.
+    limits the number of themes returned.
     """
     error = {
         'status': False,

@@ -48,12 +48,16 @@
         <div class="header">
             {% block header %}
             {% endblock header%}
-            {% if 'logo'|get_fieldname %}
-            <a href='/entry'><img class="site_image" src="{{ 'logo'|get_fieldname }}"></a>
-            {% endif %}
             <div id="header_site">
-            <h2><a href='/entry'>{{ 'site_title'|get_fieldname }}</a></h2>
-            <h4>{{ 'slogan'|get_fieldname }}</h4>
+            <div class="header_image">
+                {% if 'logo'|get_fieldname %}
+                    <a href='/entry'><img class="site_image" src="{{ 'logo'|get_fieldname }}"></a>
+                {% endif %}
+            </div>
+            <div class="header_text">
+                <h2><a href='/entry'>{{ 'site_title'|get_fieldname }}</a></h2>
+                <h4>{{ 'slogan'|get_fieldname }}</h4>
+            </div>
             </div>
             {% if user.is_authenticated %}
             <a class='logout' href='/logout'>Logout</a>
