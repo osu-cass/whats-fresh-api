@@ -75,10 +75,10 @@ class ListVendorTestCase(TestCase):
             list(page_1['item_list']),
             list(page_nan['item_list']))
 
-    def TestSearchResults(self):
+    def test_search_results(self):
         search_result = self.client.get(
-            '{}?search=alice'.format(reverse('list-vendors-edit'))).context
+            '{}?search=Test Name'.format(reverse('list-vendors-edit'))).context
 
-        self.assertEqual(search_result,
+        self.assertEqual(list(search_result['item_list']),
                          list(SearchQuerySet().models(Vendor).filter(
-                             content='alice')))
+                             content='Test Name')))

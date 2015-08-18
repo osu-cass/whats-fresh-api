@@ -209,6 +209,9 @@ def vendor_list(request):
         # vendors = SearchQuerySet().autocomplete(
         # content_auto=request.GET.get('search', ''))
 
+    if not vendors:
+        message = "No vendor named " + request.GET.get('search')
+
     paginator = Paginator(vendors, settings.PAGE_LENGTH)
 
     page = request.GET.get('page')
@@ -231,5 +234,6 @@ def vendor_list(request):
         'title': "All Vendors",
         'item_classification': "vendor",
         'item_list': vendors,
-        'edit_url': 'edit-vendor'
+        'edit_url': 'edit-vendor',
+        'search_text': request.GET.get('search')
     })
