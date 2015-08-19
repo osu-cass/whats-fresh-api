@@ -38,8 +38,9 @@ def video_list(request):
     else:
         videos = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Video)
-        clean_query = videos.query.clean(request.GET.get('search'))
-        videos = videos.filter(SQ(name=clean_query))
+        sqs = SearchQuerySet()
+        clean_query = sqs.query.clean(request.GET.get('search'))
+        videos = sqs.models(Video).filter(SQ(content=clean_query))
         if not videos:
             message = "No entry named " + request.GET.get('search')
 

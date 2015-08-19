@@ -36,10 +36,11 @@ def prep_list(request):
     if request.GET.get('search') is None:
         preparations = SearchQuerySet().order_by('name').models(Preparation)
     else:
-        preparations = SearchQuerySet().filter(
-            content=request.GET.get('search')).models(Preparation)
-        clean_query = preparations.query.clean(request.GET.get('search'))
-        preparations = preparations.filter(SQ(name=clean_query))
+        # preparations = SearchQuerySet().filter(
+        #     content=request.GET.get('search')).models(Preparation)
+        sqs = SearchQuerySet()
+        clean_query = sqs.query.clean(request.GET.get('search'))
+        preparations = sqs.models(Preparation).filter(SQ(content=clean_query))
         if not preparations:
             message = "No entry named " + request.GET.get('search')
 

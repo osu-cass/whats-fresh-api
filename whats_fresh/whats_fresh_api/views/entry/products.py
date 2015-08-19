@@ -168,10 +168,11 @@ def product_list(request):
     if request.GET.get('search') is None:
         products = SearchQuerySet().order_by('name').models(Product)
     else:
-        products = SearchQuerySet().filter(
-            content=request.GET.get('search')).models(Product)
-        clean_query = products.query.clean(request.GET.get('search'))
-        products = products.filter(SQ(name=clean_query))
+        # products = SearchQuerySet().filter(
+        #     content=request.GET.get('search')).models(Product)
+        sqs = SearchQuerySet()
+        clean_query = sqs.query.clean(request.GET.get('search'))
+        products = sqs.models(Product).filter(SQ(content=clean_query))
         if not products:
             message = "No entry named " + request.GET.get('search')
 

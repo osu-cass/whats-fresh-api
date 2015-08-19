@@ -36,10 +36,11 @@ def image_list(request):
     if request.GET.get('search') is None:
         images = SearchQuerySet().order_by('name').models(Image)
     else:
-        images = SearchQuerySet().filter(
-            content=request.GET.get('search')).models(Image)
-        clean_query = images.query.clean(request.GET.get('search'))
-        images = images.filter(SQ(name=clean_query))
+        # images = SearchQuerySet().filter(
+        #     content=request.GET.get('search')).models(Image)
+        sqs = SearchQuerySet()
+        clean_query = sqs.query.clean(request.GET.get('search'))
+        images = sqs.models(Image).filter(SQ(content=clean_query))
         if not images:
             message = "No entry named " + request.GET.get('search')
 

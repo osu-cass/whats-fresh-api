@@ -211,10 +211,12 @@ def vendor_list(request):
     if request.GET.get('search') is None:
         vendors = SearchQuerySet().models(Vendor).order_by('name')
     else:
-        vendors = SearchQuerySet().models(Vendor).filter(
-            content=request.GET.get('search'))
-        clean_query = vendors.query.clean(request.GET.get('search'))
-        vendors = vendors.filter(SQ(name=clean_query))
+        # vendors = SearchQuerySet().models(Vendor).filter(
+        #     content=request.GET.get('search'))
+        sqs = SearchQuerySet()
+        clean_query = sqs.query.clean(request.GET.get('search'))
+        vendors = sqs.models(Vendor).filter(SQ(content=clean_query))
+        print vendors
         if not vendors:
             message = "No entry named " + request.GET.get('search')
         # vendors = SearchQuerySet().autocomplete(

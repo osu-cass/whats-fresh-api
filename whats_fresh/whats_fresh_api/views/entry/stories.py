@@ -33,10 +33,11 @@ def story_list(request):
     if request.GET.get('search') is None:
         stories = SearchQuerySet().order_by('name').models(Story)
     else:
-        stories = SearchQuerySet().filter(
-            content=request.GET.get('search')).models(Story)
-        clean_query = stories.query.clean(request.GET.get('search'))
-        stories = stories.filter(SQ(name=clean_query))
+        # stories = SearchQuerySet().filter(
+        #     content=request.GET.get('search')).models(Story)
+        sqs = SearchQuerySet()
+        clean_query = sqs.query.clean(request.GET.get('search'))
+        stories = sqs.models(Story).filter(SQ(content=clean_query))
         if not stories:
             message = "No entry named " + request.GET.get('search')
 
