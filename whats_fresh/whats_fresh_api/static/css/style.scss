@@ -388,3 +388,33 @@ a{
 label {
   font-family: "Montserrat";
 }
+
+#form-title {
+  color: #FFF;
+}
+
+.search-bar {
+  background: #FFF;
+  display: block;
+  margin: 0px auto 20px;
+  font-size: 16pt;
+  font-family: "Montserrat", sans-serif;
+  width: 600px;
+  padding: 15px 40px;
+  border-radius: 10px;
+}
+
+#search-list {
+  border: 2px solid #333;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16pt;
+  width: 400px;
+}
+
+#search-btn {
+  border: 2px solid #333;
+  font-family: "Montserrat", sans-serif;
+  background-color: #C0C0C0;
+  font-size: 16pt;
+  width: 90px;
+}
