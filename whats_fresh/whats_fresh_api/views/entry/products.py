@@ -16,6 +16,7 @@ from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 from haystack.query import SearchQuerySet
+from haystack.query import SQ
 import json
 
 
@@ -169,6 +170,8 @@ def product_list(request):
     else:
         products = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Product)
+        clean_query = products.query.clean(request.GET.get('search'))
+        products = products.filter(SQ(name=clean_query))
         if not products:
             message = "No entry named " + request.GET.get('search')
 

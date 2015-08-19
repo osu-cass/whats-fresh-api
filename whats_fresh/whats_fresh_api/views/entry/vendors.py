@@ -17,6 +17,7 @@ from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 from haystack.query import SearchQuerySet
+from haystack.query import SQ
 import json
 
 
@@ -212,6 +213,8 @@ def vendor_list(request):
     else:
         vendors = SearchQuerySet().models(Vendor).filter(
             content=request.GET.get('search'))
+        clean_query = vendors.query.clean(request.GET.get('search'))
+        vendors = vendors.filter(SQ(name=clean_query))
         if not vendors:
             message = "No entry named " + request.GET.get('search')
         # vendors = SearchQuerySet().autocomplete(

@@ -11,8 +11,9 @@ from whats_fresh.whats_fresh_api.models import Preparation
 from whats_fresh.whats_fresh_api.forms import PreparationForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
-from haystack.query import SearchQuerySet
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from haystack.query import SearchQuerySet
+from haystack.query import SQ
 
 
 @login_required
@@ -37,6 +38,8 @@ def prep_list(request):
     else:
         preparations = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Preparation)
+        clean_query = preparations.query.clean(request.GET.get('search'))
+        preparations = preparations.filter(SQ(name=clean_query))
         if not preparations:
             message = "No entry named " + request.GET.get('search')
 

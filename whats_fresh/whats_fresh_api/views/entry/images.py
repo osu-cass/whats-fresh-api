@@ -11,8 +11,9 @@ from whats_fresh.whats_fresh_api.models import Image
 from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
-from haystack.query import SearchQuerySet
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from haystack.query import SQ
+from haystack.query import SearchQuerySet
 
 
 @login_required
@@ -37,6 +38,8 @@ def image_list(request):
     else:
         images = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Image)
+        clean_query = images.query.clean(request.GET.get('search'))
+        images = images.filter(SQ(name=clean_query))
         if not images:
             message = "No entry named " + request.GET.get('search')
 

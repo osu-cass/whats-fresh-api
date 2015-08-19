@@ -8,8 +8,9 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from whats_fresh.whats_fresh_api.forms import StoryForm
-from haystack.query import SearchQuerySet
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from haystack.query import SearchQuerySet
+from haystack.query import SQ
 
 import json
 
@@ -34,6 +35,8 @@ def story_list(request):
     else:
         stories = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Story)
+        clean_query = stories.query.clean(request.GET.get('search'))
+        stories = stories.filter(SQ(name=clean_query))
         if not stories:
             message = "No entry named " + request.GET.get('search')
 

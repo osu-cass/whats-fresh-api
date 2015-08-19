@@ -13,6 +13,7 @@ from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from haystack.query import SearchQuerySet
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from haystack.query import SQ
 
 
 @login_required
@@ -37,6 +38,8 @@ def video_list(request):
     else:
         videos = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Video)
+        clean_query = videos.query.clean(request.GET.get('search'))
+        videos = videos.filter(SQ(name=clean_query))
         if not videos:
             message = "No entry named " + request.GET.get('search')
 
