@@ -13,6 +13,7 @@ from whats_fresh.whats_fresh_api.models import (Product, Preparation,
 from whats_fresh.whats_fresh_api.forms import ProductForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 from haystack.query import SearchQuerySet
 import json
@@ -45,13 +46,17 @@ def product(request, id=None):
 
         try:
             if len(post_data['preparation_ids']) == 0:
-                errors.append("You must choose at least one preparation.")
+                errors.append(
+                    "You must choose at least one entry from "
+                    + get_fieldname.get_fieldname('preparations'))
                 preparations = []
             else:
                 preparations = [int(p) for p in set(
                     post_data['preparation_ids'].split(','))]
         except MultiValueDictKeyError:
-            errors.append("You must choose at least one preparation.")
+            errors.append(
+                "You must choose at least one entry from "
+                + get_fieldname.get_fieldname('preparations'))
             preparations = []
 
         if id:
@@ -107,12 +112,12 @@ def product(request, id=None):
     elif request.method != 'POST':
         product_form = ProductForm()
         post_url = reverse('new-product')
-        title = "New Product"
+        title = "New " + get_fieldname.get_fieldname('products')
         existing_preparations = []
 
     else:
         post_url = reverse('new-product')
-        title = "New Product"
+        title = "New " + get_fieldname.get_fieldname('products')
         existing_preparations = []
 
     data = {'preparations': []}
@@ -128,7 +133,8 @@ def product(request, id=None):
     return render(request, 'product.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-products'), 'name': 'Products'}],
+            {'url': reverse('entry-list-products'),
+             'name': get_fieldname.get_fieldname('products')}],
         'json_preparations': json_preparations,
         'preparation_dict': data,
         'existing_preparations': existing_preparations,
@@ -154,9 +160,9 @@ def product_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Product deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Product saved successfully!"
+        message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
         products = SearchQuerySet().order_by('name').models(Product)
@@ -184,9 +190,7 @@ def product_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-product'),
-        'new_text': "New product",
-        'title': "All Products",
-        'item_classification': "product",
+        'title': get_fieldname.get_fieldname('products'),
         'item_list': products,
         'description_field': {'title': 'Variety', 'attribute': 'variety'},
         'edit_url': 'edit-product',
@@ -223,13 +227,16 @@ def product_ajax(request, id=None):
 
         try:
             if len(post_data['prep_ids']) == 0:
-                errors.append("You must choose at least one preparation.")
+                errors.append(
+                    "You must choose at least one entry from "
+                    + get_fieldname.get_fieldname('preparations'))
                 preparations = []
             else:
                 preparations = [int(p) for p in set(
                     post_data['prep_ids'].split(','))]
         except MultiValueDictKeyError:
-            errors.append("You must choose at least one preparation.")
+            errors.append("You must choose at least one entry from " +
+                          get_fieldname.get_fieldname('preparations'))
             preparations = []
 
         product = None

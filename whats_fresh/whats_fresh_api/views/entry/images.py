@@ -12,6 +12,7 @@ from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from haystack.query import SearchQuerySet
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 
 @login_required
@@ -27,9 +28,9 @@ def image_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Image deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Image saved successfully!"
+        message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
         images = SearchQuerySet().order_by('name').models(Image)
@@ -56,9 +57,7 @@ def image_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-image'),
-        'new_text': "New image",
-        'title': "Image Library",
-        'item_classification': "image",
+        'title': get_fieldname.get_fieldname('images'),
         'item_list': images,
         'edit_url': 'edit-image',
         'search_text': request.GET.get('search')
@@ -118,16 +117,17 @@ def image(request, id=None):
     elif request.method != 'POST':
         image_form = ImageForm()
         post_url = reverse('new-image')
-        title = "New Image"
+        title = "New " + get_fieldname.get_fieldname('images')
 
     else:
         post_url = reverse('new-image')
-        title = "New Image"
+        title = "New " + get_fieldname.get_fieldname('images')
 
     return render(request, 'image.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-images'), 'name': 'Image Library'}
+            {'url': reverse('entry-list-images'),
+             'name': get_fieldname.get_fieldname('images')}
         ],
         'title': title,
         'message': message,

@@ -1,6 +1,6 @@
 import django.forms as forms
 from whats_fresh.whats_fresh_api.models import (Vendor, Product, Preparation,
-                                                Story, Video, Image)
+                                                Story, Video, Image, Theme)
 
 
 class VendorForm(forms.ModelForm):
@@ -89,3 +89,33 @@ class ImageForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'required': 'true'}),
             'image': forms.FileInput(attrs={'required': 'true'})
         }
+
+
+class ThemeAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = Theme
+        exclude = []
+        widgets = {
+            'name': forms.TextInput(attrs={'required': 'true'}),
+            'logo': forms.FileInput,
+            'slogan': forms.TextInput,
+
+        }
+
+    def clean(self):
+        cleaned_data = super(ThemeAdminForm, self).clean()
+        vendors_slug = cleaned_data.get('vendors_slug')
+        products_slug = cleaned_data.get('products_slug')
+        preparations_slug = cleaned_data.get('preparations_slug')
+        stories_slug = cleaned_data.get('stories_slug')
+        images_slug = cleaned_data.get('images_slug')
+        videos_slug = cleaned_data.get('videos_slug')
+        self.slug_fields = [vendors_slug, products_slug, preparations_slug,
+                            stories_slug, images_slug, videos_slug]
+        if len(self.slug_fields) != len(set(self.slug_fields)):
+            error = set(
+                [x for x in self.slug_fields if self.slug_fields.count(x) > 1])
+            raise forms.ValidationError(
+                "Cannot use slug %s" % list(error)[0] + ' for multiple items!')
+        return self.cleaned_data

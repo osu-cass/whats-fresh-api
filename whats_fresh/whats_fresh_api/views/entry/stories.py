@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from whats_fresh.whats_fresh_api.forms import StoryForm
 from haystack.query import SearchQuerySet
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+
 import json
 
 
@@ -25,7 +27,7 @@ def story_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Story deleted successfully!"
+        message = "Entry deleted successfully!"
 
     if request.GET.get('search') is None:
         stories = SearchQuerySet().order_by('name').models(Story)
@@ -52,9 +54,7 @@ def story_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-story'),
-        'new_text': "New Item",
-        'title': "Product Education",
-        'item_classification': "item",
+        'title': get_fieldname.get_fieldname('stories'),
         'item_list': stories,
         'edit_url': 'edit-story',
         'search_text': request.GET.get('search')
@@ -142,18 +142,18 @@ def story(request, id=None):
         existing_videos = story.videos.all()
 
         if request.GET.get('success') == 'true':
-            message = "Story saved successfully!"
+            message = "Entry saved successfully!"
 
     elif request.method != 'POST':
         story_form = StoryForm()
         post_url = reverse('new-story')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('stories')
         existing_images = []
         existing_videos = []
 
     else:
         post_url = reverse('new-story')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('stories')
         existing_images = []
         existing_videos = []
 
@@ -174,7 +174,8 @@ def story(request, id=None):
     return render(request, 'story.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-stories'), 'name': 'Product Education'}
+            {'url': reverse('entry-list-stories'),
+             'name': get_fieldname.get_fieldname('stories')}
         ],
         'existing_images': existing_images,
         'existing_videos': existing_videos,

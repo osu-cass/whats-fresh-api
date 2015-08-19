@@ -12,6 +12,7 @@ from whats_fresh.whats_fresh_api.forms import VideoForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from haystack.query import SearchQuerySet
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 
 @login_required
@@ -27,9 +28,9 @@ def video_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Video deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Video saved successfully!"
+        message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
         videos = SearchQuerySet().order_by('name').models(Video)
@@ -56,9 +57,7 @@ def video_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-video'),
-        'new_text': "New video",
-        'title': "Video Library",
-        'item_classification': "video",
+        'title': get_fieldname.get_fieldname('videos'),
         'item_list': videos,
         'edit_url': 'edit-video',
         'search_text': request.GET.get('search')
@@ -121,16 +120,17 @@ def video(request, id=None):
     elif request.method != 'POST':
         video_form = VideoForm()
         post_url = reverse('new-video')
-        title = "New Video"
+        title = "New " + get_fieldname.get_fieldname('videos')
 
     else:
         post_url = reverse('new-video')
-        title = "New Video"
+        title = "New " + get_fieldname.get_fieldname('videos')
 
     return render(request, 'video.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-videos'), 'name': 'Video Library'}
+            {'url': reverse('entry-list-videos'),
+             'name': get_fieldname.get_fieldname('videos')}
         ],
         'title': title,
         'message': message,
