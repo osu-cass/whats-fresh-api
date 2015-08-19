@@ -13,3 +13,4 @@ before_script:
   - flake8 whats_fresh/
   - psql -c 'create database whats_fresh;' -U postgres
   - psql -U postgres -c "create extension postgis;" whats_fresh
+  - ./manage.py rebuild_index
