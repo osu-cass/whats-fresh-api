@@ -197,7 +197,8 @@ def product_list(request):
         'item_list': products,
         'description_field': {'title': 'Variety', 'attribute': 'variety'},
         'edit_url': 'edit-product',
-        'search_text': request.GET.get('search')
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('products_slug')
 
     })
 

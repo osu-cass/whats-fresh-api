@@ -63,7 +63,8 @@ def image_list(request):
         'title': get_fieldname.get_fieldname('images'),
         'item_list': images,
         'edit_url': 'edit-image',
-        'search_text': request.GET.get('search')
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('images_slug')
 
     })
 

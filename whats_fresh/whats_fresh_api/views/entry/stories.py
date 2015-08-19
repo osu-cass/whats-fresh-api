@@ -60,7 +60,8 @@ def story_list(request):
         'title': get_fieldname.get_fieldname('stories'),
         'item_list': stories,
         'edit_url': 'edit-story',
-        'search_text': request.GET.get('search')
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('stories_slug')
 
     })
 

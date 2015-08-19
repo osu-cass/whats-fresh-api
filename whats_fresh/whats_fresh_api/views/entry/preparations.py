@@ -63,7 +63,8 @@ def prep_list(request):
         'title': get_fieldname.get_fieldname('preparations'),
         'item_list': preparations,
         'edit_url': 'edit-preparation',
-        'search_text': request.GET.get('search')
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('preparations_slug')
 
     })
 

@@ -63,7 +63,8 @@ def video_list(request):
         'title': get_fieldname.get_fieldname('videos'),
         'item_list': videos,
         'edit_url': 'edit-video',
-        'search_text': request.GET.get('search')
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('videos_slug')
 
     })
 
