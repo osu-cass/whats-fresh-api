@@ -76,6 +76,7 @@ class ListVendorTestCase(TestCase):
             list(page_nan['item_list']))
 
     def test_search_results(self):
+
         search_result = self.client.get(
             '{}?search=Test Name'.format(reverse('list-vendors-edit'))).context
 

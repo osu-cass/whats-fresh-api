@@ -47,6 +47,8 @@ class ListImageTestCase(TestCase):
         page_nan = self.client.get(
             '{}?page=NaN'.format(reverse('entry-list-images'))).context
 
+        self.maxDiff = None
+
         self.assertEqual(
             list(page_1['item_list']),
             list(SearchQuerySet().order_by('name')[:15]))
@@ -75,7 +77,7 @@ class ListImageTestCase(TestCase):
 
     def TestSearchResults(self):
         search_result = self.client.get(
-            '{}?search=alice'.format(reverse('entry-list-images'))).context
+            '{}?search=Test Name'.format(reverse('entry-list-images'))).context
 
         self.assertEqual(search_result,
-                         list(SearchQuerySet().filter(content='alice')))
+                         list(SearchQuerySet().filter(content='Test Name')))
