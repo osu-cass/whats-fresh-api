@@ -11,6 +11,7 @@ from whats_fresh.whats_fresh_api.models import Image
 from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 
 @login_required
@@ -26,9 +27,9 @@ def image_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Image deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Image saved successfully!"
+        message = "Entry saved successfully!"
 
     paginator = Paginator(Image.objects.order_by('name'), settings.PAGE_LENGTH)
     page = request.GET.get('page')
@@ -47,9 +48,7 @@ def image_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-image'),
-        'new_text': "New image",
-        'title': "Image Library",
-        'item_classification': "image",
+        'title': get_fieldname.get_fieldname('images'),
         'item_list': images,
         'edit_url': 'edit-image'
     })
@@ -107,16 +106,17 @@ def image(request, id=None):
     elif request.method != 'POST':
         image_form = ImageForm()
         post_url = reverse('new-image')
-        title = "New Image"
+        title = "New " + get_fieldname.get_fieldname('images')
 
     else:
         post_url = reverse('new-image')
-        title = "New Image"
+        title = "New " + get_fieldname.get_fieldname('images')
 
     return render(request, 'image.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-images'), 'name': 'Image Library'}
+            {'url': reverse('entry-list-images'),
+             'name': get_fieldname.get_fieldname('images')}
         ],
         'title': title,
         'message': message,

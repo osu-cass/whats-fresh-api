@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 import json
 
 
-class StoriesTestCase(TestCase):
+class ThemesTestCase(TestCase):
     fixtures = ['test_fixtures']
 
     def setUp(self):
@@ -28,51 +28,56 @@ class StoriesTestCase(TestCase):
         "level": null
     },
     "id": 1,
-    "name": "Star Wars",
-    "history": "A long time ago, in a galaxy far, far away...",
-    "facts": "Star Wars is awesome",
-    "buying": "Always buy all related products",
-    "preparing": "Fried",
-    "products": "Fish",
-    "season": "Spring",
-    "ext": {},
-    "images": [
-        {"caption": "Woof!", "link": "/media/dog.jpg", "name": "A dog"}
-    ],
-    "videos": [
-        {"caption": "Traveling at the speed of light!", "name": "A Starship",
-        "link": "http://www.youtube.com/watch?v=efgDdSWDg0g"}
-    ],
-    "created": "2014-08-08T23:27:05.568Z",
-    "modified": "2014-08-08T23:27:05.568Z"
+      "name": "Test Name",
+      "background_color": "rgb(81, 114, 133)",
+      "foreground_color": "rgb(81, 114, 133)",
+      "header_color": "rgb(81, 114, 133)",
+      "font_color": "rgb(81, 114, 133)",
+      "logo": "/media/dog.jpg",
+      "slogan": "Test Slogan",
+      "site_title": "Oregon Catch",
+      "vendors": "shopkeepers",
+      "vendors_slug": "vendors",
+      "products": "items",
+      "products_slug": "products",
+      "preparations": "preparations",
+      "preparations_slug": "preparations",
+      "stories": "stories",
+      "stories_slug": "stories",
+      "images": "media-image",
+      "images_slug": "images",
+      "videos": "media-video",
+      "videos_slug": "videos",
+      "active": "no",
+      "ext": {}
 }"""
 
         self.expected_not_found = """
 {
   "error": {
     "status": true,
-    "text": "Story id 999 was not found.",
-    "name": "Story Not Found",
-    "debug": "DoesNotExist: Story matching query does not exist.",
+    "text": "Theme id 999 was not found.",
+    "name": "Theme Not Found",
+    "debug": "DoesNotExist: Theme matching query does not exist.",
     "level": "Error"
   }
 }"""
 
     def test_url_endpoint(self):
-        url = reverse('story-details', kwargs={'id': '1'})
-        self.assertEqual(url, '/1/stories/1')
+        url = reverse('theme-details', kwargs={'id': '1'})
+        self.assertEqual(url, '/1/themes/1')
 
-    def test_story_items(self):
+    def test_theme_items(self):
         response = self.client.get(
-            reverse('story-details', kwargs={'id': '1'})).content
+            reverse('theme-details', kwargs={'id': '1'})).content
         parsed_answer = json.loads(response)
         expected_answer = json.loads(self.expected_json)
 
         self.assertEqual(parsed_answer, expected_answer)
 
-    def test_story_not_found(self):
+    def test_theme_not_found(self):
         response = self.client.get(
-            reverse('story-details', kwargs={'id': '999'}))
+            reverse('theme-details', kwargs={'id': '999'}))
         parsed_answer = json.loads(response.content)
         self.assertEqual(response.status_code, 404)
 

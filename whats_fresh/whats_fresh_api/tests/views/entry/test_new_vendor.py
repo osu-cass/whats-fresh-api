@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from whats_fresh.whats_fresh_api.models import (Vendor, ProductPreparation,
                                                 Product, Preparation, Story)
 from django.contrib.auth.models import User, Group
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 
 class NewVendorTestCase(TestCase):
@@ -157,7 +158,8 @@ class NewVendorTestCase(TestCase):
 
         # Test non-automatically generated errors written into the view
         self.assertIn(
-            'You must choose at least one product.',
+            'You must choose at least one entry from '
+            + get_fieldname.get_fieldname('products'),
             response.context['errors'])
         self.assertIn('Invalid Coordinates.', response.context['errors'])
 

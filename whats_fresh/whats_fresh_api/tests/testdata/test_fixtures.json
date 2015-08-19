@@ -92,6 +92,60 @@
       "modified": "2014-08-08 23:27:05.568395+00:00"
     }
   },
+   {
+    "model": "whats_fresh_api.Theme",
+    "pk": "1",
+    "fields": {
+      "name": "Test Name",
+      "background_color": "rgb(81, 114, 133)",
+      "foreground_color": "rgb(81, 114, 133)",
+      "header_color": "rgb(81, 114, 133)",
+      "font_color": "rgb(81, 114, 133)",
+      "logo": "/media/dog.jpg",
+      "slogan": "Test Slogan",
+      "site_title": "Oregon Catch",
+      "vendors": "vendors",
+      "vendors_slug": "vendors",
+      "products": "products",
+      "products_slug": "products",
+      "preparations": "preparations",
+      "preparations_slug": "preparations",
+      "stories": "stories",
+      "stories_slug": "stories",
+      "images": "images",
+      "images_slug": "images",
+      "videos": "videos",
+      "videos_slug": "videos",
+      "active": "yes"
+    }
+  },
+  {
+    "model": "whats_fresh_api.Theme",
+    "pk": "1",
+    "fields": {
+      "name": "Test Name",
+      "background_color": "rgb(81, 114, 133)",
+      "foreground_color": "rgb(81, 114, 133)",
+      "header_color": "rgb(81, 114, 133)",
+      "font_color": "rgb(81, 114, 133)",
+      "logo": "/media/dog.jpg",
+      "slogan": "Test Slogan",
+      "site_title": "Oregon Catch",
+      "vendors": "shopkeepers",
+      "vendors_slug": "vendors",
+      "products": "items",
+      "products_slug": "products",
+      "preparations": "preparations",
+      "preparations_slug": "preparations",
+      "stories": "stories",
+      "stories_slug": "stories",
+      "images": "media-image",
+      "images_slug": "images",
+      "videos": "media-video",
+      "videos_slug": "videos",
+      "active": "no"
+    }
+  },
   {
     "model": "whats_fresh_api.Vendor",
     "pk": "1",

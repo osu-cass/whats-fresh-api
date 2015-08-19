@@ -11,6 +11,7 @@ from whats_fresh.whats_fresh_api.models import Preparation
 from whats_fresh.whats_fresh_api.forms import PreparationForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 
 @login_required
@@ -26,9 +27,9 @@ def prep_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Preparation deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Preparation saved successfully!"
+        message = "Entry saved successfully!"
 
     paginator = Paginator(Preparation.objects.order_by('name'),
                           settings.PAGE_LENGTH)
@@ -48,9 +49,7 @@ def prep_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-preparation'),
-        'new_text': "New Item",
-        'title': "Product Form/Packaging",
-        'item_classification': "item",
+        'title': get_fieldname.get_fieldname('preparations'),
         'item_list': preparations,
         'edit_url': 'edit-preparation'
     })
@@ -111,17 +110,17 @@ def preparation(request, id=None):
     elif request.method != 'POST':
         preparation_form = PreparationForm()
         post_url = reverse('new-preparation')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('preparations')
 
     else:
         post_url = reverse('new-preparation')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('preparations')
 
     return render(request, 'preparation.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
             {'url': reverse('entry-list-preparations'),
-             'name': 'Product Form/Packaging'}
+             'name': get_fieldname.get_fieldname('preparations')}
         ],
         'title': title,
         'message': message,

@@ -94,15 +94,50 @@ a{
 //Header
 .header{
     background: $secondary;
-    height: $navheight;
+    max-height: 150px;
     width: 100%;
     margin: 0px auto;
-    font-weight: 700;
+    font-weight: 700;}
+
+    .header .site_image {
+      max-height: 100px;
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+      .header .header_image {
+        display: inline-block;
+        margin-right: 15px;
+
+       }
+
+      .header .header_text {
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 10px;
+      }
+
 
     h2{
-        line-height: $navheight;
+        line-height: 70px;
         text-align: center;
         color: $dark;
+    }
+
+    h4 {
+         line-height: 30px;
+         text-align: center;
+         color: $dark;
+    }
+
+    #header_site h2 {
+      margin: auto;
+      font-size: 30pt;
+    }
+
+    #header_site h4 {
+      margin: auto;
+      font-size: 18pt;
     }
 
     .logout{
@@ -117,6 +152,11 @@ a{
     }
 }
 
+.entry h4 {
+
+  color: #333;
+}
+
 .title{
     p{
         text-align: center;
@@ -125,6 +165,7 @@ a{
 
 .content {
     background: $primary;
+    border-radius: 10px;
     min-height: 100%;
     width: 70%;
     height: auto;

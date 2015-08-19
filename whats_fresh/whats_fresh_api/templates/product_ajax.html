@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load get_fieldname %}
+
 <form class='form' action="{{ post_url }}" method="post" id="popup-form">
     {% if product_form.errors or errors %}
     <div class="error" id="product_error">
@@ -39,8 +41,8 @@
     {{ product_form.story }}
     <input class="preparations" name="preparations" type="hidden" />
     <div class="container_prep">
-        <h3>Preparation</h3>
-        <button type="button" onclick="appendPreparation()">Add Preparation</button>
+        <h3>{{ 'preparations'|get_fieldname }}</h3>
+        <button type="button" onclick="appendPreparation()">Add {{ 'preparations'|get_fieldname }}</button>
         {% if existing_preparations %}
         {% for prep in existing_preparations %}
         <div class="prep">
@@ -51,7 +53,7 @@
         </div>
         {% endfor %}
         {% else %}
-        <span class="no_prep">No Preparations Yet!</span>
+        <span class="no_prep">No {{ 'preparations'|get_fieldname }} Yet!</span>
         {% endif %}
     </div>
 

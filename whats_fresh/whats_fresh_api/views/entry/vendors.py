@@ -14,6 +14,7 @@ from whats_fresh.whats_fresh_api.models import (Vendor, Product,
                                                 VendorProduct)
 from whats_fresh.whats_fresh_api.forms import VendorForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 import json
 
@@ -53,7 +54,9 @@ def vendor(request, id=None):
 
         try:
             if not post_data['preparation_ids']:
-                errors.append("You must choose at least one product.")
+                errors.append(
+                    "You must choose at least one entry from "
+                    + get_fieldname.get_fieldname('products'))
                 prod_preps = []
             else:
                 prod_preps = list(
@@ -63,7 +66,9 @@ def vendor(request, id=None):
                 post_data['products_preparations'] = prod_preps[0]
 
         except MultiValueDictKeyError:
-            errors.append("You must choose at least one product.")
+            errors.append(
+                "You must choose at least one entry from "
+                + get_fieldname.get_fieldname('products'))
             prod_preps = []
 
         vendor_form = VendorForm(post_data)
@@ -139,14 +144,14 @@ def vendor(request, id=None):
                     'product': vendor_product.product_preparation.product.name
                 })
     elif request.method != 'POST':
-        title = "Add a Vendor"
+        title = "New " + get_fieldname.get_fieldname('vendors')
         post_url = reverse('new-vendor')
         message = "* = Required field"
         vendor_form = VendorForm()
         latit = '44.563781'
         longit = '-123.27944400000001'
     else:
-        title = "Add a Vendor"
+        title = "New " + get_fieldname.get_fieldname('vendors')
         message = "* = Required field"
         post_url = reverse('new-vendor')
         latit = post_data['latitude']
@@ -169,7 +174,8 @@ def vendor(request, id=None):
     return render(request, 'vendor.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('list-vendors-edit'), 'name': 'Vendors'}],
+            {'url': reverse('list-vendors-edit'),
+             'name': get_fieldname.get_fieldname('vendors')}],
         'title': title,
         'message': message,
         'post_url': post_url,
@@ -196,9 +202,9 @@ def vendor_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Vendor deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Vendor saved successfully!"
+        message = "Entry saved successfully!"
 
     paginator = Paginator(Vendor.objects.order_by('name'),
                           settings.PAGE_LENGTH)
@@ -218,9 +224,7 @@ def vendor_list(request):
         'parent_text': 'Home',
         'message': message,
         'new_url': reverse('new-vendor'),
-        'new_text': "New Vendor",
-        'title': "All Vendors",
-        'item_classification': "vendor",
+        'title': get_fieldname.get_fieldname('vendors'),
         'item_list': vendors,
         'edit_url': 'edit-vendor'
     })

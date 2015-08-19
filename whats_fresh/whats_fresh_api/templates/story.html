@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load get_fieldname %}
 {% block header %}
 <div class="back">
     {% for p in parent_url %}
@@ -53,8 +54,8 @@
         {{ story_form.products }}
 
     <div class="image_container">
-        <h3>Images</h3>
-        <button type="button" onclick="appendImage()">Add Image</button>
+        <h3>{{ 'images'|get_fieldname }}</h3>
+        <button type="button" onclick="appendImage()">Add {{ 'images'|get_fieldname }}</button>
         {% if existing_images %}
         {% for image in existing_images %}
         <div class="image">
@@ -65,7 +66,7 @@
         </div>
         {% endfor %}
         {% else %}
-        <span class="no_image">No Images Yet!</span>
+        <span class="no_image">No {{ 'images'|get_fieldname }} Yet!</span>
         {% endif %}
 
     </div>
@@ -73,12 +74,13 @@
     <div id="inline_image">  <!-- Div used if a new inline image submitted -->
     </div>
 
-    <button type="submit" id="newImage-btn" onclick="return imagePopup('/entry/stories/new/images/new/')">Add New Image</button>
+    <button type="submit" id="newImage-btn" onclick="return imagePopup('/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'images_slug'|get_fieldname }}/new/')">Add New
+    {{ 'images'|get_fieldname }}</button>
     <div id="image-popup"></div>
 
     <div class="video_container">
-    <h3>Videos</h3>
-    <button type="button" onclick="appendVideo()">Add Video</button>
+    <h3>{{ 'videos'|get_fieldname }}</h3>
+    <button type="button" onclick="appendVideo()">Add {{ 'videos'|get_fieldname }}</button>
     {% if existing_videos %}
     {% for video in existing_videos %}
     <div class="video">
@@ -89,7 +91,7 @@
     </div>
     {% endfor %}
     {% else %}
-    <span class="no_video">No Videos Yet!</span>
+    <span class="no_video">No {{ 'videos'|get_fieldname }} Yet!</span>
     {% endif %}
 
     </div>
@@ -97,7 +99,7 @@
     <div id="inline_video">  <!-- Div used if a new inline video submitted -->
     </div>
 
-    <button type="submit" onclick="return videoPopup('/entry/stories/new/videos/new/')">Add New Video</button>
+    <button type="submit" onclick="return videoPopup('/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'videos_slug'|get_fieldname }}/new/')">Add New {{ 'videos'|get_fieldname }}</button>
     <div id="video-popup"></div>
 
 
@@ -179,7 +181,7 @@
 
      $.ajax({
         type: "POST",
-        url: '/entry/stories/new/images/new',
+        url: '/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'images_slug'|get_fieldname }}/new',
         processData: false,
         contentType: false,
         data: fd,
@@ -218,7 +220,7 @@
 
      $.ajax({
         type: "POST",
-        url: '/entry/stories/new/videos/new',
+        url: '/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'videos_slug'|get_fieldname }}/new',
         data: $("#video-form").serialize(),
         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
         success: function(data)
