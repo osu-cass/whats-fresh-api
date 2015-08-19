@@ -36,9 +36,8 @@ def image_list(request):
     else:
         images = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Image)
-
-    if not images:
-        message = "No entry named " + request.GET.get('search')
+        if not images:
+            message = "No entry named " + request.GET.get('search')
 
     paginator = Paginator(images, settings.PAGE_LENGTH)
     page = request.GET.get('page')

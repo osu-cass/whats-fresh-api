@@ -32,9 +32,8 @@ def story_list(request):
     else:
         stories = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Story)
-
-    if not stories:
-        message = "No entry named " + request.GET.get('search')
+        if not stories:
+            message = "No entry named " + request.GET.get('search')
 
     paginator = Paginator(stories, settings.PAGE_LENGTH)
     page = request.GET.get('page')

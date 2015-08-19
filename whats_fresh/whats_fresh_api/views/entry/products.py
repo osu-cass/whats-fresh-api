@@ -163,9 +163,8 @@ def product_list(request):
     else:
         products = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Product)
-
-    if not products:
-        message = "No entry named " + request.GET.get('search')
+        if not products:
+            message = "No entry named " + request.GET.get('search')
 
     paginator = Paginator(products, settings.PAGE_LENGTH)
 

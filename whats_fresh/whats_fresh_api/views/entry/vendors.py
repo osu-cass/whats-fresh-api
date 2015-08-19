@@ -206,11 +206,10 @@ def vendor_list(request):
     else:
         vendors = SearchQuerySet().models(Vendor).filter(
             content=request.GET.get('search'))
+        if not vendors:
+            message = "No entry named " + request.GET.get('search')
         # vendors = SearchQuerySet().autocomplete(
         # content_auto=request.GET.get('search', ''))
-
-    if not vendors:
-        message = "No entry named " + request.GET.get('search')
 
     paginator = Paginator(vendors, settings.PAGE_LENGTH)
     page = request.GET.get('page')

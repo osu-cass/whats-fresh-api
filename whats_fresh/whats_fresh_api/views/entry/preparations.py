@@ -36,9 +36,8 @@ def prep_list(request):
     else:
         preparations = SearchQuerySet().filter(
             content=request.GET.get('search')).models(Preparation)
-
-    if not preparations:
-        message = "No entry named " + request.GET.get('search')
+        if not preparations:
+            message = "No entry named " + request.GET.get('search')
 
     paginator = Paginator(preparations, settings.PAGE_LENGTH)
     page = request.GET.get('page')
