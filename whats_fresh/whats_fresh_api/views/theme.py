@@ -78,7 +78,6 @@ def theme_details(request, id=None):
     serializer = FreshSerializer()
 
     data = json.loads(serializer.serialize(theme))
-    print data
 
     data['error'] = error
 
