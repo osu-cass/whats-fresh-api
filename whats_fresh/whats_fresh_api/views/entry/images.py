@@ -12,7 +12,6 @@ from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
-from haystack.query import SQ
 from haystack.query import SearchQuerySet
 
 
@@ -34,13 +33,10 @@ def image_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        images = SearchQuerySet().order_by('name').models(Image)
+        images = SearchQuerySet().models(Image)
     else:
-        # images = SearchQuerySet().filter(
-        #     content=request.GET.get('search')).models(Image)
-        sqs = SearchQuerySet()
-        clean_query = sqs.query.clean(request.GET.get('search'))
-        images = sqs.models(Image).filter(SQ(content=clean_query))
+        images = SearchQuerySet().models(Image).autocomplete(
+            content_auto=request.GET.get('search', ''))
         if not images:
             message = "No entry named " + request.GET.get('search')
 

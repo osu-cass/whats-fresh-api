@@ -13,7 +13,6 @@ from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 from haystack.query import SearchQuerySet
-from haystack.query import SQ
 
 
 @login_required
@@ -34,13 +33,10 @@ def prep_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        preparations = SearchQuerySet().order_by('name').models(Preparation)
+        preparations = SearchQuerySet().models(Preparation)
     else:
-        # preparations = SearchQuerySet().filter(
-        #     content=request.GET.get('search')).models(Preparation)
-        sqs = SearchQuerySet()
-        clean_query = sqs.query.clean(request.GET.get('search'))
-        preparations = sqs.models(Preparation).filter(SQ(content=clean_query))
+        preparations = SearchQuerySet().models(Preparation).autocomplete(
+            content_auto=request.GET.get('search', ''))
         if not preparations:
             message = "No entry named " + request.GET.get('search')
 

@@ -1,11 +1,11 @@
 from haystack import indexes
-from .models import Vendor, Product, Preparation, Story, Image, Video
+from whats_fresh.whats_fresh_api.models import (
+    Vendor, Product, Preparation, Story, Image, Video)
 
 
 class VendorIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name')
-    # content_auto = indexes.EdgeNgramField(model_attr='name')
+    content_auto = indexes.EdgeNgramField(model_attr='name')
 
     def get_model(self):
         return Vendor
@@ -16,8 +16,7 @@ class VendorIndex(indexes.SearchIndex, indexes.Indexable):
 
 class ProductIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name')
-    # content_auto = indexes.EdgeNgramField(model_attr='name')
+    content_auto = indexes.EdgeNgramField(model_attr='name')
 
     def get_model(self):
         return Product
@@ -28,8 +27,7 @@ class ProductIndex(indexes.SearchIndex, indexes.Indexable):
 
 class PreparationIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name')
-    # content_auto = indexes.EdgeNgramField(model_attr='name')
+    content_auto = indexes.EdgeNgramField(model_attr='name')
 
     def get_model(self):
         return Preparation
@@ -40,8 +38,7 @@ class PreparationIndex(indexes.SearchIndex, indexes.Indexable):
 
 class StoryIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name')
-    # content_auto = indexes.EdgeNgramField(model_attr='name')
+    content_auto = indexes.EdgeNgramField(model_attr='name')
 
     def get_model(self):
         return Story
@@ -52,8 +49,7 @@ class StoryIndex(indexes.SearchIndex, indexes.Indexable):
 
 class ImageIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name')
-    # content_auto = indexes.EdgeNgramField(model_attr='name')
+    content_auto = indexes.EdgeNgramField(model_attr='name')
 
     def get_model(self):
         return Image
@@ -64,8 +60,7 @@ class ImageIndex(indexes.SearchIndex, indexes.Indexable):
 
 class VideoIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name')
-    # content_auto = indexes.EdgeNgramField(model_attr='name')
+    content_auto = indexes.EdgeNgramField(model_attr='name')
 
     def get_model(self):
         return Video

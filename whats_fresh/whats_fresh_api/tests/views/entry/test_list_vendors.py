@@ -51,15 +51,15 @@ class ListVendorTestCase(TestCase):
 
         self.assertEqual(
             list(page_1['item_list']),
-            list(SearchQuerySet().models(Vendor).order_by('name')[:15]))
+            list(SearchQuerySet().models(Vendor)[:15]))
 
         self.assertEqual(
             list(page_2['item_list']),
-            list(SearchQuerySet().models(Vendor).order_by('name')[15:30]))
+            list(SearchQuerySet().models(Vendor)[15:30]))
 
         self.assertEqual(
             list(page_3['item_list']),
-            list(SearchQuerySet().models(Vendor).order_by('name')[30:33]))
+            list(SearchQuerySet().models(Vendor)[30:33]))
 
         # Page 4 should be identical to Page 3, as these fixtures
         # have enough content for three pages (15 items per page, 33 items)
@@ -76,10 +76,9 @@ class ListVendorTestCase(TestCase):
             list(page_nan['item_list']))
 
     def test_search_results(self):
-
         search_result = self.client.get(
             '{}?search=Test Name'.format(reverse('list-vendors-edit'))).context
 
         self.assertEqual(list(search_result['item_list']),
-                         list(SearchQuerySet().models(Vendor).filter(
+                         list(SearchQuerySet().models(Vendor).autocomplete(
                              content='Test Name')))

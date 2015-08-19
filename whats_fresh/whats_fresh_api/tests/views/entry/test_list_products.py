@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group
+from whats_fresh.whats_fresh_api.models import Product
 from haystack.query import SearchQuerySet
 
 
@@ -51,15 +52,15 @@ class ListProductTestCase(TestCase):
 
         self.assertEqual(
             list(page_1['item_list']),
-            list(SearchQuerySet().order_by('name')[:15]))
+            list(SearchQuerySet().models(Product)[:15]))
 
         self.assertEqual(
             list(page_2['item_list']),
-            list(SearchQuerySet().order_by('name')[15:30]))
+            list(SearchQuerySet().models(Product)[15:30]))
 
         self.assertEqual(
             list(page_3['item_list']),
-            list(SearchQuerySet().order_by('name')[30:33]))
+            list(SearchQuerySet().models(Product)[30:33]))
 
         # Page 4 should be identical to Page 3, as these fixtures
         # have enough content for three pages (15 items per page, 33 items)
@@ -82,4 +83,4 @@ class ListProductTestCase(TestCase):
         ).context
 
         self.assertEqual(search_result,
-                         list(SearchQuerySet().filter(content='Test Name')))
+                         list(SearchQuerySet().autocomplete(content='Test')))

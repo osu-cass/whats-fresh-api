@@ -17,7 +17,6 @@ from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 from haystack.query import SearchQuerySet
-from haystack.query import SQ
 import json
 
 
@@ -209,18 +208,12 @@ def vendor_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        vendors = SearchQuerySet().models(Vendor).order_by('name')
+        vendors = SearchQuerySet().models(Vendor)
     else:
-        # vendors = SearchQuerySet().models(Vendor).filter(
-        #     content=request.GET.get('search'))
-        sqs = SearchQuerySet()
-        clean_query = sqs.query.clean(request.GET.get('search'))
-        vendors = sqs.models(Vendor).filter(SQ(content=clean_query))
-        print vendors
+        vendors = SearchQuerySet().models(Vendor).autocomplete(
+            content_auto=request.GET.get('search', ''))
         if not vendors:
-            message = "No entry named " + request.GET.get('search')
-        # vendors = SearchQuerySet().autocomplete(
-        # content_auto=request.GET.get('search', ''))
+            message = "No entry named " + request.GET.get('search', '')
 
     paginator = Paginator(vendors, settings.PAGE_LENGTH)
     page = request.GET.get('page')

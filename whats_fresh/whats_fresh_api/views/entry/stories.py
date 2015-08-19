@@ -10,7 +10,6 @@ from django.shortcuts import get_object_or_404
 from whats_fresh.whats_fresh_api.forms import StoryForm
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 from haystack.query import SearchQuerySet
-from haystack.query import SQ
 
 import json
 
@@ -31,13 +30,10 @@ def story_list(request):
         message = "Entry deleted successfully!"
 
     if request.GET.get('search') is None:
-        stories = SearchQuerySet().order_by('name').models(Story)
+        stories = SearchQuerySet().models(Story)
     else:
-        # stories = SearchQuerySet().filter(
-        #     content=request.GET.get('search')).models(Story)
-        sqs = SearchQuerySet()
-        clean_query = sqs.query.clean(request.GET.get('search'))
-        stories = sqs.models(Story).filter(SQ(content=clean_query))
+        stories = SearchQuerySet().models(Story).autocomplete(
+            content_auto=request.GET.get('search', ''))
         if not stories:
             message = "No entry named " + request.GET.get('search')
 

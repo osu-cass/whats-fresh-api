@@ -13,7 +13,6 @@ from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from haystack.query import SearchQuerySet
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
-from haystack.query import SQ
 
 
 @login_required
@@ -34,13 +33,10 @@ def video_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        videos = SearchQuerySet().order_by('name').models(Video)
+        videos = SearchQuerySet().models(Video)
     else:
-        videos = SearchQuerySet().filter(
-            content=request.GET.get('search')).models(Video)
-        sqs = SearchQuerySet()
-        clean_query = sqs.query.clean(request.GET.get('search'))
-        videos = sqs.models(Video).filter(SQ(content=clean_query))
+        videos = SearchQuerySet().models(Video).autocomplete(
+            content_auto=request.GET.get('search', ''))
         if not videos:
             message = "No entry named " + request.GET.get('search')
 
