@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from whats_fresh.whats_fresh_api.forms import StoryForm
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 import json
 
@@ -33,11 +34,15 @@ def story_list(request):
         stories = Story.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
-            stories = list(item.object for item in
-                           SearchQuerySet().models(Story).autocomplete(
-                               content_auto=request.GET.get('search', '')))
+            stories = list(OrderedDict
+                           .fromkeys(item.object for item in
+                                     SearchQuerySet().models(Story)
+                                     .autocomplete(
+                                         content_auto=request.GET
+                                         .get('search', '')))
+                           )
             if not stories:
-                message = "No entry named " + request.GET.get('search')
+                message = "No results"
 
     paginator = Paginator(stories, settings.PAGE_LENGTH)
     page = request.GET.get('page')

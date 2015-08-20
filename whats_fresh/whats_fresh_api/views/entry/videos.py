@@ -13,6 +13,7 @@ from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from haystack.query import SearchQuerySet
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from collections import OrderedDict
 
 
 @login_required
@@ -36,11 +37,15 @@ def video_list(request):
         videos = Video.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
-            videos = list(item.object for item in
-                          SearchQuerySet().models(Video).autocomplete(
-                              content_auto=request.GET.get('search', '')))
+            videos = list(OrderedDict
+                          .fromkeys(item.object for item in
+                                    SearchQuerySet().models(Video)
+                                    .autocomplete(
+                                        content_auto=request.GET
+                                        .get('search', '')))
+                          )
             if not videos:
-                message = "No entry named " + request.GET.get('search')
+                message = "No results"
 
     paginator = Paginator(videos, settings.PAGE_LENGTH)
     page = request.GET.get('page')

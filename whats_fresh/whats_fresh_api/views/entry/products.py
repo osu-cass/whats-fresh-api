@@ -16,6 +16,7 @@ from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 from haystack.query import SearchQuerySet
+from collections import OrderedDict
 import json
 
 
@@ -168,13 +169,15 @@ def product_list(request):
         products = Product.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
-            products = list(item.object for item in
-                            SearchQuerySet().models(Product).autocomplete(
-                                content_auto=request.GET.get('search', '')))
+            products = list(OrderedDict
+                            .fromkeys(item.object for item in
+                                      SearchQuerySet().models(Product)
+                                      .autocomplete(
+                                          content_auto=request.GET
+                                          .get('search', '')))
+                            )
             if not products:
-                message = "No entry named " + request.GET.get('search')
-
-    print products
+                message = "No results"
 
     paginator = Paginator(products, settings.PAGE_LENGTH)
 

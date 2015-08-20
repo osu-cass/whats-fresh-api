@@ -33,7 +33,7 @@
             <p>{% if description_field %}
                     {% load getattr %}
                     {% if item|getattr:description_field.attribute %}
-                        { description_field.title }
+                        {{ description_field.title }}:
                             {{ item|getattr:description_field.attribute }}
                     {% endif %}
                 {% else %}
@@ -62,7 +62,3 @@
 </div>
     </div>
 {% endblock content %}
-
-<script>
-$('#search_list').attr("value", "kokab");
-</script>

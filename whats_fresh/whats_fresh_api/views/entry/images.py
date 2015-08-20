@@ -13,6 +13,7 @@ from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 
 @login_required
@@ -36,11 +37,15 @@ def image_list(request):
         images = Image.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
-            images = list(item.object for item in
-                          SearchQuerySet().models(Image).autocomplete(
-                              content_auto=request.GET.get('search', '')))
+            images = list(OrderedDict
+                          .fromkeys(item.object for item in
+                                    SearchQuerySet().models(Image)
+                                    .autocomplete(
+                                        content_auto=request.GET
+                                        .get('search', '')))
+                          )
             if not images:
-                message = "No entry named " + request.GET.get('search')
+                message = "No results"
 
     paginator = Paginator(images, settings.PAGE_LENGTH)
     page = request.GET.get('page')

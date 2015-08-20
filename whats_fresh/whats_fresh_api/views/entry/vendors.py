@@ -17,6 +17,7 @@ from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 from haystack.query import SearchQuerySet
+from collections import OrderedDict
 import json
 
 
@@ -210,12 +211,15 @@ def vendor_list(request):
     if request.GET.get('search') is None or request.GET.get('search') == "":
         vendors = Vendor.objects.order_by('name')
     else:
-        if request.GET.get('search') != "":
-            vendors = list(item.object for item in
-                           SearchQuerySet().models(Vendor).autocomplete(
-                               content_auto=request.GET.get('search', '')))
-            if not vendors:
-                vendors = Vendor.objects.order_by('name')
+        vendors = list(OrderedDict
+                       .fromkeys(item.object for item in
+                                 SearchQuerySet().models(Vendor)
+                                 .autocomplete(
+                                     content_auto=request.GET
+                                     .get('search', '')))
+                       )
+        if not vendors:
+            message = "No results"
 
     paginator = Paginator(vendors, settings.PAGE_LENGTH)
     page = request.GET.get('page')
