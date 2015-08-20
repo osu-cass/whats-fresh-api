@@ -164,7 +164,7 @@ def product_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    if request.GET.get('search') is None:
+    if request.GET.get('search') is None or request.GET.get('search') == "":
         products = Product.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
@@ -173,9 +173,6 @@ def product_list(request):
                                 content_auto=request.GET.get('search', '')))
             if not products:
                 message = "No entry named " + request.GET.get('search')
-        else:
-            products = []
-            message = "Please pass a valid query."
 
     print products
 

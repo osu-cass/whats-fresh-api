@@ -207,7 +207,7 @@ def vendor_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    if request.GET.get('search') is None:
+    if request.GET.get('search') is None or request.GET.get('search') == "":
         vendors = Vendor.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
@@ -215,10 +215,7 @@ def vendor_list(request):
                            SearchQuerySet().models(Vendor).autocomplete(
                                content_auto=request.GET.get('search', '')))
             if not vendors:
-                message = "No entry named " + request.GET.get('search', '')
-        else:
-            vendors = []
-            message = "Please pass a valid query."
+                vendors = Vendor.objects.order_by('name')
 
     paginator = Paginator(vendors, settings.PAGE_LENGTH)
     page = request.GET.get('page')

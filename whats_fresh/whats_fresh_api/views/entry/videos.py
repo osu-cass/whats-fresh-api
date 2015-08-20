@@ -32,7 +32,7 @@ def video_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    if request.GET.get('search') is None:
+    if request.GET.get('search') is None or request.GET.get('search') == "":
         videos = Video.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
@@ -41,9 +41,6 @@ def video_list(request):
                               content_auto=request.GET.get('search', '')))
             if not videos:
                 message = "No entry named " + request.GET.get('search')
-        else:
-            videos = []
-            message = "Please pass a valid query."
 
     paginator = Paginator(videos, settings.PAGE_LENGTH)
     page = request.GET.get('page')

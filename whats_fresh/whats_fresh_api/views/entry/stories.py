@@ -29,7 +29,7 @@ def story_list(request):
     if request.GET.get('success') == 'true':
         message = "Entry deleted successfully!"
 
-    if request.GET.get('search') is None:
+    if request.GET.get('search') is None or request.GET.get('search') == "":
         stories = Story.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
@@ -38,9 +38,6 @@ def story_list(request):
                                content_auto=request.GET.get('search', '')))
             if not stories:
                 message = "No entry named " + request.GET.get('search')
-        else:
-            stories = []
-            message = "Please pass a valid query."
 
     paginator = Paginator(stories, settings.PAGE_LENGTH)
     page = request.GET.get('page')

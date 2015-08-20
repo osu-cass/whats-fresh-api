@@ -32,7 +32,7 @@ def prep_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    if request.GET.get('search') is None:
+    if request.GET.get('search') is None or request.GET.get('search') == "":
         preparations = Preparation.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
@@ -41,9 +41,6 @@ def prep_list(request):
                                  content_auto=request.GET.get('search', '')))
             if not preparations:
                 message = "No entry named " + request.GET.get('search')
-        else:
-            preparations = []
-            message = "Please pass a valid query."
 
     paginator = Paginator(preparations, settings.PAGE_LENGTH)
     page = request.GET.get('page')
