@@ -33,14 +33,17 @@ def prep_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        preparations = list(item.object for item in
-                            SearchQuerySet().models(Preparation))
+        preparations = Preparation.objects.order_by('name')
     else:
-        preparations = list(item.object for item in
-                            SearchQuerySet().models(Preparation).autocomplete(
-                                content_auto=request.GET.get('search', '')))
-        if not preparations:
-            message = "No entry named " + request.GET.get('search')
+        if request.GET.get('search') != "":
+            preparations = list(item.object for item in
+                                SearchQuerySet().models(Preparation).autocomplete(   # noqa
+                                 content_auto=request.GET.get('search', '')))
+            if not preparations:
+                message = "No entry named " + request.GET.get('search')
+        else:
+            preparations = []
+            message = "Please pass a valid query."
 
     paginator = Paginator(preparations, settings.PAGE_LENGTH)
     page = request.GET.get('page')

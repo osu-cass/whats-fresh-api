@@ -15,13 +15,16 @@
 
 {% block content %}
 <form class="search-bar" action="">
-    <input id="search-list" type="text" name="search" {% if search_text %} value="{{ search_text }}" {% endif %}>
-    <button id="search-btn" type="submit">Search</button>
+<input id="search-list" type="text" name="search" {% if search_text %} value="{{ search_text }}" {% endif %} required="true">
+<button id="search-btn" type="submit">Search</button>
 </form><br>
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>
     <div class='list'>
 {% for item in item_list %}
 {% if item != None %}
+{% comment %}
+    <p>Bad workaround for items = None, find another way to do this</p>
+{% endcomment %}
 <a href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
         <p class='item'>{{ item.name }}</p>

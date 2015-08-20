@@ -33,13 +33,17 @@ def video_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        videos = list(item.object for item in SearchQuerySet().models(Video))
+        videos = Video.objects.order_by('name')
     else:
-        videos = list(item.object for item in
-                      SearchQuerySet().models(Video).autocomplete(
-                          content_auto=request.GET.get('search', '')))
-        if not videos:
-            message = "No entry named " + request.GET.get('search')
+        if request.GET.get('search') != "":
+            videos = list(item.object for item in
+                          SearchQuerySet().models(Video).autocomplete(
+                              content_auto=request.GET.get('search', '')))
+            if not videos:
+                message = "No entry named " + request.GET.get('search')
+        else:
+            videos = []
+            message = "Please pass a valid query."
 
     paginator = Paginator(videos, settings.PAGE_LENGTH)
     page = request.GET.get('page')

@@ -30,14 +30,17 @@ def story_list(request):
         message = "Entry deleted successfully!"
 
     if request.GET.get('search') is None:
-        stories = list(item.object for item in
-                       SearchQuerySet().models(Story))
+        stories = Story.objects.order_by('name')
     else:
-        stories = list(item.object for item in
-                       SearchQuerySet().models(Story).autocomplete(
-                           content_auto=request.GET.get('search', '')))
-        if not stories:
-            message = "No entry named " + request.GET.get('search')
+        if request.GET.get('search') != "":
+            stories = list(item.object for item in
+                           SearchQuerySet().models(Story).autocomplete(
+                               content_auto=request.GET.get('search', '')))
+            if not stories:
+                message = "No entry named " + request.GET.get('search')
+        else:
+            stories = []
+            message = "Please pass a valid query."
 
     paginator = Paginator(stories, settings.PAGE_LENGTH)
     page = request.GET.get('page')

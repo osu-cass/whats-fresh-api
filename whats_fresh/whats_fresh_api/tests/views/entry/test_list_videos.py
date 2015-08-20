@@ -48,21 +48,17 @@ class ListVideoTestCase(TestCase):
         page_nan = self.client.get(
             '{}?page=NaN'.format(reverse('entry-list-videos'))).context
 
-        self.maxDiff = None
-
         self.assertEqual(
             list(page_1['item_list']),
-            list(item.object for item in SearchQuerySet().models(Video)[:15]))
+            list(Video.objects.order_by('name')[:15]))
 
         self.assertEqual(
             list(page_2['item_list']),
-            list(item.object for item in
-                 SearchQuerySet().models(Video)[15:30]))
+            list(Video.objects.order_by('name')[15:30]))
 
         self.assertEqual(
             list(page_3['item_list']),
-            list(item.object for item in
-                 SearchQuerySet().models(Video)[30:33]))
+            list(Video.objects.order_by('name')[30:33]))
 
         # Page 4 should be identical to Page 3, as these fixtures
         # have enough content for three pages (15 items per page, 33 items)
@@ -78,9 +74,12 @@ class ListVideoTestCase(TestCase):
             list(page_1['item_list']),
             list(page_nan['item_list']))
 
-    def TestSearchResults(self):
+    def test_search_result(self):
         search_result = self.client.get(
-            '{}?search=Test'.format(reverse('entry-list-videos'))).context
+            '{}?search=20'.format(reverse('entry-list-videos'))).context
 
-        self.assertEqual(search_result,
-                         list(SearchQuerySet().autocomplete(content='Test')))
+        self.assertEqual(list(search_result['item_list']),
+                         list(item.object for item in
+                              SearchQuerySet().models(Video)
+                              .autocomplete(content='20'))
+                         )

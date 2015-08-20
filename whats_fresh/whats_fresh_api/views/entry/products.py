@@ -165,14 +165,17 @@ def product_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        products = list(item.object for item in
-                        SearchQuerySet().models(Product))
+        products = Product.objects.order_by('name')
     else:
-        products = list(item.object for item in
-                        SearchQuerySet().models(Product).autocomplete(
-                            content_auto=request.GET.get('search', '')))
-        if not products:
-            message = "No entry named " + request.GET.get('search')
+        if request.GET.get('search') != "":
+            products = list(item.object for item in
+                            SearchQuerySet().models(Product).autocomplete(
+                                content_auto=request.GET.get('search', '')))
+            if not products:
+                message = "No entry named " + request.GET.get('search')
+        else:
+            products = []
+            message = "Please pass a valid query."
 
     print products
 
