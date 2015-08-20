@@ -52,15 +52,18 @@ class ListPreparationTestCase(TestCase):
 
         self.assertEqual(
             list(page_1['item_list']),
-            list(SearchQuerySet().models(Preparation)[:15]))
+            list(item.object for item in
+                 SearchQuerySet().models(Preparation)[:15]))
 
         self.assertEqual(
             list(page_2['item_list']),
-            list(SearchQuerySet().models(Preparation)[15:30]))
+            list(item.object for item in
+                 SearchQuerySet().models(Preparation)[15:30]))
 
         self.assertEqual(
             list(page_3['item_list']),
-            list(SearchQuerySet().models(Preparation)[30:33]))
+            list(item.object for item in
+                 SearchQuerySet().models(Preparation)[30:33]))
 
         # Page 4 should be identical to Page 3, as these fixtures
         # have enough content for three pages (15 items per page, 33 items)

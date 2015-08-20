@@ -33,10 +33,12 @@ def prep_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        preparations = SearchQuerySet().models(Preparation)
+        preparations = list(item.object for item in
+                            SearchQuerySet().models(Preparation))
     else:
-        preparations = SearchQuerySet().models(Preparation).autocomplete(
-            content_auto=request.GET.get('search', ''))
+        preparations = list(item.object for item in
+                            SearchQuerySet().models(Preparation).autocomplete(
+                                content_auto=request.GET.get('search', '')))
         if not preparations:
             message = "No entry named " + request.GET.get('search')
 

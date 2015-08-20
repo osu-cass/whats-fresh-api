@@ -208,10 +208,13 @@ def vendor_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        vendors = SearchQuerySet().models(Vendor)
+        vendors = list(item.object for item in SearchQuerySet().models(Vendor))
     else:
-        vendors = SearchQuerySet().models(Vendor).autocomplete(
-            content_auto=request.GET.get('search', ''))
+        # vendors = SearchQuerySet().models(Vendor).autocomplete(
+        #     content_auto=request.GET.get('search', ''))
+        vendors = list(item.object for item in
+                       SearchQuerySet().models(Vendor).autocomplete(
+                           content_auto=request.GET.get('search', '')))
         if not vendors:
             message = "No entry named " + request.GET.get('search', '')
 

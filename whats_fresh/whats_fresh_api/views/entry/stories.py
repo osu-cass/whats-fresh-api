@@ -30,10 +30,12 @@ def story_list(request):
         message = "Entry deleted successfully!"
 
     if request.GET.get('search') is None:
-        stories = SearchQuerySet().models(Story)
+        stories = list(item.object for item in
+                       SearchQuerySet().models(Story))
     else:
-        stories = SearchQuerySet().models(Story).autocomplete(
-            content_auto=request.GET.get('search', ''))
+        stories = list(item.object for item in
+                       SearchQuerySet().models(Story).autocomplete(
+                           content_auto=request.GET.get('search', '')))
         if not stories:
             message = "No entry named " + request.GET.get('search')
 

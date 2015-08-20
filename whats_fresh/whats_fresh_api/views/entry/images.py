@@ -33,10 +33,12 @@ def image_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        images = SearchQuerySet().models(Image)
+        images = list(item.object for item in
+                      SearchQuerySet().models(Image))
     else:
-        images = SearchQuerySet().models(Image).autocomplete(
-            content_auto=request.GET.get('search', ''))
+        images = list(item.object for item in
+                      SearchQuerySet().models(Image).autocomplete(
+                          content_auto=request.GET.get('search', '')))
         if not images:
             message = "No entry named " + request.GET.get('search')
 

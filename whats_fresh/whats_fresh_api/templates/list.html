@@ -21,24 +21,26 @@
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>
     <div class='list'>
 {% for item in item_list %}
-<a href="{% url edit_url item.object.id %}">
+{% if item != None %}
+<a href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
-        <p class='item'>{{ item.object.name }}</p>
-        {% if item.object.description %}
+        <p class='item'>{{ item.name }}</p>
+        {% if item.description %}
         <div class='description'>
             <p>{% if description_field %}
                     {% load getattr %}
                     {% if item|getattr:description_field.attribute %}
-                        {{ description_field.title }}:
+                        { description_field.title }
                             {{ item|getattr:description_field.attribute }}
                     {% endif %}
                 {% else %}
-                    Description: {{ item.object.description }}{% endif %}</p>
+                    Description: {{ item.description }}{% endif %}</p>
         </div>
         {% endif %}
     </div>
 </a>
 <hr>
+{% endif %}
 {% endfor %}
 <div class="pagination">
     <span class="step-links">

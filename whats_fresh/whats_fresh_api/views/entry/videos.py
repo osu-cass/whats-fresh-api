@@ -33,10 +33,11 @@ def video_list(request):
         message = "Entry saved successfully!"
 
     if request.GET.get('search') is None:
-        videos = SearchQuerySet().models(Video)
+        videos = list(item.object for item in SearchQuerySet().models(Video))
     else:
-        videos = SearchQuerySet().models(Video).autocomplete(
-            content_auto=request.GET.get('search', ''))
+        videos = list(item.object for item in
+                      SearchQuerySet().models(Video).autocomplete(
+                          content_auto=request.GET.get('search', '')))
         if not videos:
             message = "No entry named " + request.GET.get('search')
 
