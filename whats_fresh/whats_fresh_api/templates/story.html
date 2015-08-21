@@ -62,7 +62,7 @@
             <select disabled id="existing{{ prep.id }}" class="image_select">
                 <option value="{{ image.id }}">{{ image.name }}</option>
             </select>
-            <a href="#" onclick="deleteImage(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+            <a href="#" onclick="deleteImage(this);return false;"><i class="delete material-icons">delete</i></a>
         </div>
         {% endfor %}
         {% else %}
@@ -87,7 +87,7 @@
         <select disabled id="existing{{ prep.id }}" class="video_select">
             <option value="{{ video.id }}">{{ video.name }}</option>
         </select>
-        <a href="#" onclick="deleteVideo(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+        <a href="#" onclick="deleteVideo(this);return false;"><i class="delete material-icons">delete</i></a>
     </div>
     {% endfor %}
     {% else %}
@@ -121,7 +121,7 @@
             <option value="{{ video.id }}">{{ video.name }}</option>
             {% endfor %}
         </select>
-        <a href="#" onclick="deleteVideo(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+        <a href="#" onclick="deleteVideo(this);return false;"><i class="delete material-icons">delete</i></a>
     </div>
 </div>
 
@@ -134,7 +134,7 @@
             <option value="{{ image.id }}">{{ image.name }}</option>
             {% endfor %}
         </select>
-        <a href="#" onclick="deleteImage(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+        <a href="#" onclick="deleteImage(this);return false;"><i class="delete material-icons">delete</i></a>
     </div>
 </div>
 {% endblock content %}
@@ -203,7 +203,7 @@
             $('#inline_image').append($('<div class="image">')
             .append($('<select disabled class="image_select">')
             .append($("<option>").attr("value", imgId)
-            .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+            .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<i class="delete material-icons">delete</i></a>'));
 
             $( ".image_select" ).append($("<option>").attr("value", imgId).text(imgName));
             $( ".no_image" ).hide();
@@ -241,7 +241,7 @@
             $('#inline_video').append($('<div class="video">')
             .append($('<select disabled class="video_select">')
             .append($("<option>").attr("value", vidId)
-            .text(vidName))).append('<a href="#" onclick="deleteVideo(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+            .text(vidName))).append('<a href="#" onclick="deleteVideo(this);return false;">\n<i class="delete material-icons">delete</i></a>'));
 
             $( ".video_select" ).append($("<option>").attr("value", vidId).text(vidName));
             $( ".no_video" ).hide();
