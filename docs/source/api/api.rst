@@ -614,7 +614,7 @@ Themes listing
 The themes listing is available at ``/themes/``. It returns a JSON array
 consisting of each of the themes, and information about them.
 The colors selected are sent as a RGB string.
-For activating a particular theme set its ``Active`` field as ``Yes``.
+The active theme has its active field set to Yes.
 
 Optional Fields
 ^^^^^^^^^^^^^^^

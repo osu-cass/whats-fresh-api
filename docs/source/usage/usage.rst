@@ -27,7 +27,7 @@ The objects in What's Fresh sometimes depend on other objects. We recommend the 
 
 1.	Determine what Preparations are available for this Product (smoked, dried, fresh, etc).
 2.	Create the Preparation objects if they don't already exist.
-3.  You can directly create the requires preparation within the product form itself.
+3.  You can directly create the required preparation within the product form itself.
 4.	If there is an Image for this Product, create an Image object (be sure to give the image a unique and descriptive name).
 5.	If this Product has a Story, make sure that Story exists (for instance, the Salmon story will probably be shared by all varieties of Salmon).
 6.	Create the Product object, selecting the correct Story and Image, and add each applicable preparation.
@@ -40,11 +40,8 @@ The objects in What's Fresh sometimes depend on other objects. We recommend the 
 
 **Stories**
 
-1.	If this Story includes Images, create the Images.
-2.  You can directly create new images from the story form itself.
-3.	If this Story includes Videos, create the Videos.
-4   You can directly create new videos from the story form itself.
-5.	Create the Story object, adding the correct Images and Videos, if applicable.
+1.  You can directly create new images from the story form itself.
+2.  You can directly create new videos from the story form itself.
 
 See below for details on adding these objects.
 
@@ -67,7 +64,7 @@ Certain information is required to create a new Vendor, make sure you know these
 	A brief description of the business.
 *Address*
 	The address field where address of the vendor is submitted
-	This address is broken into parts and stored as street, city , state, zip.
+	This address is broken into parts and stored as street, city, state and zip.
 *Contact Name*
 	The primary contact name for this Vendor.
 *Products*

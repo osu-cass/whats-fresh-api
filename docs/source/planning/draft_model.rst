@@ -33,7 +33,7 @@ themes
 	foreground_color        varchar
 	header_color            varchar
 	font_color              varchar
-	logo                    image? (optional)
+	logo                    url (optional, pointing to an image)
 	slogan                  char (optional)
 	site_title              char
 	vendors                 char
