@@ -40,7 +40,18 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'whats_fresh.whats_fresh_api',
+    'whoosh',
+    'haystack',
 )
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    },
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -101,5 +112,17 @@ LOGIN_URL = '/login'
 
 DEFAULT_GROUP_NAME = 'Data Entry Users'
 
-# Title for the application UI
+# Default Theme for the application UI
 SITE_TITLE = "Oregon's Catch"
+VENDORS = "Vendors"
+PRODUCTS = "Products"
+PREPARATIONS = "Preparations"
+STORIES = "Stories"
+VIDEOS = "Videos"
+IMAGES = "Images"
+VENDORS_SLUG = "vendors"
+PRODUCTS_SLUG = "products"
+PREPARATIONS_SLUG = "preparations"
+STORIES_SLUG = "stories"
+IMAGES_SLUG = "images"
+VIDEOS_SLUG = "videos"

@@ -2,21 +2,63 @@
 <html>
     <head>
 		{% load site_title %}
+        {% load get_fieldname %}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>{% site_title %} | {{ title }}</title>
+		<title>{{ 'site_title'|get_fieldname }} | {{ title }}</title>
         <link rel="icon" type="image/png" href="/static/favicon.png">
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,300italic' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300&effect=3d-float' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,300italic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300&effect=3d-float' rel='stylesheet' type='text/css'>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" media="all" />
+        <script src="//rawgit.com/tschuy/jquery-locationpicker-plugin/master/src/locationpicker.jquery.js"></script>
         {% load staticfiles %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
     </head>
+    <style type="text/css">
+        body
+        {
+            background-color: {{ 'background_color' | get_fieldname }};
+        }
+        .content
+        {
+          background-color: {{ 'foreground_color' | get_fieldname }};
+        }
+        .header
+        {
+          background-color: {{ 'header_color' | get_fieldname }};
+        }
+        .header a
+        {
+          color: {{ 'font_color' | get_fieldname }};
+        }
+        .header h4
+        {
+          color: {{ 'font_color' | get_fieldname }};
+        }
+        .entry h4
+        {
+          color: {{ 'font_color' | get_fieldname }};
+        }
+
+    </style>
     <body>
         <div class="header">
             {% block header %}
             {% endblock header%}
-			<h2><a href='/entry'>{% site_title %}</a></h2>
+            <div id="header_site">
+            <div class="header_image">
+                {% if 'logo'|get_fieldname %}
+                    <a href='/entry'><img class="site_image" src="{{ 'logo'|get_fieldname }}"></a>
+                {% endif %}
+            </div>
+            <div class="header_text">
+                <h2><a href='/entry'>{{ 'site_title'|get_fieldname }}</a></h2>
+                <h4>{% if 'slogan'|get_fieldname %} {{ 'slogan'|get_fieldname }} {% endif %}</h4>
+            </div>
+            </div>
             {% if user.is_authenticated %}
             <a class='logout' href='/logout'>Logout</a>
             {% endif %}

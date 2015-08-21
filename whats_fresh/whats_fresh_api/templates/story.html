@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load get_fieldname %}
 {% block header %}
 <div class="back">
     {% for p in parent_url %}
@@ -53,8 +54,8 @@
         {{ story_form.products }}
 
     <div class="image_container">
-        <h3>Images</h3>
-        <button type="button" onclick="appendImage()">Add Image</button>
+        <h3>{{ 'images'|get_fieldname }}</h3>
+        <button type="button" onclick="appendImage()">Add {{ 'images'|get_fieldname }}</button>
         {% if existing_images %}
         {% for image in existing_images %}
         <div class="image">
@@ -65,26 +66,42 @@
         </div>
         {% endfor %}
         {% else %}
-        <span class="no_image">No Images Yet!</span>
+        <span class="no_image">No {{ 'images'|get_fieldname }} Yet!</span>
         {% endif %}
+
     </div>
 
-        <div class="video_container">
-        <h3>Videos</h3>
-        <button type="button" onclick="appendVideo()">Add Video</button>
-        {% if existing_videos %}
-        {% for video in existing_videos %}
-        <div class="video">
-            <select disabled id="existing{{ prep.id }}" class="video_select">
-                <option value="{{ video.id }}">{{ video.name }}</option>
-            </select>
-            <a href="#" onclick="deleteVideo(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
-        </div>
-        {% endfor %}
-        {% else %}
-        <span class="no_video">No Videos Yet!</span>
-        {% endif %}
+    <div id="inline_image">  <!-- Div used if a new inline image submitted -->
     </div>
+
+    <button type="submit" id="newImage-btn" onclick="return imagePopup('/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'images_slug'|get_fieldname }}/new/')">Add New
+    {{ 'images'|get_fieldname }}</button>
+    <div id="image-popup"></div>
+
+    <div class="video_container">
+    <h3>{{ 'videos'|get_fieldname }}</h3>
+    <button type="button" onclick="appendVideo()">Add {{ 'videos'|get_fieldname }}</button>
+    {% if existing_videos %}
+    {% for video in existing_videos %}
+    <div class="video">
+        <select disabled id="existing{{ prep.id }}" class="video_select">
+            <option value="{{ video.id }}">{{ video.name }}</option>
+        </select>
+        <a href="#" onclick="deleteVideo(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+    </div>
+    {% endfor %}
+    {% else %}
+    <span class="no_video">No {{ 'videos'|get_fieldname }} Yet!</span>
+    {% endif %}
+
+    </div>
+
+    <div id="inline_video">  <!-- Div used if a new inline video submitted -->
+    </div>
+
+    <button type="submit" onclick="return videoPopup('/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'videos_slug'|get_fieldname }}/new/')">Add New {{ 'videos'|get_fieldname }}</button>
+    <div id="video-popup"></div>
+
 
     <input class='image' name="image_ids" type="hidden" />
     <input class='image' name="video_ids" type="hidden" />
@@ -124,6 +141,117 @@
 
 {% block footer %}
 <script>
+
+    if ( window.FormData === undefined )
+        $("#newImage-btn").hide();
+
+    function imagePopup(url) {
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data) {
+          $("#image-popup").html(data).dialog({modal:true}, {title: "New Image"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+        }
+
+      });
+
+      return false;
+    }
+
+
+    function videoPopup(url) {
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data) {
+          $("#video-popup").html(data).dialog({modal:true}, {title: "New Video"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+        }
+      });
+
+      return false;
+    }
+
+   $("#image-popup").on('submit', function (e) {
+
+    var fd = new FormData(document.forms.namedItem("newImage"));
+
+     e.preventDefault();
+
+     $.ajax({
+        type: "POST",
+        url: '/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'images_slug'|get_fieldname }}/new',
+        processData: false,
+        contentType: false,
+        data: fd,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data)
+        {
+            if (data.constructor === "test".constructor) {      // checks if the data is a string
+                $("#image-popup").html(data);
+                $('html, body').animate({
+                    scrollTop: $("#image_error").offset().top - 100
+                 }, 500);
+                return
+            }
+
+            $("#image-popup").dialog('close');
+            var imgName = data.name;
+            var imgId = data.id;
+
+            $('#inline_image').append($('<div class="image">')
+            .append($('<select disabled class="image_select">')
+            .append($("<option>").attr("value", imgId)
+            .text(imgName))).append('<a href="#" onclick="deleteImage(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+            $( ".image_select" ).append($("<option>").attr("value", imgId).text(imgName));
+            $( ".no_image" ).hide();
+        }
+      });
+
+
+   });
+
+
+   $("#video-popup").on('submit', function (e) {
+
+     e.preventDefault();
+
+     $.ajax({
+        type: "POST",
+        url: '/entry/{{ 'stories_slug'|get_fieldname }}/new/{{ 'videos_slug'|get_fieldname }}/new',
+        data: $("#video-form").serialize(),
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data)
+        {
+
+            if (data.constructor === "test".constructor) {      // checks if the data is a string
+                $("#video-popup").html(data);
+                $('html, body').animate({
+                    scrollTop: $("#video_error").offset().top - 100
+                 }, 500);
+                return
+            }
+
+            $("#video-popup").dialog('close');
+            var vidName = data.name;
+            var vidId = data.id;
+
+            $('#inline_video').append($('<div class="video">')
+            .append($('<select disabled class="video_select">')
+            .append($("<option>").attr("value", vidId)
+            .text(vidName))).append('<a href="#" onclick="deleteVideo(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+
+            $( ".video_select" ).append($("<option>").attr("value", vidId).text(vidName));
+            $( ".no_video" ).hide();
+
+        }
+      });
+
+   });
+
+
     function deleteStory()
     {
         if(confirm('Are you sure you want to delete this story?')) {
@@ -151,14 +279,14 @@
     function deleteVideo(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".video:visible" ).length === 0) {
-            $( ".no_products" ).show();
+        if ($( ".video:visible" ).length === 0 ) {
+            $( ".no_video" ).show();
         };
     }
 
     function appendVideo()
     {
-        $( ".no_videos" ).hide();
+        $( ".no_video" ).hide();
         var new_html = $('#new_video').html();
         var new_html = new_html.split("$iteration").join(number_of_videos);
         $( ".video_container" ).append( new_html );
@@ -168,14 +296,14 @@
     function deleteImage(element)
     {
         $( element ).parent().css("display", "none");
-        if ($( ".image:visible" ).length === 0) {
-            $( ".no_images" ).show();
+        if ($( ".image:visible" ).length === 0 ) {
+            $( ".no_image" ).show();
         };
     }
 
     function appendImage()
     {
-        $( ".no_images" ).hide();
+        $( ".no_image" ).hide();
         var new_html = $('#new_image').html();
         var new_html = new_html.split("$iteration").join(number_of_images);
         $( ".image_container" ).append( new_html );

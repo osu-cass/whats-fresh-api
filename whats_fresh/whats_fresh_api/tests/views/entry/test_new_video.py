@@ -56,30 +56,10 @@ class NewVideoTestCase(TestCase):
             # form[field].value
             self.assertIn(fields[field], str(form[field]))
 
-    def test_successful_video_creation_minimal(self):
+    def test_successful_video_creation(self):
         """
         POST a proper "new video" command to the server, and see if the
         new video appears in the database. All optional fields are null.
-        """
-        Video.objects.all().delete()
-
-        # Data that we'll post to the server to get the new video created
-        new_video = {
-            'caption': "A thrilling display of utmost might",
-            'name': "You won't believe number 3!",
-            'video': 'http://www.youtube.com/watch?v=dQw4w9WgXcQ'}
-
-        self.client.post(reverse('new-video'), new_video)
-
-        video = Video.objects.all()[0]
-        for field in new_video:
-            self.assertEqual(
-                getattr(video, field), new_video[field])
-
-    def test_successful_video_creation_maximal(self):
-        """
-        POST a proper "new video" command to the server, and see if the
-        new video appears in the database. All optional fields are used.
         """
         Video.objects.all().delete()
 

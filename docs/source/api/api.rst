@@ -480,7 +480,19 @@ Example: GET /vendors/2
 Story details
 ---------------
 
-The ``/stories/<id>`` endpoint returns the story for a given ID.
+The ``/stories/<id>`` endpoint returns the same data as ``/stories``, but
+only for the story specified by id. This is used when the ID of a vendor is
+known, but the details of the story are not.
+
+Optional Fields
+^^^^^^^^^^^^^^^
+
+The following fields in a vendor can be either a value, or null:
+
+* images: this field may be an empty list
+* videos: this field may be an empty list
+
+Any of the text fields may be empty strings.
 
 Example: GET /stories/2
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -488,14 +500,48 @@ Example: GET /stories/2
 .. code-block:: javascript
 
     {
-      "error": {
-        "error_status": false,
-        "error_name": null,
-        "error_text": null,
-        "error_level": null
-      },
-      "story": "A story can contain various bits of text."
+        "error": {
+            "status": false,
+            "text": null,
+            "name": null,
+            "debug": null,
+            "level": null
+        },
+        "name": "Tuna",
+        "videos": [
+            {
+                "caption": "A video all about tuna",
+                "link": "https://www.youtube.com/watch?v=Awf45u6zrP0",
+                "name": "Tuna! They rock!"
+            }
+        ],
+        "created": "2014-08-08T23:27:05.568Z",
+        "season": "Tuna can be harvested between Jultember and Januly.",
+        "modified": "2014-12-04T18:31:27.319Z",
+        "facts": "Tuna are a fish that can be eaten. Great in salads!",
+        "ext": { },
+        "products": "Canned tuna fish is pretty common.",
+        "preparing": "Boil 'em, mash 'em, stick 'em in a stew",
+
+        "images": [
+            {
+                "caption": "Tuna photo!",
+                "link": "/media/images/tuna-fighting-catfish.jpg",
+                "name": "Tuna Picture"
+            },
+            {
+                "caption": "This is a tuna fish.",
+                "link": "/media/images/tuna.jpg",
+                "name": "Tuna Picture 2"
+            }
+        ],
+        "id": 2,
+        "buying": "To buy a tuna just head down to the docks.",
+        "history": "Tuna have been eaten for years and years."
+
     }
+
+
 
 Preparation details
 -------------------

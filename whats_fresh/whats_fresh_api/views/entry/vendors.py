@@ -1,6 +1,7 @@
 from django.http import (HttpResponse, HttpResponseRedirect)
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
+from django.contrib.gis.geos import GEOSException
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.gis.geos import fromstr
 from django.shortcuts import get_object_or_404
@@ -12,10 +13,11 @@ from whats_fresh.whats_fresh_api.models import (Vendor, Product,
                                                 ProductPreparation,
                                                 VendorProduct)
 from whats_fresh.whats_fresh_api.forms import VendorForm
-from whats_fresh.whats_fresh_api.functions import (group_required,
-                                                   coordinates_from_address,
-                                                   BadAddressException)
+from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
 import json
 
 
@@ -44,22 +46,19 @@ def vendor(request, id=None):
         errors = []
 
         try:
-            coordinates = coordinates_from_address(
-                post_data['street'], post_data['city'], post_data['state'],
-                post_data['zip'])
-
             post_data['location'] = fromstr(
-                'POINT(%s %s)' % (coordinates[1], coordinates[0]),
-                srid=4326)
-        # Bad Address will be thrown if Google does not return coordinates for
-        # the address, and MultiValueDictKeyError will be thrown if the POST
-        # data being passed in is empty.
-        except (MultiValueDictKeyError, BadAddressException):
-            errors.append("Full address is required.")
+                'POINT(%s %s)' % (post_data['longitude'],
+                                  post_data['latitude']), srid=4326)
+        # Bad Address will be thrown if the coordinates submitted
+        # are invalid and GEOSException will be thrown.
+        except (GEOSException, ValueError):
+            errors.append("Invalid Coordinates.")
 
         try:
             if not post_data['preparation_ids']:
-                errors.append("You must choose at least one product.")
+                errors.append(
+                    "You must choose at least one entry from "
+                    + get_fieldname.get_fieldname('products'))
                 prod_preps = []
             else:
                 prod_preps = list(
@@ -69,7 +68,9 @@ def vendor(request, id=None):
                 post_data['products_preparations'] = prod_preps[0]
 
         except MultiValueDictKeyError:
-            errors.append("You must choose at least one product.")
+            errors.append(
+                "You must choose at least one entry from "
+                + get_fieldname.get_fieldname('products'))
             prod_preps = []
 
         vendor_form = VendorForm(post_data)
@@ -120,12 +121,19 @@ def vendor(request, id=None):
     else:
         existing_prod_preps = []
         errors = []
+        post_data = {}
 
     if id:
         vendor = Vendor.objects.get(id=id)
-        vendor_form = VendorForm(instance=vendor)
         title = "Edit %s" % vendor.name
         message = ""
+        if post_data:
+            latit = post_data.get('location')[1]
+            longit = post_data.get('location')[0]
+        else:
+            vendor_form = VendorForm(instance=vendor)
+            latit = vendor.location[1]
+            longit = vendor.location[0]
         post_url = reverse('edit-vendor', kwargs={'id': id})
         # If the list already has items, we're coming back to it from above
         # And have already filled the list with the product preparations POSTed
@@ -138,14 +146,18 @@ def vendor(request, id=None):
                     'product': vendor_product.product_preparation.product.name
                 })
     elif request.method != 'POST':
-        title = "Add a Vendor"
+        title = "New " + get_fieldname.get_fieldname('vendors')
         post_url = reverse('new-vendor')
         message = "* = Required field"
         vendor_form = VendorForm()
+        latit = '44.563781'
+        longit = '-123.27944400000001'
     else:
-        title = "Add aVendor"
+        title = "New " + get_fieldname.get_fieldname('vendors')
         message = "* = Required field"
         post_url = reverse('new-vendor')
+        latit = post_data['latitude']
+        longit = post_data['longitude']
 
     data = {}
     product_list = []
@@ -164,7 +176,8 @@ def vendor(request, id=None):
     return render(request, 'vendor.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('list-vendors-edit'), 'name': 'Vendors'}],
+            {'url': reverse('list-vendors-edit'),
+             'name': get_fieldname.get_fieldname('vendors')}],
         'title': title,
         'message': message,
         'post_url': post_url,
@@ -173,6 +186,8 @@ def vendor(request, id=None):
         'vendor_form': vendor_form,
         'json_preparations': json_preparations,
         'product_list': product_list,
+        'latit': latit,
+        'longit': longit,
     })
 
 
@@ -189,12 +204,24 @@ def vendor_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Vendor deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Vendor saved successfully!"
+        message = "Entry saved successfully!"
 
-    paginator = Paginator(Vendor.objects.order_by('name'),
-                          settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        vendors = Vendor.objects.order_by('name')
+    else:
+        vendors = list(
+            OrderedDict.fromkeys(
+                item.object for item in
+                SearchQuerySet().models(Vendor).autocomplete(
+                    content_auto=search)))
+        if not vendors:
+            message = "No results"
+
+    paginator = Paginator(vendors, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -211,9 +238,9 @@ def vendor_list(request):
         'parent_text': 'Home',
         'message': message,
         'new_url': reverse('new-vendor'),
-        'new_text': "New Vendor",
-        'title': "All Vendors",
-        'item_classification': "vendor",
+        'title': get_fieldname.get_fieldname('vendors'),
         'item_list': vendors,
-        'edit_url': 'edit-vendor'
+        'edit_url': 'edit-vendor',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('vendors_slug')
     })

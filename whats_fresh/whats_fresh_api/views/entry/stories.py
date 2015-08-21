@@ -8,6 +8,10 @@ from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from whats_fresh.whats_fresh_api.forms import StoryForm
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
+
 import json
 
 
@@ -24,9 +28,23 @@ def story_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Story deleted successfully!"
+        message = "Entry deleted successfully!"
 
-    paginator = Paginator(Story.objects.order_by('name'), settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        stories = Story.objects.order_by('name')
+    else:
+        if request.GET.get('search') != "":
+            stories = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Story).autocomplete(
+                        content_auto=search)))
+            if not stories:
+                message = "No results"
+
+    paginator = Paginator(stories, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -43,11 +61,12 @@ def story_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-story'),
-        'new_text': "New Item",
-        'title': "Product Education",
-        'item_classification': "item",
+        'title': get_fieldname.get_fieldname('stories'),
         'item_list': stories,
-        'edit_url': 'edit-story'
+        'edit_url': 'edit-story',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('stories_slug')
+
     })
 
 
@@ -131,18 +150,18 @@ def story(request, id=None):
         existing_videos = story.videos.all()
 
         if request.GET.get('success') == 'true':
-            message = "Story saved successfully!"
+            message = "Entry saved successfully!"
 
     elif request.method != 'POST':
         story_form = StoryForm()
         post_url = reverse('new-story')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('stories')
         existing_images = []
         existing_videos = []
 
     else:
         post_url = reverse('new-story')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('stories')
         existing_images = []
         existing_videos = []
 
@@ -163,7 +182,8 @@ def story(request, id=None):
     return render(request, 'story.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-stories'), 'name': 'Product Education'}
+            {'url': reverse('entry-list-stories'),
+             'name': get_fieldname.get_fieldname('stories')}
         ],
         'existing_images': existing_images,
         'existing_videos': existing_videos,

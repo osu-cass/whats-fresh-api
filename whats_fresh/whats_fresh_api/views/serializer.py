@@ -2,7 +2,22 @@ from django.core.serializers import json
 from whats_fresh.whats_fresh_api.models import Vendor
 
 
+def is_list(arg):
+    return (not hasattr(arg, "strip") and
+            hasattr(arg, "__getitem__") or
+            hasattr(arg, "__iter__"))
+
+
 class FreshSerializer(json.Serializer):
+
+    def serialize(self, objects, **kwargs):
+        if not is_list(objects):
+            objects = [objects]
+            return super(FreshSerializer, self).serialize(
+                objects, use_natural_foreign_keys=True)[1:-1]
+        else:
+            return super(FreshSerializer, self).serialize(
+                objects, use_natural_foreign_keys=True)
 
     def get_dump_object(self, obj):
         self._current['id'] = obj.id

@@ -9,14 +9,20 @@
 {% endblock header %}
 
 {% block title %}
-<h2 class='light'>{{ title }}</h2>
-<p class='light accent'>Click on the {{ item_classification }} to edit it or add a <span class="new"><a href='{{ new_url }}'>{{ new_text }}</a></span></p>
+<h2 class='light'><a id="form-title"href="/entry/{{list_url}}">{{ title }}</a></h2>
+<p class='light accent'>Click to edit or add a <span class="new"><a href='{{ new_url }}'>New One</a></span></p>
 {% endblock title %}
 
 {% block content %}
+<form class="search-bar" action="">
+<input id="search-list" type="text" name="search" {% if search_text %} value="{{ search_text }}" {% endif %} required="true">
+<button id="search-btn" type="submit">Search</button>
+</form><br>
 <div class='message'><h4 class='light accent'>{{ message }}</h4></div>
     <div class='list'>
 {% for item in item_list %}
+{% if item != None %}
+{% comment %}<p>Bad workaround for Whoosh searches containing None items</p>{% endcomment %}
 <a href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
         <p class='item'>{{ item.name }}</p>
@@ -35,6 +41,7 @@
     </div>
 </a>
 <hr>
+{% endif %}
 {% endfor %}
 <div class="pagination">
     <span class="step-links">

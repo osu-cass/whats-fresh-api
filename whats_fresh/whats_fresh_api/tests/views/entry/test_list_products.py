@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import Product
 from django.contrib.auth.models import User, Group
+from whats_fresh.whats_fresh_api.models import Product
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 
 class ListProductTestCase(TestCase):
@@ -72,3 +74,14 @@ class ListProductTestCase(TestCase):
         self.assertEqual(
             list(page_1['item_list']),
             list(page_nan['item_list']))
+
+    def test_search_result(self):
+        search_result = self.client.get(
+            '{}?search=20'.format(
+                reverse('entry-list-products'))
+        ).context
+
+        self.assertEqual(list(search_result['item_list']),
+                         list(OrderedDict.fromkeys(item.object for item in
+                              SearchQuerySet().models(Product)
+                              .autocomplete(content='20'))))
