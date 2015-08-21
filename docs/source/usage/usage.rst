@@ -26,10 +26,11 @@ The objects in What's Fresh sometimes depend on other objects. We recommend the 
 **Products**
 
 1.	Determine what Preparations are available for this Product (smoked, dried, fresh, etc).
-2.	Create the Preparation objects if they don't already exist, you can directly create the desired preparation within the product form itself.
-3.	If there is an Image for this Product, create an Image object (be sure to give the image a unique and descriptive name).
-4.	If this Product has a Story, make sure that Story exists (for instance, the Salmon story will probably be shared by all varieties of Salmon).
-5.	Create the Product object, selecting the correct Story and Image, and add each applicable preparation.
+2.	Create the Preparation objects if they don't already exist.
+3.  You can directly create the requires preparation within the product form itself.
+4.	If there is an Image for this Product, create an Image object (be sure to give the image a unique and descriptive name).
+5.	If this Product has a Story, make sure that Story exists (for instance, the Salmon story will probably be shared by all varieties of Salmon).
+6.	Create the Product object, selecting the correct Story and Image, and add each applicable preparation.
 
 **Vendors**
 
@@ -39,9 +40,11 @@ The objects in What's Fresh sometimes depend on other objects. We recommend the 
 
 **Stories**
 
-1.	If this Story includes Images, create the Images, you can directly create new images from the story form itself.
-2.	If this Story includes Videos, create the Videos, you can directly create new videos from the story form itself.
-3.	Create the Story object, adding the correct Images and Videos, if applicable.
+1.	If this Story includes Images, create the Images.
+2.  You can directly create new images from the story form itself.
+3.	If this Story includes Videos, create the Videos.
+4   You can directly create new videos from the story form itself.
+5.	Create the Story object, adding the correct Images and Videos, if applicable.
 
 See below for details on adding these objects.
 
@@ -51,10 +54,6 @@ Vendors
 These are the records for businesses that sell products. Vendors are also specific to a location, so if Bob's Fish has two different locations where they sell their Products, each location will be a separate Vendor. These can be distinguished by name, for instance Bob's Fish Newport and Bob's Fish Waldport.
 
 The address for a Vendor should be the actual location where they sell their Products, not an office or P.O. box.
-
-**Pre-requisites**
-
-Vendors sell Products, so in order to create a new Vendor, some Products must exist (ideally, the specific Products that Vendor sells). Before creating a new Vendor, it is a good idea to make sure their Products exist if not you can do so by creating one directly from the vendor's from itself. The Vendor form *requires* at least one Product to be added to the Vendor. A Vendor's Product list can be changed later.
 
 **Required Data**
 
@@ -67,7 +66,8 @@ Certain information is required to create a new Vendor, make sure you know these
 *Description*
 	A brief description of the business.
 *Address*
-	The address field where address of the vendor is submitted, this address is broken into strret, city , state, zip and is sent to the database.
+	The address field where address of the vendor is submitted
+	This address is broken into parts and stored as street, city , state, zip.
 *Contact Name*
 	The primary contact name for this Vendor.
 *Products*
@@ -107,10 +107,6 @@ Preparations
 
 Preparations are the way in which a Product can be prepared for sale. This can include fresh, frozen, live, smoked, cooked, dried, and many more.
 
-**Pre-requisites**
-
-Preparations have no prerequisites.
-
 **Required Data**
 
 Preparations require the following fields to be filled out:
@@ -136,10 +132,6 @@ Products are what Vendors sell, and the central Object in What's Fresh.
 .. note::
 
 	Different varieties of a particular product should be treated as separate products, if they are sold as such. For instance, different varieties of Salmon are sold with different prices, therefore Coho, Chinook and Sockeye salmon should be separate products. The 'Specific Variety' field of all these Products will be 'Salmon', and each will have a different value in the 'Product Name' field.
-
-**Pre-requisites**
-
-Products require Preparations. Make sure all the possible preparations this Product can have are created first if not you can do so by creating one directly from the product's from itself. If an Image or Story is going to be added, these objects should be created before adding the Product.
 
 **Required Data**
 
@@ -183,10 +175,6 @@ Stories
 
 Stories are collections of educational information about a Product or Vendor. Stories may be shared by many varieties of a particular Product - for instance the Salmon Story will likely apply to Coho, Chinook, and Sockeye salmon, which are all distinct Products.
 
-**Pre-requisites**
-
-If Images or Videos are going to be added to this Story, they should be created before the Story is created or you can directly create new one's from the story's from itself.
-
 **Required Data**
 
 Stories require the following fields to be filled out:
@@ -210,22 +198,18 @@ Stories require the following fields to be filled out:
 	(Product only) Detailed information about the season for this Product.
 *Images*
 	One or more images related to this Product.
+	New Images can be added by clicking on Add New Image button.
+	A popup form for images will appear and required information can be added.
 *Videos*
 	One or more videos related to this Product.
-*Add New Images*
-	New Images can be added by clicking on this button, a popup form for images will appear and desired information can be added and a new image is submitted.
-*Add New Videos*
-	New videos can be added by clicking on this button, a popup form for videos will appear and desired information can be added and a new video is submitted.
+	New videos can be added by clicking on Add New Video button.
+	A popup form for videos will appear and required information can be added.
 
 
 Videos
 ++++++
 
 Videos are external links to videos hosted on YouTube, Vimeo, or elsewhere. Any video that can be streamed can be used here.
-
-**Pre-requisites**
-
-Videos have no pre-requisites.
 
 **Required Data**
 
@@ -248,10 +232,6 @@ Images
 
 Images are uploaded image files. The Image upload form accepts .jpg, .png, and .gif image files. Images may be displayed as a single representative image for a Product in a Product view, or as part of a slideshow of images in a Story.
 
-**Pre-requisites**
-
-Images have no pre-requisites.
-
 **Required Data**
 
 Images require the following fields to be filled out:
@@ -266,66 +246,3 @@ Images require the following fields to be filled out:
 **Optional Data**
 
 Images have no optional fields.
-
-
-Themes
-++++++
-
-Themes are a set settings defined for User Interface preferences of the site. A variety of options are available to choose from such as changing the background color, site title, form labels etc..
-
-
-**Required Data**
-
-Themes require the following fields to be filled out:
-
-*Name*
-	The name of this Theme.
-
-**Optional Data**
-
-These fields are optional:
-
-*Background Color*
-	The background color you want for the site (default is rgb(81, 114, 133)).
-*Foreground Color*
-	The foreground color you want for the site (default is rgb(81, 114, 133)).
-*Header Color*
-	The header color you want for the site (default is rgb(255, 255, 255)).
-*Font Color*
-	The font color you want for the site (default is rgb(51, 51, 51)).
-*Logo*
-	The logo you want for the site.
-*slogan*
-	The slogan for the site.
-*Site Title*
-	The title for the site (default is Oregon's Catch).
-*vendors*
-	The Vendors form label, you can change this to whatever you want (default is Vendors).
-*vendors slug*
-	The endpoint for vendors, ideally this should has the same value as vendors (default is vendors).
-*products*
-	The Products form label, you can change this to whatever you want (default is Products).
-*products slug*
-	The endpoint for products, ideally this should has the same value as products (default is products).
-*preparations*
-	The Preparations form label, you can change this to whatever you want (default is Vendors).
-*preparations slug*
-	The endpoint for preparations, ideally this should has the same value as preparations (default is preparations).
-*stories*
-	The Stories form label, you can change this to whatever you want (default is Stories).
-*stories slug*
-	The endpoint for stories, ideally this should has the same value as stories (default is stories).
-*images*
-	The Image form label, you can change this to whatever you want (default is Images).
-*images slug*
-	The endpoint for images, ideally this should has the same value as images (default is images).
-*videos*
-	The Videos form label, you can change this to whatever you want (default is Vidoes)
-*vidoes slug*
-	The endpoint for videos, ideally this should has the same value as videos (default is videos).
-*active*
-	This should be "Yes" for a particular theme to be activated (default is "No").
-
-.. note::
-
-	When a Theme is added, it will not be activated until the active field is set to Yes. Keep in mind that if you change the slug fields to something other than the default value you'll need to restart the server to see the corrsponding changes in URL bar to take place because URL's are loaded only on server load.

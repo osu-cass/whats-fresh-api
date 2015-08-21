@@ -27,28 +27,28 @@ themes
 
 .. code-block:: python
 
-	id 						int (pk)
-	name            		char
-	background_color 		varchar
-	foreground_color    	varchar
-	header_color     		varchar
-	font_color          	varchar
-	logo                	image? (optional)
-	slogan		        	char (optional)
-	site_title    			char
-	vendors      			char
-	vendors_slug        	int (optional, image foreign key)
-	products      			char
-	products_slug       	slug
-	preparations        	char
-	preparations_slug 		slug
-	stories 				char
-	stories_slug 			slug
-	videos    				char
-	videos_slug 			char
-	images 					char
-	images_slug				slug
-	active 					char
+	id                      int (pk)
+	name                    char
+	background_color        varchar
+	foreground_color        varchar
+	header_color            varchar
+	font_color              varchar
+	logo                    image? (optional)
+	slogan                  char (optional)
+	site_title              char
+	vendors                 char
+	vendors_slug            int (optional, image foreign key)
+	products                char
+	products_slug           slug
+	preparations            char
+	preparations_slug       slug
+	stories                 char
+	stories_slug            slug
+	videos                  char
+	videos_slug             char
+	images                  char
+	images_slug             slug
+	active                  char
 
 
 vendors
