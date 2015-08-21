@@ -22,9 +22,7 @@
     <div class='list'>
 {% for item in item_list %}
 {% if item != None %}
-{% comment %}
-    <p>Bad workaround for items = None, find another way to do this</p>
-{% endcomment %}
+{% comment %}<p>Bad workaround for Whoosh searches containing None items</p>{% endcomment %}
 <a href="{% url edit_url item.id %}">
         <div class='{{ item_classification }} '>
         <p class='item'>{{ item.name }}</p>

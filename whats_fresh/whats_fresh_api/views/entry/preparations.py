@@ -37,14 +37,11 @@ def prep_list(request):
         preparations = Preparation.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
-            preparations = list(OrderedDict
-                                .fromkeys(item.object for item in
-                                          SearchQuerySet()
-                                          .models(Preparation)
-                                          .autocomplete(
-                                              content_auto=request.GET
-                                              .get('search', '')))
-                                )
+            preparations = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Preparation).autocomplete(
+                        content_auto=request.GET.get('search', ''))))
             if not preparations:
                 message = "No results"
 

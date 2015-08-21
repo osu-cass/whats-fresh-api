@@ -169,13 +169,11 @@ def product_list(request):
         products = Product.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
-            products = list(OrderedDict
-                            .fromkeys(item.object for item in
-                                      SearchQuerySet().models(Product)
-                                      .autocomplete(
-                                          content_auto=request.GET
-                                          .get('search', '')))
-                            )
+            products = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Product).autocomplete(
+                        content_auto=request.GET.get('search', ''))))
             if not products:
                 message = "No results"
 

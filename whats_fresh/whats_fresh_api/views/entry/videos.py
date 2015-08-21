@@ -37,13 +37,11 @@ def video_list(request):
         videos = Video.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
-            videos = list(OrderedDict
-                          .fromkeys(item.object for item in
-                                    SearchQuerySet().models(Video)
-                                    .autocomplete(
-                                        content_auto=request.GET
-                                        .get('search', '')))
-                          )
+            videos = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Video).autocomplete(
+                        content_auto=request.GET.get('search', ''))))
             if not videos:
                 message = "No results"
 

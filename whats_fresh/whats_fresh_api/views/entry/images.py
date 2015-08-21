@@ -37,13 +37,11 @@ def image_list(request):
         images = Image.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
-            images = list(OrderedDict
-                          .fromkeys(item.object for item in
-                                    SearchQuerySet().models(Image)
-                                    .autocomplete(
-                                        content_auto=request.GET
-                                        .get('search', '')))
-                          )
+            images = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Image).autocomplete(
+                        content_auto=request.GET.get('search', ''))))
             if not images:
                 message = "No results"
 

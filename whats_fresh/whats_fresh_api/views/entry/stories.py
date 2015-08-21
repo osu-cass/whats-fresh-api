@@ -34,13 +34,11 @@ def story_list(request):
         stories = Story.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
-            stories = list(OrderedDict
-                           .fromkeys(item.object for item in
-                                     SearchQuerySet().models(Story)
-                                     .autocomplete(
-                                         content_auto=request.GET
-                                         .get('search', '')))
-                           )
+            stories = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Story).autocomplete(
+                        content_auto=request.GET.get('search', ''))))
             if not stories:
                 message = "No results"
 

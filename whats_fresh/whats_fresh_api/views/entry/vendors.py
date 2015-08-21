@@ -211,13 +211,11 @@ def vendor_list(request):
     if request.GET.get('search') is None or request.GET.get('search') == "":
         vendors = Vendor.objects.order_by('name')
     else:
-        vendors = list(OrderedDict
-                       .fromkeys(item.object for item in
-                                 SearchQuerySet().models(Vendor)
-                                 .autocomplete(
-                                     content_auto=request.GET
-                                     .get('search', '')))
-                       )
+        vendors = list(
+            OrderedDict.fromkeys(
+                item.object for item in
+                SearchQuerySet().models(Vendor).autocomplete(
+                    content_auto=request.GET.get('search', ''))))
         if not vendors:
             message = "No results"
 
