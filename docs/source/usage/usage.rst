@@ -21,12 +21,12 @@ The forms for editing and for adding new objects are the same, except that the e
 Workflow
 ++++++++
 
-The objects in What's Fresh sometimes depend on other objects. For example, Vendors need Products, so you can't add a new Vendor without adding Products first. We recommend the following work flows to add different objects:
+The objects in What's Fresh sometimes depend on other objects. We recommend the following work flows to add different objects:
 
 **Products**
 
 1.	Determine what Preparations are available for this Product (smoked, dried, fresh, etc).
-2.	Create the Preparation objects if they don't already exist.
+2.	Create the Preparation objects if they don't already exist, you can directly create the desired preparation within the product form itself.
 3.	If there is an Image for this Product, create an Image object (be sure to give the image a unique and descriptive name).
 4.	If this Product has a Story, make sure that Story exists (for instance, the Salmon story will probably be shared by all varieties of Salmon).
 5.	Create the Product object, selecting the correct Story and Image, and add each applicable preparation.
@@ -39,8 +39,8 @@ The objects in What's Fresh sometimes depend on other objects. For example, Vend
 
 **Stories**
 
-1.	If this Story includes Images, create the Images.
-2.	If this Story includes Videos, create the Videos.
+1.	If this Story includes Images, create the Images, you can directly create new images from the story form itself.
+2.	If this Story includes Videos, create the Videos, you can directly create new videos from the story form itself.
 3.	Create the Story object, adding the correct Images and Videos, if applicable.
 
 See below for details on adding these objects.
@@ -54,7 +54,7 @@ The address for a Vendor should be the actual location where they sell their Pro
 
 **Pre-requisites**
 
-Vendors sell Products, so in order to create a new Vendor, some Products must exist (ideally, the specific Products that Vendor sells). Before creating a new Vendor, it is a good idea to make sure their Products exist. The Vendor form *requires* at least one Product to be added to the Vendor. A Vendor's Product list can be changed later.
+Vendors sell Products, so in order to create a new Vendor, some Products must exist (ideally, the specific Products that Vendor sells). Before creating a new Vendor, it is a good idea to make sure their Products exist if not you can do so by creating one directly from the vendor's from itself. The Vendor form *requires* at least one Product to be added to the Vendor. A Vendor's Product list can be changed later.
 
 **Required Data**
 
@@ -82,7 +82,7 @@ Certain information is required to create a new Vendor, make sure you know these
 	When a Product is added, you must also select a Preparation for that product. A vendor may sell different preparations for the same Product, or only one of many possible preparations for a Product. For example, a Vendor may sell smoked, frozen and fresh salmon, and also may sell shrimp, but only frozen, not fresh. Every Product/Preparation combination the vendor sells should be added.
 
 .. note::
-	
+
 	Street addresses are turned into GPS coordinates for display on a map in the Mobile app, so it is important to be accurate.
 
 
@@ -141,7 +141,7 @@ Products are what Vendors sell, and the central Object in What's Fresh.
 
 **Pre-requisites**
 
-Products require Preparations. Make sure all the possible preparations this Product can have are created first. If an Image or Story is going to be added, these objects should be created before adding the Product.
+Products require Preparations. Make sure all the possible preparations this Product can have are created first if not you can do so by creating one directly from the product's from itself. If an Image or Story is going to be added, these objects should be created before adding the Product.
 
 **Required Data**
 
@@ -185,7 +185,7 @@ Stories are collections of educational information about a Product or Vendor. St
 
 **Pre-requisites**
 
-If Images or Videos are going to be added to this Story, they should be created before the Story is created.
+If Images or Videos are going to be added to this Story, they should be created before the Story is created or you can directly create new one's from the story's from itself.
 
 **Required Data**
 
