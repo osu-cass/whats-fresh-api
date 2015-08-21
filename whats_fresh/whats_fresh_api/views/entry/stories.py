@@ -30,7 +30,9 @@ def story_list(request):
     if request.GET.get('success') == 'true':
         message = "Entry deleted successfully!"
 
-    if request.GET.get('search') is None or request.GET.get('search') == "":
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
         stories = Story.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
@@ -38,7 +40,7 @@ def story_list(request):
                 OrderedDict.fromkeys(
                     item.object for item in
                     SearchQuerySet().models(Story).autocomplete(
-                        content_auto=request.GET.get('search', ''))))
+                        content_auto=search)))
             if not stories:
                 message = "No results"
 

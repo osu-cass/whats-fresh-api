@@ -33,7 +33,9 @@ def prep_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    if request.GET.get('search') is None or request.GET.get('search') == "":
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
         preparations = Preparation.objects.order_by('name')
     else:
         if request.GET.get('search') != "":
@@ -41,7 +43,7 @@ def prep_list(request):
                 OrderedDict.fromkeys(
                     item.object for item in
                     SearchQuerySet().models(Preparation).autocomplete(
-                        content_auto=request.GET.get('search', ''))))
+                        content_auto=search)))
             if not preparations:
                 message = "No results"
 

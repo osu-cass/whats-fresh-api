@@ -208,14 +208,16 @@ def vendor_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    if request.GET.get('search') is None or request.GET.get('search') == "":
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
         vendors = Vendor.objects.order_by('name')
     else:
         vendors = list(
             OrderedDict.fromkeys(
                 item.object for item in
                 SearchQuerySet().models(Vendor).autocomplete(
-                    content_auto=request.GET.get('search', ''))))
+                    content_auto=search)))
         if not vendors:
             message = "No results"
 
