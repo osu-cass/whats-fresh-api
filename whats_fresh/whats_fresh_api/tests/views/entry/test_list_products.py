@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group
 from whats_fresh.whats_fresh_api.models import Product
 from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 
 class ListProductTestCase(TestCase):
@@ -81,7 +82,6 @@ class ListProductTestCase(TestCase):
         ).context
 
         self.assertEqual(list(search_result['item_list']),
-                         list(item.object for item in
+                         list(OrderedDict.fromkeys(item.object for item in
                               SearchQuerySet().models(Product)
-                              .autocomplete(content='20'))
-                         )
+                              .autocomplete(content='20'))))

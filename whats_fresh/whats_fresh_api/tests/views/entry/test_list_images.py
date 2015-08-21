@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, Group
 from whats_fresh.whats_fresh_api.models import Image
 from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 
 class ListImageTestCase(TestCase):
@@ -79,7 +80,6 @@ class ListImageTestCase(TestCase):
             '{}?search=20'.format(reverse('entry-list-images'))).context
 
         self.assertEqual(list(search_result['item_list']),
-                         list(item.object for item in
+                         list(OrderedDict.fromkeys(item.object for item in
                               SearchQuerySet().models(Image)
-                              .autocomplete(content='20'))
-                         )
+                              .autocomplete(content='20'))))
