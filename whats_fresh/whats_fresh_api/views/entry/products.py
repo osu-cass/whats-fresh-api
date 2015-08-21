@@ -15,6 +15,8 @@ from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
 import json
 
 
@@ -163,8 +165,22 @@ def product_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    paginator = Paginator(Product.objects.order_by('name'),
-                          settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        products = Product.objects.order_by('name')
+    else:
+        if request.GET.get('search') != "":
+            products = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Product).autocomplete(
+                        content_auto=search)))
+            if not products:
+                message = "No results"
+
+    paginator = Paginator(products, settings.PAGE_LENGTH)
+
     page = request.GET.get('page')
 
     try:
@@ -184,7 +200,10 @@ def product_list(request):
         'title': get_fieldname.get_fieldname('products'),
         'item_list': products,
         'description_field': {'title': 'Variety', 'attribute': 'variety'},
-        'edit_url': 'edit-product'
+        'edit_url': 'edit-product',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('products_slug')
+
     })
 
 

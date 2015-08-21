@@ -11,7 +11,9 @@ from whats_fresh.whats_fresh_api.models import Video
 from whats_fresh.whats_fresh_api.forms import VideoForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from haystack.query import SearchQuerySet
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from collections import OrderedDict
 
 
 @login_required
@@ -31,7 +33,21 @@ def video_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    paginator = Paginator(Video.objects.order_by('name'), settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        videos = Video.objects.order_by('name')
+    else:
+        if request.GET.get('search') != "":
+            videos = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Video).autocomplete(
+                        content_auto=search)))
+            if not videos:
+                message = "No results"
+
+    paginator = Paginator(videos, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -50,7 +66,10 @@ def video_list(request):
         'new_url': reverse('new-video'),
         'title': get_fieldname.get_fieldname('videos'),
         'item_list': videos,
-        'edit_url': 'edit-video'
+        'edit_url': 'edit-video',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('videos_slug')
+
     })
 
 

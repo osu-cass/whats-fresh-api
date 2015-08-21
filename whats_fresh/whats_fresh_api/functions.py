@@ -2,14 +2,6 @@ from django.conf import settings
 
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.gis.geos import fromstr
-import sys
-
-
-def reload_urlconf(urlconf=None):
-    if urlconf is None:
-        urlconf = settings.ROOT_URLCONF
-    if urlconf in sys.modules:
-        reload(sys.modules[urlconf])
 
 
 def group_required(*group_names):

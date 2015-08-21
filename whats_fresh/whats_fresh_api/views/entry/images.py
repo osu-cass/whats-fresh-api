@@ -12,6 +12,8 @@ from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 
 @login_required
@@ -31,7 +33,21 @@ def image_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    paginator = Paginator(Image.objects.order_by('name'), settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        images = Image.objects.order_by('name')
+    else:
+        if request.GET.get('search') != "":
+            images = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Image).autocomplete(
+                        content_auto=search)))
+            if not images:
+                message = "No results"
+
+    paginator = Paginator(images, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -50,7 +66,10 @@ def image_list(request):
         'new_url': reverse('new-image'),
         'title': get_fieldname.get_fieldname('images'),
         'item_list': images,
-        'edit_url': 'edit-image'
+        'edit_url': 'edit-image',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('images_slug')
+
     })
 
 

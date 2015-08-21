@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from whats_fresh.whats_fresh_api.forms import StoryForm
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 import json
 
@@ -28,7 +30,21 @@ def story_list(request):
     if request.GET.get('success') == 'true':
         message = "Entry deleted successfully!"
 
-    paginator = Paginator(Story.objects.order_by('name'), settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        stories = Story.objects.order_by('name')
+    else:
+        if request.GET.get('search') != "":
+            stories = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Story).autocomplete(
+                        content_auto=search)))
+            if not stories:
+                message = "No results"
+
+    paginator = Paginator(stories, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -47,7 +63,10 @@ def story_list(request):
         'new_url': reverse('new-story'),
         'title': get_fieldname.get_fieldname('stories'),
         'item_list': stories,
-        'edit_url': 'edit-story'
+        'edit_url': 'edit-story',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('stories_slug')
+
     })
 
 

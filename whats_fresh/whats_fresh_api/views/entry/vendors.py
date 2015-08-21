@@ -16,6 +16,8 @@ from whats_fresh.whats_fresh_api.forms import VendorForm
 from whats_fresh.whats_fresh_api.functions import group_required
 from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
 import json
 
 
@@ -206,8 +208,20 @@ def vendor_list(request):
     elif request.GET.get('saved') == 'true':
         message = "Entry saved successfully!"
 
-    paginator = Paginator(Vendor.objects.order_by('name'),
-                          settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        vendors = Vendor.objects.order_by('name')
+    else:
+        vendors = list(
+            OrderedDict.fromkeys(
+                item.object for item in
+                SearchQuerySet().models(Vendor).autocomplete(
+                    content_auto=search)))
+        if not vendors:
+            message = "No results"
+
+    paginator = Paginator(vendors, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -226,5 +240,7 @@ def vendor_list(request):
         'new_url': reverse('new-vendor'),
         'title': get_fieldname.get_fieldname('vendors'),
         'item_list': vendors,
-        'edit_url': 'edit-vendor'
+        'edit_url': 'edit-vendor',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('vendors_slug')
     })

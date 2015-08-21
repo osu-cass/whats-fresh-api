@@ -1,7 +1,9 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from whats_fresh.whats_fresh_api.models import Vendor
 from django.contrib.auth.models import User, Group
+from whats_fresh.whats_fresh_api.models import Vendor
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 
 class ListVendorTestCase(TestCase):
@@ -71,3 +73,12 @@ class ListVendorTestCase(TestCase):
         self.assertEqual(
             list(page_1['item_list']),
             list(page_nan['item_list']))
+
+    def test_search_result(self):
+        search_result = self.client.get(
+            '{}?search=20'.format(reverse('list-vendors-edit'))).context
+
+        self.assertEqual(list(search_result['item_list']),
+                         list(OrderedDict.fromkeys(item.object for item in
+                              SearchQuerySet().models(Vendor)
+                              .autocomplete(content='20'))))

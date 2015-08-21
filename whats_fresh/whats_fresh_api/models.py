@@ -2,8 +2,6 @@ from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
 import whats_fresh.whats_fresh_api.signals  # noqa
-from django.db.models.signals import post_save
-from whats_fresh.whats_fresh_api.functions import reload_urlconf
 
 
 class Image(models.Model):
@@ -286,9 +284,3 @@ class Theme(models.Model):
             except Theme.DoesNotExist:
                 pass
         super(Theme, self).save(*args, **kwargs)
-
-
-def update_url_config(sender, instance, **kwargs):
-    reload_urlconf()
-
-post_save.connect(update_url_config, sender=Theme)
