@@ -8,7 +8,7 @@ The What's Fresh API web app is used to enter the data that is displayed in the 
 Objects
 -------
 
-There are six major objects in What's Fresh: Vendors, Products, Preparations, Stories, Videos and Images. When you log in to the application, the first screen you see is the Entry screen, which lists the objects. Clicking on one of the object buttons will bring you to a screen listing all of the objects already saved in the system.
+There are seven major objects in What's Fresh: Vendors, Products, Preparations, Stories, Videos, Images and Themes. When you log in to the application, the first screen you see is the Entry screen, which lists the objects. Clicking on one of the object buttons will bring you to a screen listing all of the objects already saved in the system.
 
 For example, clicking Vendors will display a table listing all the Vendors currently in the system. On this screen you can add a new Vendor by clicking the yellow "New Vendor" button at the top of the list, or edit any of the existing Vendors by clicking on that Vendor.
 
@@ -21,15 +21,16 @@ The forms for editing and for adding new objects are the same, except that the e
 Workflow
 ++++++++
 
-The objects in What's Fresh sometimes depend on other objects. For example, Vendors need Products, so you can't add a new Vendor without adding Products first. We recommend the following work flows to add different objects:
+The objects in What's Fresh sometimes depend on other objects. We recommend the following work flows to add different objects:
 
 **Products**
 
 1.	Determine what Preparations are available for this Product (smoked, dried, fresh, etc).
 2.	Create the Preparation objects if they don't already exist.
-3.	If there is an Image for this Product, create an Image object (be sure to give the image a unique and descriptive name).
-4.	If this Product has a Story, make sure that Story exists (for instance, the Salmon story will probably be shared by all varieties of Salmon).
-5.	Create the Product object, selecting the correct Story and Image, and add each applicable preparation.
+3.  You can directly create the required preparation within the product form itself.
+4.	If there is an Image for this Product, create an Image object (be sure to give the image a unique and descriptive name).
+5.	If this Product has a Story, make sure that Story exists (for instance, the Salmon story will probably be shared by all varieties of Salmon).
+6.	Create the Product object, selecting the correct Story and Image, and add each applicable preparation.
 
 **Vendors**
 
@@ -39,9 +40,8 @@ The objects in What's Fresh sometimes depend on other objects. For example, Vend
 
 **Stories**
 
-1.	If this Story includes Images, create the Images.
-2.	If this Story includes Videos, create the Videos.
-3.	Create the Story object, adding the correct Images and Videos, if applicable.
+1.  You can directly create new images from the story form itself.
+2.  You can directly create new videos from the story form itself.
 
 See below for details on adding these objects.
 
@@ -51,10 +51,6 @@ Vendors
 These are the records for businesses that sell products. Vendors are also specific to a location, so if Bob's Fish has two different locations where they sell their Products, each location will be a separate Vendor. These can be distinguished by name, for instance Bob's Fish Newport and Bob's Fish Waldport.
 
 The address for a Vendor should be the actual location where they sell their Products, not an office or P.O. box.
-
-**Pre-requisites**
-
-Vendors sell Products, so in order to create a new Vendor, some Products must exist (ideally, the specific Products that Vendor sells). Before creating a new Vendor, it is a good idea to make sure their Products exist. The Vendor form *requires* at least one Product to be added to the Vendor. A Vendor's Product list can be changed later.
 
 **Required Data**
 
@@ -67,11 +63,8 @@ Certain information is required to create a new Vendor, make sure you know these
 *Description*
 	A brief description of the business.
 *Address*
-	The street address where the products are being sold.
-		* Street Address
-		* City
-		* State
-		* Zipcode
+	The address field where address of the vendor is submitted
+	This address is broken into parts and stored as street, city, state and zip.
 *Contact Name*
 	The primary contact name for this Vendor.
 *Products*
@@ -82,7 +75,7 @@ Certain information is required to create a new Vendor, make sure you know these
 	When a Product is added, you must also select a Preparation for that product. A vendor may sell different preparations for the same Product, or only one of many possible preparations for a Product. For example, a Vendor may sell smoked, frozen and fresh salmon, and also may sell shrimp, but only frozen, not fresh. Every Product/Preparation combination the vendor sells should be added.
 
 .. note::
-	
+
 	Street addresses are turned into GPS coordinates for display on a map in the Mobile app, so it is important to be accurate.
 
 
@@ -102,16 +95,14 @@ Additionally, there are several optional fields:
 	The Vendor's primary email address.
 *Phone*
 	The Vendor's phone number..
+*Add New Products*
+	New products can be added by clicking on this button, a popup form for products will appear and desired information can be added and a new product is submitted.
 
 
 Preparations
 ++++++++++++
 
 Preparations are the way in which a Product can be prepared for sale. This can include fresh, frozen, live, smoked, cooked, dried, and many more.
-
-**Pre-requisites**
-
-Preparations have no prerequisites.
 
 **Required Data**
 
@@ -138,10 +129,6 @@ Products are what Vendors sell, and the central Object in What's Fresh.
 .. note::
 
 	Different varieties of a particular product should be treated as separate products, if they are sold as such. For instance, different varieties of Salmon are sold with different prices, therefore Coho, Chinook and Sockeye salmon should be separate products. The 'Specific Variety' field of all these Products will be 'Salmon', and each will have a different value in the 'Product Name' field.
-
-**Pre-requisites**
-
-Products require Preparations. Make sure all the possible preparations this Product can have are created first. If an Image or Story is going to be added, these objects should be created before adding the Product.
 
 **Required Data**
 
@@ -176,16 +163,14 @@ These fields are optional:
 	A representative image of this Product.
 *Story*
 	The Story of this Product (see Stories below).
+*Add New Preparations*
+	New preparations can be added by clicking on this button, a popup form for preparations will appear and desired information can be added and a new preparation is submitted.
 
 
 Stories
 +++++++
 
 Stories are collections of educational information about a Product or Vendor. Stories may be shared by many varieties of a particular Product - for instance the Salmon Story will likely apply to Coho, Chinook, and Sockeye salmon, which are all distinct Products.
-
-**Pre-requisites**
-
-If Images or Videos are going to be added to this Story, they should be created before the Story is created.
 
 **Required Data**
 
@@ -210,18 +195,18 @@ Stories require the following fields to be filled out:
 	(Product only) Detailed information about the season for this Product.
 *Images*
 	One or more images related to this Product.
+	New Images can be added by clicking on Add New Image button.
+	A popup form for images will appear and required information can be added.
 *Videos*
 	One or more videos related to this Product.
+	New videos can be added by clicking on Add New Video button.
+	A popup form for videos will appear and required information can be added.
 
 
 Videos
 ++++++
 
 Videos are external links to videos hosted on YouTube, Vimeo, or elsewhere. Any video that can be streamed can be used here.
-
-**Pre-requisites**
-
-Videos have no pre-requisites.
 
 **Required Data**
 
@@ -243,10 +228,6 @@ Images
 ++++++
 
 Images are uploaded image files. The Image upload form accepts .jpg, .png, and .gif image files. Images may be displayed as a single representative image for a Product in a Product view, or as part of a slideshow of images in a Story.
-
-**Pre-requisites**
-
-Images have no pre-requisites.
 
 **Required Data**
 

@@ -318,6 +318,10 @@ account. You can use ``django-admin`` to create a superuser account::
 
     (env)[vagrant@develop-centos-65 ~]$ django-admin createsuperuser
 
+Setup haystack and whoosh indexes for the app by::
+
+    (env)[vagrant@develop-centos-65 ~]$ ./manage.py rebuild_index
+
 You should now be ready to run the Django app!
 ::
 
