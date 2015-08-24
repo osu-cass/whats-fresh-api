@@ -35,7 +35,8 @@ setup(
     zip_safe=False,
     package_data={
         'whats_fresh.whats_fresh_api.tests.testdata': ['*.json', 'media/*'],
-        'whats_fresh.whats_fresh_api': ['templates/*', 'static/*.png', 'static/css/*']},
+        'whats_fresh.whats_fresh_api': ['templates/*.html', 'static/*.png',
+        'static/css/*', 'templates/search/indexes/whats_fresh_api/*']},
     description="What's Fresh API implementation",
     long_description=open('README.rst').read()
 )
