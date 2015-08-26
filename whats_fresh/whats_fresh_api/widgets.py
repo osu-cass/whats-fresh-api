@@ -8,12 +8,12 @@ class ColorPickerWidget(forms.TextInput):
     class Media:
         css = {
             'all': (
-                'https://rawgit.com/bgrins/spectrum/master/spectrum.css',  # noqa
+                'https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.7.1/spectrum.min.css',  # noqa
             )
         }
         js = (
-               'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',  # noqa
-            'https://rawgit.com/bgrins/spectrum/master/spectrum.js',  # noqa
+               'https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',  # noqa
+            'https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.7.1/spectrum.min.js',  # noqa
         )
 
     def __init__(self, language=None, attrs=None):
