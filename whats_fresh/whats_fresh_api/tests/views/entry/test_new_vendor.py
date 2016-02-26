@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from whats_fresh.whats_fresh_api.models import (Vendor, ProductPreparation,
                                                 Product, Preparation, Story)
 from django.contrib.auth.models import User, Group
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
 
 
 class NewVendorTestCase(TestCase):
@@ -55,10 +56,10 @@ class NewVendorTestCase(TestCase):
         response = self.client.get(reverse('new-vendor'))
 
         fields = {'name': 'input', 'description': 'textarea', 'hours': 'input',
-                  'story': 'select', 'status': 'select', 'street': 'input',
-                  'city': 'input', 'state': 'input', 'zip': 'input',
-                  'location_description': 'textarea', 'contact_name': 'input',
-                  'website': 'input', 'email': 'input', 'phone': 'input'}
+                  'story': 'select', 'status': 'select',
+                  'location_description': 'textarea',
+                  'contact_name': 'input', 'website': 'input',
+                  'email': 'input', 'phone': 'input'}
         form = response.context['vendor_form']
 
         for field in fields:
@@ -99,6 +100,7 @@ class NewVendorTestCase(TestCase):
             'street': '750 NW Lighthouse Dr', 'story': '',
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
+            'latitude': '44.6752643', 'longitude': '-124.072162',
             'location_description': 'Optional Description',
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Newport'}
@@ -112,6 +114,8 @@ class NewVendorTestCase(TestCase):
         # into vendor_product objects, so we'll not need the preparations_id
         # field
         del new_vendor['preparation_ids']
+        del new_vendor['latitude']
+        del new_vendor['longitude']
         new_vendor['status'] = None
         new_vendor['phone'] = None
         new_vendor['story'] = None
@@ -145,17 +149,19 @@ class NewVendorTestCase(TestCase):
         new_vendor = {
             'zip': '', 'website': '', 'street': '', 'story': '',
             'status': '', 'state': '', 'preparation_ids': '',
-            'phone': '', 'name': '', 'location_description': '',
-            'email': '', 'description': '', 'contact_name': '',
-            'city': '', 'hours': ''}
+            'phone': '', 'name': '',
+            'latitude': '', 'longitude': '',
+            'location_description': '', 'email': '', 'description': '',
+            'contact_name': '', 'city': '', 'hours': ''}
 
         response = self.client.post(reverse('new-vendor'), new_vendor)
 
         # Test non-automatically generated errors written into the view
         self.assertIn(
-            'You must choose at least one product.',
+            'You must choose at least one entry from '
+            + get_fieldname.get_fieldname('products'),
             response.context['errors'])
-        self.assertIn('Full address is required.', response.context['errors'])
+        self.assertIn('Invalid Coordinates.', response.context['errors'])
 
         required_fields = [
             'city', 'name', 'zip', 'location', 'state',
@@ -201,6 +207,7 @@ class NewVendorTestCase(TestCase):
             'street': '123 Fake Street', 'story': 1,
             'status': '', 'state': 'OR', 'preparation_ids': '1,2',
             'phone': '', 'name': 'Test Name',
+            'latitude': '', 'longitude': '',
             'location_description': 'Optional Description',
             'email': '', 'description': 'Test Description',
             'contact_name': 'Test Contact', 'city': 'Springfield'}
@@ -208,7 +215,7 @@ class NewVendorTestCase(TestCase):
         response = self.client.post(reverse('new-vendor'), new_vendor)
 
         # Test that the bad address returns a bad address
-        self.assertIn("Full address is required.", response.context['errors'])
+        self.assertIn("Invalid Coordinates.", response.context['errors'])
 
         # Test that we didn't add any new objects
         self.assertTrue(list(Vendor.objects.all()) == list(all_vendors))

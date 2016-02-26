@@ -39,14 +39,7 @@ def preparation_details(request, id=None):
 
     serializer = FreshSerializer()
 
-    data = json.loads(
-        serializer.serialize(
-            [preparation],
-            use_natural_foreign_keys=True
-        )[1:-1]  # Serializer can only serialize lists,
-        # so we have to chop off the list brackets
-        # to get the serialized string without the list
-    )
+    data = json.loads(serializer.serialize(preparation))
 
     data['error'] = error
 

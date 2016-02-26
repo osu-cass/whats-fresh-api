@@ -1,0 +1,28 @@
+<form action="{{ post_url }}" method="post" id="popup-form">
+
+    <div class="error" id="preparation_error">
+        {% if preparation_form.errors or errors %}
+        {% for error in preparation_form.errors %}
+        <p class='warning'>Invalid {{ error|escape }}!</p>
+        {% endfor %}
+        {% for error in errors %}
+        <p class='warning'>{{ error|escape }}</p>
+        {% endfor %}
+        {% endif %}
+        <h4 id='error_tag' class='light warning'></h4>
+    </div>
+
+    {% csrf_token %}
+    <div class="entry_box">
+        <h3>Basic Info</h3>
+        <p class="field_text">Name*:</p>
+        {{ preparation_form.name }}
+        <p class="field_text">Description:</p>
+        {{ preparation_form.description }}
+        <p class="field_text">Additional Information:</p>
+        {{ preparation_form.additional_info }}
+        <button>Save</button>
+    </div>
+</form>
+<script>  // To prevent .html() from stripping top level tag
+</script>

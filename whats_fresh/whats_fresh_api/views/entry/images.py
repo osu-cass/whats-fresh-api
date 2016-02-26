@@ -10,6 +10,10 @@ from django.conf import settings
 from whats_fresh.whats_fresh_api.models import Image
 from whats_fresh.whats_fresh_api.forms import ImageForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 
 @login_required
@@ -25,11 +29,25 @@ def image_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Image deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Image saved successfully!"
+        message = "Entry saved successfully!"
 
-    paginator = Paginator(Image.objects.order_by('name'), settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        images = Image.objects.order_by('name')
+    else:
+        if request.GET.get('search') != "":
+            images = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Image).autocomplete(
+                        content_auto=search)))
+            if not images:
+                message = "No results"
+
+    paginator = Paginator(images, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -46,11 +64,12 @@ def image_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-image'),
-        'new_text': "New image",
-        'title': "Image Library",
-        'item_classification': "image",
+        'title': get_fieldname.get_fieldname('images'),
         'item_list': images,
-        'edit_url': 'edit-image'
+        'edit_url': 'edit-image',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('images_slug')
+
     })
 
 
@@ -106,16 +125,17 @@ def image(request, id=None):
     elif request.method != 'POST':
         image_form = ImageForm()
         post_url = reverse('new-image')
-        title = "New Image"
+        title = "New " + get_fieldname.get_fieldname('images')
 
     else:
         post_url = reverse('new-image')
-        title = "New Image"
+        title = "New " + get_fieldname.get_fieldname('images')
 
     return render(request, 'image.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-images'), 'name': 'Image Library'}
+            {'url': reverse('entry-list-images'),
+             'name': get_fieldname.get_fieldname('images')}
         ],
         'title': title,
         'message': message,
@@ -123,3 +143,31 @@ def image(request, id=None):
         'errors': [],
         'image_form': image_form,
     })
+
+
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
+def image_ajax(request, id=None):
+    if request.method == 'GET':
+        image_form = ImageForm()
+        return render(request, 'image_ajax.html', {'image_form': image_form})
+
+    elif request.method == 'POST':
+        message = ''
+        instance = None
+        image_form = ImageForm(
+            request.POST,
+            request.FILES,
+            instance=instance)
+        if image_form.is_valid():
+            image = image_form.save()
+            serializer = FreshSerializer()
+            return HttpResponse(serializer.serialize(image),
+                                content_type="application/json")
+        else:
+            pass
+
+        return render(request, 'image_ajax.html', {
+            'message': message,
+            'errors': [],
+            'image_form': image_form})

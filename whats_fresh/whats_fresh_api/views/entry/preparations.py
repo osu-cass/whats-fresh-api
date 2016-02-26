@@ -10,6 +10,10 @@ from django.conf import settings
 from whats_fresh.whats_fresh_api.models import Preparation
 from whats_fresh.whats_fresh_api.forms import PreparationForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from haystack.query import SearchQuerySet
+from collections import OrderedDict
 
 
 @login_required
@@ -25,12 +29,25 @@ def prep_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Preparation deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Preparation saved successfully!"
+        message = "Entry saved successfully!"
 
-    paginator = Paginator(Preparation.objects.order_by('name'),
-                          settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        preparations = Preparation.objects.order_by('name')
+    else:
+        if request.GET.get('search') != "":
+            preparations = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Preparation).autocomplete(
+                        content_auto=search)))
+            if not preparations:
+                message = "No results"
+
+    paginator = Paginator(preparations, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -47,11 +64,12 @@ def prep_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-preparation'),
-        'new_text': "New Item",
-        'title': "Product Form/Packaging",
-        'item_classification': "item",
+        'title': get_fieldname.get_fieldname('preparations'),
         'item_list': preparations,
-        'edit_url': 'edit-preparation'
+        'edit_url': 'edit-preparation',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('preparations_slug')
+
     })
 
 
@@ -110,17 +128,17 @@ def preparation(request, id=None):
     elif request.method != 'POST':
         preparation_form = PreparationForm()
         post_url = reverse('new-preparation')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('preparations')
 
     else:
         post_url = reverse('new-preparation')
-        title = "New Item"
+        title = "New " + get_fieldname.get_fieldname('preparations')
 
     return render(request, 'preparation.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
             {'url': reverse('entry-list-preparations'),
-             'name': 'Product Form/Packaging'}
+             'name': get_fieldname.get_fieldname('preparations')}
         ],
         'title': title,
         'message': message,
@@ -128,3 +146,33 @@ def preparation(request, id=None):
         'errors': errors,
         'preparation_form': preparation_form,
     })
+
+
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
+def preparation_ajax(request, id=None):
+    if request.method == 'GET':
+        preparation_form = PreparationForm()
+        return render(request, 'preparation_ajax.html',
+                      {'preparation_form': preparation_form})
+
+    elif request.method == 'POST':
+        message = ''
+        post_data = request.POST.copy()
+        errors = []
+
+        preparation_form = PreparationForm(post_data)
+        if preparation_form.is_valid() and not errors:
+            preparation = Preparation.objects.create(
+                **preparation_form.cleaned_data)
+            preparation.save()
+            serializer = FreshSerializer()
+            return HttpResponse(serializer.serialize(preparation),
+                                content_type="application/json")
+        else:
+            pass
+
+        return render(request, 'preparation_ajax.html', {
+            'message': message,
+            'errors': errors,
+            'preparation_form': preparation_form})

@@ -62,14 +62,6 @@ class StoriesTestCase(TestCase):
         url = reverse('story-details', kwargs={'id': '1'})
         self.assertEqual(url, '/1/stories/1')
 
-    def test_known_story(self):
-        response = self.client.get(
-            reverse('story-details', kwargs={'id': '1'})).content
-        parsed_answer = json.loads(response)
-
-        expected_answer = json.loads(self.expected_json)
-        self.assertEqual(parsed_answer, expected_answer)
-
     def test_story_items(self):
         response = self.client.get(
             reverse('story-details', kwargs={'id': '1'})).content

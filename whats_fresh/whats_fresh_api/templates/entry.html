@@ -1,40 +1,44 @@
 {% extends 'base.html' %}
 
+{% load get_fieldname %}
 {% block content %}
 <div class='entry'>
     <a href='{% url 'list-vendors-edit' %}'>
-        <h4>Vendors</h4>
+        <h4>{{ 'vendors'|get_fieldname }}</h4>
     </a>
 </div>
 
 <div class='entry'>
     <a href='{% url 'entry-list-products' %}'>
-        <h4>Products</h4>
+        <h4>{{ 'products'|get_fieldname }}</h4>
     </a>
 </div>
 
 <div class='entry'>
     <a href='{% url 'entry-list-preparations' %}'>
-        <h4>Product Form and Packaging</h4>
+        <h4>{{ 'preparations'|get_fieldname }}</h4>
+
     </a>
 </div>
 
 <div class='entry'>
     <a href='{% url 'entry-list-stories' %}'>
-        <h4>Product Education</h4>
+        <h4>{{ 'stories'|get_fieldname }}</h4>
+
     </a>
 </div>
 
 <div class='entry'>
     <a href='{% url 'entry-list-videos' %}'>
-        <h4>Video Library</h4>
+        <h4>{{ 'videos'|get_fieldname }}</h4>
+
     </a>
 </div>
 
 
 <div class='entry'>
     <a href='{% url 'entry-list-images' %}'>
-        <h4>Image Library</h4>
+        <h4>{{ 'images'|get_fieldname }}</h4>
     </a>
 </div>
 

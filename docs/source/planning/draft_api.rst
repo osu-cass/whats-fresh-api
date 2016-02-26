@@ -242,6 +242,76 @@ Returns an image record identified by <id>. Alternatively, this could return the
 		name: text
 	}
 
+*/themes*
+
+Return a dictionary containing a record for every theme in the database.The theme id is the record key. This data may be changed frequently.
+
+.. code-block:: json
+
+	{
+		error: {error_status: bool, error_name: text, error_text: text, error_level},
+	    <theme_id>: {
+			videos: char
+			header_color: text
+			images: char
+			logo: image or null
+			background_color: text
+			foreground_color: text
+			vendors: char
+			site_title: char
+			stories: char
+			preparations: char
+			vendors_slug: slug
+			font_color: text
+			active: char
+			images_slug: slug
+			preparations_slug: slug
+			stories_slug: slug
+			slogan: char or null
+			name: char
+			products: char
+			videos_slug: slug
+			products_slug: slug
+			ext: {attribute: value, attribute: value...} or {}
+		},
+		<theme_id>: {...},
+		...
+	}
+
+
+*/themes/<id>*
+
+Returns a single theme record identified by <id>. This may be useful for selectively refreshing the local master list of themes fetched by /themes.
+
+.. code-block:: json
+
+	{
+		error: {error_status: bool, error_name: text, error_text: text, error_level},
+		id: int
+		videos: char
+		header_color: text
+		images: char
+		logo: image or null
+		background_color: text
+		foreground_color: text
+		vendors: char
+		site_title: char
+		stories: char
+		preparations: char
+		vendors_slug: slug
+		font_color: text
+		active: char
+		images_slug: slug
+		preparations_slug: slug
+		stories_slug: slug
+		slogan: char or null
+		name: char
+		products: char
+		videos_slug: slug
+		products_slug: slug
+		ext: {attribute: value, attribute: value...}
+	}
+
 
 */vendors/product/<id>*
 

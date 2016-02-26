@@ -1,7 +1,7 @@
 from django.contrib.gis.db import models
 import os
 from phonenumber_field.modelfields import PhoneNumberField
-import whats_fresh.whats_fresh_api.signals  # NOQA
+import whats_fresh.whats_fresh_api.signals  # noqa
 
 
 class Image(models.Model):
@@ -202,6 +202,7 @@ class VendorProduct(models.Model):
 
 
 class Video(models.Model):
+
     """
     The video model holds a video URL and related data.
 
@@ -229,3 +230,57 @@ class Video(models.Model):
             'name': self.name,
             'link': self.video
         }
+
+
+class Theme(models.Model):
+
+    """
+    The themes model holds theming and customiztion data.
+
+    The user will be able to define his own customization for the site
+    in the form of personel color prepferences, site logo etc.
+    """
+
+    def __unicode__(self):
+        return self.name
+
+    CHOICES = (
+        ('Yes', 'Yes'),
+        ('No', 'No'),
+    )
+
+    name = models.CharField(max_length=50, unique=True)
+    background_color = models.TextField(
+        max_length=50, default="rgb(81, 114, 133)")
+    foreground_color = models.TextField(
+        max_length=50, default="rgb(81, 114, 133)")
+    header_color = models.TextField(
+        max_length=50, default="rgb(255, 255, 255)")
+    font_color = models.TextField(max_length=50, default="rgb(51, 51, 51)")
+    logo = models.ImageField(upload_to='images', null=True, blank=True)
+    slogan = models.CharField(max_length=50, null=True, blank=True)
+    site_title = models.CharField(max_length=50, default="Oregon's Catch")
+    vendors = models.CharField(max_length=100, default="Vendors")
+    vendors_slug = models.SlugField(max_length=40, default="vendors")
+    products = models.CharField(max_length=100, default="Products")
+    products_slug = models.SlugField(max_length=40, default="products")
+    preparations = models.CharField(max_length=100, default="Preparations")
+    preparations_slug = models.SlugField(max_length=40, default="preparations")
+    stories = models.CharField(max_length=100, default="Stories")
+    stories_slug = models.SlugField(max_length=40, default="stories")
+    videos = models.CharField(max_length=100, default="Videos")
+    videos_slug = models.SlugField(max_length=40, default="videos")
+    images = models.CharField(max_length=100, default="Images")
+    images_slug = models.SlugField(max_length=40, default="images")
+    active = models.CharField(max_length=5, choices=CHOICES, default="No")
+
+    def save(self, *args, **kwargs):
+        if self.active == "Yes":
+            try:
+                temp = Theme.objects.get(active="Yes")
+                if self != temp:
+                    temp.active = "No"
+                    temp.save()
+            except Theme.DoesNotExist:
+                pass
+        super(Theme, self).save(*args, **kwargs)

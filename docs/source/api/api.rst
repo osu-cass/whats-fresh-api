@@ -480,7 +480,19 @@ Example: GET /vendors/2
 Story details
 ---------------
 
-The ``/stories/<id>`` endpoint returns the story for a given ID.
+The ``/stories/<id>`` endpoint returns the same data as ``/stories``, but
+only for the story specified by id. This is used when the ID of a vendor is
+known, but the details of the story are not.
+
+Optional Fields
+^^^^^^^^^^^^^^^
+
+The following fields in a vendor can be either a value, or null:
+
+* images: this field may be an empty list
+* videos: this field may be an empty list
+
+Any of the text fields may be empty strings.
 
 Example: GET /stories/2
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -488,14 +500,48 @@ Example: GET /stories/2
 .. code-block:: javascript
 
     {
-      "error": {
-        "error_status": false,
-        "error_name": null,
-        "error_text": null,
-        "error_level": null
-      },
-      "story": "A story can contain various bits of text."
+        "error": {
+            "status": false,
+            "text": null,
+            "name": null,
+            "debug": null,
+            "level": null
+        },
+        "name": "Tuna",
+        "videos": [
+            {
+                "caption": "A video all about tuna",
+                "link": "https://www.youtube.com/watch?v=Awf45u6zrP0",
+                "name": "Tuna! They rock!"
+            }
+        ],
+        "created": "2014-08-08T23:27:05.568Z",
+        "season": "Tuna can be harvested between Jultember and Januly.",
+        "modified": "2014-12-04T18:31:27.319Z",
+        "facts": "Tuna are a fish that can be eaten. Great in salads!",
+        "ext": { },
+        "products": "Canned tuna fish is pretty common.",
+        "preparing": "Boil 'em, mash 'em, stick 'em in a stew",
+
+        "images": [
+            {
+                "caption": "Tuna photo!",
+                "link": "/media/images/tuna-fighting-catfish.jpg",
+                "name": "Tuna Picture"
+            },
+            {
+                "caption": "This is a tuna fish.",
+                "link": "/media/images/tuna.jpg",
+                "name": "Tuna Picture 2"
+            }
+        ],
+        "id": 2,
+        "buying": "To buy a tuna just head down to the docks.",
+        "history": "Tuna have been eaten for years and years."
+
     }
+
+
 
 Preparation details
 -------------------
@@ -560,4 +606,145 @@ Example: GET /locations/
           "name": "Newport"
         }
       ]
+    }
+
+Themes listing
+----------------
+
+The themes listing is available at ``/themes/``. It returns a JSON array
+consisting of each of the themes, and information about them.
+The colors selected are sent as a RGB string.
+The active theme has its active field set to Yes.
+
+Optional Fields
+^^^^^^^^^^^^^^^
+
+The following fields in a theme can be either a value, or null:
+
+* logo: text or empty string
+* slogan: image or empty string
+
+Parameters
+^^^^^^^^^^
+
+The ``/themes/`` endpoint accepts the ``limit=<int>`` parameter, limiting the
+number of themes returned to the number requested. For instance,
+``/themes?limit=5`` will limit the number of results returned to 5.
+
+Example: GET /themes/
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+    {
+      "error": {
+        "status": false,
+        "text": null,
+        "name": null,
+        "debug": null,
+        "level": null
+      },
+      "themes": [
+        {
+          videos: "Videos",
+          header_color: "rgb(255, 255, 255)",
+          images: "Images",
+          logo: "",
+          background_color: "rgb(81, 114, 133)",
+          id: 1,
+          foreground_color: "rgb(81, 114, 133)",
+          vendors: "Vendors",
+          site_title: "Oregon's Catch",
+          stories: "Stories",
+          preparations: "Preparations",
+          vendors_slug: "vendors",
+          font_color: "rgb(51, 51, 51)",
+          active: "No",
+          images_slug: "images",
+          preparations_slug: "preparations",
+          stories_slug: "stories",
+          slogan: "",
+          name: "Test Theme",
+          products: "Products",
+          videos_slug: "videos",
+          products_slug: "products"
+        },
+        {
+          videos: "Videos",
+          header_color: "rgb(255, 255, 255)",
+          images: "Images",
+          logo: "",
+          background_color: "rgb(81, 114, 133)",
+          id: 2,
+          foreground_color: "rgb(81, 114, 133)",
+          vendors: "Vendors",
+          site_title: "Oregon's Catch",
+          stories: "Stories",
+          preparations: "Preparations",
+          vendors_slug: "vendors",
+          font_color: "rgb(51, 51, 51)",
+          active: "Yes",
+          images_slug: "images",
+          preparations_slug: "preparations",
+          stories_slug: "stories",
+          slogan: "",
+          name: "Tony's Theme",
+          products: "Products",
+          videos_slug: "videos",
+          products_slug: "products"
+          }
+        },
+        ...
+        ]
+    }
+
+Theme details
+---------------
+
+The ``/themes/<id>`` endpoint returns the same data as ``/themes``, but
+only for the theme specified by id. This is used when the ID of a theme is
+known, but the details of the theme are not.
+
+Optional Fields
+^^^^^^^^^^^^^^^
+
+The following fields in a product can be either a value, or null:
+
+* logo: text or empty string
+* slogan: image or empty string
+
+Example: GET /themes/2
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+    {
+      "error": {
+        "status": false,
+        "debug": null,
+        "text": null,
+        "name": null,
+        "level": null
+      },
+      videos: "Videos",
+      header_color: "rgb(255, 255, 255)",
+      images: "Images",
+      logo: "",
+      background_color: "rgb(81, 114, 133)",
+      id: 2,
+      foreground_color: "rgb(81, 114, 133)",
+      vendors: "Vendors",
+      site_title: "Oregon's Catch",
+      stories: "Stories",
+      preparations: "Preparations",
+      vendors_slug: "vendors",
+      font_color: "rgb(51, 51, 51)",
+      active: "Yes",
+      images_slug: "images",
+      preparations_slug: "preparations",
+      stories_slug: "stories",
+      slogan: "",
+      name: "Tony's Theme",
+      videos_slug: "videos",
+      products_slug: "products"
     }

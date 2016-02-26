@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load get_fieldname %}
 {% block header %}
 <div class="back">
     {% for p in parent_url %}
@@ -60,21 +61,28 @@
     {{ product_form.story }}
     <input class="preparations" name="preparations" type="hidden" />
     <div class="container">
-        <h3>Preparation</h3>
-        <button type="button" onclick="appendPreparation()">Add Preparation</button>
+        <h3>{{ 'preparations'|get_fieldname }}</h3>
+        <button type="button" onclick="appendPreparation()">Add {{ 'preparations'|get_fieldname }}</button>
         {% if existing_preparations %}
         {% for prep in existing_preparations %}
         <div class="preparation">
-            <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" />Delete</a>
             <select disabled id="existing{{ prep.id }}" class="preparation_select">
                 <option value="{{ prep.id }}">{{ prep.name }}</option>
             </select>
+            <a href="#" onclick="deletePreparation(this);return false;"><i class="delete material-icons">delete</i></a>
         </div>
         {% endfor %}
         {% else %}
-        <span class="no_prep">No Preparations Yet!</span>
+        <span class="no_preparations">No {{ 'preparations'|get_fieldname }} Yet!</span>
         {% endif %}
     </div>
+
+    <div id="inline_preparation">  <!-- Div used if a new inline preparation submitted -->
+    </div>
+
+    <button type="submit" onclick="return createPopup('/entry/{{ 'products_slug'|get_fieldname }}/new/{{ 'preparations_slug'|get_fieldname }}/new/')">Add New
+    {{ 'preparations'|get_fieldname }}</button>
+    <div id="popup"></div>
 
     <input class='preparation' name="preparation_ids" type="hidden" />
     <div class="buttons">
@@ -90,22 +98,74 @@
             <option value="{{ preparation.id }}">{{ preparation.name }}</option>
             {% endfor %}
         </select>
-        <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+        <a href="#" onclick="deletePreparation(this);return false;">
+            <i class="delete material-icons">delete</i></a>
     </div>
 </div>
 
 {% endblock content %}
 {% block footer %}
 <script>
+
     var preparation_options = {{ json_preparations|safe }};
 
     number_of_preparations = 0;
+
+    function createPopup(url) {
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        success: function(data) {
+
+          $("#popup").html(data).dialog({modal:true}, {title: "New Entry"}, {resizable: true}, {width: 'auto'}, {draggable: false}).dialog('open');
+        }
+      });
+      return false;
+    }
+
+
+    $("#popup").on('submit', function (e) {
+
+         e.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: '/entry/{{ 'products_slug'|get_fieldname }}/new/{{ 'preparations_slug'|get_fieldname }}/new',
+            data: $("#popup-form").serialize(),
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            success: function(data)
+            {
+                if (data.constructor === "test".constructor) {       // checks if the data is a string
+                    $("#popup").html(data);
+                    $('html, body').animate({
+                        scrollTop: $("#preparation_error").offset().top - 100
+                    }, 500);
+                    return
+                }
+
+                $("#popup").dialog('close');
+                var prepName = data.name;
+                var prepId = data.id;
+
+                $('#inline_preparation').append($('<div class="preparation">')
+                .append($('<select disabled class="preparation_select">')
+                .append($("<option>").attr("value", prepId)
+                .text(prepName))).append('<a href="#" onclick="deletePreparation(this);return false;">\n<i class="delete material-icons">delete</i></a>'));
+
+                $( ".preparation_select" ).append($("<option>").attr("value", prepId).text(prepName));
+                $( ".no_preparations" ).hide();
+
+            }
+        });
+    });
+
 
     function deletePreparation(element)
     {
         $( element ).parent().css("display", "none");
         if ($( ".preparation:visible" ).length === 0) {
-            $( ".no_products" ).show();
+            $( ".no_preparations" ).show();
         };
     }
 

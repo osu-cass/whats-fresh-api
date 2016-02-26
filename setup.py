@@ -17,7 +17,10 @@ dependencies = [
     'phonenumbers==6.2.0',
     'psycopg2==2.5.3',
     'requests==2.3.0',
-    'wsgiref==0.1.2'
+    'wsgiref==0.1.2',
+    'fig==1.0.1',
+    'Whoosh==2.6.0',
+    'django-haystack==2.3.1'
 ]
 
 setup(
@@ -32,7 +35,8 @@ setup(
     zip_safe=False,
     package_data={
         'whats_fresh.whats_fresh_api.tests.testdata': ['*.json', 'media/*'],
-        'whats_fresh.whats_fresh_api': ['templates/*', 'static/*.png', 'static/css/*']},
+        'whats_fresh.whats_fresh_api': ['templates/*.html', 'static/*.png',
+        'static/css/*', 'templates/search/indexes/whats_fresh_api/*']},
     description="What's Fresh API implementation",
     long_description=open('README.rst').read()
 )

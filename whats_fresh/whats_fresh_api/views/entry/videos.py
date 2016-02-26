@@ -10,6 +10,10 @@ from django.conf import settings
 from whats_fresh.whats_fresh_api.models import Video
 from whats_fresh.whats_fresh_api.forms import VideoForm
 from whats_fresh.whats_fresh_api.functions import group_required
+from whats_fresh.whats_fresh_api.views.serializer import FreshSerializer
+from haystack.query import SearchQuerySet
+from whats_fresh.whats_fresh_api.templatetags import get_fieldname
+from collections import OrderedDict
 
 
 @login_required
@@ -25,11 +29,25 @@ def video_list(request):
 
     message = ""
     if request.GET.get('success') == 'true':
-        message = "Video deleted successfully!"
+        message = "Entry deleted successfully!"
     elif request.GET.get('saved') == 'true':
-        message = "Video saved successfully!"
+        message = "Entry saved successfully!"
 
-    paginator = Paginator(Video.objects.order_by('name'), settings.PAGE_LENGTH)
+    search = request.GET.get('search')
+
+    if search is None or search.strip() == "":
+        videos = Video.objects.order_by('name')
+    else:
+        if request.GET.get('search') != "":
+            videos = list(
+                OrderedDict.fromkeys(
+                    item.object for item in
+                    SearchQuerySet().models(Video).autocomplete(
+                        content_auto=search)))
+            if not videos:
+                message = "No results"
+
+    paginator = Paginator(videos, settings.PAGE_LENGTH)
     page = request.GET.get('page')
 
     try:
@@ -46,11 +64,12 @@ def video_list(request):
         'parent_url': reverse('home'),
         'parent_text': 'Home',
         'new_url': reverse('new-video'),
-        'new_text': "New video",
-        'title': "Video Library",
-        'item_classification': "video",
+        'title': get_fieldname.get_fieldname('videos'),
         'item_list': videos,
-        'edit_url': 'edit-video'
+        'edit_url': 'edit-video',
+        'search_text': request.GET.get('search'),
+        'list_url': get_fieldname.get_fieldname('videos_slug')
+
     })
 
 
@@ -109,16 +128,17 @@ def video(request, id=None):
     elif request.method != 'POST':
         video_form = VideoForm()
         post_url = reverse('new-video')
-        title = "New Video"
+        title = "New " + get_fieldname.get_fieldname('videos')
 
     else:
         post_url = reverse('new-video')
-        title = "New Video"
+        title = "New " + get_fieldname.get_fieldname('videos')
 
     return render(request, 'video.html', {
         'parent_url': [
             {'url': reverse('home'), 'name': 'Home'},
-            {'url': reverse('entry-list-videos'), 'name': 'Video Library'}
+            {'url': reverse('entry-list-videos'),
+             'name': get_fieldname.get_fieldname('videos')}
         ],
         'title': title,
         'message': message,
@@ -126,3 +146,32 @@ def video(request, id=None):
         'errors': errors,
         'video_form': video_form,
     })
+
+
+@login_required
+@group_required('Administration Users', 'Data Entry Users')
+def video_ajax(request, id=None):
+    if request.method == 'GET':
+        video_form = VideoForm()
+        return render(request, 'video_ajax.html', {'video_form': video_form})
+
+    elif request.method == 'POST':
+        message = ''
+        post_data = request.POST.copy()
+        errors = []
+
+        video_form = VideoForm(post_data)
+        if video_form.is_valid() and not errors:
+            video = Video.objects.create(
+                **video_form.cleaned_data)
+            video.save()
+            serializer = FreshSerializer()
+            return HttpResponse(serializer.serialize(video),
+                                content_type="application/json")
+        else:
+            pass
+
+        return render(request, 'video_ajax.html', {
+            'message': message,
+            'errors': errors,
+            'video_form': video_form})
