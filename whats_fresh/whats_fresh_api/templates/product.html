@@ -69,7 +69,7 @@
             <select disabled id="existing{{ prep.id }}" class="preparation_select">
                 <option value="{{ prep.id }}">{{ prep.name }}</option>
             </select>
-            <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+            <a href="#" onclick="deletePreparation(this);return false;"><i class="delete material-icons">delete</i></a>
         </div>
         {% endfor %}
         {% else %}
@@ -98,7 +98,8 @@
             <option value="{{ preparation.id }}">{{ preparation.name }}</option>
             {% endfor %}
         </select>
-        <a href="#" onclick="deletePreparation(this);return false;"><img class="delete" src="{% static 'delete.png' %}" /></a>
+        <a href="#" onclick="deletePreparation(this);return false;">
+            <i class="delete material-icons">delete</i></a>
     </div>
 </div>
 
@@ -150,7 +151,7 @@
                 $('#inline_preparation').append($('<div class="preparation">')
                 .append($('<select disabled class="preparation_select">')
                 .append($("<option>").attr("value", prepId)
-                .text(prepName))).append('<a href="#" onclick="deletePreparation(this);return false;">\n<img class="delete" src="{% static 'delete.png' %}" /></a>'));
+                .text(prepName))).append('<a href="#" onclick="deletePreparation(this);return false;">\n<i class="delete material-icons">delete</i></a>'));
 
                 $( ".preparation_select" ).append($("<option>").attr("value", prepId).text(prepName));
                 $( ".no_preparations" ).hide();

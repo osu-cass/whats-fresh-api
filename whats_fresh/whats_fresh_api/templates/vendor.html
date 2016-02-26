@@ -107,7 +107,7 @@
                     <option value="{{ pp.id }}">{{ pp.preparation_text }}</option>
                 </select>
                 <a href="#" onclick="deleteProduct(this);return false;">
-                    <img class="delete" src="{% static 'delete.png' %}" />
+                    <i class="delete material-icons">delete</i>
                 </a>
             </div>
             {% endfor %}
@@ -137,7 +137,7 @@
             <option selected disabled></option>
         </select>
         <a href="#" onclick="deleteProduct(this);return false;">
-            <img class="delete" src="{% static 'delete.png' %}" />
+            <i class="delete material-icons">delete</i>
         </a>
     </div>
 </div>

@@ -68,22 +68,25 @@ def product(request, id=None):
         product_form = ProductForm(post_data, product)
         if product_form.is_valid() and not errors:
             if id:
-                for preparation in product.preparations.all():
-                    # Delete any that aren't in the returned list
-                    if preparation.id not in preparations:
-                        product_preparation = ProductPreparation.objects.get(
-                            product=product, preparation=preparation)
-                        product_preparation.delete()
-                    # And ignore any that are in both the existing and the
-                    # returned list
-                    elif preparation.id in preparations:
-                        preparations.remove(preparation.id)
-                # Then, create all of the new ones
-                for preparation in preparations:
-                    preparation = ProductPreparation.objects.create(
+                for product_preparation in (
+                        ProductPreparation.objects.filter(product=product)
+                        .exclude(preparation__id__in=preparations)):
+                    product_preparation.delete()
+
+                existing_preparations = [
+                    pp.preparation.id for pp in
+                    ProductPreparation.objects.filter(
                         product=product,
-                        preparation=Preparation.objects.get(
-                            id=preparation))
+                        preparation__id__in=preparations)
+                ]
+
+                for preparation in preparations:
+                    if preparation not in existing_preparations:
+                        ProductPreparation.objects.create(
+                            product=product,
+                            preparation=Preparation.objects.get(
+                                id=preparation))
+
                 save_instance(product_form, product)
             else:
                 product = Product.objects.create(**product_form.cleaned_data)
