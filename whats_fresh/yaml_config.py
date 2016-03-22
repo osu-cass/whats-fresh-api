@@ -3,7 +3,7 @@ import os
 
 print("getting yaml config")
 
-DEFAULT_CONFIG_DIR = './'
+DEFAULT_CONFIG_DIR = 'whats_fresh'
 CONFIG_DIR = os.environ.get('WF_CONFIG_DIR', DEFAULT_CONFIG_DIR)
 
 print(CONFIG_DIR)
