@@ -1,9 +1,8 @@
 from yaml import load
 import os
 
-DEFAULT_CONFIG_DIR = '/opt/whats_fresh/config'
+DEFAULT_CONFIG_DIR = os.path.dirname(os.path.realpath(__file__))
 CONFIG_DIR = os.environ.get('WF_CONFIG_DIR', DEFAULT_CONFIG_DIR)
-
 CONFIG_PATH = os.path.join(CONFIG_DIR, 'config.yml')
 
 # Open our yaml config and override settings values with it's config
